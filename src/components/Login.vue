@@ -1,5 +1,5 @@
 <template>
-	<!-- верстка для теста -->
+		<!-- верстка для теста -->
 		<div class="main">
 			<div>
 				1. Длина пароля должна быть не менее 8 и не более 64 символов. <br>
@@ -10,11 +10,26 @@
 			<input type="text" class="pass_block pass_confirm" maxlength="64" placeholder="Подтвердите пароль" v-model="passСonfirm">
 			<button v-on:click="verificationPassword()">проверить</button>
 			<div class="info">{{info_message}}</div>
+
+			
+ 			<hr width="100%">
+ 			<button v-on:click="testModal()">Тест модального окна</button>
+ 			<!-- модальное окно располагаем в любом месте док-та -->
+			<modal :visible="this.modalVisible" @close='closeModal'>
+		  		<template v-slot:modal-content>
+					<div class="test_modal">
+						<!-- тут распологаем любой нужный нам контент -->
+						Привет! Это тестовый вызов модального окна.
+					</div>
+		  		</template>
+		  	</modal>
+
 		</div>
 </template>
 
 <script>
 	import sendAjax from '../utils/ajax';
+	import modal from '../components/modal';
 
 	export default {
 		name: 'login',
@@ -28,9 +43,13 @@
 					err_confirm: 'пароль не совпадает',
 					err_emptyField: 'Заполните все поля',
 					good: 'Все ок --> дальше редирект на кабинет пользователя'
-				}
+				},
+				modalVisible: false
 			}
-		},			
+		},
+		components: {
+	      modal: modal
+	    },			
 	  	methods: {
 	  		verificationPassword: function () {
 	  			let passStatus = /(?=.*[0-9])(?=.*[.,:;?!*+%\-<>@[\]{}()/\\_$#])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z\.,:;\?!\*\+%-<>@\[\]\{\}/\\_\$#]{8,}/g.test(this.pass);
@@ -65,7 +84,13 @@
 				    (response) => {
 				    	//здесь выполняем действия при неудачном запросе к серверу   
 				    })
-			} 	  			  	
+			},
+			closeModal: function () {
+		  		this.modalVisible = false;	  		
+		  	},
+		  	testModal: function () {
+		  		this.modalVisible = true;	  
+		  	} 	  			  	
 		}  			
 	}
 </script>
@@ -86,5 +111,14 @@
 		margin-top: 30px;
 		color: red;
 		font-size: 25px;
+	}
+	.test_modal {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background: white;
+		color: black;
+		width: 350px;
+		height: 450px;		
 	}
 </style>
