@@ -13,7 +13,6 @@
 						</div>
 						<div class="input-header">Придумайте пароль</div>
 						<input v-bind:type="this.inputTypePass" maxlength="64" autocomplete="off" v-model="pass">
-						<div class="input-basement"></div>
 					</div>
 					<div class="validation-block">
 						<div class="eye" v-on:click="changeEye(false)">
@@ -27,7 +26,6 @@
 								<img src="../assets/img/login_img/ahtung_circle.png">
 								<span>{{info_message}}</span>
 							</div>
-							<div class="input-basement__right" v-on:click="forgotPassword()">Забыли пароль?</div>
 						</div>
 					</div>
 					<div class="save-button" v-on:click="verificationPassword()">
@@ -54,11 +52,17 @@
 			</div>
 		</div>
 
+
+		<!-- код для теста - потом перенесем -->
+		<button class="test" v-on:click="passwordRecovery()">
+			Временно! Тестируем модальное окно + форма восстановления пароля. Жмакни сюда
+		</button>
 		<modal :visible="this.modalVisible" @close='closeModal'>
 			<template v-slot:modal-content>
-				<div class="test_modal display">
-					Привет! Получается это тестовый вызов модального окна.<br>
-					Насправдi ейчас происходит вызов формы восстановления пароля ))
+				<div class="recovery-block-main">
+					<div class="email-info">Адрес электронной почты</div>
+					<input type="email" maxlength="64">
+					<div class="recovery-password-button">Востановить пароль</div>
 				</div>
 			</template>
 		</modal>	
@@ -134,19 +138,19 @@
 			closeModal: function () {
 		  		this.modalVisible = false;	  		
 		  	},
-		  	forgotPassword: function () {
-		  		this.modalVisible = true;	  
-		  	},
 		  	changeEye: function (eye) {
 		  		if (eye == true) {
 		  			this.eyePassVisible = !this.eyePassVisible;
 		  			this.inputTypePass = this.eyePassVisible ? 'password' : 'text'
 		  		} else {
-		  			this.eyePassСonfirmVisible = !this.eyePassСonfirmVisible
+		  			this.eyePassСonfirmVisible = !this.eyePassСonfirmVisible;
 		  			this.inputTypePassСonfirm = this.eyePassСonfirmVisible ? 'password' : 'text'
-		  		}
-		  		
-		  	} 	  			  	
+		  		}		  		
+		  	},
+		  	// тестовый метод - перенесем
+		  	passwordRecovery: function () {
+		  		this.modalVisible = true;	  
+		  	}, 	  			  	
 		}  			
 	}
 </script>
@@ -214,14 +218,9 @@
 						}
 						.input-basement{
 							display: flex;
-							justify-content: space-between;
 							margin-top: 4px;
 							.input-basement__left{
 								font-style: italic;
-							}
-							.input-basement__right{
-								color: #777777;
-								cursor: pointer;
 							}
 							img{
 								height: 14px;
@@ -286,13 +285,57 @@
 				}
 			}
 		}
-		.test_modal {
-			background: white;
-			color: black;
-			width: 450px;
-			height: 450px;
-			padding: 10px;
-			@extend %display-center;		
+		.test{
+			margin-top: 100px;
+			margin-left: 1200px;
+			width: 280px;
+			height: 60px;
+			font-size: 14px;
+			outline: none;
+			background-color: gray;
+			@extend %display-center;
 		}
+
+		//тест модалки + восстановления пароля
+		.recovery-block-main{
+			width: 432px;
+			height: 238px;
+			background-color: #FFFFFF;
+			box-shadow: 0px 4px 11px rgba(0, 0, 0, 0.25);
+			display: flex;
+			align-items: center;
+			flex-direction: column;
+			* {
+				width: 342px;				
+			}
+			.email-info{
+				margin-top: 51px;
+				height: 14px;
+				font-size: 12px;
+				line-height: 14px;
+			}
+			input{
+				max-width: 318px;
+				margin-top: 4px;
+				height: 40px;
+				background: #E4E4E4;
+				outline: none;
+				border: none;
+				padding-left: 12px;
+				padding-right: 12px;
+			}
+			.recovery-password-button{
+				background: #545454;
+				border-radius: 100px;
+				margin-top: 36px;
+				height: 40px;
+				font-size: 14px;
+				line-height: 16px;
+				@extend %display-center;
+				color: #FFFFFF;
+				user-select: none;  
+			}
+
+		}		
 	}
 </style>
