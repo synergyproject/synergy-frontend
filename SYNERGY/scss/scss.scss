@@ -1,0 +1,448 @@
+* {
+  box-sizing: border-box;
+} 
+
+body, div, p, h4 {
+	margin: 0;
+	padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+.form {
+
+	&_wrapper {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	&_inner {
+		width: 342px;
+		height: 388px;
+		margin: 0 auto;
+	}
+
+	&_title {
+		font-family: Roboto;
+		font-size: 24px;
+		font-style: normal;
+		font-weight: 400;
+		line-height: 28px;
+		letter-spacing: 0em;
+		text-align: center;
+		color: #000000;
+		margin-top: 120px;
+	}
+
+	&_login {
+		margin-top: 36px;
+	}
+
+	&_label {
+		font-family: Roboto;
+		font-size: 12px;
+		font-style: normal;
+		font-weight: 400;
+		line-height: 14px;
+		letter-spacing: 0em;
+		text-align: left;
+		color: #000000;
+	}
+
+	&_password, &_password_submit {
+		margin-top: 34px;
+	}
+
+	&_input {
+		height: 40px;
+		width: 342px;
+		background: #E5E5E5;
+		border: none;
+	}
+
+	&_password {
+		position: relative;
+	}
+}
+
+.submit_form {
+	padding-top: 24px;
+}
+
+.submit_button {
+	background: #545454;
+	border: none;
+	border-radius: 100px;
+	height: 40px;
+	width: 342px;
+	font-family: Roboto;
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: 16px;
+	letter-spacing: 0em;
+	text-align: center;
+	color: #ffffff;
+}
+
+.password_forgot {
+	// ?
+	position: relative; 
+	text-align: right;
+}
+
+.password_link {
+	font-family: Roboto;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 14px;
+	letter-spacing: 0em;
+	text-align: right;
+	color: #777777;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+}
+
+.check, .help_check {
+	display: none;
+}
+
+.check {
+	position: relative;
+}
+
+.input_help {
+	position: relative;
+}
+
+.label_check {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	background: url(../images/close.png) center no-repeat;
+	background-size: 100%;
+	height: 24px;
+	width: 24px;
+}
+
+.help {
+
+	&_label {
+		position: absolute;
+		top: 30px;
+		right: -35px;
+		background: url(../images/help_circle.svg) center no-repeat;
+		height: 20px;
+		width: 20px;
+		font-size: 0;
+	}
+
+	&_article {
+		margin-bottom: 10px;
+	}
+
+	&_strong {
+		font-weight: 700;
+	}
+
+	&_content {
+		padding: 6px 11px 11px;
+		border-radius: 8px;
+		background-color: #C4C4C4;
+		display: none;
+		color: #636363;
+		font-family: Roboto;
+		font-size: 9px;
+		font-style: normal;
+		font-weight: 400;
+		line-height: 11px;
+		letter-spacing: 0em;
+		text-align: left;
+		position: absolute;
+		top: 25px;
+		right: -180px;
+		width: 136px;
+		height: 221px;
+	}
+}
+
+.error {
+
+	&_img {
+		vertical-align: middle;
+		margin-right: 5px;
+	}
+
+	&_comment {
+		font-family: Roboto;
+		font-size: 12px;
+		font-style: italic;
+		font-weight: 400;
+		line-height: 14px;
+		letter-spacing: 0em;
+		text-align: left;
+		color: #000000;
+	}
+}
+
+#password_check:checked ~ .label_check {
+	background: url(../images/open.png) center no-repeat;
+	background-size: 100%;
+	height: 24px;
+	width: 24px;
+}
+
+#submit_check:checked ~ .label_check {
+	background: url(../images/open.png) center no-repeat;
+	background-size: 100%;
+	height: 24px;
+	width: 24px;
+}
+
+#help_check:checked ~ .help_content {
+	display: block;
+}
+
+
+	
+
+
+
+
+// * {
+//   box-sizing: border-box;
+// } 
+
+// body, div, p, h4 {
+// 	margin: 0;
+// 	padding: 0;
+// }
+
+// a {
+//   text-decoration: none;
+// }
+
+// .form_wrapper {
+// 	display: flex;
+// 	justify-content: center;
+// 	align-items: center;
+// }
+
+
+// .form_inner {
+// 	width: 342px;
+// 	height: 388px;
+// 	margin: 0 auto;
+// }
+
+// .form_title {
+// 	font-family: Roboto;
+// 	font-size: 24px;
+// 	font-style: normal;
+// 	font-weight: 400;
+// 	line-height: 28px;
+// 	letter-spacing: 0em;
+// 	text-align: center;
+// 	color: #000000;
+// 	margin-top: 120px;
+// }
+
+// .form_label {
+// 	font-family: Roboto;
+// 	font-size: 12px;
+// 	font-style: normal;
+// 	font-weight: 400;
+// 	line-height: 14px;
+// 	letter-spacing: 0em;
+// 	text-align: left;
+// 	color: #000000;
+// }
+
+// .form_login {
+// 	margin-top: 36px;
+// }
+
+// .form_password, .form_password_submit {
+// 	margin-top: 34px;
+// }
+
+// .form_input {
+// 	height: 40px;
+// 	width: 342px;
+// 	background: #E5E5E5;
+// 	border: none;
+// }
+
+// .submit_form {
+// 	padding-top: 24px;
+// }
+
+// .submit_button {
+// 	background: #545454;
+// 	border: none;
+// 	border-radius: 100px;
+// 	height: 40px;
+// 	width: 342px;
+// 	font-family: Roboto;
+// 	font-size: 14px;
+// 	font-style: normal;
+// 	font-weight: 500;
+// 	line-height: 16px;
+// 	letter-spacing: 0em;
+// 	text-align: center;
+// 	color: #ffffff;
+// }
+
+// .password_forgot {
+// 	position: relative;
+// }
+
+// .password_link {
+// 	font-family: Roboto;
+// 	font-size: 12px;
+// 	font-style: normal;
+// 	font-weight: 400;
+// 	line-height: 14px;
+// 	letter-spacing: 0em;
+// 	text-align: right;
+// 	color: #777777;
+// 	position: absolute;
+// 	right: 0;
+// 	bottom: 0;
+// }
+
+// .check, .help_check {
+// 	display: none;
+// }
+
+// .form_password {
+// 	position: relative;
+// }
+
+// .check {
+// 	position: relative;
+// }
+
+// .input_help {
+// 	position: relative;
+// }
+
+// .label_check {
+// 	position: absolute;
+// 	top: 10px;
+// 	right: 10px;
+// 	background: url(../images/close.png) center no-repeat;
+// 	background-size: 100%;
+// 	height: 24px;
+// 	width: 24px;
+// }
+
+// #password_check:checked ~ .label_check {
+// 	background: url(../images/open.png) center no-repeat;
+// 	background-size: 100%;
+// 	height: 24px;
+// 	width: 24px;
+// }
+
+// #submit_check:checked ~ .label_check {
+// 	background: url(../images/open.png) center no-repeat;
+// 	background-size: 100%;
+// 	height: 24px;
+// 	width: 24px;
+// }
+
+// .help_label {
+// 	position: absolute;
+// 	top: 30px;
+// 	right: -35px;
+// 	background: url(../images/help_circle.svg) center no-repeat;
+// 	height: 20px;
+// 	width: 20px;
+// 	font-size: 0;
+// }
+
+// .help_article {
+// 	margin-bottom: 10px;
+// }
+
+// .help_strong {
+// 	font-weight: 700;
+// }
+
+// .help_content {
+// 	padding: 6px 11px 11px;
+// 	border-radius: 8px;
+// 	background-color: #C4C4C4;
+// 	display: none;
+// 	color: #636363;
+// 	font-family: Roboto;
+// 	font-size: 9px;
+// 	font-style: normal;
+// 	font-weight: 400;
+// 	line-height: 11px;
+// 	letter-spacing: 0em;
+// 	text-align: left;
+// 	position: absolute;
+// 	top: 25px;
+// 	right: -180px;
+// 	width: 136px;
+// 	height: 221px;
+// }
+
+// #help_check:checked ~ .help_content {
+// 	display: block;
+// }
+
+// .attention_img {
+// 	vertical-align: middle;
+// 	margin-right: 5px;
+// }
+
+// .password_forgot {
+// 	text-align: right;
+// }
+// .attention_comment {
+// 	font-family: Roboto;
+// 	font-size: 12px;
+// 	font-style: normal;
+// 	font-weight: 400;
+// 	line-height: 14px;
+// 	letter-spacing: 0em;
+// 	text-align: left;
+// 	color: #000000;
+// }	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
