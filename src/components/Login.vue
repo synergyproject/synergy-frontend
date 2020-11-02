@@ -98,7 +98,7 @@
 			}
 		},
 		components: {
-	      modal: modal
+	        modal: modal
 	    },			
 	  	methods: {
 	  		verificationPassword: function () {
@@ -116,6 +116,7 @@
 							if (this.pass == this.passСonfirm) {	
 								this.info_message = this.errors.good
 								//this.sendPassword();	тут мы отправляем пароль на бэк
+								this.$router.push ({path:'/main'}) 
 							} else {
 								this.info_message = this.errors.err_confirm
 							}	
@@ -149,15 +150,13 @@
 		  	},
 		  	// тестовый метод - перенесем
 		  	passwordRecovery: function () {
-		  		this.modalVisible = true;	  
+				this.modalVisible = true;  	  
 		  	}, 	  			  	
 		}  			
 	}
 </script>
 
 <style scoped lang="scss">
-	@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
-
 	$fontf: 'Roboto', sans-serif;
 	%display-center{
 		display: flex;

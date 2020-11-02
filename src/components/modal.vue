@@ -27,18 +27,18 @@
 
 <style scoped>
 	.modal-backdrop  {
+		background: rgba(0,0,0,.4);
 		display: flex;
   		justify-content: center;
   		align-items: center;
-  		flex-direction: column;
-		position: fixed;
+		position: absolute;
         z-index: 999;
         left: 0px;
         top: 0px;
         bottom: 0px;
         right: 0px;
-		background: #C4C4C4;
-	}  
+		backdrop-filter: blur(3px);
+	}
 	.modal-content {
 		position: fixed;
 		top: 252px;
