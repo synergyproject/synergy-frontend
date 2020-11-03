@@ -8,7 +8,7 @@
                         <div class="menu-button">Выйти</div>
                     </div>
                     <div class="avatar"> 
-                        <img src="../assets/img/main_img/icon_pencil.png" class="pencil">   
+                        <img src="../assets/img/main_img/icon_pencil.png" class="pencil"v-on:click="loadAvatar()">    
                     </div>
                     <div class="personal-data">
                         <div class="full-name-container">
@@ -39,9 +39,9 @@
                         </div> 
                     </div>
                     <div class="setting-buttons-container">
-                        <div class="setting-button" v-on:click="testModal()">Изменить пароль</div>
-                        <div class="setting-button" v-on:click="testModal()">Настроить уведомления</div>
-                        <div class="setting-button admin-button" v-on:click="testModal()">Кабинет Администратора</div>
+                        <div class="setting-button">Изменить пароль</div>
+                        <div class="setting-button">Настроить уведомления</div>
+                        <div class="setting-button admin-button">Кабинет Администратора</div>
                     </div>
                 </div>
             </div>
@@ -52,8 +52,9 @@
         <div class="secondary">
             <modal :visible="this.modalVisible" @close='closeModal'>
 			    <template v-slot:modal-content>
-                    <div class="test-modal">Что-то происходит</div>
-			    </template>
+                    <!-- сюда ставим необходимый контент для модального окна-->
+                    <avatar v-show="avatarVisible"></avatar>
+ 			    </template>
 		    </modal>
             <h1>content</h1>	
         </div>
@@ -64,20 +65,25 @@
     import sendAjax from '../utils/ajax';
     import modal from '../components/modal';
     import icon_pencil from '../assets/img/main_img/icon_pencil.png';
+    import avatar from '../components/avatar';
 
     export default {
         name: "Main",
         data () {
             return {
-                modalVisible: false
+                // по умолчанию модалка и все виды её контента скрыты
+                modalVisible: false,
+                avatarVisible: false
             }
         },
         components: {
-            modal: modal
+            modal: modal,
+            avatar: avatar
         },
         methods: {
-            testModal: function() {
+            loadAvatar: function() {
                 this.modalVisible = true;
+                this.avatarVisible = true;
             },
             closeModal: function () {
 		  		this.modalVisible = false;	  		
@@ -91,24 +97,13 @@
     $fontf: 'Roboto', sans-serif;
 
 
-// -------------TEST-------------
     .secondary{
         width: 100%;
         position: fixed;
         right: 0;
         width: 80%;
         height: 100vh;
-        .test-modal{
-            width: 300px;
-            height: 300px;
-            background-color: #FFFEFE;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
     }
-// -------------TEST-------------
-
     .pencil{
         user-select: none;
         cursor: pointer;
