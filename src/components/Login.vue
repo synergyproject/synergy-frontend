@@ -71,7 +71,7 @@
 
 <script>
 	import sendAjax from '../utils/ajax';
-	import modal from '../components/modal';
+	import modal from '../components/modal/modal';
 	import help_circle from '../assets/img/login_img/help_circle.png';
 	import ahtung_circle from '../assets/img/login_img/ahtung_circle.png';
 	import icon_eye_close from '../assets/img/login_img/icon_eye_close.png';

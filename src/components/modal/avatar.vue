@@ -24,8 +24,8 @@
 </template>
 
 <script>
-    import sendAjax from '../utils/ajax';
-    import icon_pencil from '../assets/img/main_img/icon_pencil.png';
+    import sendAjax from '../../utils/ajax';
+    import icon_pencil from '../../assets/img/main_img/icon_pencil.png';
     export default {
         name: "avatar",
         data () {

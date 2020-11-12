@@ -8,7 +8,7 @@
                         <div class="menu-button">Выйти</div>
                     </div>
                     <div class="avatar"> 
-                        <img src="../assets/img/main_img/icon_pencil.png" class="pencil"v-on:click="loadAvatar()">    
+                        <img src="../assets/img/main_img/icon_pencil.png" class="pencil" v-on:click="loadAvatar()">    
                     </div>
                     <div class="personal-data">
                         <div class="full-name-container">
@@ -52,33 +52,40 @@
         <div class="secondary">
             <modal :visible="this.modalVisible" @close='closeModal'>
 			    <template v-slot:modal-content>
-                    <!-- сюда ставим необходимый контент для модального окна-->
                     <avatar v-show="avatarVisible"></avatar>
  			    </template>
-		    </modal>
-            <h1>content</h1>	
+		    </modal>            
+            
+            <coach v-show="coachVisible"></coach>
+
         </div>
     </div>
 </template>
 
 <script>
     import sendAjax from '../utils/ajax';
-    import modal from '../components/modal';
+    import modal from '../components/modal/modal';
     import icon_pencil from '../assets/img/main_img/icon_pencil.png';
-    import avatar from '../components/avatar';
+    import avatar from '../components/modal/avatar';
+    import coach from '../components/secondary/coach';
+    import games from '../components/secondary/games';
 
     export default {
         name: "Main",
         data () {
             return {
-                // по умолчанию модалка и все виды её контента скрыты
                 modalVisible: false,
-                avatarVisible: false
+                avatarVisible: false,
+                coachVisible: false,
+                gamesVisible: false,
+                coachVisible: true
             }
         },
         components: {
             modal: modal,
-            avatar: avatar
+            avatar: avatar,
+            coach: coach,
+            games: games
         },
         methods: {
             loadAvatar: function() {
@@ -86,7 +93,8 @@
                 this.avatarVisible = true;
             },
             closeModal: function () {
-		  		this.modalVisible = false;	  		
+		  		this.modalVisible = false;
+                this.avatarVisible = false;	  		
 		  	}
         }
     }
@@ -96,31 +104,32 @@
     @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
     $fontf: 'Roboto', sans-serif;
 
+    *{
+        display: flex;
+        font-family: $fontf;
+        color: #000000;
+    }
 
-    .secondary{
-        width: 100%;
-        position: fixed;
-        right: 0;
-        width: 80%;
-        height: 100vh;
-    }
-    .pencil{
-        user-select: none;
-        cursor: pointer;
-        width: 24px;
-        height: 24px; 
-    }
     .main-page{
         margin: 0;
 		padding: 0;
 		height: 100vh;
         background: #FFFEFE;
         display: flex;
-        *{
-            display: flex;
-            font-family: $fontf;
-            color: #000000;
+        .pencil{
+            user-select: none;
+            cursor: pointer;
+            width: 24px;
+            height: 24px; 
         }
+
+        .secondary{
+            position: fixed;
+            right: 0;
+            width: 80%;
+            height: 100vh;
+        }
+
         .primary{
             width: 20%;      //размер поставил пока примерно
             height: 100vh;
@@ -226,6 +235,4 @@
             border: 1px solid #B1B1B1;
         }
     }
-
-
 </style>
