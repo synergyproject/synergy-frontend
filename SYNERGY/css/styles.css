@@ -2,7 +2,7 @@
   box-sizing: border-box;
 }
 
-body, div, p, h4 {
+body, p, h1-h6, ul, li {
   margin: 0;
   padding: 0;
 }
@@ -24,7 +24,7 @@ a {
 }
 
 .form_title {
-  font-family: Roboto;
+  font-family: 'Roboto', sans-serif;
   font-size: 24px;
   font-style: normal;
   font-weight: 400;
@@ -40,7 +40,7 @@ a {
 }
 
 .form_label {
-  font-family: Roboto;
+  font-family: 'Roboto', sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
@@ -75,7 +75,7 @@ a {
   border-radius: 100px;
   height: 40px;
   width: 342px;
-  font-family: Roboto;
+  font-family: 'Roboto', sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -91,7 +91,7 @@ a {
 }
 
 .password_link {
-  font-family: Roboto;
+  font-family: 'Roboto', sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
@@ -150,7 +150,7 @@ a {
   background-color: #C4C4C4;
   display: none;
   color: #636363;
-  font-family: Roboto;
+  font-family: 'Roboto', sans-serif;
   font-size: 9px;
   font-style: normal;
   font-weight: 400;
@@ -170,7 +170,7 @@ a {
 }
 
 .error_comment {
-  font-family: Roboto;
+  font-family: 'Roboto', sans-serif;
   font-size: 12px;
   font-style: italic;
   font-weight: 400;
