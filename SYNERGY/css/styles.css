@@ -7,11 +7,39 @@ body, p, h1-h6, ul, li {
   padding: 0;
 }
 
+ul {
+  list-style: none;
+}
+
 a {
   text-decoration: none;
 }
 
-.form_wrapper {
+@font-face {
+  font-family: 'Roboto';
+  src: url("../fonts/Roboto-Regular.eot");
+  src: url("../fonts/Roboto-Regular.eot?#iefix") format("embedded-opentype"), url("../fonts/Roboto-Regular.svg#Roboto-Regular") format("svg"), url("../fonts/Roboto-Regular.ttf") format("truetype"), url("../fonts/Roboto-Regular.woff") format("woff"), url("../fonts/Roboto-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url("../fonts/Roboto-Italic.eot");
+  src: url("../fonts/Roboto-Italic.eot?#iefix") format("embedded-opentype"), url("../fonts/Roboto-Italic.svg#Roboto-Italic") format("svg"), url("../fonts/Roboto-Italic.ttf") format("truetype"), url("../fonts/Roboto-Italic.woff") format("woff"), url("../fonts/Roboto-Italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url("../fonts/Roboto-Medium.eot");
+  src: url("../fonts/Roboto-Medium.eot?#iefix") format("embedded-opentype"), url("../fonts/Roboto-Medium.svg#Roboto-Medium") format("svg"), url("../fonts/Roboto-Medium.ttf") format("truetype"), url("../fonts/Roboto-Medium.woff") format("woff"), url("../fonts/Roboto-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+}
+
+.form {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -20,15 +48,10 @@ a {
 .form_inner {
   width: 342px;
   height: 388px;
-  margin: 0 auto;
 }
 
 .form_title {
-  font-family: 'Roboto', sans-serif;
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 28px;
+  font: 400 24px/28px "Roboto", sans-serif;
   letter-spacing: 0em;
   text-align: center;
   color: #000000;
@@ -40,11 +63,7 @@ a {
 }
 
 .form_label {
-  font-family: 'Roboto', sans-serif;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 14px;
+  font: 400 12px/14px "Roboto", sans-serif;
   letter-spacing: 0em;
   text-align: left;
   color: #000000;
@@ -69,33 +88,13 @@ a {
   padding-top: 24px;
 }
 
-.submit_button {
-  background: #545454;
-  border: none;
-  border-radius: 100px;
-  height: 40px;
-  width: 342px;
-  font-family: 'Roboto', sans-serif;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 16px;
-  letter-spacing: 0em;
-  text-align: center;
-  color: #ffffff;
-}
-
 .password_forgot {
   position: relative;
   text-align: right;
 }
 
 .password_link {
-  font-family: 'Roboto', sans-serif;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 14px;
+  font: 400 12px/14px "Roboto", sans-serif;
   letter-spacing: 0em;
   text-align: right;
   color: #777777;
@@ -104,16 +103,9 @@ a {
   bottom: 0;
 }
 
-.check, .help_check {
-  display: none;
-}
-
 .check {
   position: relative;
-}
-
-.input_help {
-  position: relative;
+  display: none;
 }
 
 .label_check {
@@ -124,6 +116,10 @@ a {
   background-size: 100%;
   height: 24px;
   width: 24px;
+}
+
+.input_help {
+  position: relative;
 }
 
 .help_label {
@@ -150,11 +146,7 @@ a {
   background-color: #C4C4C4;
   display: none;
   color: #636363;
-  font-family: 'Roboto', sans-serif;
-  font-size: 9px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 11px;
+  font: 400 9px/11px "Roboto", sans-serif;
   letter-spacing: 0em;
   text-align: left;
   position: absolute;
@@ -164,20 +156,19 @@ a {
   height: 221px;
 }
 
-.error_img {
-  vertical-align: middle;
-  margin-right: 5px;
+.help_check {
+  display: none;
 }
 
-.error_comment {
-  font-family: 'Roboto', sans-serif;
-  font-size: 12px;
-  font-style: italic;
-  font-weight: 400;
-  line-height: 14px;
+.attention {
+  margin-top: 4px;
+  font: italic 400 12px/14px "Roboto", sans-serif;
   letter-spacing: 0em;
   text-align: left;
   color: #000000;
+  padding-left: 20px;
+  background: url(../images/icon_attention.svg) no-repeat;
+  background-size: 3.5%;
 }
 
 #password_check:checked ~ .label_check {
@@ -196,4 +187,16 @@ a {
 
 #help_check:checked ~ .help_content {
   display: block;
+}
+
+.button {
+  background: #545454;
+  border: none;
+  border-radius: 100px;
+  height: 40px;
+  width: 342px;
+  font: 500 14px/16px 'Roboto', sans-serif;
+  letter-spacing: 0em;
+  text-align: center;
+  color: #ffffff;
 }
