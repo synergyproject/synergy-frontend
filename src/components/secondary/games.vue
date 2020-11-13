@@ -30,7 +30,7 @@
                     </div>
                     <div class="info-block">
                         <div class="title">Дней до конца:</div>
-                        <div class="content">{{item.daysLeft}}</div>
+                        <div class="content">{{daysLeft(item.startDate, item.endDate)}}</div>
                     </div>
                     <div class="info-block">
                         <div class="title">Активных Игроков:</div>
@@ -55,12 +55,12 @@
         data () {
             return {
                 games: [
-                    {photo: "url", name: "Название 1", description: "описание", mentor: "Витя Маликов", coach: "Витя Маликов", startDate: "01.01.2020", endDate: "01.04.2020", daysLeft: 35, activePlayers: 6, bannedPlayers: 0},
-                    {photo: "url", name: "Название 2", description: "описание", mentor: "Витя Маликов", coach: "Витя Маликов", startDate: "01.01.2020", endDate: "01.04.2020", daysLeft: 35, activePlayers: 6, bannedPlayers: 0},
-                    {photo: "url", name: "Название 3", description: "описание", mentor: "Витя Маликов", coach: "Витя Маликов", startDate: "01.01.2020", endDate: "01.04.2020", daysLeft: 35, activePlayers: 6, bannedPlayers: 0},
-                    {photo: "url", name: "Название 4", description: "описание", mentor: "Витя Маликов", coach: "Витя Маликов", startDate: "01.01.2020", endDate: "01.04.2020", daysLeft: 35, activePlayers: 6, bannedPlayers: 0},
-                    {photo: "url", name: "Название 5", description: "описание", mentor: "Витя Маликов", coach: "Витя Маликов", startDate: "01.01.2020", endDate: "01.04.2020", daysLeft: 35, activePlayers: 6, bannedPlayers: 0},
-                    {photo: "url", name: "Название 6", description: "описание", mentor: "Витя Маликов", coach: "Витя Маликов", startDate: "01.01.2020", endDate: "01.04.2020", daysLeft: 35, activePlayers: 6, bannedPlayers: 0}
+                    {photo: "url", name: "Название 1", description: "описание", mentor: "Витя Маликов", coach: "Витя Маликов", startDate: "01.01.2020", endDate: "01.22.2020", activePlayers: 6, bannedPlayers: 0},
+                    {photo: "url", name: "Название 2", description: "описание", mentor: "Витя Маликов", coach: "Витя Маликов", startDate: "01.01.2020", endDate: "01.04.2020", activePlayers: 6, bannedPlayers: 0},
+                    {photo: "url", name: "Название 3", description: "описание", mentor: "Витя Маликов", coach: "Витя Маликов", startDate: "11.13.1999", endDate: "05.17.2044", activePlayers: 6, bannedPlayers: 0},
+                    {photo: "url", name: "Название 4", description: "описание", mentor: "Витя Маликов", coach: "Витя Маликов", startDate: "01.01.2020", endDate: "01.04.2020", activePlayers: 6, bannedPlayers: 0},
+                    {photo: "url", name: "Название 5", description: "описание", mentor: "Витя Маликов", coach: "Витя Маликов", startDate: "01.01.2020", endDate: "01.04.2020", activePlayers: 6, bannedPlayers: 0},
+                    {photo: "url", name: "Название 6", description: "описание", mentor: "Витя Маликов", coach: "Витя Маликов", startDate: "01.01.2020", endDate: "01.04.2020", activePlayers: 6, bannedPlayers: 0}
                 ]
             }
         },
@@ -68,7 +68,11 @@
 
         },
         methods: {
-
+            daysLeft: function (startDate, endDate) {
+                let date1 = new Date(startDate),
+                    date2 = new Date(endDate);
+                    return Math.ceil(Math.abs(date2.getTime() - date1.getTime()) / (1000 * 3600 * 24));
+            }
         }
     }
 </script>
