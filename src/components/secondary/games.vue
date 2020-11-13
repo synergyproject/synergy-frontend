@@ -1,17 +1,17 @@
 <template>
     <div class="games-main">
-        <div class="game">
+        <div class="game" v-for="(item, index) in games">
             <div class="photo"></div>
             <div class="game-info-left">
-                <div class="game-info-left__name">Название 1</div>
-                <div class="game-info-left__description">Описание</div>
+                <div class="game-info-left__name">{{item.name}}</div>
+                <div class="game-info-left__description">{{item.description}}</div>
                 <div class="game-info-left__mentor">
                     <div class="mentor-title">Ментор:</div>
-                    <div class="mentor">Витя Маликов</div>
+                    <div class="mentor">{{item.mentor}}</div>
                 </div>
                 <div class="game-info-left__coach">
                     <div class="coach-title">Бизнес-тренер:</div>
-                    <div class="coach">Вася Щукин</div>
+                    <div class="coach">{{item.coach}}</div>
                 </div>
                 <div class="game-info-left__buttons">
                     <div class="button">Войти</div>
@@ -22,23 +22,23 @@
                 <div class="info">
                     <div class="info-block">
                         <div class="title">Дата старта:</div>
-                        <div class="content">01.01.2020</div>
+                        <div class="content">{{item.startDate}}</div>
                     </div>
                     <div class="info-block"> 
                         <div class="title">Дата окончания:</div>
-                        <div class="content">01.04.2020</div>
+                        <div class="content">{{item.endDate}}</div>
                     </div>
                     <div class="info-block">
                         <div class="title">Дней до конца:</div>
-                        <div class="content">35</div>
+                        <div class="content">{{item.daysLeft}}</div>
                     </div>
                     <div class="info-block">
                         <div class="title">Активных Игроков:</div>
-                        <div class="content">6</div>
+                        <div class="content">{{item.activePlayers}}</div>
                     </div>
                     <div class="info-block">
                         <div class="title">Игроков в бане:</div>
-                        <div class="content">0</div>
+                        <div class="content">{{item.bannedPlayers}}</div>
                     </div> 
                 </div>
                 <div class="button">Статистика</div>
@@ -54,7 +54,14 @@
         name: "games",
         data () {
             return {
-
+                games: [
+                    {photo: "url", name: "Название 1", description: "описание", mentor: "Витя Маликов", coach: "Витя Маликов", startDate: "01.01.2020", endDate: "01.04.2020", daysLeft: 35, activePlayers: 6, bannedPlayers: 0},
+                    {photo: "url", name: "Название 2", description: "описание", mentor: "Витя Маликов", coach: "Витя Маликов", startDate: "01.01.2020", endDate: "01.04.2020", daysLeft: 35, activePlayers: 6, bannedPlayers: 0},
+                    {photo: "url", name: "Название 3", description: "описание", mentor: "Витя Маликов", coach: "Витя Маликов", startDate: "01.01.2020", endDate: "01.04.2020", daysLeft: 35, activePlayers: 6, bannedPlayers: 0},
+                    {photo: "url", name: "Название 4", description: "описание", mentor: "Витя Маликов", coach: "Витя Маликов", startDate: "01.01.2020", endDate: "01.04.2020", daysLeft: 35, activePlayers: 6, bannedPlayers: 0},
+                    {photo: "url", name: "Название 5", description: "описание", mentor: "Витя Маликов", coach: "Витя Маликов", startDate: "01.01.2020", endDate: "01.04.2020", daysLeft: 35, activePlayers: 6, bannedPlayers: 0},
+                    {photo: "url", name: "Название 6", description: "описание", mentor: "Витя Маликов", coach: "Витя Маликов", startDate: "01.01.2020", endDate: "01.04.2020", daysLeft: 35, activePlayers: 6, bannedPlayers: 0}
+                ]
             }
         },
         components: {
