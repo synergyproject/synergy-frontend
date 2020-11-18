@@ -1,6 +1,7 @@
 <template>
     <div class="avatar-window">
         <div>
+            <!-- <img :src="selectedFileUrl" v-show="avatarImgVisible"> -->
             <div class="avatar-requirements">
                 <div class="decor decor-left-top"></div>
                 <div class="decor decor-left-bottom"></div>
@@ -18,7 +19,8 @@
                     Допустимые форматы: jpg, png.
                 </div>
             </div>
-            <div class="load-button">Загрузить фото</div>
+            <input id="loadAvatar" type="file" v-on:change="onFileChanged">
+            <label class="load-button" for="loadAvatar" v-on:click="onUpload">Загрузить фото</label>
         </div>
     </div>
 </template>
@@ -26,6 +28,8 @@
 <script>
     import sendAjax from '../../utils/ajax';
     import icon_pencil from '../../assets/img/main_img/icon_pencil.png';
+    import { mapMutations, mapGetters } from 'vuex';
+
     export default {
         name: "avatar",
         data () {
@@ -37,7 +41,14 @@
 
         },
         methods: {
+            ...mapMutations(['setAvatar']),
 
+            onFileChanged (event) {
+                this.setAvatar(event.target.files[0]); //при загрузке файла пользователем отправляем его в хранилище
+            },
+            onUpload() {
+                // отправляем аватарку на сервер?
+            }
         }
     }
 </script>
@@ -45,6 +56,12 @@
 <style lang="scss" scoped>
     @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
     $fontf: 'Roboto', sans-serif;
+    input{
+        width: 0;
+        height: 0;
+        opacity: 0;
+        margin: 0;
+    }
 
     .avatar-window{
         width: 340px;

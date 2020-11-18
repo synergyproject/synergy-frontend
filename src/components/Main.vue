@@ -7,8 +7,9 @@
                         <div class="menu-button"></div>
                         <div class="menu-button">Выйти</div>
                     </div>
-                    <div class="avatar"> 
-                        <img src="../assets/img/main_img/icon_pencil.png" class="pencil" v-on:click="loadAvatar()">    
+                    <div class="avatar">
+                        <img :src="getAvatar" v-if="getAvatar" class="avatar-img"> 
+                        <img src="../assets/img/main_img/icon_pencil.png" class="pencil" v-on:click="loadAvatar()" v-else>    
                     </div>
                     <div class="personal-data">
                         <div class="full-name-container">
@@ -69,6 +70,7 @@
     import avatar from '../components/modal/avatar';
     import coach from '../components/secondary/coach';
     import games from '../components/secondary/games';
+    import { mapMutations, mapGetters } from 'vuex';
 
     export default {
         name: "Main",
@@ -87,6 +89,12 @@
             coach: coach,
             games: games
         },
+        created: function () {
+            //при создании страницы что то проверяем... потом какнибуть
+        },
+        computed: {
+			...mapGetters(['getAvatar'])
+		},    
         methods: {
             loadAvatar: function() {
                 this.modalVisible = true;
@@ -95,7 +103,7 @@
             closeModal: function () {
 		  		this.modalVisible = false;
                 this.avatarVisible = false;	  		
-		  	}
+            }  
         }
     }
 </script>
@@ -161,13 +169,17 @@
                         }
                     }
                     .avatar{
-                        width: 220px;
+                        width: 200px;
                         height: 220px;
                         background: #E6E6E6;
                         border-radius: 10px;
                         align-items: center;
                         justify-content: center;
-                        margin-bottom: 27px;                        
+                        margin-bottom: 27px;
+                        .avatar-img{
+                            width: 220px;
+                            height: 220px;
+                        }                        
                     }
                     .personal-data{
                         width: 220px;

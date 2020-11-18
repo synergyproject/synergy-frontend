@@ -128,6 +128,7 @@
                 box-sizing: border-box;
                 border-radius: 100px;
                 font-size: 12px;
+                user-select: none;
             }
             .game-info-left{
                 width: 220px;
