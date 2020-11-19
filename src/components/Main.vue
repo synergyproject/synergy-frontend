@@ -8,7 +8,10 @@
                         <div class="menu-button">Выйти</div>
                     </div>
                     <div class="avatar">
-                        <img :src="getAvatar" v-if="getAvatar" class="avatar-img"> 
+                        <div v-if="GET_AVATAR">
+                            <img :src="GET_AVATAR" class="avatar-img">
+                            <img src="../assets/img/main_img/icon_pencil.png" class="pencil edit_avatar" v-on:click="loadAvatar()"> 
+                        </div>                        
                         <img src="../assets/img/main_img/icon_pencil.png" class="pencil" v-on:click="loadAvatar()" v-else>    
                     </div>
                     <div class="personal-data">
@@ -51,9 +54,9 @@
 
 
         <div class="secondary">
-            <modal :visible="this.modalVisible" @close='closeModal'>
+            <modal v-show="this.modalVisible" @close='closeModal'>
 			    <template v-slot:modal-content>
-                    <avatar v-show="avatarVisible"></avatar>
+                    <avatar v-show="avatarVisible" @closeAvatar='closeModal'></avatar>
  			    </template>
 		    </modal>            
             
@@ -70,7 +73,7 @@
     import avatar from '../components/modal/avatar';
     import coach from '../components/secondary/coach';
     import games from '../components/secondary/games';
-    import { mapMutations, mapGetters } from 'vuex';
+    import { mapMutations, mapGetters, mapActions } from 'vuex';
 
     export default {
         name: "Main",
@@ -89,13 +92,17 @@
             coach: coach,
             games: games
         },
-        created: function () {
-            //при создании страницы что то проверяем... потом какнибуть
+        mounted () {
+            //при построении страницы запрашиваем сервер через action данные о пользователе, играх и тд, и помещаем их в store
+            console.log('test - рендеринг HTML и установка реактивных зависимостей');
+            this.FETCH_AVATAR();
         },
         computed: {
-			...mapGetters(['getAvatar'])
+			...mapGetters(['GET_AVATAR'])
 		},    
         methods: {
+            ...mapActions(['FETCH_AVATAR']),
+
             loadAvatar: function() {
                 this.modalVisible = true;
                 this.avatarVisible = true;
@@ -151,6 +158,7 @@
                     align-items: center;
                     flex-direction: column;
                     width: 220px;
+                    position: absolute;
                     .menu-buttons-container{
                         justify-content: space-between;
                         width: 220px;
@@ -169,7 +177,7 @@
                         }
                     }
                     .avatar{
-                        width: 200px;
+                        width: 220px;
                         height: 220px;
                         background: #E6E6E6;
                         border-radius: 10px;
@@ -179,6 +187,11 @@
                         .avatar-img{
                             width: 220px;
                             height: 220px;
+                        }
+                        .edit_avatar{
+                            position: absolute;
+                            left: 225px;
+                            
                         }                        
                     }
                     .personal-data{

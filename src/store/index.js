@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import axios from 'axios'
 
 Vue.use(Vuex)
 
@@ -8,9 +9,8 @@ export default new Vuex.Store({
     avatar: null
   },
   getters: {
-    getAvatar (state) {
-      //запрос на url аватара
-      //если файл существует то возвращаем url фото, иначе вернем null
+    //получаем url аватарки
+    GET_AVATAR (state) {
       if (state.avatar) {
         return URL.createObjectURL(state.avatar)
       } else {
@@ -19,11 +19,26 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    setAvatar (state, value) {
+    SET_AVATAR (state, value) {
+      //помещаем изображение в хранилище
       state.avatar = value
     }
   },
   actions: {
+    //запрашиваем данные у сервера
+    FETCH_AVATAR ({commit}) {
+      return axios('http://some-url', {
+        method: "GET"
+      })
+      .then((avatar) => {
+        commit('SET_AVATAR', avatar);
+        return avatar;
+      })
+      .catch((error) => {
+        console.log(error);
+        return error;
+      })
+    }
   },
   modules: {
   }

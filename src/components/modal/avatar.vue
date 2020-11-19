@@ -1,12 +1,11 @@
 <template>
     <div class="avatar-window">
         <div>
-            <!-- <img :src="selectedFileUrl" v-show="avatarImgVisible"> -->
             <div class="avatar-requirements">
-                <div class="decor decor-left-top"></div>
-                <div class="decor decor-left-bottom"></div>
-                <div class="decor decor-right-top"></div>
-                <div class="decor decor-right-bottom"></div>    
+                <div class="decor decor-left-top" v-bind:style="{ borderColor: activeDecorColor }"></div>
+                <div class="decor decor-left-bottom" v-bind:style="{ borderColor: activeDecorColor }"></div>
+                <div class="decor decor-right-top" v-bind:style="{ borderColor: activeDecorColor }"></div>
+                <div class="decor decor-right-bottom" v-bind:style="{ borderColor: activeDecorColor }"></div>    
                 <div class="avatar-requirements-info">
                     Фото должно быть не менее<br>
                     200 пикселей в ширину и 220<br>
@@ -20,7 +19,7 @@
                 </div>
             </div>
             <input id="loadAvatar" type="file" v-on:change="onFileChanged">
-            <label class="load-button" for="loadAvatar" v-on:click="onUpload">Загрузить фото</label>
+            <label class="load-button" for="loadAvatar" v-on:click="onUpload()">Загрузить фото</label>
         </div>
     </div>
 </template>
@@ -28,26 +27,39 @@
 <script>
     import sendAjax from '../../utils/ajax';
     import icon_pencil from '../../assets/img/main_img/icon_pencil.png';
-    import { mapMutations, mapGetters } from 'vuex';
+    import { mapMutations, mapGetters, mapActions } from 'vuex';
 
     export default {
         name: "avatar",
         data () {
             return {
-
+                activeDecorColor: '#C4C4C4'
             }
         },
         components: {
 
         },
         methods: {
-            ...mapMutations(['setAvatar']),
+            ...mapMutations(['SET_AVATAR']),
 
+            
             onFileChanged (event) {
-                this.setAvatar(event.target.files[0]); //при загрузке файла пользователем отправляем его в хранилище
+                //при загрузке правильного файла пользователем отправляем его в хранилище
+                let uploadedFile = event.target.files[0],
+                    size = uploadedFile.size,
+                    fileFormat = uploadedFile.name.split(".").pop();
+
+                if (size <= 2097152 && (fileFormat == 'jpg'|| fileFormat == 'png')) {
+                    this.SET_AVATAR(event.target.files[0]);
+                    this.activeDecorColor = '#C4C4C4';
+                    this.$emit('closeAvatar');
+                } else {
+                    this.activeDecorColor = 'red';
+                    console.log('Ahtung ', fileFormat);
+                }   
             },
             onUpload() {
-                // отправляем аватарку на сервер?
+                // отправляем данные на сервер 
             }
         }
     }
