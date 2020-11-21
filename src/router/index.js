@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../components/Login.vue'
 import Main from '../components/Main.vue'
+import Authorization from '../components/Authorization.vue'
 
 Vue.use(VueRouter)
 
@@ -15,6 +16,11 @@ const routes = [
 		path: '/main',
 		name: 'Main',
 		component: Main
+	},
+	{
+		path: '/authorization',
+	    name: 'Authorization',
+	    component: Authorization		
 	}
 ]
 

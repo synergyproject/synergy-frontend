@@ -3,37 +3,37 @@
 		<div class="greeting">
 			Добро пожаловать, hillel@gmail.com!
 		</div>		
-		<div class="main-block">
+		<div class="login-main-block">
 			<div class="validation-form">
 				<div class="login-controls">
 					<div class="validation-block">
 						<div class="eye" v-on:click="changeEye(true)">
-							<img src="../assets/img/login_img/icon_eye_close.png" v-show="this.eyePassVisible">
-							<img src="../assets/img/login_img/icon_eye_open.png" v-show="!this.eyePassVisible">
+							<img src="../assets/img/icon_eye_close.png" v-show="this.eyePassVisible">
+							<img src="../assets/img/icon_eye_open.png" v-show="!this.eyePassVisible">
 						</div>
 						<div class="input-header">Придумайте пароль</div>
 						<input v-bind:type="this.inputTypePass" maxlength="64" autocomplete="off" v-model="pass">
 					</div>
 					<div class="validation-block">
 						<div class="eye" v-on:click="changeEye(false)">
-							<img src="../assets/img/login_img/icon_eye_close.png" v-show="this.eyePassСonfirmVisible">
-							<img src="../assets/img/login_img/icon_eye_open.png" v-show="!this.eyePassСonfirmVisible">
+							<img src="../assets/img/icon_eye_close.png" v-show="this.eyePassСonfirmVisible">
+							<img src="../assets/img/icon_eye_open.png" v-show="!this.eyePassСonfirmVisible">
 						</div>
 						<div class="input-header">Повторите пароль</div>
 						<input v-bind:type="this.inputTypePassСonfirm" maxlength="64" autocomplete="off" v-model="passСonfirm">
 						<div class="input-basement">
 							<div class="input-basement__left">
-								<img src="../assets/img/login_img/ahtung_circle.png">
+								<img src="../assets/img/ahtung_circle.png">
 								<span>{{info_message}}</span>
 							</div>
 						</div>
 					</div>
-					<div class="save-button" v-on:click="verificationPassword()">
+					<div class="save-button basic-buttons" v-on:click="verificationPassword()">
 						Сохранить
 					</div>
 				</div>
 				<div class="password-help">
-					<img src="../assets/img/login_img/help_circle.png" class="question-icon">
+					<img src="../assets/img/help_circle.png" class="question-icon">
 					<div class="help-content">
 						<div class="help-content__text">
 							Длина пароля должна быть <b>не менее 8</b><br>
@@ -53,16 +53,25 @@
 		</div>
 
 
-		<!-- код для теста - потом перенесем -->
-		<button class="test" v-on:click="passwordRecovery()">
-			Временно! Тестируем модальное окно + форма восстановления пароля. Жмакни сюда
-		</button>
+	<!--                   код для теста - потом перенесем                -->
+		<div class="test-buttons">
+			<button class="test basic-buttons" v-on:click="passwordRecovery()">
+			Тест формы восстановления пароля
+			</button>
+			<button class="test basic-buttons" v-on:click="goMain()">
+				Перейти на /main
+			</button>
+			<button class="test basic-buttons" v-on:click="goAuthorization()">
+				Перейти на /authorization
+			</button>
+		</div>
+
 		<modal :visible="this.modalVisible" @close='closeModal'>
 			<template v-slot:modal-content>
 				<div class="recovery-block-main">
 					<div class="email-info">Адрес электронной почты</div>
 					<input type="email" maxlength="64">
-					<div class="recovery-password-button">Востановить пароль</div>
+					<div class="recovery-password-button basic-buttons">Востановить пароль</div>
 				</div>
 			</template>
 		</modal>	
@@ -72,10 +81,10 @@
 <script>
 	import sendAjax from '../utils/ajax';
 	import modal from '../components/modal/modal';
-	import help_circle from '../assets/img/login_img/help_circle.png';
-	import ahtung_circle from '../assets/img/login_img/ahtung_circle.png';
-	import icon_eye_close from '../assets/img/login_img/icon_eye_close.png';
-	import icon_eye_open from '../assets/img/login_img/icon_eye_open.png';
+	import help_circle from '../assets/img/help_circle.png';
+	import ahtung_circle from '../assets/img/ahtung_circle.png';
+	import icon_eye_close from '../assets/img/icon_eye_close.png';
+	import icon_eye_open from '../assets/img/icon_eye_open.png';
 
 	export default {
 		name: 'login',
@@ -147,194 +156,20 @@
 		  			this.eyePassСonfirmVisible = !this.eyePassСonfirmVisible;
 		  			this.inputTypePassСonfirm = this.eyePassСonfirmVisible ? 'password' : 'text'
 		  		}		  		
-		  	},
-		  	// тестовый метод - перенесем
+			  },
+			  
+
+		  	// тестовые методы - перенесем
 		  	passwordRecovery: function () {
 				this.modalVisible = true;  	  
-		  	}, 	  			  	
+			  },
+			goMain: function () {
+				this.$router.push ({path:'/main'}) 
+			},
+			goAuthorization: function () {
+				this.$router.push ({path:'/authorization'}) 
+			}  	  			  	
 		}  			
 	}
 </script>
 
-<style scoped lang="scss">
-	$fontf: 'Roboto', sans-serif;
-	%display-center{
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.login-page{
-		margin: 0;
-		padding: 0;
-		height: 100vh;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		*{
-			font-family: $fontf;
-		}
-		.greeting{
-				height: 23px;
-				white-space: nowrap;
-				font-size: 20px;
-				line-height: 23px;
-				margin-top: 217px;
-				margin-bottom: 36px;
-			}		
-		.main-block{
-			// width: 532px;
-			width: 342px;
-			height: 319px;
-			*{
-				display: flex;
-			}
-			.validation-form{			
-				height: 242px;
-				.login-controls{
-					min-width: 342px;
-					flex-direction: column;
-					.validation-block{
-						height: 76px;
-						margin-bottom: 16px;
-						flex-direction: column;
-						position: relative;
-						font-size: 12px;
-						line-height: 14px;					
-						.eye{
-							width: 24px;
-							height: 24px;
-							position: absolute;
-							right: 8px;
-							top: 27px;
-							img{
-								position: absolute;
-							}
-						}
-						.input-header{
-							height: 14px;
-							margin-bottom: 4px;
-						}
-						.input-basement{
-							display: flex;
-							margin-top: 4px;
-							.input-basement__left{
-								font-style: italic;
-							}
-							img{
-								height: 14px;
-								width: 14px;
-								margin-right: 4px;
-							}
-						}
-						input{
-							height: 40px;
-							background: #E4E4E4;
-							outline: none;
-							border: none;
-							padding-left: 12px;
-							padding-right: 40px;
-						}
-					}
-					.save-button{
-						@extend %display-center;
-						margin-top: 18px;
-						height: 40px;
-						background-color: #545454;
-						border-radius: 100px;
-						font-weight: 500;
-						font-size: 14px;
-						line-height: 16px;
-						color: #FFFFFF;
-						user-select: none;  
-					}
-				}
-				.password-help{
-					margin-top: 21px; 
-					.question-icon{
-						width: 20px;
-						height: 20px;
-						margin-left: 24px;
-						margin-right: 10px;
-						&:hover ~ .help-content{
-							display: flex;
-						}					
-					}
-					.help-content{
-						width: 136px;
-						height: 221px;
-						background: #C4C4C4;
-						border-radius: 8px;
-						display: none;
-						.help-content__text{
-							width: 114px;
-							height: 204px;
-							font-style: normal;
-							font-weight: normal;
-							font-size: 9px;
-							line-height: 11px;
-							color: #636363;
-							margin: 6px 11px 11px 11px;
-							display: inline;
-							b{
-								display: inline;
-							}
-						}
-					}
-				}
-			}
-		}
-		.test{
-			margin-top: 100px;
-			margin-left: 1200px;
-			width: 280px;
-			height: 60px;
-			font-size: 14px;
-			outline: none;
-			background-color: gray;
-			@extend %display-center;
-		}
-
-		//тест модалки + восстановления пароля
-		.recovery-block-main{
-			width: 432px;
-			height: 238px;
-			background-color: #FFFFFF;
-			box-shadow: 0px 4px 11px rgba(0, 0, 0, 0.25);
-			display: flex;
-			align-items: center;
-			flex-direction: column;
-			* {
-				width: 342px;				
-			}
-			.email-info{
-				margin-top: 51px;
-				height: 14px;
-				font-size: 12px;
-				line-height: 14px;
-			}
-			input{
-				max-width: 318px;
-				margin-top: 4px;
-				height: 40px;
-				background: #E4E4E4;
-				outline: none;
-				border: none;
-				padding-left: 12px;
-				padding-right: 12px;
-			}
-			.recovery-password-button{
-				background: #545454;
-				border-radius: 100px;
-				margin-top: 36px;
-				height: 40px;
-				font-size: 14px;
-				line-height: 16px;
-				@extend %display-center;
-				color: #FFFFFF;
-				user-select: none;  
-			}
-
-		}		
-	}
-</style>
