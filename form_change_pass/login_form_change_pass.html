@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Изменение пароля</title>
+        <meta charset = "utf-8">
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+      <div class="wrapper">
+        
+          <div class="dialog">
+          	<span class="title">Изменение пароля</span>
+          	<label class="titlepass" for="oldpass">Введите старый пароль</label>
+          	<input type="password" maxlength="16" class="pass" id="oldpass" placeholder="********">
+            <label class="titlepass" for="newpass">Придумайте пароль</label>
+            <input type="password" maxlength="16" class="pass closeeye" id="newpass" placeholder="********">
+            <label class="titlepass" for="secondnewpass">Повторите пароль</label>
+            <input type="password" maxlength="16" class="pass openeye" id="secondnewpass" placeholder="********">
+            <div class="forgetwrong">
+              <div class="attention_wrong">
+                <img src="img/icon_attention.svg" alt="attention" class="attention">
+                <span class="wrong">Неверный пароль</span>
+              </div>
+              <a href="#" class="forget">Забыли пароль?</a>
+            </div>
+          	<button class="save">Сохранить</button>
+          </div>
+          
+       </div>   
+    </body>
+</html>
