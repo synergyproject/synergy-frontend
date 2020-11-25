@@ -12,8 +12,7 @@
 </template>
 
 <script>
-    import sendAjax from '../../utils/ajax';
-    import games from '../../components/secondary/games';
+    import games from '@/components/secondary/games';
     
     export default {
         name: "coach",

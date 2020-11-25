@@ -8,22 +8,22 @@
 				<div class="login-controls">
 					<div class="validation-block">
 						<div class="eye" v-on:click="changeEye(true)">
-							<img src="../assets/img/icon_eye_close.png" v-show="this.eyePassVisible">
-							<img src="../assets/img/icon_eye_open.png" v-show="!this.eyePassVisible">
+							<img src="@/assets/img/icon_eye_close.png" v-show="this.eyePassVisible">
+							<img src="@/assets/img/icon_eye_open.png" v-show="!this.eyePassVisible">
 						</div>
 						<div class="input-header">Придумайте пароль</div>
-						<input v-bind:type="this.inputTypePass" maxlength="64" autocomplete="off" v-model="pass">
+						<input :type="this.inputTypePass" maxlength="64" autocomplete="off" v-model="pass">
 					</div>
 					<div class="validation-block">
 						<div class="eye" v-on:click="changeEye(false)">
-							<img src="../assets/img/icon_eye_close.png" v-show="this.eyePassСonfirmVisible">
-							<img src="../assets/img/icon_eye_open.png" v-show="!this.eyePassСonfirmVisible">
+							<img src="@/assets/img/icon_eye_close.png" v-show="this.eyePassСonfirmVisible">
+							<img src="@/assets/img/icon_eye_open.png" v-show="!this.eyePassСonfirmVisible">
 						</div>
 						<div class="input-header">Повторите пароль</div>
-						<input v-bind:type="this.inputTypePassСonfirm" maxlength="64" autocomplete="off" v-model="passСonfirm">
+						<input :type="this.inputTypePassСonfirm" maxlength="64" autocomplete="off" v-model="passСonfirm">
 						<div class="input-basement">
 							<div class="input-basement__left">
-								<img src="../assets/img/ahtung_circle.png">
+								<img src="@/assets/img/ahtung_circle.png">
 								<span>{{info_message}}</span>
 							</div>
 						</div>
@@ -33,7 +33,7 @@
 					</div>
 				</div>
 				<div class="password-help">
-					<img src="../assets/img/help_circle.png" class="question-icon">
+					<img src="@/assets/img/help_circle.png" class="question-icon">
 					<div class="help-content">
 						<div class="help-content__text">
 							Длина пароля должна быть <b>не менее 8</b><br>
@@ -79,12 +79,12 @@
 </template>
 
 <script>
-	import sendAjax from '../utils/ajax';
-	import modal from '../components/modal/modal';
-	import help_circle from '../assets/img/help_circle.png';
-	import ahtung_circle from '../assets/img/ahtung_circle.png';
-	import icon_eye_close from '../assets/img/icon_eye_close.png';
-	import icon_eye_open from '../assets/img/icon_eye_open.png';
+	import sendAjax from '@/utils/ajax';
+	import modal from '@/components/modal/modal';
+	import help_circle from '@/assets/img/help_circle.png';
+	import ahtung_circle from '@/assets/img/ahtung_circle.png';
+	import icon_eye_close from '@/assets/img/icon_eye_close.png';
+	import icon_eye_open from '@/assets/img/icon_eye_open.png';
 
 	export default {
 		name: 'login',
@@ -122,7 +122,7 @@
 						if (!passStatus) {
 							this.info_message = this.errors.err_format
 						} else {
-							if (this.pass == this.passСonfirm) {	
+							if (this.pass === this.passСonfirm) {	
 								this.info_message = this.errors.good
 								//this.sendPassword();	тут мы отправляем пароль на бэк
 								this.$router.push ({path:'/main'}) 
@@ -149,7 +149,7 @@
 		  		this.modalVisible = false;	  		
 		  	},
 		  	changeEye: function (eye) {
-		  		if (eye == true) {
+		  		if (eye === true) {
 		  			this.eyePassVisible = !this.eyePassVisible;
 		  			this.inputTypePass = this.eyePassVisible ? 'password' : 'text'
 		  		} else {

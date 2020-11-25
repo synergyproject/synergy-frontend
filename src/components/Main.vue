@@ -11,15 +11,15 @@
                     <div class="avatar">
                         <div v-if="GET_AVATAR">
                             <img :src="GET_AVATAR" class="avatar-img">
-                            <img src="../assets/img/icon_pencil.png" class="pencil edit_avatar" v-on:click="loadAvatar()"> 
+                            <img src="@/assets/img/icon_pencil.png" class="pencil edit_avatar" v-on:click="loadAvatar()"> 
                         </div>                        
-                        <img src="../assets/img/icon_pencil.png" class="pencil" v-on:click="loadAvatar()" v-else>    
+                        <img src="@/assets/img/icon_pencil.png" class="pencil" v-on:click="loadAvatar()" v-else>    
                     </div>
                     <div class="personal-data">
                         <!-- Отображаем / редактируем Имя Фамилию -->
                         <div class="full-name-container">
                             <div class="full-name">{{GET_ADMIN.firstName}} {{GET_ADMIN.surname}}</div>
-                            <img src="../assets/img/icon_pencil.png" class="pencil" v-on:click="loadFullName()">
+                            <img src="@/assets/img/icon_pencil.png" class="pencil" v-on:click="loadFullName()">
                         </div>
                         <div class="email">{{GET_ADMIN.email}}</div>
                         <!-- Отображаем / редактируем телеграм ник -->
@@ -29,7 +29,7 @@
                                 <div class="username-block__content" v-show='!usernameTelegramInput'>{{GET_ADMIN.usernameTelegram}}</div>
                                 <input type="text" maxlength="64" class="username-block__content" v-model="usernameTelegram" v-show='usernameTelegramInput'>  
                             </div>
-                            <img src="../assets/img/icon_pencil.png" class="pencil" v-on:click="EditUsernameTelegram()">
+                            <img src="@/assets/img/icon_pencil.png" class="pencil" v-on:click="EditUsernameTelegram()">
                         </div>
                         <!-- Отображаем / редактируем телефон -->
                         <div class="username-block">
@@ -38,7 +38,7 @@
                                 <div class="username-block__content" v-show='!phoneInput'>{{GET_ADMIN.phone}}</div>
                                 <input type="text" maxlength="64" class="username-block__content" v-model="phone" v-show='phoneInput'>  
                             </div>
-                            <img src="../assets/img/icon_pencil.png" class="pencil" v-on:click="EditPhone()">
+                            <img src="@/assets/img/icon_pencil.png" class="pencil" v-on:click="EditPhone()">
                         </div>
                         <!-- Отображаем / редактируем дату рождения -->
                         <div class="username-block">
@@ -47,7 +47,7 @@
                                 <div class="username-block__content" v-show='!birthdayInput'>{{formattedDate()}}</div>
                                 <input type="date" class="username-block__content" v-model="birthday" v-show='birthdayInput'>  
                             </div>
-                            <img src="../assets/img/icon_pencil.png" class="pencil" v-on:click="EditBirthday()">
+                            <img src="@/assets/img/icon_pencil.png" class="pencil" v-on:click="EditBirthday()">
                         </div> 
                     </div>
                     <!-- кнопки управления -->
@@ -77,13 +77,12 @@
 </template>
 
 <script>
-    import sendAjax from '../utils/ajax';
-    import modal from '../components/modal/modal';
-    import icon_pencil from '../assets/img/icon_pencil.png';
-    import avatar from '../components/modal/avatar';
-    import fullname from '../components/modal/edit_fullname';
-    import coach from '../components/secondary/coach';
-    import games from '../components/secondary/games';
+    import modal from '@/components/modal/modal';
+    import icon_pencil from '@/assets/img/icon_pencil.png';
+    import avatar from '@/components/modal/avatar';
+    import fullname from '@/components/modal/edit_fullname';
+    import coach from '@/components/secondary/coach';
+    import games from '@/components/secondary/games';
     import { mapMutations, mapGetters, mapActions } from 'vuex';
 
     export default {
