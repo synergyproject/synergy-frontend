@@ -1,6 +1,6 @@
 <template>
     <div class="games-main">
-        <div class="game" v-for="(item, index) in GET_GAMES">
+        <div class="game" v-for="(item, index) in GET_GAMES" :key="index">
             <div class="photo"></div>
             <div class="game-info-left">
                 <div class="game-info-left__name">{{item.name}}</div>

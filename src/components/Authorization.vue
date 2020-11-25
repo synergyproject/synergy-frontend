@@ -51,10 +51,11 @@
 </template>
 
 <script>
-	import help_circle from '../assets/img/help_circle.png';
-	import ahtung_circle from '../assets/img/ahtung_circle.png';
-	import icon_eye_close from '../assets/img/icon_eye_close.png';
-	import icon_eye_open from '../assets/img/icon_eye_open.png';
+import axios from 'axios';
+import help_circle from '../assets/img/help_circle.png';
+import ahtung_circle from '../assets/img/ahtung_circle.png';
+import icon_eye_close from '../assets/img/icon_eye_close.png';
+import icon_eye_open from '../assets/img/icon_eye_open.png';
 
 	export default {
 		name: 'authorization',
@@ -77,9 +78,8 @@
 	  	methods: {
 			authorization: function () {
 		  		if (this.email && this.pass) {
-                    this.info_message = this.errors.good
-                    //let UserLogin = JSON.stringify('в каком виде мы отсылаем это на бэк?');
-                    //axios ?
+					this.info_message = this.errors.good
+					this.send()
                 } else {
                     this.info_message = this.errors.err_emptyField
                 }
@@ -87,7 +87,28 @@
 		  	changeEye: function (eye) {
 		  		this.eyePassVisible = !this.eyePassVisible;
 		  		this.inputTypePass = this.eyePassVisible ? 'password' : 'text'	  		
-			  }	  	
+			},
+			async send(){
+				this.info_message = ''
+				const data = JSON.stringify({
+					username: this.email,
+					password: this.pass
+				});
+				await axios.post('http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/login', data)
+				.then(response=>{
+						const token = response.headers.authorization.split(' ')[1]
+						this.$store.dispatch('SET_TOKEN', token)
+						this.info_message = this.errors.good
+				})
+				.then(resolve => {
+					if(this.$store.state.auth.token)
+						this.$router.push({ path: '/main'})
+				})
+				.catch(error => {
+					this.info_message = error.message
+					console.dir(error);
+				});
+			}  	
 		}  			
 	}
 </script>

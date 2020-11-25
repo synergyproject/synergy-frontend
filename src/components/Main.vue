@@ -5,7 +5,7 @@
                 <div class="primary-menu-container">
                     <div class="menu-buttons-container">
                         <div class="menu-button basic-buttons"></div>
-                        <div class="menu-button basic-buttons">Выйти</div>
+                        <router-link to="/logout" class="menu-button basic-buttons">Выйти</router-link>
                     </div>
                     <div class="avatar">
                         <div v-if="GET_AVATAR">
