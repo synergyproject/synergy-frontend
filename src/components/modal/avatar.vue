@@ -25,7 +25,6 @@
 </template>
 
 <script>
-    import sendAjax from '../../utils/ajax';
     import icon_pencil from '../../assets/img/icon_pencil.png';
     import { mapMutations, mapGetters, mapActions } from 'vuex';
 
