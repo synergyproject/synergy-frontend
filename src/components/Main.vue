@@ -18,16 +18,16 @@
                     <div class="personal-data">
                         <!-- Отображаем / редактируем Имя Фамилию -->
                         <div class="full-name-container">
-                            <div class="full-name">{{GET_ADMIN.firstName}} {{GET_ADMIN.surname}}</div>
+                            <div class="full-name">{{GET_USER.firstName}} {{GET_USER.surname}}</div>
                             <img src="@/assets/img/icon_pencil.png" class="pencil" v-on:click="loadFullName()">
                         </div>
-                        <div class="email">{{GET_ADMIN.email}}</div>
+                        <div class="email">{{GET_USER.email}}</div>
                         <!-- Отображаем / редактируем телеграм ник -->
                         <div class="username-block">
                             <div>
                                 <div class="circle"></div>
-                                <div class="username-block__content" v-show='!usernameTelegramInput'>{{GET_ADMIN.usernameTelegram}}</div>
-                                <input type="text" maxlength="64" class="username-block__content" v-model="usernameTelegram" v-show='usernameTelegramInput'>  
+                                <div class="username-block__content" v-show='!usernameTelegramInput'>{{GET_USER.usernameTelegram}}</div>
+                                <input type="text" placeholder="@telegram_username" maxlength="32" class="username-block__content" v-model="user.usernameTelegram" v-show='usernameTelegramInput'>  
                             </div>
                             <img src="@/assets/img/icon_pencil.png" class="pencil" v-on:click="EditUsernameTelegram()">
                         </div>
@@ -35,8 +35,8 @@
                         <div class="username-block">
                             <div>
                                 <div class="circle"></div>
-                                <div class="username-block__content" v-show='!phoneInput'>{{GET_ADMIN.phone}}</div>
-                                <input type="text" maxlength="64" class="username-block__content" v-model="phone" v-show='phoneInput'>  
+                                <div class="username-block__content" v-show='!phoneInput'>{{GET_USER.phone}}</div>
+                                <input type="text" placeholder="+38 (066) 123-45-67" v-mask="'+38 (###) ###-##-##'" class="username-block__content" v-model="user.phone" v-show='phoneInput'>  
                             </div>
                             <img src="@/assets/img/icon_pencil.png" class="pencil" v-on:click="EditPhone()">
                         </div>
@@ -45,7 +45,7 @@
                             <div>
                                 <div class="circle"></div>
                                 <div class="username-block__content" v-show='!birthdayInput'>{{formattedDate()}}</div>
-                                <input type="date" class="username-block__content" v-model="birthday" v-show='birthdayInput'>  
+                                <input type="date" class="username-block__content" v-model="user.birthday" v-show='birthdayInput'>  
                             </div>
                             <img src="@/assets/img/icon_pencil.png" class="pencil" v-on:click="EditBirthday()">
                         </div> 
@@ -98,9 +98,11 @@
                 usernameTelegramInput: false,
                 phoneInput: false,
                 birthdayInput: false,
-                usernameTelegram: '',
-                phone: '',
-                birthday: ''
+                user: {
+                    usernameTelegram: '',
+                    phone: '',
+                    birthday: ''
+                }    
             }
         },
         components: {
@@ -112,18 +114,36 @@
         },
         mounted () {
             //при построении страницы запрашиваем сервер через action данные о пользователе, играх и тд, и помещаем их в store
-            this.usernameTelegram = this.GET_ADMIN.usernameTelegram;
-            this.phone = this.GET_ADMIN.phone;
-            this.birthday = this.GET_ADMIN.birthday;
+            this.user.usernameTelegram = this.GET_USER.usernameTelegram;
+            this.user.phone = this.GET_USER.phone;
+            this.user.birthday = this.GET_USER.birthday;
             this.FETCH_AVATAR();
+            //при первом логине пользователь автоматом получает имя 'ИМЯ' пока не изменит его. Считаем что это поле обязательно к заполнению
+            if (!this.GET_USER.firstName) {
+                this.SET_USER({firstName: 'Имя'})
+            }
+            if (!this.GET_USER.surname) {
+                this.SET_USER({surname: 'Фамилия'})
+            }
+            //поля телеграмник, телефон, дата рождения могут оставаться пустыми но тогда они видны как input - намекаем пользователю что надо заполнить
+            if (!this.GET_USER.usernameTelegram) {
+                this.usernameTelegramInput = true
+            }
+             if (!this.GET_USER.phone) {
+                this.phoneInput = true;
+
+            }
+             if (!this.GET_USER.birthday) {
+                this.birthdayInput = true
+            }
         },
         computed: {
             ...mapGetters(['GET_AVATAR']),
-            ...mapGetters(['GET_ADMIN'])            
+            ...mapGetters(['GET_USER'])            
 		},    
         methods: {
             ...mapActions(['FETCH_AVATAR']),
-            ...mapMutations(['SET_ADMIN']),
+            ...mapMutations(['SET_USER']),
 
             closeModal: function () {
 		  		this.modalVisible = false;
@@ -143,34 +163,36 @@
             EditUsernameTelegram: function () {
                 //при клике на карандаш превращаем div в input и наоборот
                 this.usernameTelegramInput = !this.usernameTelegramInput;
-                //проверяем если был активен input, его поле не пустое и потом кликнули каранлаш то меняем значение в store и на сервере.  
-                if (!this.usernameTelegramInput && this.usernameTelegram) {
-                    this.SET_ADMIN({usernameTelegram: this.usernameTelegram})
-                } else if (!this.usernameTelegram) {
-                    //если пользователь не заполнил поле оно остается как input
+                //проверяем что ник состоит от 5 до 32 "символов цифр  _" и начинается с @ 
+                let usernameTelegramCheck = /^[@][\w]{5,32}$/.test(this.user.usernameTelegram);
+                //проверяем если был активен input, соответствует требованиям, его поле не пустое и потом кликнули каранлаш то меняем значение в store и на сервере.  
+                if (!this.usernameTelegramInput && this.user.usernameTelegram && usernameTelegramCheck) {
+                    this.SET_USER({usernameTelegram: this.user.usernameTelegram})
+                } else if (!this.user.usernameTelegram || !usernameTelegramCheck) {
+                    //если пользователь не заполнил поле или оно не соответствует требованиям оно остается как input
                     this.usernameTelegramInput = true;
                 }
             },
             //такие же деиствия для обработки поля телефона и даты
             EditPhone: function () {
                 this.phoneInput = !this.phoneInput; 
-                if (!this.phoneInput && this.phone) {
-                    this.SET_ADMIN({phone: this.phone})
-                } else if (!this.phone) {
+                if (!this.phoneInput && this.user.phone) {
+                    this.SET_USER({phone: this.user.phone})
+                } else if (!this.user.phone) {
                     this.phoneInput = true;
                 }
             },
             EditBirthday: function () {
                 this.birthdayInput = !this.birthdayInput;
-                if (!this.birthdayInput && this.birthday) {
-                    this.SET_ADMIN({birthday: this.birthday})
-                } else if (!this.birthday) {
+                if (!this.birthdayInput && this.user.birthday) {
+                    this.SET_USER({birthday: this.user.birthday})
+                } else if (!this.user.birthday) {
                     this.birthdayInput = true;
                 }
             },
             //отфарматируем вид даты для отображения пользователю
             formattedDate: function () {
-                let date = this.GET_ADMIN.birthday;
+                let date = this.GET_USER.birthday;
                 return date && date.split('-').reverse().join('.');
             }    
         }
