@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Login from '../components/Login.vue'
-import Main from '../components/Main.vue'
-import Authorization from '../components/Authorization.vue'
-import Logout from '../components/Logout.vue'
+import Login from '@/components/Login.vue'
+import Main from '@/components/Main.vue'
+import Authorization from '@/components/Authorization.vue'
+import Logout from '@/components/Logout.vue'
 
 Vue.use(VueRouter)
 

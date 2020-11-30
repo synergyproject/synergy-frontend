@@ -19,7 +19,7 @@
                 </div>
             </div>
             <input id="loadAvatar" type="file" v-on:change="onFileChanged">
-            <label class="load-button basic-buttons" for="loadAvatar" v-on:click="onUpload()">Загрузить фото</label>
+            <label class="load-button basic-buttons" for="loadAvatar">Загрузить фото</label>
         </div>
     </div>
 </template>
@@ -54,9 +54,6 @@
                     this.activeDecorColor = 'red';
                     console.log('Ahtung ', fileFormat);
                 }   
-            },
-            onUpload() {
-                // отправляем данные на сервер 
             }
         }
     }

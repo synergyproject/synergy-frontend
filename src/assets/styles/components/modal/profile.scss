@@ -1,0 +1,118 @@
+.profile-window{
+    width: 922px;
+    height: 461px;
+    background: #FFFFFF;
+    z-index: 910;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0px 2px 16px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    .redAlert {
+        color: red !important;
+    }
+    .header{
+        width: 188px;
+        height: 23px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 40px;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 23px;
+    }
+    .profile-wrapper{
+        margin-top: 38px;
+        width: 788px;
+        height: 274px;
+        #loadAvatarProfile{
+            width: 0;
+            height: 0;
+            opacity: 0;
+            margin: 0;
+        }
+        .avatar{
+            width: 249px;
+            height: 248px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background: #E6E6E6;
+            border-radius: 10px;
+            margin-right: 71px;
+            .avatar-description{
+                font-size: 16px;
+                line-height: 19px;
+                flex-direction: column;
+                align-items: center;
+                .avatar-requirements{
+                    padding-top: 40px;
+                    width: 200px;
+                    height: 60px;
+                    font-size: 10px;
+                    line-height: 10px;
+                    text-align: center;
+                }
+            }
+            .avatar-img{
+                width: 249px;
+                height: 248px;
+                border-radius: 10px; 
+            }
+        }
+        .profile-elements{
+            flex-direction: column;
+            .profile-container{
+                height: 40px;
+                margin-bottom: 12px;
+                .description{
+                    align-items: center;
+                    width: 114px;
+                    height: 40px;
+                    font-size: 14px;
+                    line-height: 16px;
+                    color: #000000;
+                }
+                input{
+                    width: 312px;
+                    height: 40px;
+                    background: #F2F1F1;
+                    border-radius: 5px;
+                    outline: none;
+                    border: none;
+                    padding-left: 12px;
+                    padding-right: 12px;
+                    font-size: 14px;
+                    line-height: 16px;
+                }
+                .date{
+                    width: auto;
+                }
+                .star{
+                    color: #777777;
+                    font-size: 12px;
+                    margin-left: 12px;
+                }
+            }
+            .note{
+                width: 450px;
+                font-size: 12px;
+                line-height: 14px;
+                justify-content: flex-end;
+                color: #777777;
+            }
+        }
+    }
+    .confirm-button{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 9px;
+        width: 188px;
+        height: 40px;
+        background: #656565;
+        border-radius: 100px;
+        color: #FFFFFF;
+    }
+}

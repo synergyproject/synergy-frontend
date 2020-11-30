@@ -36,7 +36,7 @@
                             <div>
                                 <div class="circle"></div>
                                 <div class="username-block__content" v-show='!phoneInput'>{{GET_USER.phone}}</div>
-                                <input type="text" placeholder="+38 (066) 123-45-67" v-mask="'+38 (###) ###-##-##'" class="username-block__content" v-model="user.phone" v-show='phoneInput'>  
+                                <input type="text" placeholder="+380661234567" v-mask="'+38##########'" class="username-block__content" v-model="user.phone" v-show='phoneInput'>  
                             </div>
                             <img src="@/assets/img/icon_pencil.png" class="pencil" v-on:click="EditPhone()">
                         </div>
@@ -59,6 +59,7 @@
                 </div>
             </div>
             <div class="devider"></div>
+            <div v-bind:class="{ blur: blurIsActive }"></div>
         </div>
 
 
@@ -67,6 +68,7 @@
 			    <template v-slot:modal-content>
                     <avatar v-show="avatarVisible" @closeAvatar='closeModal'></avatar>
                     <fullname v-show="fullNameVisible" @closeFullName='closeModal'></fullname>
+                    <profile v-show="profileVisible" @closeProfile='closeProfile'></profile>
  			    </template>
 		    </modal>            
             
@@ -81,6 +83,7 @@
     import icon_pencil from '@/assets/img/icon_pencil.png';
     import avatar from '@/components/modal/avatar';
     import fullname from '@/components/modal/edit_fullname';
+    import profile from '@/components/modal/profile';
     import coach from '@/components/secondary/coach';
     import games from '@/components/secondary/games';
     import { mapMutations, mapGetters, mapActions } from 'vuex';
@@ -89,9 +92,11 @@
         name: "Main",
         data () {
             return {
+                blurIsActive: false,
                 modalVisible: false,
                 avatarVisible: false,
                 fullNameVisible: false,
+                profileVisible: false,
                 coachVisible: false,
                 gamesVisible: false,
                 coachVisible: true,
@@ -109,6 +114,7 @@
             modal: modal,
             avatar: avatar,
             fullname: fullname,
+            profile: profile,
             coach: coach,
             games: games
         },
@@ -118,24 +124,23 @@
             this.user.phone = this.GET_USER.phone;
             this.user.birthday = this.GET_USER.birthday;
             this.FETCH_AVATAR();
-            //при первом логине пользователь автоматом получает имя 'ИМЯ' пока не изменит его. Считаем что это поле обязательно к заполнению
-            if (!this.GET_USER.firstName) {
-                this.SET_USER({firstName: 'Имя'})
-            }
-            if (!this.GET_USER.surname) {
-                this.SET_USER({surname: 'Фамилия'})
-            }
-            //поля телеграмник, телефон, дата рождения могут оставаться пустыми но тогда они видны как input - намекаем пользователю что надо заполнить
-            if (!this.GET_USER.usernameTelegram) {
-                this.usernameTelegramInput = true
-            }
-             if (!this.GET_USER.phone) {
-                this.phoneInput = true;
-
-            }
-             if (!this.GET_USER.birthday) {
-                this.birthdayInput = true
-            }
+            //при первом логине пользователь видит модальное окно "заполнить профиль"
+            if (!this.GET_USER.firstName || !this.GET_USER.surname || !this.GET_USER.phone) {
+                this.blurIsActive = true;
+                this.modalVisible = true;
+                this.profileVisible = true;
+            } else {
+                //поля телеграмНик, дата рождения могут оставаться пустыми но тогда они видны как input - намекаем пользователю что надо заполнить
+                if (!this.GET_USER.usernameTelegram) {
+                    this.usernameTelegramInput = true
+                }
+                if (!this.GET_USER.birthday) {
+                    this.birthdayInput = true
+                }
+                if (!this.GET_USER.phone) {
+                    this.phoneInput = true
+                }
+            }    
         },
         computed: {
             ...mapGetters(['GET_AVATAR']),
@@ -149,6 +154,20 @@
 		  		this.modalVisible = false;
                 this.avatarVisible = false;
                 this.fullNameVisible = false;	  		
+            },
+            closeProfile: function() {
+                this.blurIsActive = false;
+                this.profileVisible = false;
+                this.closeModal();
+                if (!this.GET_USER.usernameTelegram) {
+                    this.usernameTelegramInput = true
+                }
+                if (!this.GET_USER.birthday) {
+                    this.birthdayInput = true
+                }
+                if (!this.GET_USER.phone) {
+                    this.phoneInput = true
+                }
             },
             loadAvatar: function() {
                 this.closeModal();
@@ -175,10 +194,11 @@
             },
             //такие же деиствия для обработки поля телефона и даты
             EditPhone: function () {
-                this.phoneInput = !this.phoneInput; 
-                if (!this.phoneInput && this.user.phone) {
+                this.phoneInput = !this.phoneInput;
+                let phoneCheck =  this.user.phone.length === 13;
+                if (!this.phoneInput && phoneCheck) {
                     this.SET_USER({phone: this.user.phone})
-                } else if (!this.user.phone) {
+                } else {
                     this.phoneInput = true;
                 }
             },
