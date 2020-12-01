@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+
+
+@mixin flex($flexDir, $jc, $alignI, $wrap){
+    display: flex;
+    flex-direction: $flexDir;
+    justify-content: $jc;
+    align-items: $alignI;
+    flex-wrap: $wrap;
+}
+@mixin font($weight, $size, $hei, $textT:none){
+    font-weight: $weight;
+    font-size: $size;
+    line-height: $hei;
+    text-transform: $textT;
+}
+a {
+    text-decoration: none;
+}
+ul,
+li {
+    list-style: none;
+}
+form,
+p,
+a,
+button,
+input,
+ul,
+li, 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+  color: inherit;
+}
+.page{
+
+    @include flex(row, flex-start, stretch, nowrap);
+    padding: 0 0 0 16px;
+    background-color: #E5E5E5;
+    min-height: 100vh;
+    color: #000;
+    .page-sidebar{
+        @include flex(column, flex-start, center, nowrap);
+        min-width: 135px;
+        width: 135px;
+        background-color: #A9A6A6;
+        padding-top: 30px;
+        &__exit{
+            width: 91px;
+            height: 40px;
+            border-radius: 100px;
+            background-color: #C4C4C4;
+            margin-bottom: 32px;
+        }
+        &__menu{
+
+            &-item{
+                
+                height: 98px;
+                width: 100%;
+                color: #545454;
+                @include font(500, 20px, 23px);
+
+
+            }
+            &-link.router-link-exact-active{
+                background-color: #C4C4C4;
+            }
+            &-link{
+                width: 100%;
+                height: 100%;
+                @include flex(row, center, center, nowrap);
+                span{
+                    text-align: center;
+                }
+            }
+        }
+        .avatar{
+            @include flex(row, center, center, nowrap);
+            border-radius: 100%;
+            margin-bottom: 28px;
+            // background-image: url('../../img/avatar.png');
+            // background-repeat: no-repeat;
+            // background-position: center center;
+            // background-size: cover;
+            // position: relative;
+            img{
+                display: inline-block;
+                width: 93px;
+                height: 93px;
+                border-radius: 100%;
+            }
+        }
+
+    }
+    .line{
+        width: calc(100% - 167px);
+        padding: 40px 16px 0px 24px;
+        @include flex(row, space-between, flex-start, nowrap);
+        .line-main{
+            width: 70.8%;
+            
+        }
+        .line-info{
+            width: 27%;
+            
+        }
+    }
+
+   
+}
