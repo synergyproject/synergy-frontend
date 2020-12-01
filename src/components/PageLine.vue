@@ -1,6 +1,15 @@
 <template>
     <page-layout>
-        <lines></lines>
+        <div class="line">
+            <div class="line-main">  
+            <post></post>
+
+            </div>
+            <div class="line-info">  
+            LIne
+
+            </div>
+        </div>
     </page-layout>
 
 
@@ -8,7 +17,7 @@
 
 <script>
     import PageLayout from "@/components/layouts/PageLayout";
-    import lines from '@/components/secondary/line';
+    import post from '@/components/secondary/post';
     // import modal from '@/components/modal/modal';
     // import icon_pencil from '@/assets/img/icon_pencil.png';
     // import avatar from '@/components/modal/avatar';
@@ -19,7 +28,7 @@
 
         components: {
             PageLayout,
-            lines
+            post
         },
         data () {
             return {
