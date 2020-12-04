@@ -3,8 +3,8 @@
         <div class="page-sidebar">  
             <div class="page-sidebar__exit">
             </div>
-            <div class="avatar" >
-                <img src="@/assets/img/avatar.png">
+            <div class="avatar" :style="{backgroundImage:`url(${bgImage})`}">
+
             </div>
             <ul class="page-sidebar__menu">
                 <li class="page-sidebar__menu-item">
@@ -23,11 +23,12 @@
 </template>
 
 <script>
-
+    import avatar from '@/assets/img/avatar.png'
     export default {
         name: "PageLayout",
         data () {
             return {
+              bgImage: avatar
                 
             }
         },

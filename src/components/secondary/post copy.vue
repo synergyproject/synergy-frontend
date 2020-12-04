@@ -5,17 +5,17 @@
                 <div class="avatar" :style="{backgroundImage:`url(${bgImage})`}">                  
                 </div>
                 <div class="post__author-info">
-                    <h3 class="post__author-name">{{post.autor}}</h3>
+                    <h3 class="post__author-name">Данил Ким</h3>
                     <div class="post__date">
-                        <span class="post__date-main">{{post.date}}</span>
-                        <span v-show = "post.postСhanges" class="post__date-edit">(Edit)</span>
+                        <span class="post__date-main">15.09.2020</span>
+                        <span class="post__date-edit">(Edit)</span>
                     </div>
                 </div>
             </div>
             <div class="post__settings">
                 <div class="post__likes">
                     <img class="post__likes-icon" src="@/assets/img/heart_fill.png" >
-                    <div class="post__likes-amount">{{post.likes}}</div>
+                    <div class="post__likes-amount">9</div>
                 </div>
                 <div v-show = "myPost" class="post__menu">
                     <div class="post__menu-img">
@@ -42,7 +42,7 @@
                 <div class="post__file"></div>
             </div>
             <div class="post__text">
-                <!-- <p class="post__text-paragraph">
+                <p class="post__text-paragraph">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id es.
                 </p>  
                 <p class="post__text-paragraph">
@@ -50,19 +50,26 @@
                 </p>  
                 <p class="post__text-paragraph">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id es.
-                </p>  -->
-                {{post.text}}
+                </p>  
             </div>
             <div v-show="showTextBtn" class="post__text-show" @click = "resizeText">{{showText ?  "Свернуть" :"Показать полностью"}}</div>
         </div>
         <div class="post__comments">
             <ul class="post__comments-list">
-                <li v-for = "comment in post.comments" :key = " comment.id" class="post__comments-item">
+                <li class="post__comments-item">
                     <div class="avatar" :style="{backgroundImage:`url(${bgImage})`}">
                         
                     </div>
                     <p class="comment">
-                        {{comment.text}}
+                        officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad 
+                    </p>
+                </li>
+                <li class="post__comments-item">
+                    <div class="avatar" :style="{backgroundImage:`url(${bgImage})`}">
+                        
+                    </div>
+                    <p class="comment">
+                        officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad 
                     </p>
                 </li>
             </ul>
@@ -89,7 +96,6 @@
     import avatar from '@/assets/img/avatar.png'
     export default {
         name: "post",
-        props: ['post'],
         data () {
             return {
                 bgImage: avatar,
