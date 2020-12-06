@@ -22,11 +22,11 @@
 
         },
         methods: {
-            ...mapMutations(['SET_ADMIN']),
+            ...mapMutations(['SET_USER']),
 
             changeFullname() {
                 if (this.fullname.firstName && this.fullname.surname) {
-                    this.SET_ADMIN(this.fullname);
+                    this.SET_USER(this.fullname);
                     this.fullname.firstName = '';
                     this.fullname.surname = '';
                     this.$emit('closeFullName'); 
