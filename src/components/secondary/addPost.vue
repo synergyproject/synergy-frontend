@@ -1,13 +1,13 @@
 <template>
     <article class="addpost">
-        <div class="avatar" :style="{backgroundImage:`url(${bgImage})`}"></div>
+        <div class="avatar" :style="{backgroundImage:`url(${user.avatar ? user.avatar : bgImage})`}"></div>
         <form class="addpost__form">
             <div class="addpost__text-wrap">
-                <div class="addpost__text"  @click = "onTexstarea" contenteditable="true"></div>
+                <div class="addpost__text"  contenteditable="true"></div>
             </div>
             
             <div class="addpost__files">
-                <input class="addpost__files-input" type="file" size="28" multiple="multiple" title="Send file">
+                <input class="addpost__files-input" type="file" accept=".jpg, .png, .pdf, .docx, .xlsx" multiple="multiple" name="send-file">
                 <img class="addpost__files-icon" src="@/assets/img/add-icon.png">
             </div>
             <button class="addpost__form-btn">
@@ -23,6 +23,7 @@
     import avatar from '@/assets/img/avatar.png'
     export default {
         name: "addpost",
+        props:['user'],
         data () {
             return {
                 bgImage: avatar,
