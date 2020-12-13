@@ -79,8 +79,7 @@
 </template>
 
 <script>
-	import sendAjax from '@/utils/ajax';
-	import modal from '@/components/modal/modal';
+	import Modal from '@/components/modal/Modal';
 	import help_circle from '@/assets/img/help_circle.png';
 	import ahtung_circle from '@/assets/img/ahtung_circle.png';
 	import icon_eye_close from '@/assets/img/icon_eye_close.png';
@@ -107,7 +106,7 @@
 			}
 		},
 		components: {
-	        modal: modal
+	        Modal: Modal
 	    },			
 	  	methods: {
 	  		verificationPassword: function () {
@@ -136,14 +135,7 @@
 	  		},
 			sendPassword: function () {
 		  		let PasswordJson = JSON.stringify(this.pass);
-
-		  		sendAjax('https://адрес_сервера.com/', 'post', PasswordJson)
-					.then((response) => {
-						//сервер получил пароль, переходим дальше - кабинет пользователя?
-				    },
-				    (response) => {
-				    	//здесь выполняем действия при неудачном запросе к серверу   
-				    })
+				//отправляем пароль на бэк		  		
 			},
 			closeModal: function () {
 		  		this.modalVisible = false;	  		

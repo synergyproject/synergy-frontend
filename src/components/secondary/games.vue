@@ -51,7 +51,7 @@
     import { mapMutations, mapGetters, mapActions } from 'vuex';
     
     export default {
-        name: "games",
+        name: "Games",
         data () {
             return {
             }

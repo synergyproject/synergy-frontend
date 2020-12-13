@@ -1,0 +1,48 @@
+.edit-goal{
+    background: #FFFFFF;
+    box-shadow: 0px 4px 16px rgba(5, 13, 165, 0.25);
+    border-radius: 5px;
+    width: 762px;
+    height: 395px;
+    flex-direction: column;
+    align-items: center;
+    .header{
+        margin-top: 40px;
+        margin-bottom: 32px;
+        font-weight: bold;
+        font-size: 20px;
+        line-height: 23px;
+        align-items: center;
+        text-align: center;
+    }
+    input, textarea{
+        background: #F4F5F8;
+        border-radius: 5px;
+        outline: none;
+        border: none;
+        width: 612px !important;
+        padding: 14px;
+        box-sizing: border-box;
+    }
+    .goal-name{
+        height: 48px;
+        margin-bottom: 24px;
+    }
+    .goal-description{
+        height: 113px;
+        margin-bottom: 32px;
+        resize: none;
+    }
+    .save-button{
+        background-color: #545454;
+        color: #FFFFFF;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 20px;
+        width: 203px;
+        height: 40px;
+        border-radius: 100px;
+        align-items: center;
+        justify-content: center;
+    }
+}

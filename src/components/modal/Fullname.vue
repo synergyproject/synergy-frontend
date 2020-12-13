@@ -4,7 +4,7 @@
         <input type="text" maxlength="64" v-model="fullname.firstName">
         <div class="info-block">Введите Фамилию</div>
         <input type="text" maxlength="64" v-model="fullname.surname">
-        <div class="save-fullname-button basic-buttons" v-on:click="changeFullname()">Сохранить</div>
+        <div class="save-fullname-button basic-buttons" @click="changeFullname()">Сохранить</div>
     </div>
 </template>
 
@@ -12,7 +12,7 @@
     import { mapMutations, mapGetters, mapActions } from 'vuex';
 
     export default {
-        name: "fullname",
+        name: "Fullname",
         data () {
             return {
                 fullname: {firstName: '', surname: ''}

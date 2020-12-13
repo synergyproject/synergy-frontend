@@ -1,17 +1,18 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Login from '@/components/Login.vue'
-import Main from '@/components/Main.vue'
 import Authorization from '@/components/Authorization.vue'
 import Logout from '@/components/Logout.vue'
+import Login from '@/components/Login.vue'
+import Main from '@/components/Main.vue'
+import Calendar from '@/components/calendar/Calendar.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
 	{
 		path: '/',
-	    name: 'Login',
-	    component: Login
+	    name: 'Authorization',
+		component: Authorization
 	},
 	{
 		path: '/main',
@@ -22,14 +23,22 @@ const routes = [
 		}	
 	},
 	{
-		path: '/authorization',
-	    name: 'Authorization',
-		component: Authorization,
+		path: '/login',
+	    name: 'Login',
+	    component: Login
 	},
 	{
 		path: '/logout',
 	    name: 'Logout',
 	    component: Logout		
+	},
+	{
+		path: '/calendar',
+	    name: 'Calendar',
+	    component: Calendar,
+		meta: {
+			requiresAuth: true
+		}		
 	}
 ]
 

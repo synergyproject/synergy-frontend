@@ -1,15 +1,15 @@
 <template>
-    <div class="profile-window" v-on:keyup.enter="changeProfile">
+    <div class="profile-window" @keyup.enter="changeProfile">
         <div class="header">Заполните профиль</div>
         <div class="profile-wrapper">
-            <input id="loadAvatarProfile" type="file" v-on:change="loadAvatar">
+            <input id="loadAvatarProfile" type="file" @change="loadAvatar">
             <label for="loadAvatarProfile">
                 <div class="avatar basic-buttons">
                     <img :src="avatarUrl" class="avatar-img" v-if="avatarUrl"> 
                     <div class="avatar-description" v-else>   
                         <div>Выбрать фото</div>
                         <div>профиля</div>
-                        <div class="avatar-requirements" v-bind:class="{ redAlert: avatarRedAlertActive }">
+                        <div class="avatar-requirements" :class="{ redAlert: avatarRedAlertActive }">
                             Рекомендуемый размер фото не менее 220 пикселей в ширину и 220 пикселей в высоту. 
                             Загружается быстрее всего в виде файла sRGB .JPG Допустимый размер файла не более 2 мегабайт.
                             Допустимые форматы: jpg, png.
@@ -21,12 +21,12 @@
                 <div class="profile-container">
                     <div class="description">Имя</div>
                     <input type="text" maxlength="64" v-model="user.firstName">
-                    <div class="star" v-bind:class="{ redAlert: redAlertActive }">*</div>
+                    <div class="star" :class="{ redAlert: redAlertActive }">*</div>
                 </div>
                 <div class="profile-container">
                     <div class="description">Фамилия</div>
                     <input type="text" maxlength="64" v-model="user.surname">
-                    <div class="star" v-bind:class="{ redAlert: redAlertActive }">*</div>
+                    <div class="star" :class="{ redAlert: redAlertActive }">*</div>
                 </div>
                 <div class="profile-container">
                     <div class="description">Дата рождения</div>
@@ -35,7 +35,7 @@
                 <div class="profile-container">
                     <div class="description">Телефон</div>
                     <input type="text" placeholder="+380661234567" v-mask="'+38##########'" v-model="user.phone">
-                    <div class="star" v-bind:class="{ redAlert: redAlertActive }">*</div>
+                    <div class="star" :class="{ redAlert: redAlertActive }">*</div>
                 </div>
                 <div class="profile-container">
                     <div class="description">Телеграм</div>
@@ -44,7 +44,7 @@
                 <div class="note">* Поля обязательные для заполнения</div>    
             </div>
         </div>
-        <div class="confirm-button basic-buttons" v-on:click="changeProfile">Продолжить</div>
+        <div class="confirm-button basic-buttons" @click="changeProfile">Продолжить</div>
     </div>
 </template>
 
@@ -52,7 +52,7 @@
     import { mapMutations, mapGetters, mapActions } from 'vuex';
 
     export default {
-        name: "profile",
+        name: "Profile",
         data () {
             return {
                 user: {firstName: '', surname: '', usernameTelegram: '', phone: '', birthday: '', avatar: null},

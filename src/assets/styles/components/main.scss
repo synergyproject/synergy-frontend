@@ -1,18 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
-.main-page{
-    
+
+.main-page{  
     margin: 0;
     padding: 0;
     height: 100vh;
     background: #FFFEFE;
     display: flex;
-    .pencil{
-        user-select: none;
-        cursor: pointer;
-        width: 24px;
-        height: 24px; 
-    }
-
     .secondary{
         position: fixed;
         right: 0;
