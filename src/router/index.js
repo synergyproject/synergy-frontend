@@ -11,8 +11,13 @@ Vue.use(VueRouter)
 const routes = [
 	{
 		path: '/',
+<<<<<<< HEAD
 	    name: 'Authorization',
 		component: Authorization
+=======
+		name: 'Login',
+		component: Login
+>>>>>>> 25da6fad6f59821bca55929a6cd4b722f2465413
 	},
 	{
 		path: '/main',
@@ -23,6 +28,7 @@ const routes = [
 		}	
 	},
 	{
+<<<<<<< HEAD
 		path: '/login',
 	    name: 'Login',
 	    component: Login
@@ -39,6 +45,16 @@ const routes = [
 		meta: {
 			requiresAuth: true
 		}		
+=======
+		path: '/authorization',
+		name: 'Authorization',
+		component: Authorization,
+	},
+	{
+		path: '/logout',
+		name: 'Logout',
+		component: Logout
+>>>>>>> 25da6fad6f59821bca55929a6cd4b722f2465413
 	}
 ]
 
