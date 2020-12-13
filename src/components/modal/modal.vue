@@ -13,7 +13,7 @@
 	import off_close from '@/assets/img/off_close.png';
 
 	export default {
-		name: 'modal',
+		name: 'Modal',
 		props: {
 			visible: Boolean
 		},

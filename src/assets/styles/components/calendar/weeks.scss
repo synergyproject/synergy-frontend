@@ -1,0 +1,90 @@
+.weeks-wrapper{
+    width: 1079px;
+    align-items: center;
+    flex-direction: column;
+    .header{
+        height: 28px;
+        font-size: 24px;
+        line-height: 28px;
+        color: #000000;
+    }
+    .info-message{
+        justify-content: center;
+        margin-top: 36px;
+        width: 376px;
+        height: 16px;
+        font-size: 14px;
+        line-height: 16px;
+        color: #8C8C8C;
+
+    }
+    .goals-header{
+        margin-top: 12px;
+    }
+    .goals-wrapper{
+        margin-top: 20px;
+        width: 1079px;
+        min-height: 352px;
+        background: #FFFFFF;
+        border-radius: 5px;
+        align-items: center;
+        justify-content: center;
+        .goals{
+            height: 304px;
+            flex-direction: column;
+            justify-content: space-between;
+            .weeks{
+                width: 1031px;
+                height: 48px;
+                justify-content: space-between;
+                .week{
+                    width: 115px;
+                    height: 48px;
+                    background: #E8E8E8;
+                    border-radius: 5px;
+                    align-items: center;
+                    justify-content: center;
+                    font-weight: bold;
+                    font-size: 14px;
+                    line-height: 16px;
+                }
+            }
+            .goals-container{
+                width: 1031px;
+                height: 48px;
+                justify-content: space-between;
+                .goal{
+                    justify-content: space-between;
+                    align-items: center;
+                    border: 1px solid #B5B5B5;
+                    box-sizing: border-box;
+                    border-radius: 5px;
+                    .goal-content{
+                        align-items: center;
+                        margin-left: 15px;
+                        margin-right: 10px;
+                        font-size: 14px;
+                        line-height: 16px;
+                    }
+                    .pencil{
+                        margin-right: 15px;
+                        width: 18px;
+                        height: 18px;
+                    }
+                }
+                .goal-1{
+                    width: 1031px;
+                }
+                .goal-2, .goal-3{
+                    width: 507px;
+                }
+                .goal-4, .goal-5, .goal-6, .goal-7{
+                    width: 246px;
+                }
+                .goal-8, .goal-9, .goal-10{
+                    width: 115px;
+                }
+            }                
+        }
+    }
+}    

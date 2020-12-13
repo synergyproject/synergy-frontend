@@ -1,0 +1,94 @@
+.goal-list{
+    flex-direction: column;
+    align-items: center;
+    .header{
+        font-size: 24px;
+        line-height: 28px;
+        margin-bottom: 20px;
+    }
+    .list-wrapper{
+        width: 1081px;
+        background: #FFFFFF;
+        border-radius: 5px;
+        margin-bottom: 29px;
+        flex-direction: column;
+        .list-container{
+            flex-direction: column;
+            align-items: center;
+            .line{
+                width: 1033px;
+                height: 1px;
+                background: #BCC0C9;
+            }
+            .goal-container{
+                width: 1033px;
+                height: 40px;
+                margin-top: 9px;
+                margin-bottom: 9px;
+                align-items: center;
+                justify-content: space-between;
+                .goal-description-wrapper{
+                    *{
+                        color: #09032E;
+                        font-weight: 500;
+                        font-size: 14px;
+                        line-height: 20px;
+                    }
+                    .goal{
+                        width: 54px;
+                        margin-right: 81px;
+                    }
+                    .goal-description{
+                        max-width: 400px; //поставил наугад  -  нужно будет уточнить у дизигнера
+                    }
+                }
+                .goal-status-wrapper{
+                    position: relative;
+                    .arrow{
+                        position: absolute;
+                        width: 7px;
+                        height: 7px;
+                        right: 13px;
+                        top: 16px;
+                    }
+                    .arrow-up{
+                        z-index: 101;
+                    }
+                    .goal-status{
+                        border-radius: 5px;
+                        width: 204px;
+                        height: 40px;
+                        align-items: center;
+                        justify-content: center;
+                        font-weight: 500;
+                        font-size: 14px;
+                        line-height: 16px;
+                        color: #09032E;
+                    }
+                    .status-menu{
+                        z-index: 100;
+                        width: 220px;
+                        height: 152px;
+                        border-radius: 5px;
+                        box-sizing: border-box;
+                        border: 1px solid #BCC0C9;
+                        background: #FFFFFF;
+                        position: absolute;
+                        left: -8px;
+                        top: -8px;
+                        justify-content: space-around;
+                        align-items: center;
+                        flex-direction: column;
+                    }
+                }
+                
+            }
+        }      
+    }
+    .list-wrapper > :first-child{
+        margin-top: 24px;
+    }
+    .list-wrapper > :last-child{
+        margin-bottom: 24px;
+    }
+}

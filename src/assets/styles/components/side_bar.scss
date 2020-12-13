@@ -1,0 +1,45 @@
+.side-bar-wrapper{
+    justify-content: center;
+    width: 10vw;
+    height: 100vh;
+    *{
+        color: #545454;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 23px;
+    }
+    .side-bar{
+        width: 135px;
+        height: 100vh;
+        align-items: center;
+        flex-direction: column;
+        background: #A9A6A6;
+        .side-bar-button{
+            margin-top: 30px;
+            width: 91px;
+            height: 40px;
+            background: #C4C4C4;
+            border-radius: 100px;
+        }
+        .avatar-mini{
+            margin-top: 32px;
+            width: 93px;
+            height: 93px;
+            border-radius: 50%;
+            background: #C4C4C4;
+        }
+        .cabinet{
+            width: 135px;
+            height: 98px;
+            flex-direction: column;
+            margin-top: 55px;                
+        }
+        .menu-item{
+            width: 135px;
+            height: 98px;
+        }
+        .menu-item:hover{
+            background: #C4C4C4;
+        }
+    }
+}    

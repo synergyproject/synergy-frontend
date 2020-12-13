@@ -18,7 +18,7 @@
                     Допустимые форматы: jpg, png.
                 </div>
             </div>
-            <input id="loadAvatar" type="file" v-on:change="onFileChanged">
+            <input id="loadAvatar" type="file" @change="onFileChanged">
             <label class="load-button basic-buttons" for="loadAvatar">Загрузить фото</label>
         </div>
     </div>
@@ -28,7 +28,7 @@
     import { mapMutations, mapGetters, mapActions } from 'vuex';
 
     export default {
-        name: "avatar",
+        name: 'Avatar',
         data () {
             return {
                 activeDecorColor: '#C4C4C4'

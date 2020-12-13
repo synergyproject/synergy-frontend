@@ -12,10 +12,10 @@
 </template>
 
 <script>
-    import games from '@/components/secondary/games';
+    import Games from '@/components/secondary/Games';
     
     export default {
-        name: "coach",
+        name: "Coach",
         data () {
             return {
                 //инфу про тренера будем получать из хранилища
@@ -23,7 +23,7 @@
             }
         },
         components: {
-            games: games
+            Games: Games
         },
         methods: {
 
