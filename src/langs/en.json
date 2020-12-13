@@ -1,0 +1,9 @@
+{
+	"m_welcome": "Welcome!",
+	"m_enter_login": "Enter login",
+	"m_enter_password": "Enter password",
+	"m_enter": "Enter",
+	"m_error_confirm": "Incorrect email or password",
+	"m_error_empty_field": "Fill in all the fields",
+	"m_good": "All ok"
+}

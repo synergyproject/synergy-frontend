@@ -4,6 +4,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import VueTheMask from 'vue-the-mask'
+import { i18n } from './plugins/i18n'
 
 Vue.config.productionTip = false
 Vue.use(VueTheMask)
@@ -26,5 +27,6 @@ router.beforeEach((to, from, next) => {
 new Vue({
   router,
   store,
+  i18n,
   render: h => h(App)
 }).$mount('#app')
