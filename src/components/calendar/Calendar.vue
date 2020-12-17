@@ -1,7 +1,6 @@
 <template>
 	<div class="calendar-page">
 		<side-bar></side-bar>
-
 		<div class="calendar-wrapper">
 			<weeks></weeks>
 			<reports></reports>
@@ -16,7 +15,7 @@
 <script>
 	import axios from 'axios';
 	import Modal from '@/components/modal/Modal';
-	import SideBar from '@/components/SideBar';
+	import SideBar from '@/components/layouts/SideBar';
 	import Weeks from '@/components/calendar/Weeks';
 	import Reports from '@/components/calendar/Reports';
 	import GoalList from '@/components/calendar/GoalList';
@@ -41,9 +40,11 @@
 
 		},	
 		computed: {
-           
+			...mapGetters(['GET_STATUS_MENU'])
 		},			
-	  	methods: {			
+	  	methods: {
+			...mapMutations(['SET_STATUS_MENU']),
+
 			closeModal: function () {
 				this.modalVisible = false;	  		
 			}

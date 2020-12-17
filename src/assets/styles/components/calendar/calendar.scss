@@ -7,9 +7,11 @@
     *{
         display: flex
     }
-    
+    .page-sidebar__menu{
+        flex-direction: column;
+    }
     .calendar-wrapper{
-        width: 90vw;
+        width: 100vw;
         margin-bottom: 16px;     
         align-items: center;
         flex-direction: column;

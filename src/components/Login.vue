@@ -1,5 +1,8 @@
 <template>
-	<div class="login-page" v-on:keyup.enter="verificationPassword()">
+	<div 
+		class="login-page" 
+		@keyup.enter="verificationPassword()"
+	>
 		<div class="greeting">
 			Добро пожаловать, hillel@gmail.com!
 		</div>		
@@ -7,33 +10,73 @@
 			<div class="validation-form">
 				<div class="login-controls">
 					<div class="validation-block">
-						<div class="eye" v-on:click="changeEye(true)">
-							<img src="@/assets/img/icon_eye_close.png" v-show="this.eyePassVisible">
-							<img src="@/assets/img/icon_eye_open.png" v-show="!this.eyePassVisible">
+						<div 
+							class="eye" 
+							@click="changeEye(true)"
+						>
+							<img 
+								src="@/assets/img/icon_eye_close.png" 
+								v-show="this.eyePassVisible"
+							>
+							<img 
+								src="@/assets/img/icon_eye_open.png" 
+								v-show="!this.eyePassVisible"
+							>
 						</div>
-						<div class="input-header">Придумайте пароль</div>
-						<input :type="this.inputTypePass" maxlength="64" autocomplete="off" v-model="pass">
+						<div class="input-header">
+							Придумайте пароль
+						</div>
+						<input 
+							:type="this.inputTypePass" 
+							maxlength="64" 
+							autocomplete="off" 
+							v-model="pass"
+						>
 					</div>
 					<div class="validation-block">
-						<div class="eye" v-on:click="changeEye(false)">
-							<img src="@/assets/img/icon_eye_close.png" v-show="this.eyePassСonfirmVisible">
-							<img src="@/assets/img/icon_eye_open.png" v-show="!this.eyePassСonfirmVisible">
+						<div 
+							class="eye"
+							v-on:click="changeEye(false)"
+						>
+							<img 
+								src="@/assets/img/icon_eye_close.png" 
+								v-show="this.eyePassСonfirmVisible"
+							>
+							<img 
+								src="@/assets/img/icon_eye_open.png" 
+								v-show="!this.eyePassСonfirmVisible"
+							>
 						</div>
-						<div class="input-header">Повторите пароль</div>
-						<input :type="this.inputTypePassСonfirm" maxlength="64" autocomplete="off" v-model="passСonfirm">
+						<div class="input-header">
+							Повторите пароль
+						</div>
+						<input 
+							:type="this.inputTypePassСonfirm" 
+							maxlength="64" 
+							autocomplete="off" 
+							v-model="passСonfirm"
+						>
 						<div class="input-basement">
 							<div class="input-basement__left">
 								<img src="@/assets/img/ahtung_circle.png">
-								<span>{{info_message}}</span>
+								<span>
+									{{info_message}}
+								</span>
 							</div>
 						</div>
 					</div>
-					<div class="save-button basic-buttons" v-on:click="verificationPassword()">
+					<div 
+						class="save-button basic-buttons" 
+						@click="verificationPassword()"
+					>
 						Сохранить
 					</div>
 				</div>
 				<div class="password-help">
-					<img src="@/assets/img/help_circle.png" class="question-icon">
+					<img 
+						src="@/assets/img/help_circle.png" 
+						class="question-icon"
+					>
 					<div class="help-content">
 						<div class="help-content__text">
 							Длина пароля должна быть <b>не менее 8</b><br>
@@ -50,31 +93,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
-
-
-	<!--                   код для теста - потом перенесем                -->
-		<div class="test-buttons">
-			<button class="test basic-buttons" v-on:click="passwordRecovery()">
-			Тест формы восстановления пароля
-			</button>
-			<button class="test basic-buttons" v-on:click="goMain()">
-				Перейти на /main
-			</button>
-			<button class="test basic-buttons" v-on:click="goAuthorization()">
-				Перейти на /authorization
-			</button>
-		</div>
-
-		<modal :visible="this.modalVisible" @close='closeModal'>
-			<template v-slot:modal-content>
-				<div class="recovery-block-main">
-					<div class="email-info">Адрес электронной почты</div>
-					<input type="email" maxlength="64">
-					<div class="recovery-password-button basic-buttons">Востановить пароль</div>
-				</div>
-			</template>
-		</modal>	
+		</div>	
 	</div>
 </template>
 
@@ -148,19 +167,7 @@
 		  			this.eyePassСonfirmVisible = !this.eyePassСonfirmVisible;
 		  			this.inputTypePassСonfirm = this.eyePassСonfirmVisible ? 'password' : 'text'
 		  		}		  		
-			  },
-			  
-
-		  	// тестовые методы - перенесем
-		  	passwordRecovery: function () {
-				this.modalVisible = true;  	  
-			  },
-			goMain: function () {
-				this.$router.push ({path:'/main'}) 
-			},
-			goAuthorization: function () {
-				this.$router.push ({path:'/authorization'}) 
-			}  	  			  	
+			  }		  	
 		}  			
 	}
 </script>

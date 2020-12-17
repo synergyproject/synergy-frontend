@@ -5,9 +5,7 @@ import Logout from '@/components/Logout.vue'
 import Login from '@/components/Login.vue'
 import Main from '@/components/Main.vue'
 import Calendar from '@/components/calendar/Calendar.vue'
-import PlayerPage from '@/components/PlayerPage.vue'
 import PageLine from '@/components/PageLine.vue'
-import PageGoal from '@/components/PageGoal.vue'
 
 Vue.use(VueRouter)
 
@@ -36,24 +34,17 @@ const routes = [
 		component: Logout		
 	},
 	{
-		path: '/page',
-		name: 'PlayerPage',
-		component: PlayerPage 
-	},
-	{
-		path: '/page/line',
-	   name: 'PageLine',
-	   component: PageLine
-	},
-	{
-		path: '/page/goal',
-	   name: 'PageGoal',
-	   component: PageGoal
+		path: '/line',
+	    name: 'PageLine',
+	    component: PageLine,
+	    meta: {
+			requiresAuth: true
+		}
 	},
 	{
 		path: '/calendar',
-	   name: 'Calendar',
-	   component: Calendar,
+	    name: 'Calendar',
+	    component: Calendar,
 		meta: {
 			requiresAuth: true
 		}

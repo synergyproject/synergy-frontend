@@ -2,10 +2,22 @@
     <div class="avatar-window">
         <div>
             <div class="avatar-requirements">
-                <div class="decor decor-left-top" :style="{ borderColor: activeDecorColor }"></div>
-                <div class="decor decor-left-bottom" :style="{ borderColor: activeDecorColor }"></div>
-                <div class="decor decor-right-top" :style="{ borderColor: activeDecorColor }"></div>
-                <div class="decor decor-right-bottom" :style="{ borderColor: activeDecorColor }"></div>    
+                <div 
+                    class="decor decor-left-top" 
+                    :style="{ borderColor: activeDecorColor }"
+                ></div>
+                <div 
+                    class="decor decor-left-bottom" 
+                    :style="{ borderColor: activeDecorColor }"
+                ></div>
+                <div 
+                    class="decor decor-right-top" 
+                    :style="{ borderColor: activeDecorColor }"
+                ></div>
+                <div 
+                    class="decor decor-right-bottom" 
+                    :style="{ borderColor: activeDecorColor }"
+                ></div>    
                 <div class="avatar-requirements-info">
                     Рекомендуемый размер фото<br>
                     не менее 220 пикселей в ширину<br>
@@ -18,8 +30,17 @@
                     Допустимые форматы: jpg, png.
                 </div>
             </div>
-            <input id="loadAvatar" type="file" @change="onFileChanged">
-            <label class="load-button basic-buttons" for="loadAvatar">Загрузить фото</label>
+            <input 
+                id="loadAvatar" 
+                type="file" 
+                @change="onFileChanged"
+            >
+            <label 
+                class="load-button basic-buttons" 
+                for="loadAvatar"
+            >
+                Загрузить фото
+            </label>
         </div>
     </div>
 </template>

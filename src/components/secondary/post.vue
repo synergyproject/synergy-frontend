@@ -2,32 +2,62 @@
     <article :class="'post '+'post_'+num">
         <header class="post__header">
             <div class="post__author">
-                <div class="avatar" :style="{backgroundImage:`url(${post.autor.avatar ?  post.autor.avatar : bgImage})`}">                  
+                <div 
+                    class="avatar"
+                    :style="{backgroundImage:`url(${post.autor.avatar ?  post.autor.avatar : bgImage})`}"
+                >                  
                 </div>
                 <div class="post__author-info">
-                    <h3 class="post__author-name">{{post.autor.firstName}} {{post.autor.surname}}</h3>
+                    <h3 class="post__author-name">
+                        {{post.autor.firstName}} {{post.autor.surname}}
+                    </h3>
                     <div class="post__date">
-                        <span class="post__date-main">{{post.date}}</span>
-                        <span v-show = "post.postСhanges" class="post__date-edit">(Edit)</span>
+                        <span class="post__date-main">
+                            {{post.date}}
+                        </span>
+                        <span 
+                            v-show = "post.postСhanges" 
+                            class="post__date-edit"
+                        >
+                            (Edit)
+                        </span>
                     </div>
                 </div>
             </div>
             <div class="post__settings">
                 <div class="post__likes">
-                    <img class="post__likes-icon" :src="heartUrl" >
-                    <div class="post__likes-amount">{{post.likes}}</div>
+                    <img 
+                        class="post__likes-icon"
+                        :src="heartUrl"
+                    >
+                    <div class="post__likes-amount">
+                        {{post.likes}}
+                    </div>
                 </div>
-                <div v-if = "myPost" class="post__menu" >
-                    <div class="post__menu-img" @click = "showMenu">
-                        <img class="post__menu-icon" src="@/assets/img/post-menu-icon.png" >
+                <div 
+                    v-if = "myPost"
+                    class="post__menu"
+                >
+                    <div 
+                        class="post__menu-img"
+                        @click = "showMenu"
+                    >
+                        <img 
+                            class="post__menu-icon"
+                            src="@/assets/img/post-menu-icon.png"
+                        >
                     </div>
                     <div class="post__menu-listwrap">
                         <ul class="post__menu-list">
                             <li class="post__menu-item">
-                                <span>Редактировать пост</span>
+                                <span>
+                                    Редактировать пост
+                                </span>
                             </li>
                             <li class="post__menu-item">
-                                <span>Удалить пост</span>
+                                <span>
+                                    Удалить пост
+                                </span>
                             </li>
                         </ul>
                     </div>
@@ -36,11 +66,20 @@
             </div>
         </header>
         <div class="post__main">
-            <div v-if= "post.selfPost" class="post__info">
+            <div 
+                v-if= "post.selfPost"
+                class="post__info"
+            >
                 <div class="post__text">
                     {{post.text}}
                 </div>
-                <div v-if="showTextBtn" class="post__text-show" @click = "resizeText"> {{showText ?  "Свернуть" :"Показать полностью"}}</div>
+                <div 
+                    v-if="showTextBtn"
+                    class="post__text-show"
+                    @click = "resizeText"
+                > 
+                    {{showText ?  "Свернуть" :"Показать полностью"}}
+                </div>
             </div>
             <div v-else class="post__report">
                 <div class="post__report-goals">
@@ -48,10 +87,18 @@
                         Отчет по целям
                     </h4>
                     <ol class="post__report-list">
-                        <li v-for ="(item, num) in post.goals" :key = "num" class="post__report-item">
-                            <span class="item_name">{{item.name}}</span>
+                        <li 
+                            v-for="(item, num) in post.goals" 
+                            :key = "num" 
+                            class="post__report-item"
+                        >
+                            <span class="item_name">
+                                {{item.name}}
+                            </span>
                             <br> 
-                            <span>{{item.report}}</span>
+                            <span>
+                                {{item.report}}
+                            </span>
                         </li>
                     </ol>
                 </div>
@@ -60,22 +107,47 @@
                         TO DO  лист на сегодня
                     </h4>
                     <ol class="post__report-list">
-                        <li v-for ="(item, num) in post.todos" :key = "num" class="post__report-item">
+                        <li 
+                            v-for="(item, num) in post.todos" 
+                            :key = "num"
+                            class="post__report-item"
+                        >
                             {{item}}
                         </li>
                     </ol>
-                </div>
-                
+                </div>                
             </div>
             <div class="post__files">
-                <div v-if="showImg" class="post__photo-list">
-                    <div  v-for="item in img.slice(0, 2)" class="post__photo-item" :style="{backgroundImage:`url(${item})`}"></div>
+                <div 
+                    v-if="showImg" 
+                    class="post__photo-list"
+                >
+                    <div 
+                        v-for="item in img.slice(0, 2)" 
+                        class="post__photo-item" 
+                        :style="{backgroundImage:`url(${item})`}"
+                    ></div>
                 </div>
-                <div v-if="showFiles" class="post__files-list">
-                    <div v-for="item in fileName()" class="post__files-item">
-                        <a class="post__download" :href="'@/assets/files/'+item" download>
-                            <p>{{item}}</p>
-                            <img class="post__download-icon" src='@/assets/img/download.png'>
+                <div 
+                    v-if="showFiles" 
+                    class="post__files-list"
+                >
+                    <div 
+                        v-for="item in fileName()" 
+                        class="post__files-item"
+                    >
+                        <a 
+                            class="post__download" 
+                            :href="'@/assets/files/'+item" 
+                            download
+                        >
+                            <p>
+                                {{item}}
+                            </p>
+                            <img 
+                                class="post__download-icon" 
+                                src='@/assets/img/download.png'
+                            >
                         </a>
                     </div>
                 </div>
@@ -83,23 +155,40 @@
         </div>
         <div class="post__comments">
             <ul class="post__comments-list">
-                <li v-for = "comment in post.comments" :key = " comment.id" class="post__comments-item">
-                    <div class="avatar" :style="{backgroundImage:`url(${user.avatar ? user.avatar : bgImage})`}">
-                        
-                    </div>
+                <li 
+                    v-for = "comment in post.comments" 
+                    :key = " comment.id" 
+                    class="post__comments-item"
+                >
+                    <div 
+                        class="avatar" 
+                        :style="{backgroundImage:`url(${user.avatar ? user.avatar : bgImage})`}"
+                    ></div>
                     <p class="comment">
                         {{comment.text}}
                     </p>
                 </li>
             </ul>
-            <div v-show="showCommentsBtn" class="post__comments-show" @click = "resizeComments">{{showComments ?  "Свернуть" :"Все комментарии"}}</div>
+            <div 
+                v-show="showCommentsBtn" 
+                class="post__comments-show" 
+                @click = "resizeComments"
+            >
+                {{showComments ?  "Свернуть" :"Все комментарии"}}
+            </div>
         </div>
         <div class="post__add-comment">
-            <div class="avatar" :style="{backgroundImage:`url(${bgImage})`}">
+            <div 
+                class="avatar" 
+                :style="{backgroundImage:`url(${bgImage})`}"
+            >
             </div>
             <form class="post__form">
                 <div class="post__addtext-wrap">
-                    <div class="post__addtext"  contenteditable="true"></div>
+                    <div 
+                        class="post__addtext" 
+                        contenteditable="true"
+                    ></div>
                 </div>
                 
                 <button class="post__form-btn">

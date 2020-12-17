@@ -12,7 +12,9 @@
     backdrop-filter: blur(3px);
     .modal-content{
         position: fixed;
-        top: 252px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         .cross {
             position: absolute;
             width: 20px;

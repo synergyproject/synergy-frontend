@@ -1,6 +1,8 @@
 <template>
     <div class="edit-goal">
-        <div class="header">Редактирование цели</div>
+        <div class="header">
+            Редактирование цели
+        </div>
         <input 
             type="text" 
             class="goal-name" 
@@ -11,7 +13,12 @@
             class="goal-description"
             placeholder="Введите описание Цели..."
         ></textarea>
-        <div class="save-button basic-buttons" @click="saveGoal">Сохранить</div>
+        <div 
+            class="save-button basic-buttons" 
+            @click="saveGoal"
+        >
+            Сохранить
+        </div>
     </div>  
 </template>
 

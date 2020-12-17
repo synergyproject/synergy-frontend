@@ -1,7 +1,11 @@
 <template>
     <div class="reports-wrapper">
-        <div class="header report-header">Заполните отчет</div>
-        <div class="info-message">{{reportInfoMessage}}</div>
+        <div class="header report-header">
+            Заполните отчет
+        </div>
+        <div class="info-message">
+            {{reportInfoMessage}}
+        </div>
         <div class="report-wrapper">
             <div class="reports">
 
@@ -9,10 +13,18 @@
                     <div class="reports-item">
                         <div class="reports-item-header">
                             <div class="heading">
-                                <div>TO DO лист на сегодня</div>
-                                <img src="@/assets/img/icon_pencil.png" class="pencil" @click="editGoal1()">
+                                <div>
+                                    TO DO лист на сегодня
+                                </div>
+                                <img 
+                                    src="@/assets/img/icon_pencil.png" 
+                                    class="pencil" 
+                                    @click="editGoal1()"
+                                >
                             </div>
-                            <div class="heading-message">Отметь галочками выполненые пункты</div>
+                            <div class="heading-message">
+                                Отметь галочками выполненые пункты
+                            </div>
                         </div>
                         <div class="reports-content">
                             <div class="reports-content__item">
@@ -35,27 +47,51 @@
                     <div class="reports-item">
                         <div class="reports-item-header">
                             <div class="heading">
-                                <div>Отчет по целям</div>
-                                <img src="@/assets/img/icon_pencil.png" class="pencil" @click="editGoal1()">
+                                <div>
+                                    Отчет по целям
+                                </div>
+                                <img 
+                                    src="@/assets/img/icon_pencil.png" 
+                                    class="pencil" 
+                                    @click="editGoal1()"
+                                >
                             </div>
-                            <div class="heading-message">Что ты сегодня сделал для достижения целей</div>
+                            <div class="heading-message">
+                                Что ты сегодня сделал для достижения целей
+                            </div>
                         </div>
                         <div class="reports-content">
                             <div class="reports-content__item">
-                                <div class="goal">{{GET_GOALS[0].goal}}</div>
-                                <div class="report">{{GET_GOALS[0].report}}</div>
+                                <div class="goal">
+                                    {{GET_GOALS[0].goal}}
+                                </div>
+                                <div class="report">
+                                    {{GET_GOALS[0].report}}
+                                </div>
                             </div>
                             <div class="reports-content__item">
-                                <div class="goal">{{getGoalReport(1, true)}}</div>
-                                <div class="report">{{getGoalReport(1, false)}}</div>
+                                <div class="goal">
+                                    {{getGoalReport(1, true)}}
+                                </div>
+                                <div class="report">
+                                    {{getGoalReport(1, false)}}
+                                </div>
                             </div>
                             <div class="reports-content__item">
-                                <div class="goal">{{getGoalReport(2, true)}}</div>
-                                <div class="report">{{getGoalReport(2, false)}}</div>
+                                <div class="goal">
+                                    {{getGoalReport(2, true)}}
+                                </div>
+                                <div class="report">
+                                    {{getGoalReport(2, false)}}
+                                </div>
                             </div>
                             <div class="reports-content__item">
-                                <div class="goal">{{getGoalReport(3, true)}}</div>
-                                <div class="report">{{getGoalReport(3, false)}}</div>
+                                <div class="goal">
+                                    {{getGoalReport(3, true)}}
+                                </div>
+                                <div class="report">
+                                    {{getGoalReport(3, false)}}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -65,10 +101,18 @@
                     <div class="reports-item">
                         <div class="reports-item-header">
                             <div class="heading">
-                                <div>TO DO лист на завтра</div>
-                                <img src="@/assets/img/icon_pencil.png" class="pencil" @click="editGoal1()">
+                                <div>
+                                    TO DO лист на завтра
+                                </div>
+                                <img 
+                                    src="@/assets/img/icon_pencil.png" 
+                                    class="pencil" 
+                                    @click="editGoal1()"
+                                >
                             </div>
-                            <div class="heading-message">Заполнить обязательно</div>
+                            <div class="heading-message">
+                                Заполнить обязательно
+                            </div>
                         </div>
                         <div class="reports-content">
                             <div class="reports-content__item">
@@ -90,7 +134,11 @@
             </div>
             <div class="sendreport-button basic-buttons">
                 Отправить отчет
-                <img src="@/assets/img/ad_file.png" alt="" class="clip">
+                <img 
+                    src="@/assets/img/ad_file.png" 
+                    alt="" 
+                    class="clip"
+                >
             </div>
         </div>
         <div></div>

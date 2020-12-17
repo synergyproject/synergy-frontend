@@ -1,7 +1,13 @@
 <template>
-    <div class="modal-backdrop" v-show="this.visible">
+    <div 
+		class="modal-backdrop" 
+		v-show="this.visible"
+	>
 		<div class="modal-content">
-			<div class="cross" v-on:click="close()">
+			<div
+				class="cross" 
+				@click="close()"
+			>
 				<img src="@/assets/img/off_close.png">
 			</div>
 			<slot name="modal-content"></slot>

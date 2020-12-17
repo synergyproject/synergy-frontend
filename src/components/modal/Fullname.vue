@@ -1,10 +1,29 @@
 <template>
     <div class="edit_fullname-window">
-        <div class="info-block">Введите имя</div>
-        <input type="text" maxlength="64" v-model="fullname.firstName">
-        <div class="info-block">Введите Фамилию</div>
-        <input type="text" maxlength="64" v-model="fullname.surname">
-        <div class="save-fullname-button basic-buttons" @click="changeFullname()">Сохранить</div>
+        <div class="info-block">
+            Введите имя
+        </div>
+        <input 
+            type="text" 
+            maxlength="64" 
+            v-model="fullname.firstName"
+        >
+        <div 
+            class="info-block"
+        >
+            Введите Фамилию
+        </div>
+        <input 
+            type="text" 
+            maxlength="64" 
+            v-model="fullname.surname"
+        >
+        <div 
+            class="save-fullname-button basic-buttons" 
+            @click="changeFullname()"
+        >
+            Сохранить
+        </div>
     </div>
 </template>
 
@@ -15,7 +34,10 @@
         name: "Fullname",
         data () {
             return {
-                fullname: {firstName: '', surname: ''}
+                fullname: {
+                    firstName: '', 
+                    surname: ''
+                }
             }
         },
         components: {

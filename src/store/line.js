@@ -160,7 +160,12 @@ export default {
         },
         {
           postId:'3',
-          autor: {firstName: 'Валентин', surname: 'Добровольский', avatar: null, userId: '47'},
+          autor: {
+            firstName: 'Валентин', 
+            surname: 'Добровольский', 
+            avatar: null, 
+            userId: '47'
+          },
           date: '15.09.2020',
           selfPost: true,
           postСhanges: true,
@@ -186,13 +191,7 @@ export default {
           ],
           files:[
           ]
-
-
-
-        },
-          
-
-
+        }
       ]
     },
     getters: {

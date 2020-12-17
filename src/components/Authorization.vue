@@ -1,5 +1,8 @@
 <template>
-	<div class="authorization-page" v-on:keyup.enter="authorization()">
+	<div 
+		class="authorization-page" 
+		@keyup.enter="authorization()"
+	>
 		<div class="greeting">
 			Добро пожаловать!
 		</div>		
@@ -7,29 +10,60 @@
 			<div class="validation-form">
 				<div class="authorization-controls">
 					<div class="validation-block">
-						<div class="input-header">Введите логин</div>
-						<input type="text" maxlength="64" autocomplete="off" v-model="email">
+						<div class="input-header">
+							Введите логин
+						</div>
+						<input 
+							type="text" 
+							maxlength="64" 
+							autocomplete="off" 
+							v-model="email"
+						>
 					</div>
 					<div class="validation-block">
-						<div class="eye" v-on:click="changeEye(false)">
-							<img src="@/assets/img/icon_eye_close.png" v-show="this.eyePassVisible">
-							<img src="@/assets/img/icon_eye_open.png" v-show="!this.eyePassVisible">
+						<div 
+							class="eye" 
+							@click="changeEye(false)"
+						>
+							<img 
+								src="@/assets/img/icon_eye_close.png" 
+								v-show="this.eyePassVisible"
+							>
+							<img 
+								src="@/assets/img/icon_eye_open.png" 
+								v-show="!this.eyePassVisible"
+							>
 						</div>
-						<div class="input-header">Введите пароль</div>
-						<input v-bind:type="this.inputTypePass" maxlength="64" autocomplete="off" v-model="pass">
+						<div class="input-header">
+							Введите пароль
+						</div>
+						<input 
+							:type="this.inputTypePass" 
+							maxlength="64" 
+							autocomplete="off" 
+							v-model="pass"
+						>
 						<div class="input-basement">
 							<div class="input-basement__left">
 								<img src="@/assets/img/ahtung_circle.png">
-								<span>{{info_message}}</span>
+								<span>
+									{{info_message}}
+								</span>
 							</div>
 						</div>
 					</div>
-					<div class="save-button basic-buttons" v-on:click="authorization()">
+					<div 
+						class="save-button basic-buttons" 
+						@click="authorization()"
+					>
 						Войти
 					</div>
 				</div>
 				<div class="password-help">
-					<img src="@/assets/img/help_circle.png" class="question-icon">
+					<img 
+						src="@/assets/img/help_circle.png" 
+						class="question-icon"
+					>
 					<div class="help-content">
 						<div class="help-content__text">
 							Длина пароля должна быть <b>не менее 8</b><br>
@@ -74,7 +108,11 @@ import icon_eye_open from '@/assets/img/icon_eye_open.png';
 			}
 		},
 		components: {
-	    },			
+		},
+		mounted () {
+			if(this.$store.state.auth.token)
+				this.$router.push({ path: '/main'})
+		},			
 	  	methods: {
 			authorization: function () {
 		  		if (this.email && this.pass) {
