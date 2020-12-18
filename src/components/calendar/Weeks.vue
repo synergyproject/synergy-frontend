@@ -35,7 +35,7 @@
                 <div class="goals-container">
                     <div class="goal goal-1">
                         <div class="goal-content">
-                            цель 1
+                            {{GET_GOALS[0].name}}
                         </div>
                         <img 
                             src="@/assets/img/icon_pencil.png" 
@@ -47,7 +47,7 @@
                 <div class="goals-container">
                     <div class="goal goal-2">
                         <div class="goal-content">
-                            цель 2
+                            {{GET_GOALS[1].name}}
                         </div>
                         <img 
                             src="@/assets/img/icon_pencil.png" 
@@ -57,7 +57,7 @@
                     </div>
                     <div class="goal goal-3">
                         <div class="goal-content">
-                            цель 3
+                            {{GET_GOALS[2].name}}
                         </div>
                         <img 
                             src="@/assets/img/icon_pencil.png" 
@@ -69,7 +69,7 @@
                 <div class="goals-container">
                     <div class="goal goal-4">
                         <div class="goal-content">
-                            цель 4
+                            {{GET_GOALS[3].name}}
                         </div>
                         <img 
                             src="@/assets/img/icon_pencil.png" 
@@ -79,7 +79,7 @@
                     </div>
                     <div class="goal goal-5">
                         <div class="goal-content">
-                            цель 5
+                            {{GET_GOALS[4].name}}
                         </div>
                         <img 
                             src="@/assets/img/icon_pencil.png" 
@@ -89,7 +89,7 @@
                     </div>
                     <div class="goal goal-6">
                         <div class="goal-content">
-                            цель 6
+                            {{GET_GOALS[5].name}}
                         </div>
                         <img 
                             src="@/assets/img/icon_pencil.png" 
@@ -99,7 +99,7 @@
                     </div>
                     <div class="goal goal-7">
                         <div class="goal-content">
-                            цель 7
+                            {{GET_GOALS[6].name}}
                         </div>
                         <img 
                             src="@/assets/img/icon_pencil.png" 
@@ -112,7 +112,7 @@
                     <div class="goal-7"><!-- заглушка -->
                         <div class="goal goal-8">
                             <div class="goal-content">
-                                цель 8
+                                {{GET_GOALS[7].name}}
                             </div>
                             <img 
                                 src="@/assets/img/icon_pencil.png" 
@@ -124,7 +124,7 @@
                     <div class="goal-7"><!-- заглушка -->
                         <div class="goal goal-9">
                             <div class="goal-content">
-                                цель 9
+                                {{GET_GOALS[8].name}}
                             </div>
                             <img 
                                 src="@/assets/img/icon_pencil.png" 
@@ -136,7 +136,7 @@
                     <div class="goal-7"><!-- заглушка для отрисовки -->
                         <div class="goal goal-10">
                             <div class="goal-content">
-                                цель 10
+                                {{GET_GOALS[9].name}}
                             </div>
                             <img 
                                 src="@/assets/img/icon_pencil.png" 
@@ -149,9 +149,12 @@
                 </div>
             </div>		
         </div>
-        <modal v-show="this.modalVisible" @close='closeModal'>
+        <modal v-show="this.modalVisible" @close='closeModal' v-if="this.modalVisible">
             <template v-slot:modal-content>
-                <edit-goal :goal='goalIndex'></edit-goal>
+                <edit-goal 
+                    :goalIndex='goalIndex' 
+                    @closeEditGoal='closeModal'
+                ></edit-goal>
             </template>  
         </modal>
     </div>  
@@ -190,9 +193,11 @@
 			this.dayIndex = 0;
 		},	
 		computed: {
-            ...mapGetters(['GET_AVATAR'])            
+            ...mapGetters(['GET_AVATAR']),
+            ...mapGetters(['GET_GOALS'])            
 		},			
 	  	methods: {
+
             editGoal: function (index) {
                 this.goalIndex = index;
                 this.modalVisible = true

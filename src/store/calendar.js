@@ -16,64 +16,54 @@ export default {
       //status имеет 3 варианта: 0 - 'Активная', 1 - 'Просроченная', 2 - 'Выполненная'
       goals: [
         {
-          goal: 'Цель 1', 
+          name: 'Цель 1', 
           status: 0, 
-          name: '', 
-          description: 'Описание цели'
+          description: ''
         },
         {
-          goal: 'Цель 2', 
+          name: 'Цель 2', 
           status: 0, 
-          name: '', 
-          description: 'Описание цели'
+          description: ''
         },
         {
-          goal: 'Цель 3', 
+          name: 'Цель 3', 
           status: 0, 
-          name: '', 
-          description: 'Описание цели'
+          description: ''
         }, 
         {
-          goal: 'Цель 4', 
+          name: 'Цель 4', 
           status: 0, 
-          name: '', 
-          description: 'Описание цели'
+          description: ''
         }, 
         {
-          goal: 'Цель 5', 
+          name: 'Цель 5', 
           status: 0, 
-          name: '', 
-          description: 'Описание цели'
+          description: ''
         }, 
         {
-          goal: 'Цель 6', 
+          name: 'Цель 6', 
           status: 0, 
-          name: '', 
-          description: 'Описание цели'
+          description: ''
         }, 
         {
-          goal: 'Цель 7', 
-          status: 0, 
-          name: '', 
-          description: 'Описание цели'
+          name: 'Цель 7', 
+          status: 0,  
+          description: ''
         }, 
         {
-          goal: 'Цель 8', 
+          name: 'Цель 8', 
           status: 0, 
-          name: '', 
-          description: 'Описание цели'
+          description: ''
         }, 
         {
-          goal: 'Цель 9', 
+          name: 'Цель 9', 
           status: 0, 
-          name: '', 
-          description: 'Описание цели'
+          description: ''
         }, 
         {
-          goal: 'Цель 10', 
+          name: 'Цель 10', 
           status: 0, 
-          name: '', 
-          description: 'Описание цели'
+          description: ''
         }
       ],
       //отображаем/скрываем меню выбора статуса цели
@@ -108,7 +98,10 @@ export default {
         
       },
       SET_GOALS (state, value) {
-        Object.assign(state.goals[value[1]], value[0])
+        Object.assign(
+          state.goals[value[0]], 
+          value[1]
+        )
       },
       //value для SET_STATUS_MENU приходит в виде {index: number, visible: boolean}
       SET_STATUS_MENU (state, value) {

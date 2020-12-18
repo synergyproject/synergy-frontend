@@ -19,7 +19,6 @@
                                 <img 
                                     src="@/assets/img/icon_pencil.png" 
                                     class="pencil" 
-                                    @click="editGoal1()"
                                 >
                             </div>
                             <div class="heading-message">

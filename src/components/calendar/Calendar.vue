@@ -40,11 +40,9 @@
 
 		},	
 		computed: {
-			...mapGetters(['GET_STATUS_MENU'])
+			
 		},			
 	  	methods: {
-			...mapMutations(['SET_STATUS_MENU']),
-
 			closeModal: function () {
 				this.modalVisible = false;	  		
 			}
