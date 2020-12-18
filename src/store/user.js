@@ -11,7 +11,6 @@ export default {
         avatar: null
       }
     },
-  
     getters: {
       GET_AVATAR (state) {
         if (state.user.avatar) {
