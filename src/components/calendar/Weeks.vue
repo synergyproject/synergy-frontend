@@ -43,6 +43,7 @@
                             @click="editGoal(0)"
                         >
                     </div>
+                    <!-- <div class="goal-info">test</div> -->
                 </div>
                 <div class="goals-container">
                     <div class="goal goal-2">
@@ -65,6 +66,7 @@
                             @click="editGoal(2)"
                         >
                     </div>
+                    <!-- <div class="goal-info">test</div> -->
                 </div>
                 <div class="goals-container">
                     <div class="goal goal-4">
@@ -107,6 +109,7 @@
                             @click="editGoal(6)"
                         >
                     </div>
+                    <!-- <div class="goal-info">test</div> -->
                 </div>
                 <div class="goals-container">
                     <div class="goal-7"><!-- заглушка -->
@@ -145,7 +148,8 @@
                             >
                         </div>
                     </div>
-                    <div class="goal-7"><!-- заглушка для отрисовки--></div>							
+                    <div class="goal-7"><!-- заглушка для отрисовки--></div>
+                    <!-- <div class="goal-info">{{goalName}}</div>							 -->
                 </div>
             </div>		
         </div>
@@ -174,6 +178,8 @@
 				calendarInfoMessage: 'Ваши цели пока не указаны, заполните пожалуйста цели',
                 dayIndex: 0,
                 goalIndex: 0,
+                goalName: 'name',
+                description: 'description',
                 modalVisible: false
 			}
 		},

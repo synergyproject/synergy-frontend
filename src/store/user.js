@@ -2,7 +2,7 @@ import axios from 'axios'
 export default {
     state: {
       user: {
-        firstName: 'Ivan', 
+        firstName: '', 
         surname: 'Petrovich', 
         email:'Prokofey_Kuznetsov@gmail.com', 
         usernameTelegram: '', 

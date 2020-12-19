@@ -84,6 +84,13 @@
                 .goal-8, .goal-9, .goal-10{
                     width: 115px;
                 }
+                .goal-info {
+                    position: absolute;
+                    z-index: 10;
+                    width: 1031px;
+                    background-color: aqua;
+                    height: 48px;
+                }
             }                
         }
     }

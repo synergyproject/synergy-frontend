@@ -7,12 +7,14 @@
             type="text" 
             class="goal-name" 
             placeholder="Введите название Цели..."
+            maxlength="20"
             v-model="name"
         >
         <textarea
             type="text" 
             class="goal-description"
             placeholder="Введите описание Цели..."
+            maxlength="1000"
             v-model="description"
         ></textarea>
         <div 
