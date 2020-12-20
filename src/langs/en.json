@@ -1,0 +1,23 @@
+{
+	"m_welcome": "Welcome!",
+	"m_enter_login": "Enter login",
+	"m_enter_password": "Enter password",
+	"m_enter": "Enter",
+	"m_error_confirm": "Incorrect email or password",
+	"m_error_empty_field": "Fill in all the fields",
+	"m_good": "All ok",
+	"m_help_content_text": [
+		"Password length must be",
+		"not less than 8",
+		"and",
+		"no more than 64",
+		"characters.",
+		"Password must consist of letters of the Latin alphabet",
+		"Arabic numerals",
+		"and special characters:",
+		"There must be one uppercase letter",
+		"one lowercase",
+		"letter",
+		"special character and an Arabic numeral."
+	]
+}

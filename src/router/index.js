@@ -28,11 +28,7 @@ const routes = [
 		name: 'Login',
 		component: Login
 	},
-	{
-		path: '/logout',
-		name: 'Logout',
-		component: Logout		
-	},
+	
 	{
 		path: '/line',
 	    name: 'PageLine',
