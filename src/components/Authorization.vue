@@ -137,7 +137,11 @@
 					username: this.email,
 					password: this.pass
 				});
-				axios.post('http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/login', data)
+				axios.post('http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/login', data, {
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				})
 				.then(response => {
 					const token = response.headers.authorization.split(' ')[1]
 					this.$store.dispatch('SET_TOKEN', token)
