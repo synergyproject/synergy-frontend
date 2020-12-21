@@ -217,14 +217,14 @@
             this.user.usernameTelegram = this.GET_USER.usernameTelegram;
             this.user.phone = this.GET_USER.phone;
             this.user.birthday = this.GET_USER.birthday;
-            this.FETCH_AVATAR();
             // при первом логине пользователь видит модальное окно "заполнить профиль"
             if (!this.GET_USER.firstName || !this.GET_USER.surname || !this.GET_USER.phone) {
                 this.blurIsActive = true;
                 this.modalVisible = true;
                 this.profileVisible = true;
             } else {
-                //поля телеграмНик, дата рождения могут оставаться пустыми но тогда они видны как input - намекаем пользователю что надо заполнить
+                //поля телеграмНик, дата рождения могут оставаться пустыми но тогда они видны как input
+                //  - намекаем пользователю что надо заполнить
                 if (!this.GET_USER.usernameTelegram) {
                     this.usernameTelegramInput = true
                 }
@@ -241,7 +241,6 @@
             ...mapGetters(['GET_USER'])            
 		},    
         methods: {
-            ...mapActions(['FETCH_AVATAR']),
             ...mapMutations(['SET_USER']),
 
             closeModal: function () {

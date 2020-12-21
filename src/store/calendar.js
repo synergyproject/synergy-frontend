@@ -18,7 +18,7 @@ export default {
         {
           name: 'Цель 1', 
           status: 0, 
-          description: ''
+          description: 'rr'
         },
         {
           name: 'Цель 2', 

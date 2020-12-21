@@ -27,7 +27,6 @@ export default {
     mutations: {
       SET_AVATAR (state, value) {
         state.user.avatar = value
-        console.log(state.user.avatar)
       },
       SET_USER (state, value) {
         Object.assign(state.user, value)
@@ -36,19 +35,18 @@ export default {
   
     actions: {
       //запрашиваем аватарку у сервера
-      FETCH_AVATAR ({commit}) {
-        return axios('http://some-url', {
-          method: "GET"
-        })
-        .then((avatar) => {
-          commit('SET_AVATAR', avatar);
-          return avatar;
-        })
-        .catch((error) => {
-          console.log(error);
-          return error;
-        })
-      }
-    },
-    
+      // FETCH_AVATAR ({commit}) {
+      //   return axios('http://some-url', {
+      //     method: "GET"
+      //   })
+      //   .then((avatar) => {
+      //     commit('SET_AVATAR', avatar);
+      //     return avatar;
+      //   })
+      //   .catch((error) => {
+      //     console.log(error);
+      //     return error;
+      //   })
+      // }
+    }   
 }

@@ -88,10 +88,35 @@
                     position: absolute;
                     z-index: 10;
                     width: 1031px;
-                    background-color: aqua;
-                    height: 48px;
+                    flex-direction: column;
+                    padding: 16px;
+                    font-weight: 500;
+                    font-size: 14px;
+                    line-height: 20px;
+                    background: #FFFFFF;
+                    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+                    border: 1px solid #F0D267;
+                    box-sizing: border-box;
+                    border-radius: 5px;
+                    .goalName{
+                        margin-bottom: 16px;
+                        width: 981px;
+                    }
+                    .pencil {
+                        position: absolute;
+                        right: 16px;
+                        width: 18px;
+                        height: 18px;
+                    }
                 }
             }                
         }
+    }
+    .goal-info-wrapper{
+        position: absolute;
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        left: 0;
     }
 }    

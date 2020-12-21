@@ -1,6 +1,8 @@
 <template>
     <div class="weeks-wrapper">
-        <div class="info-message">{{calendarInfoMessage}}</div>
+        <div class="info-message">
+            {{calendarInfoMessage}}
+        </div>
         <div class="header goals-header">
             Календарь целей
         </div>
@@ -32,8 +34,13 @@
                         8 неделя
                     </div>	
                 </div>
+
                 <div class="goals-container">
-                    <div class="goal goal-1">
+                    <!--блок цели. По клику на него открываем инфоокно про цель 
+                        первый параметр номер линии (1 из 4х), второй номер самой цели. И так для каждого блока цели-->
+                    <div class="goal goal-1"
+                        @click="openGoalInfo(0, 0)"           
+                    >
                         <div class="goal-content">
                             {{GET_GOALS[0].name}}
                         </div>
@@ -43,10 +50,32 @@
                             @click="editGoal(0)"
                         >
                     </div>
-                    <!-- <div class="goal-info">test</div> -->
+                    <!-- инфо блок с полной информацией о цели-->
+                    <div 
+                        class="goal-info" 
+                        v-if="goalInfo[0]" 
+                        @click="closeGoalInfo"
+                    > 
+                        <div class="goalName">
+                            {{goalName}}
+                        </div>
+                        <div class="description">
+                            Описание: <br>
+                            {{description}}
+                        </div>
+                        <img 
+                            src="@/assets/img/icon_pencil.png" 
+                            class="pencil" 
+                            @click="editGoal(currentGoal)"
+                        >
+                    </div>
                 </div>
+
                 <div class="goals-container">
-                    <div class="goal goal-2">
+                    <div 
+                        class="goal goal-2"
+                        @click="openGoalInfo(1, 1)"
+                    >
                         <div class="goal-content">
                             {{GET_GOALS[1].name}}
                         </div>
@@ -56,7 +85,10 @@
                             @click="editGoal(1)"
                         >
                     </div>
-                    <div class="goal goal-3">
+                    <div 
+                        class="goal goal-3"
+                        @click="openGoalInfo(1, 2)"
+                    >
                         <div class="goal-content">
                             {{GET_GOALS[2].name}}
                         </div>
@@ -66,10 +98,31 @@
                             @click="editGoal(2)"
                         >
                     </div>
-                    <!-- <div class="goal-info">test</div> -->
+                    <div 
+                        class="goal-info" 
+                        v-if="goalInfo[1]" 
+                        @click="closeGoalInfo"
+                    > 
+                        <div class="goalName">
+                            {{goalName}}
+                        </div>
+                        <div class="description">
+                            Описание: <br>
+                            {{description}}
+                        </div>
+                        <img 
+                            src="@/assets/img/icon_pencil.png" 
+                            class="pencil" 
+                            @click="editGoal(currentGoal)"
+                        >
+                    </div>
                 </div>
+
                 <div class="goals-container">
-                    <div class="goal goal-4">
+                    <div 
+                        class="goal goal-4"
+                        @click="openGoalInfo(2, 3)"
+                    >
                         <div class="goal-content">
                             {{GET_GOALS[3].name}}
                         </div>
@@ -79,7 +132,10 @@
                             @click="editGoal(3)"
                         >
                     </div>
-                    <div class="goal goal-5">
+                    <div 
+                        class="goal goal-5"
+                        @click="openGoalInfo(2, 4)"
+                    >
                         <div class="goal-content">
                             {{GET_GOALS[4].name}}
                         </div>
@@ -89,7 +145,10 @@
                             @click="editGoal(4)"
                         >
                     </div>
-                    <div class="goal goal-6">
+                    <div 
+                        class="goal goal-6"
+                        @click="openGoalInfo(2, 5)"
+                    >
                         <div class="goal-content">
                             {{GET_GOALS[5].name}}
                         </div>
@@ -98,8 +157,11 @@
                             class="pencil" 
                             @click="editGoal(5)"
                         >
-                    </div>
-                    <div class="goal goal-7">
+                    </div>                   
+                    <div 
+                        class="goal goal-7"
+                        @click="openGoalInfo(2, 6)"
+                    >
                         <div class="goal-content">
                             {{GET_GOALS[6].name}}
                         </div>
@@ -109,11 +171,35 @@
                             @click="editGoal(6)"
                         >
                     </div>
-                    <!-- <div class="goal-info">test</div> -->
+                    <div 
+                        class="goal-info" 
+                        v-if="goalInfo[2]" 
+                        @click="closeGoalInfo"
+                    > 
+                        <div class="goalName">
+                            {{goalName}}
+                        </div>
+                        <div class="description">
+                            Описание: <br>
+                            {{description}}
+                        </div>
+                        <img 
+                            src="@/assets/img/icon_pencil.png" 
+                            class="pencil" 
+                            @click="editGoal(currentGoal)"
+                        >
+                    </div>
                 </div>
+
+
+
+                
                 <div class="goals-container">
                     <div class="goal-7"><!-- заглушка -->
-                        <div class="goal goal-8">
+                        <div 
+                            class="goal goal-8"
+                            @click="openGoalInfo(3, 7)"
+                        >
                             <div class="goal-content">
                                 {{GET_GOALS[7].name}}
                             </div>
@@ -125,7 +211,10 @@
                         </div>
                     </div>
                     <div class="goal-7"><!-- заглушка -->
-                        <div class="goal goal-9">
+                        <div 
+                            class="goal goal-9"
+                            @click="openGoalInfo(3, 8)"
+                        >
                             <div class="goal-content">
                                 {{GET_GOALS[8].name}}
                             </div>
@@ -137,7 +226,10 @@
                         </div>
                     </div>
                     <div class="goal-7"><!-- заглушка для отрисовки -->
-                        <div class="goal goal-10">
+                        <div 
+                            class="goal goal-10"
+                            @click="openGoalInfo(3, 9)"
+                        >
                             <div class="goal-content">
                                 {{GET_GOALS[9].name}}
                             </div>
@@ -149,10 +241,28 @@
                         </div>
                     </div>
                     <div class="goal-7"><!-- заглушка для отрисовки--></div>
-                    <!-- <div class="goal-info">{{goalName}}</div>							 -->
+                    <div 
+                        class="goal-info" 
+                        v-if="goalInfo[3]" 
+                        @click="closeGoalInfo"
+                    > 
+                        <div class="goalName">
+                            {{goalName}}
+                        </div>
+                        <div class="description">
+                            Описание: <br>
+                            {{description}}
+                        </div>
+                        <img 
+                            src="@/assets/img/icon_pencil.png" 
+                            class="pencil" 
+                            @click="editGoal(currentGoal)"
+                        >
+                    </div>
                 </div>
             </div>		
         </div>
+
         <modal v-show="this.modalVisible" @close='closeModal' v-if="this.modalVisible">
             <template v-slot:modal-content>
                 <edit-goal 
@@ -161,6 +271,13 @@
                 ></edit-goal>
             </template>  
         </modal>
+
+        <!-- оболочка на весь экран клик по которой закроет инфо по цели (и саму оболочку тоже) -->
+        <div 
+            class="goal-info-wrapper" 
+            v-show="this.goalInfoWrapper"
+            @click='closeGoalInfo'
+        ></div>
     </div>  
 </template>
 
@@ -178,9 +295,18 @@
 				calendarInfoMessage: 'Ваши цели пока не указаны, заполните пожалуйста цели',
                 dayIndex: 0,
                 goalIndex: 0,
+                modalVisible: false,
                 goalName: 'name',
                 description: 'description',
-                modalVisible: false
+                goalInfoWrapper: false,
+                goalInfo: [
+                    false,
+                    false,
+                    false,
+                    false
+                ],
+                //в currentGoal хранится цель, для которой открыто расширенное инфокно и используется для определения номера цели, при открытии окна редактирования из инфоокна
+                currentGoal: 0
 			}
 		},
 		components: {
@@ -203,14 +329,30 @@
             ...mapGetters(['GET_GOALS'])            
 		},			
 	  	methods: {
-
+            //открываем модальное окно редактирования цели
             editGoal: function (index) {
+                this.closeGoalInfo();
                 this.goalIndex = index;
                 this.modalVisible = true
             },
             closeModal: function () {
+                this.closeGoalInfo();
 				this.modalVisible = false	  	
-			}
-        }      			
+            },
+            //открываем инфоокно текущей цели (line - номер линии (1 из 4х) где должно появиться инфоокно, goal - номер цели)
+            openGoalInfo: function (line, goal) {
+                this.currentGoal = goal;
+                this.goalInfoWrapper = true;
+                this.goalInfo[line] = true;
+                this.goalName = this.GET_GOALS[goal].name;
+                this.description = this.GET_GOALS[goal].description;
+            },
+            closeGoalInfo: function () {
+                this.goalInfoWrapper = false;
+                for (let i = 0; i < this.goalInfo.length; i++) {
+                    this.goalInfo[i] = false                  
+                }
+            }
+        }    			
 	}
 </script>

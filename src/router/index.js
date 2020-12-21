@@ -19,9 +19,9 @@ const routes = [
 		path: '/main',
 		name: 'Main',
 		component: Main,
-		meta: {
-			requiresAuth: true
-		}	
+		// meta: {
+		// 	requiresAuth: true
+		// }	
 	},
 	{
 		path: '/login',
@@ -37,17 +37,17 @@ const routes = [
 		path: '/line',
 	    name: 'PageLine',
 	    component: PageLine,
-	    meta: {
-			requiresAuth: true
-		}
+	    // meta: {
+		// 	requiresAuth: true
+		// }
 	},
 	{
 		path: '/calendar',
 	    name: 'Calendar',
 	    component: Calendar,
-		meta: {
-			requiresAuth: true
-		}
+		// meta: {
+		// 	requiresAuth: true
+		// }
 	},
 	{
 		path: '/logout',

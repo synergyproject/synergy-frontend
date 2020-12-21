@@ -47,7 +47,6 @@
 		mounted () {
             this.name = this.GET_GOALS[this.goalIndex].name;
             this.description = this.GET_GOALS[this.goalIndex].description;
-            console.log(this.name, this.goalIndex)
 		},	
 		computed: {
             ...mapGetters(['GET_GOALS'])
