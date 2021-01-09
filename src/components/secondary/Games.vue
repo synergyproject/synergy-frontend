@@ -2,7 +2,7 @@
     <div class="games-main">
         <div 
             class="game" 
-            v-for="(item, index) in GET_GAMES" 
+            v-for="(item, index) in getGamesList" 
             :key="index"
         >
             <div class="photo"></div>
@@ -11,14 +11,15 @@
                     {{item.name}}
                 </div>
                 <div class="game-info-left__description">
-                    {{item.description}}
+                    <!-- {{item.description}} -->
                 </div>
                 <div class="game-info-left__mentor">
                     <div class="mentor-title">
                         Ментор:
                     </div>
                     <div class="mentor">
-                        {{item.mentor}}
+                        {{ item.mentor.firstName }}
+                        <!-- {{item.mentor}} -->
                     </div>
                 </div>
                 <div class="game-info-left__coach">
@@ -26,7 +27,8 @@
                         Бизнес-тренер:
                     </div>
                     <div class="coach">
-                        {{item.coach}}
+                        {{ item.coach.firstName }}
+                        <!-- {{item.coach}} -->
                     </div>
                 </div>
                 <div class="game-info-left__buttons">
@@ -102,14 +104,21 @@
 
         },
         computed: {
-			...mapGetters(['GET_GAMES'])
-		},
+            ...mapGetters(['GET_GAMES', 'GET_GAMES_LIST']),
+            getGamesList() {
+                return this.GET_GAMES_LIST.games
+            }
+        },
         methods: {
+            ...mapActions(['GAMES_FROM_SERVER']),
             daysLeft: function (startDate, endDate) {
                 let date1 = new Date(startDate),
                     date2 = new Date(endDate);
                     return Math.ceil(Math.abs(date2.getTime() - date1.getTime()) / (1000 * 3600 * 24));
             }
+        },
+        mounted() {
+            this.GAMES_FROM_SERVER()
         }
     }
 </script>

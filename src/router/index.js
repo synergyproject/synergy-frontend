@@ -21,26 +21,25 @@ const routes = [
 		component: Main,
 		meta: {
 			requiresAuth: true
-		}	
+		}
 	},
 	{
-		path: '/login',
+		path: '/signup',
 		name: 'Login',
 		component: Login
 	},
-	
 	{
 		path: '/line',
-	    name: 'PageLine',
-	    component: PageLine,
-	    meta: {
+	   name: 'PageLine',
+	   component: PageLine,
+	   meta: {
 			requiresAuth: true
 		}
 	},
 	{
 		path: '/calendar',
-	    name: 'Calendar',
-	    component: Calendar,
+	   name: 'Calendar',
+	   component: Calendar,
 		meta: {
 			requiresAuth: true
 		}
