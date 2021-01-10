@@ -32,7 +32,12 @@
                     </div>
                     <div class="week">
                         8 неделя
-                    </div>	
+                    </div>
+                    <!-- слайдеp -->
+                    <div 
+                        class="slider"
+                        :style="sliderPosition()"
+                    ></div>
                 </div>
 
                 <div class="goals-container">
@@ -289,11 +294,13 @@
 	import { mapMutations, mapGetters, mapActions } from 'vuex';
 
 	export default {
-		name: 'Weeks',
+        name: 'Weeks',
+        props: {
+			dayIndex: Number
+		},
 		data () {
 			return {
 				calendarInfoMessage: 'Ваши цели пока не указаны, заполните пожалуйста цели',
-                dayIndex: 0,
                 goalIndex: 0,
                 modalVisible: false,
                 goalName: 'name',
@@ -305,7 +312,7 @@
                     false,
                     false
                 ],
-                //в currentGoal хранится цель, для которой открыто расширенное инфокно и используется для определения номера цели, при открытии окна редактирования из инфоокна
+                //в currentGoal хранится номер цели, для которой открыто расширенное инфокно.
                 currentGoal: 0
 			}
 		},
@@ -313,22 +320,16 @@
             Modal: Modal,
             EditGoal: EditGoal
 		},
-		mounted () {
-			//при создании компонента получаем текущую дату и от бекенда дату начала игры и вычисляем
-			//текущий день который будет равен нужному индексу массива todoList
-			// let gameStartDate = '2020-12-01';
-			// let	date = new Date();
-			// let	currentDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();			
-			// this.dayIndex = Math.ceil((Date.parse(currentDate) - Date.parse(gameStartDate)) / 86400000);
-
-			// пока что this.dayIndex установим в 0 для теста
-			this.dayIndex = 0;
-		},	
 		computed: {
             ...mapGetters(['GET_AVATAR']),
             ...mapGetters(['GET_GOALS'])            
 		},			
 	  	methods: {
+            //определяем позицию слайдера на компоненте weeks
+            sliderPosition: function () {
+                let position = this.dayIndex  * 18.7;
+                return { left: position + 'px' }
+            },
             //открываем модальное окно редактирования цели
             editGoal: function (index) {
                 this.closeGoalInfo();
