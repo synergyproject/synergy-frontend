@@ -4,7 +4,8 @@
 		@keyup.enter="verificationPassword()"
 	>
 		<div class="greeting">
-			Добро пожаловать, hillel@gmail.com!
+			Добро пожаловать, 
+			{{ GET_INVITATION_PARAMETERS.email }}
 		</div>		
 		<div class="login-main-block">
 			<div class="validation-form">
@@ -98,6 +99,7 @@
 </template>
 
 <script>
+	import { mapMutations, mapGetters, mapActions } from 'vuex';
 	import Modal from '@/components/modal/Modal';
 	import help_circle from '@/assets/img/help_circle.png';
 	import ahtung_circle from '@/assets/img/ahtung_circle.png';
@@ -126,8 +128,16 @@
 		},
 		components: {
 	        Modal: Modal
-	    },			
+		},
+		computed: {
+			...mapGetters(['GET_INVITATION_PARAMETERS'])
+		},
+		created() {
+			const urlQueryParam = window.location.search.split('=')[1];
+			this.SEND_INVITATION_TOKEN(urlQueryParam);
+		},
 	  	methods: {
+			...mapActions(['SEND_INVITATION_TOKEN']),
 	  		verificationPassword: function () {
 	  			let passStatus = /(?=.*[0-9])(?=.*[.,:;?!*+%\-<>@[\]{}()/\\_$#])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z\.,:;\?!\*\+%-<>@\[\]\{\}/\\_\$#]{8,}/g.test(this.pass);
 					// (?=.*[0-9]) - строка содержит хотя бы одно число;
