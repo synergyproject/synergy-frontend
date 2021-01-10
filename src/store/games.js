@@ -80,7 +80,7 @@ export default {
     // 'GET_GAMES' (state) {
     //   return state.games
     // },
-    GET_GAMES_LIST(state) {
+    "GET_GAMES_LIST"(state) {
       return state.gamesData;
     },
     // GET_INVITATION_PARAMETERS(state) {
@@ -88,7 +88,7 @@ export default {
     // },
   },
   mutations: {
-    SET_LIST_OF_GAMES(state, payload) {
+    "SET_LIST_OF_GAMES"(state, payload) {
       state.gamesData = payload;
     },
     // SET_INVITATION_PARAMETERS(state, payload) {
@@ -96,7 +96,7 @@ export default {
     // },
   },
   actions: {
-    GAMES_FROM_SERVER({ commit }) {
+    "GAMES_FROM_SERVER"({ commit }) {
       return axios
         .get(
           "http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/games",
@@ -107,6 +107,7 @@ export default {
           }
         )
         .then((response) => {
+          console.log(response ,'response games');
           commit("SET_LIST_OF_GAMES", response.data);
           return response;
         })

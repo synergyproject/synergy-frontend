@@ -9,6 +9,7 @@
                 <div class="photo"></div>
                 <div class="game-info-left">
                     <div class="game-info-left__name">
+                        {{ item.name }}
                         <!-- {{item.name}} -->
                     </div>
                     <div class="game-info-left__description">
@@ -118,8 +119,7 @@
             }
         },
         mounted() {
-            this.GAMES_FROM_SERVER()
-            console.log(this.GET_GAMES_LIST.games, 'this.GET_GAMES_LIST.games');
+            this.GAMES_FROM_SERVER();
         }
     }
 </script>

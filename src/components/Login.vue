@@ -130,14 +130,18 @@
 	        Modal: Modal
 		},
 		computed: {
-			...mapGetters(['GET_INVITATION_PARAMETERS'])
+			...mapGetters([
+				'GET_INVITATION_PARAMETERS',
+				'GET_AUTHORIZATION_TOKEN',
+				'GET_STATUS_CODE_FROM_SERVER'
+			])
 		},
 		created() {
 			const urlQueryParam = window.location.search.split('=')[1];
 			this.SEND_INVITATION_TOKEN(urlQueryParam);
 		},
 	  	methods: {
-			...mapActions(['SEND_INVITATION_TOKEN']),
+			...mapActions(['SEND_INVITATION_TOKEN', 'SEND_DATA_TO_CREATE_ACCOUNT']),
 	  		verificationPassword: function () {
 	  			let passStatus = /(?=.*[0-9])(?=.*[.,:;?!*+%\-<>@[\]{}()/\\_$#])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z\.,:;\?!\*\+%-<>@\[\]\{\}/\\_\$#]{8,}/g.test(this.pass);
 					// (?=.*[0-9]) - строка содержит хотя бы одно число;
@@ -152,8 +156,7 @@
 						} else {
 							if (this.pass === this.passСonfirm) {	
 								this.info_message = this.errors.good
-								//this.sendPassword();	тут мы отправляем пароль на бэк
-								this.$router.push ({path:'/main'}) 
+								this.sendDataToCreateAccount().then(() => this.goToPageHandler());
 							} else {
 								this.info_message = this.errors.err_confirm
 							}	
@@ -162,9 +165,13 @@
 						this.info_message = this.errors.err_emptyField
 					}
 	  		},
-			sendPassword: function () {
-		  		let PasswordJson = JSON.stringify(this.pass);
-				//отправляем пароль на бэк		  		
+			sendDataToCreateAccount: function () {
+				  const dataObject = {
+					  email: this.GET_INVITATION_PARAMETERS.email,
+					  gameId: this.GET_INVITATION_PARAMETERS.gameId,
+					  password: this.pass
+				  }
+				  return this.SEND_DATA_TO_CREATE_ACCOUNT(dataObject);
 			},
 			closeModal: function () {
 		  		this.modalVisible = false;	  		
@@ -177,8 +184,13 @@
 		  			this.eyePassСonfirmVisible = !this.eyePassСonfirmVisible;
 		  			this.inputTypePassСonfirm = this.eyePassСonfirmVisible ? 'password' : 'text'
 		  		}		  		
-			  }		  	
-		}  			
+			},
+			goToPageHandler() {
+				if(this.GET_STATUS_CODE_FROM_SERVER === 201) {
+					this.$router.push({path: '/'});
+				}
+			}
+		}
 	}
 </script>
 

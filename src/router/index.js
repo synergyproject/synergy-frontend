@@ -57,4 +57,10 @@ const router = new VueRouter({
   routes
 })
 
+router.beforeEach( async (to, from, next) => {
+	console.log(to, 'to');
+	console.log(from, 'from');
+	next();
+})
+
 export default router
