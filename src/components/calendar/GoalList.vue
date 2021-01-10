@@ -13,10 +13,10 @@
                 <div class="goal-container">
                     <div class="goal-description-wrapper">
                         <div class="goal">
-                            {{item.goal}}
+                            {{item.name}}
                         </div>
                         <div class="goal-description">
-                            {{item.report}}
+                            {{item.description}}
                         </div>
                     </div>
                     <div class="goal-status-wrapper">
@@ -126,7 +126,10 @@
                 });
                 //проверяем если мы передали statusIndex то мы не просто открыли меню, а уже выбрали новый статус - то меняем его
                 if (statusIndex >= 0) {                  
-                    this.SET_GOALS([{status: statusIndex}, goalIndex])
+                    this.SET_GOALS([
+                        goalIndex,
+                        {status: statusIndex}
+                    ])
                 }
                 //в итоге меняем статус меню на противоположный                         
                 this.SET_STATUS_MENU(

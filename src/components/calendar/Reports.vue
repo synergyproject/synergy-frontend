@@ -19,7 +19,6 @@
                                 <img 
                                     src="@/assets/img/icon_pencil.png" 
                                     class="pencil" 
-                                    @click="editGoal1()"
                                 >
                             </div>
                             <div class="heading-message">
@@ -63,10 +62,10 @@
                         <div class="reports-content">
                             <div class="reports-content__item">
                                 <div class="goal">
-                                    {{GET_GOALS[0].goal}}
+                                    {{GET_GOALS[0].name}}
                                 </div>
                                 <div class="report">
-                                    {{GET_GOALS[0].report}}
+                                    {{GET_GOALS[0].reports[0]}}
                                 </div>
                             </div>
                             <div class="reports-content__item">
@@ -152,26 +151,20 @@
 	import { mapMutations, mapGetters, mapActions } from 'vuex';
 
 	export default {
-		name: 'Reports',
+        name: 'Reports',
+        props: {
+			dayIndex: Number
+		},
 		data () {
 			return {
-				reportInfoMessage: 'у вас осталось 3 попытки',
-				dayIndex: 0
+				reportInfoMessage: 'у вас осталось 3 попытки'
 			}
 		},
 		components: {
 			
 		},
 		mounted () {
-			//при создании компонента получаем текущую дату и от бекенда дату начала игры и вычисляем
-			//текущий день который будет равен нужному индексу массива todoList
-			// let gameStartDate = '2020-12-01';
-			// let	date = new Date();
-			// let	currentDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();			
-			// this.dayIndex = Math.ceil((Date.parse(currentDate) - Date.parse(gameStartDate)) / 86400000);
 
-			// пока что this.dayIndex установим в 0 для теста
-			this.dayIndex = 0
 		},	
 		computed: {
             ...mapGetters(['GET_TODOLIST']),
@@ -187,31 +180,32 @@
 				}				
             },
             getGoalReport: function(index, goal) {
-                //в зависимости от текущего дня игры выводим соответствующую цель и отчет к ней
-                //если параметр goal - true вернем цель, иначе отчет к этой цели
+                // в зависимости от текущего дня игры выводим соответствующую цель и отчет к ней
+                // просроченные цели не выводим!! 
+                // если параметр goal - true вернем цель, иначе отчет к этой цели
                 if (index === 1) {
                     if (this.dayIndex <= 28) {
-                        return goal ? this.GET_GOALS[1].goal : this.GET_GOALS[1].report
+                        return goal ? this.GET_GOALS[1].name : this.GET_GOALS[1].reports[0]
                     } else {
-                        return goal ? this.GET_GOALS[2].goal : this.GET_GOALS[2].report
+                        return goal ? this.GET_GOALS[2].name : this.GET_GOALS[2].reports[0]
                     }
                 } else if (index === 2) {
                     if (this.dayIndex <= 14) {
-                        return goal ? this.GET_GOALS[3].goal : this.GET_GOALS[3].report
+                        return goal ? this.GET_GOALS[3].name : this.GET_GOALS[3].reports[0]
                     } else if (this.dayIndex > 14 && this.dayIndex <= 28) {
-                        return goal ? this.GET_GOALS[4].goal : this.GET_GOALS[4].report
+                        return goal ? this.GET_GOALS[4].name : this.GET_GOALS[4].reports[0]
                     } else if (this.dayIndex > 28 && this.dayIndex <= 42) {
-                        return goal ? this.GET_GOALS[5].goal : this.GET_GOALS[5].report
+                        return goal ? this.GET_GOALS[5].name : this.GET_GOALS[5].reports[0]
                     } else if (this.dayIndex > 42) {
-                        return goal ? this.GET_GOALS[6].goal : this.GET_GOALS[6].report
+                        return goal ? this.GET_GOALS[6].name : this.GET_GOALS[6].reports[0]
                     } 
                 } else if (index === 3) {
                      if (this.dayIndex <= 14) {
-                        return goal ? this.GET_GOALS[7].goal : this.GET_GOALS[7].report
+                        return goal ? this.GET_GOALS[7].name : this.GET_GOALS[7].reports[0]
                     } else if (this.dayIndex > 14 && this.dayIndex <= 28) {
-                        return goal ? this.GET_GOALS[8].goal : this.GET_GOALS[8].report
+                        return goal ? this.GET_GOALS[8].name : this.GET_GOALS[8].reports[0]
                     } else if (this.dayIndex > 28) {
-                        return goal ? this.GET_GOALS[9].goal : this.GET_GOALS[9].report
+                        return goal ? this.GET_GOALS[9].name : this.GET_GOALS[9].reports[0]
                     }
                 }
             }

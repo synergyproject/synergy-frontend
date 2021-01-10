@@ -9,13 +9,12 @@
     flex-direction: column;
     .coach-header{
         margin-top: 49px;
-        margin-bottom: 36px;
+        margin-bottom: 49px;
         width: 675px;
-        height: 142px;
+        // height: 142px;
         padding-right: 32px;
-        flex-direction: column;
+        justify-content: center;
         .start-game-button{
-            align-self: center;
             align-items: center;
             justify-content: center;
             user-select: none;
@@ -23,17 +22,20 @@
             border-radius: 23.5px;
             width: 215px;
             height: 32px;
-            margin-bottom: 47px;
+            // margin-bottom: 47px;
+            position: relative;
         }
         .coach-info{
             align-self: flex-end;
             justify-content: flex-end;
             flex-direction: column;
-            width: 268px;
-            height: 63px;
+            max-width: 450px;
             font-weight: bold;
             font-size: 24px;
             line-height: 28px;
+            position: absolute;
+            right: 65px;
+            top: 45px;
             div{
                 align-self: flex-end;
             }

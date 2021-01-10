@@ -5,38 +5,38 @@
             v-for="(item, index) in getGamesList" 
             :key="index"
         >
-            <div class="photo"></div>
-            <div class="game-info-left">
-                <div class="game-info-left__name">
-                    {{item.name}}
-                </div>
-                <div class="game-info-left__description">
-                    <!-- {{item.description}} -->
-                </div>
-                <div class="game-info-left__mentor">
-                    <div class="mentor-title">
-                        Ментор:
+            <div>
+                <div class="photo"></div>
+                <div class="game-info-left">
+                    <div class="game-info-left__name">
+                        <!-- {{item.name}} -->
                     </div>
-                    <div class="mentor">
-                        {{ item.mentor.firstName }}
-                        <!-- {{item.mentor}} -->
+                    <div class="game-info-left__description">
+                        <!-- {{item.description}} -->
                     </div>
-                </div>
-                <div class="game-info-left__coach">
-                    <div class="coach-title">
-                        Бизнес-тренер:
+                    <div class="game-info-left__mentor">
+                        <div class="mentor-title">
+                            Ментор:
+                        </div>
+                        <div class="mentor">
+                            {{item.mentor.firstName + ' ' + item.mentor.lastName}}
+                        </div>
                     </div>
-                    <div class="coach">
-                        {{ item.coach.firstName }}
-                        <!-- {{item.coach}} -->
+                    <div class="game-info-left__coach">
+                        <div class="coach-title">
+                            Бизнес-тренер:
+                        </div>
+                        <div class="coach">
+                            <!-- {{item.coach}} -->
+                        </div>
                     </div>
-                </div>
-                <div class="game-info-left__buttons">
-                    <div class="game-button basic-buttons">
-                        Войти
-                    </div>
-                    <div class="game-button basic-buttons">
-                        Настроить
+                    <div class="game-info-left__buttons">
+                        <div class="game-button basic-buttons">
+                            Войти
+                        </div>
+                        <div class="game-button basic-buttons">
+                            Настроить
+                        </div>
                     </div>
                 </div>
             </div>
@@ -119,6 +119,7 @@
         },
         mounted() {
             this.GAMES_FROM_SERVER()
+            console.log(this.GET_GAMES_LIST.games, 'this.GET_GAMES_LIST.games');
         }
     }
 </script>

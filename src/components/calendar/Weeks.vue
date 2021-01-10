@@ -1,6 +1,8 @@
 <template>
     <div class="weeks-wrapper">
-        <div class="info-message">{{calendarInfoMessage}}</div>
+        <div class="info-message">
+            {{calendarInfoMessage}}
+        </div>
         <div class="header goals-header">
             Календарь целей
         </div>
@@ -30,12 +32,22 @@
                     </div>
                     <div class="week">
                         8 неделя
-                    </div>	
+                    </div>
+                    <!-- слайдеp -->
+                    <div 
+                        class="slider"
+                        :style="sliderPosition()"
+                    ></div>
                 </div>
+
                 <div class="goals-container">
-                    <div class="goal goal-1">
+                    <!--блок цели. По клику на него открываем инфоокно про цель 
+                        первый параметр номер линии (1 из 4х), второй номер самой цели. И так для каждого блока цели-->
+                    <div class="goal goal-1"
+                        @click="openGoalInfo(0, 0)"           
+                    >
                         <div class="goal-content">
-                            цель 1
+                            {{GET_GOALS[0].name}}
                         </div>
                         <img 
                             src="@/assets/img/icon_pencil.png" 
@@ -43,11 +55,34 @@
                             @click="editGoal(0)"
                         >
                     </div>
+                    <!-- инфо блок с полной информацией о цели-->
+                    <div 
+                        class="goal-info" 
+                        v-if="goalInfo[0]" 
+                        @click="closeGoalInfo"
+                    > 
+                        <div class="goalName">
+                            {{goalName}}
+                        </div>
+                        <div class="description">
+                            Описание: <br>
+                            {{description}}
+                        </div>
+                        <img 
+                            src="@/assets/img/icon_pencil.png" 
+                            class="pencil" 
+                            @click="editGoal(currentGoal)"
+                        >
+                    </div>
                 </div>
+
                 <div class="goals-container">
-                    <div class="goal goal-2">
+                    <div 
+                        class="goal goal-2"
+                        @click="openGoalInfo(1, 1)"
+                    >
                         <div class="goal-content">
-                            цель 2
+                            {{GET_GOALS[1].name}}
                         </div>
                         <img 
                             src="@/assets/img/icon_pencil.png" 
@@ -55,9 +90,12 @@
                             @click="editGoal(1)"
                         >
                     </div>
-                    <div class="goal goal-3">
+                    <div 
+                        class="goal goal-3"
+                        @click="openGoalInfo(1, 2)"
+                    >
                         <div class="goal-content">
-                            цель 3
+                            {{GET_GOALS[2].name}}
                         </div>
                         <img 
                             src="@/assets/img/icon_pencil.png" 
@@ -65,11 +103,33 @@
                             @click="editGoal(2)"
                         >
                     </div>
+                    <div 
+                        class="goal-info" 
+                        v-if="goalInfo[1]" 
+                        @click="closeGoalInfo"
+                    > 
+                        <div class="goalName">
+                            {{goalName}}
+                        </div>
+                        <div class="description">
+                            Описание: <br>
+                            {{description}}
+                        </div>
+                        <img 
+                            src="@/assets/img/icon_pencil.png" 
+                            class="pencil" 
+                            @click="editGoal(currentGoal)"
+                        >
+                    </div>
                 </div>
+
                 <div class="goals-container">
-                    <div class="goal goal-4">
+                    <div 
+                        class="goal goal-4"
+                        @click="openGoalInfo(2, 3)"
+                    >
                         <div class="goal-content">
-                            цель 4
+                            {{GET_GOALS[3].name}}
                         </div>
                         <img 
                             src="@/assets/img/icon_pencil.png" 
@@ -77,9 +137,12 @@
                             @click="editGoal(3)"
                         >
                     </div>
-                    <div class="goal goal-5">
+                    <div 
+                        class="goal goal-5"
+                        @click="openGoalInfo(2, 4)"
+                    >
                         <div class="goal-content">
-                            цель 5
+                            {{GET_GOALS[4].name}}
                         </div>
                         <img 
                             src="@/assets/img/icon_pencil.png" 
@@ -87,19 +150,25 @@
                             @click="editGoal(4)"
                         >
                     </div>
-                    <div class="goal goal-6">
+                    <div 
+                        class="goal goal-6"
+                        @click="openGoalInfo(2, 5)"
+                    >
                         <div class="goal-content">
-                            цель 6
+                            {{GET_GOALS[5].name}}
                         </div>
                         <img 
                             src="@/assets/img/icon_pencil.png" 
                             class="pencil" 
                             @click="editGoal(5)"
                         >
-                    </div>
-                    <div class="goal goal-7">
+                    </div>                   
+                    <div 
+                        class="goal goal-7"
+                        @click="openGoalInfo(2, 6)"
+                    >
                         <div class="goal-content">
-                            цель 7
+                            {{GET_GOALS[6].name}}
                         </div>
                         <img 
                             src="@/assets/img/icon_pencil.png" 
@@ -107,12 +176,37 @@
                             @click="editGoal(6)"
                         >
                     </div>
+                    <div 
+                        class="goal-info" 
+                        v-if="goalInfo[2]" 
+                        @click="closeGoalInfo"
+                    > 
+                        <div class="goalName">
+                            {{goalName}}
+                        </div>
+                        <div class="description">
+                            Описание: <br>
+                            {{description}}
+                        </div>
+                        <img 
+                            src="@/assets/img/icon_pencil.png" 
+                            class="pencil" 
+                            @click="editGoal(currentGoal)"
+                        >
+                    </div>
                 </div>
+
+
+
+                
                 <div class="goals-container">
                     <div class="goal-7"><!-- заглушка -->
-                        <div class="goal goal-8">
+                        <div 
+                            class="goal goal-8"
+                            @click="openGoalInfo(3, 7)"
+                        >
                             <div class="goal-content">
-                                цель 8
+                                {{GET_GOALS[7].name}}
                             </div>
                             <img 
                                 src="@/assets/img/icon_pencil.png" 
@@ -122,9 +216,12 @@
                         </div>
                     </div>
                     <div class="goal-7"><!-- заглушка -->
-                        <div class="goal goal-9">
+                        <div 
+                            class="goal goal-9"
+                            @click="openGoalInfo(3, 8)"
+                        >
                             <div class="goal-content">
-                                цель 9
+                                {{GET_GOALS[8].name}}
                             </div>
                             <img 
                                 src="@/assets/img/icon_pencil.png" 
@@ -134,9 +231,12 @@
                         </div>
                     </div>
                     <div class="goal-7"><!-- заглушка для отрисовки -->
-                        <div class="goal goal-10">
+                        <div 
+                            class="goal goal-10"
+                            @click="openGoalInfo(3, 9)"
+                        >
                             <div class="goal-content">
-                                цель 10
+                                {{GET_GOALS[9].name}}
                             </div>
                             <img 
                                 src="@/assets/img/icon_pencil.png" 
@@ -145,15 +245,44 @@
                             >
                         </div>
                     </div>
-                    <div class="goal-7"><!-- заглушка для отрисовки--></div>							
+                    <div class="goal-7"><!-- заглушка для отрисовки--></div>
+                    <div 
+                        class="goal-info" 
+                        v-if="goalInfo[3]" 
+                        @click="closeGoalInfo"
+                    > 
+                        <div class="goalName">
+                            {{goalName}}
+                        </div>
+                        <div class="description">
+                            Описание: <br>
+                            {{description}}
+                        </div>
+                        <img 
+                            src="@/assets/img/icon_pencil.png" 
+                            class="pencil" 
+                            @click="editGoal(currentGoal)"
+                        >
+                    </div>
                 </div>
             </div>		
         </div>
-        <modal v-show="this.modalVisible" @close='closeModal'>
+
+        <modal v-show="this.modalVisible" @close='closeModal' v-if="this.modalVisible">
             <template v-slot:modal-content>
-                <edit-goal :goal='goalIndex'></edit-goal>
+                <edit-goal 
+                    :goalIndex='goalIndex' 
+                    @closeEditGoal='closeModal'
+                ></edit-goal>
             </template>  
         </modal>
+
+        <!-- оболочка на весь экран клик по которой закроет инфо по цели (и саму оболочку тоже) -->
+        <div 
+            class="goal-info-wrapper" 
+            v-show="this.goalInfoWrapper"
+            @click='closeGoalInfo'
+        ></div>
     </div>  
 </template>
 
@@ -165,41 +294,66 @@
 	import { mapMutations, mapGetters, mapActions } from 'vuex';
 
 	export default {
-		name: 'Weeks',
+        name: 'Weeks',
+        props: {
+			dayIndex: Number
+		},
 		data () {
 			return {
 				calendarInfoMessage: 'Ваши цели пока не указаны, заполните пожалуйста цели',
-                dayIndex: 0,
                 goalIndex: 0,
-                modalVisible: false
+                modalVisible: false,
+                goalName: 'name',
+                description: 'description',
+                goalInfoWrapper: false,
+                goalInfo: [
+                    false,
+                    false,
+                    false,
+                    false
+                ],
+                //в currentGoal хранится номер цели, для которой открыто расширенное инфокно.
+                currentGoal: 0
 			}
 		},
 		components: {
             Modal: Modal,
             EditGoal: EditGoal
 		},
-		mounted () {
-			//при создании компонента получаем текущую дату и от бекенда дату начала игры и вычисляем
-			//текущий день который будет равен нужному индексу массива todoList
-			// let gameStartDate = '2020-12-01';
-			// let	date = new Date();
-			// let	currentDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();			
-			// this.dayIndex = Math.ceil((Date.parse(currentDate) - Date.parse(gameStartDate)) / 86400000);
-
-			// пока что this.dayIndex установим в 0 для теста
-			this.dayIndex = 0;
-		},	
 		computed: {
-            ...mapGetters(['GET_AVATAR'])            
+            ...mapGetters(['GET_AVATAR']),
+            ...mapGetters(['GET_GOALS'])            
 		},			
 	  	methods: {
+            //определяем позицию слайдера на компоненте weeks
+            sliderPosition: function () {
+                let position = this.dayIndex  * 18.7;
+                return { left: position + 'px' }
+            },
+            //открываем модальное окно редактирования цели
             editGoal: function (index) {
+                this.closeGoalInfo();
                 this.goalIndex = index;
                 this.modalVisible = true
             },
             closeModal: function () {
+                this.closeGoalInfo();
 				this.modalVisible = false	  	
-			}
-        }      			
+            },
+            //открываем инфоокно текущей цели (line - номер линии (1 из 4х) где должно появиться инфоокно, goal - номер цели)
+            openGoalInfo: function (line, goal) {
+                this.currentGoal = goal;
+                this.goalInfoWrapper = true;
+                this.goalInfo[line] = true;
+                this.goalName = this.GET_GOALS[goal].name;
+                this.description = this.GET_GOALS[goal].description;
+            },
+            closeGoalInfo: function () {
+                this.goalInfoWrapper = false;
+                for (let i = 0; i < this.goalInfo.length; i++) {
+                    this.goalInfo[i] = false                  
+                }
+            }
+        }    			
 	}
 </script>

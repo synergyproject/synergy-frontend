@@ -55,9 +55,6 @@
                 activeDecorColor: '#C4C4C4'
             }
         },
-        components: {
-
-        },
         methods: {
             ...mapMutations(['SET_AVATAR']),
             

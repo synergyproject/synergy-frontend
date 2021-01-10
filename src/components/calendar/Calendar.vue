@@ -2,52 +2,41 @@
 	<div class="calendar-page">
 		<side-bar></side-bar>
 		<div class="calendar-wrapper">
-			<weeks></weeks>
-			<reports></reports>
+			<weeks :dayIndex='dayIndex'></weeks>
+			<reports :dayIndex='dayIndex'></reports>
 			<goal-list></goal-list>
-			<modal v-show="this.modalVisible" @close='closeModal'>
-				ТЕСТ
-			</modal>
 		</div>   
 	</div>    
 </template>
 
 <script>
-	import axios from 'axios';
-	import Modal from '@/components/modal/Modal';
 	import SideBar from '@/components/layouts/SideBar';
 	import Weeks from '@/components/calendar/Weeks';
 	import Reports from '@/components/calendar/Reports';
 	import GoalList from '@/components/calendar/GoalList';
-	import icon_pencil from '@/assets/img/icon_pencil.png';
-	import { mapMutations, mapGetters, mapActions } from 'vuex';
 
 	export default {
 		name: 'calendar',
 		data () {
 			return {
-				modalVisible: false
+				dayIndex: 0
 			}
 		},
 		components: {
-			Modal: Modal,
 			SideBar: SideBar,
 			Weeks: Weeks,
 			Reports: Reports,
 			GoalList: GoalList
 		},
 		mounted() {
+			//при создании компонента получаем текущую дату и от бекенда дату начала игры (gameStartDate) и вычисляем текущий день игры
+			// let gameStartDate = '2020-12-01';
+			// let	date = new Date();
+			// let	currentDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();			
+			// this.dayIndex = Math.ceil((Date.parse(currentDate) - Date.parse(gameStartDate)) / 86400000);
 
-		},	
-		computed: {
-			...mapGetters(['GET_STATUS_MENU'])
-		},			
-	  	methods: {
-			...mapMutations(['SET_STATUS_MENU']),
-
-			closeModal: function () {
-				this.modalVisible = false;	  		
-			}
-        }      			
+			// пока что this.dayIndex установим в 0 для теста
+			this.dayIndex = 0;
+		}    			
 	}
 </script>
