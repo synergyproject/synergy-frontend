@@ -1,37 +1,37 @@
 <template>
     <div class="weeks-wrapper">
         <div class="info-message">
-            {{calendarInfoMessage}}
+            {{ $t(calendarInfoMessage) }}
         </div>
         <div class="header goals-header">
-            Календарь целей
+            {{ $t('m_create_game') }}
         </div>
         <div class="goals-wrapper">
             <div class="goals">
                 <div class="weeks">
                     <div class="week">
-                        1 неделя
+                        1 {{ $t('m_week') }}
                     </div>
                     <div class="week">
-                        2 неделя
+                        2 {{ $t('m_week') }}
                     </div>
                     <div class="week">
-                        3 неделя
+                        3 {{ $t('m_week') }}
                     </div>
                     <div class="week">
-                        4 неделя
+                        4 {{ $t('m_week') }}
                     </div>
                     <div class="week">
-                        5 неделя
+                        5 {{ $t('m_week') }}
                     </div>
                     <div class="week">
-                        6 неделя
+                        6 {{ $t('m_week') }}
                     </div>
                     <div class="week">
-                        7 неделя
+                        7 {{ $t('m_week') }}
                     </div>
                     <div class="week">
-                        8 неделя
+                        8 {{ $t('m_week') }}
                     </div>
                     <!-- слайдеp -->
                     <div 
@@ -65,7 +65,7 @@
                             {{goalName}}
                         </div>
                         <div class="description">
-                            Описание: <br>
+                            {{ $t('m_description') }}: <br>
                             {{description}}
                         </div>
                         <img 
@@ -112,7 +112,7 @@
                             {{goalName}}
                         </div>
                         <div class="description">
-                            Описание: <br>
+                            {{ $t('m_description') }}: <br>
                             {{description}}
                         </div>
                         <img 
@@ -185,7 +185,7 @@
                             {{goalName}}
                         </div>
                         <div class="description">
-                            Описание: <br>
+                            {{ $t('m_description') }}: <br>
                             {{description}}
                         </div>
                         <img 
@@ -255,7 +255,7 @@
                             {{goalName}}
                         </div>
                         <div class="description">
-                            Описание: <br>
+                            {{ $t('m_description') }}: <br>
                             {{description}}
                         </div>
                         <img 
@@ -300,7 +300,7 @@
 		},
 		data () {
 			return {
-				calendarInfoMessage: 'Ваши цели пока не указаны, заполните пожалуйста цели',
+				calendarInfoMessage: 'm_calendar_info_message',
                 goalIndex: 0,
                 modalVisible: false,
                 goalName: 'name',

@@ -22,7 +22,7 @@
             }
             .goal-container{
                 width: 1033px;
-                height: 40px;
+                max-height: 40px;
                 margin-top: 9px;
                 margin-bottom: 9px;
                 align-items: center;
@@ -37,9 +37,12 @@
                     .goal{
                         width: 154px;
                         margin-right: 81px;
+                        align-items: center;
                     }
                     .goal-description{
-                        max-width: 400px; //поставил наугад  -  нужно будет уточнить у дизигнера
+                        width: 550px; //поставил наугад  -  нужно будет уточнить у дизигнера
+                        height: 40px;
+                        overflow: hidden;
                     }
                 }
                 .goal-status-wrapper{

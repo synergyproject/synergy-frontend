@@ -1,14 +1,14 @@
 <template>
     <div class="recovery-block-main">
         <div class="email-info">
-            Адрес электронной почты
+            {{ $t('m_enter_your_last_name') }}
         </div>
         <input 
             type="email" 
             maxlength="64"
         >
         <div class="recovery-password-button basic-buttons">
-            Востановить пароль
+            {{ $t('m_restore_password') }}
         </div>
     </div>
 </template>

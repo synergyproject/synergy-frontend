@@ -19,7 +19,7 @@
                     :style="{ borderColor: activeDecorColor }"
                 ></div>    
                 <div class="avatar-requirements-info">
-                    Рекомендуемый размер фото<br>
+                    <!-- Рекомендуемый размер фото<br>
                     не менее 220 пикселей в ширину<br>
                     и 220 пикселей в высоту.<br>
                     <br>
@@ -27,7 +27,8 @@
                     в виде файла sRGB .JPG<br> 
                     Допустимый размер файла не более 2 мегабайт.<br>
                     <br>
-                    Допустимые форматы: jpg, png.
+                    Допустимые форматы: jpg, png. -->
+                    {{ $t('m_photo_info') }}
                 </div>
             </div>
             <input 
@@ -39,7 +40,7 @@
                 class="load-button basic-buttons" 
                 for="loadAvatar"
             >
-                Загрузить фото
+                {{ $t('m_upload_photo') }}
             </label>
         </div>
     </div>

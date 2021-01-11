@@ -4,7 +4,7 @@
         @keyup.enter="changeProfile"
     >
         <div class="header">
-            Заполните профиль
+            {{ $t('m_fill_the_profile') }}
         </div>
         <div class="profile-wrapper">
             <input 
@@ -24,18 +24,16 @@
                         v-else
                     >   
                         <div>
-                            Выбрать фото
+                            {{ $t('m_choose_photo') }}
                         </div>
                         <div>
-                            профиля
+                            {{ $t('m_profile') }}
                         </div>
                         <div 
                             class="avatar-requirements" 
                             :class="{ redAlert: avatarRedAlertActive }"
                         >
-                            Рекомендуемый размер фото не менее 220 пикселей в ширину и 220 пикселей в высоту. 
-                            Загружается быстрее всего в виде файла sRGB .JPG Допустимый размер файла не более 2 мегабайт.
-                            Допустимые форматы: jpg, png.
+                            {{ $t('m_photo_info') }}
                         </div>
                     </div>         
                 </div>
@@ -43,7 +41,7 @@
             <div class="profile-elements">
                 <div class="profile-container">
                     <div class="description">
-                        Имя
+                        {{ $t('m_name') }}
                     </div>
                     <input 
                         type="text" 
@@ -59,7 +57,7 @@
                 </div>
                 <div class="profile-container">
                     <div class="description">
-                        Фамилия
+                        {{ $t('m_last_name') }}
                     </div>
                     <input 
                         type="text" 
@@ -75,7 +73,7 @@
                 </div>
                 <div class="profile-container">
                     <div class="description">
-                        Дата рождения
+                        {{ $t('m_date_of_birth') }}
                     </div>
                     <input 
                         type="date" 
@@ -85,7 +83,7 @@
                 </div>
                 <div class="profile-container">
                     <div class="description">
-                        Телефон
+                        {{ $t('m_phone') }}
                     </div>
                     <input 
                         type="text" 
@@ -102,7 +100,7 @@
                 </div>
                 <div class="profile-container">
                     <div class="description">
-                        Телеграм
+                        {{ $t('m_telegram') }}
                     </div>
                     <input 
                         type="text" 
@@ -112,7 +110,7 @@
                     >
                 </div>
                 <div class="note">
-                    * Поля обязательные для заполнения
+                    * {{ $t('m_required_fields') }}
                 </div>    
             </div>
         </div>
@@ -120,7 +118,7 @@
             class="confirm-button basic-buttons" 
             @click="changeProfile"
         >
-            Продолжить
+            {{ $t('m_continue') }}
         </div>
     </div>
 </template>

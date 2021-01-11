@@ -107,6 +107,8 @@
                 @include flex(row, center, center, nowrap);
                 span{
                     text-align: center;
+                    justify-content: center;
+                    width: 90%;
                 }
             }
         }

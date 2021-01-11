@@ -1,10 +1,10 @@
 <template>
     <div class="reports-wrapper">
         <div class="header report-header">
-            Заполните отчет
+            {{ $t('m_fill_report') }}
         </div>
         <div class="info-message">
-            {{reportInfoMessage}}
+            {{ $t(reportInfoMessage)[0] }}
         </div>
         <div class="report-wrapper">
             <div class="reports">
@@ -14,7 +14,7 @@
                         <div class="reports-item-header">
                             <div class="heading">
                                 <div>
-                                    TO DO лист на сегодня
+                                    {{ $t('m_to_do_list_for_today') }}
                                 </div>
                                 <img 
                                     src="@/assets/img/icon_pencil.png" 
@@ -22,7 +22,7 @@
                                 >
                             </div>
                             <div class="heading-message">
-                                Отметь галочками выполненые пункты
+                                {{ $t('m_check_the_completed_boxes') }}
                             </div>
                         </div>
                         <div class="reports-content">
@@ -47,7 +47,7 @@
                         <div class="reports-item-header">
                             <div class="heading">
                                 <div>
-                                    Отчет по целям
+                                    {{ $t('m_goal_report') }}
                                 </div>
                                 <img 
                                     src="@/assets/img/icon_pencil.png" 
@@ -56,7 +56,7 @@
                                 >
                             </div>
                             <div class="heading-message">
-                                Что ты сегодня сделал для достижения целей
+                                {{ $t('m_what_have_you_done_today') }}
                             </div>
                         </div>
                         <div class="reports-content">
@@ -101,7 +101,7 @@
                         <div class="reports-item-header">
                             <div class="heading">
                                 <div>
-                                    TO DO лист на завтра
+                                    {{ $t('m_to_do_list_for_tomorrow') }}
                                 </div>
                                 <img 
                                     src="@/assets/img/icon_pencil.png" 
@@ -110,7 +110,7 @@
                                 >
                             </div>
                             <div class="heading-message">
-                                Заполнить обязательно
+                                {{ $t('m_required_fields') }}
                             </div>
                         </div>
                         <div class="reports-content">
@@ -132,7 +132,7 @@
 
             </div>
             <div class="sendreport-button basic-buttons">
-                Отправить отчет
+                {{ $t('m_send_report') }}
                 <img 
                     src="@/assets/img/ad_file.png" 
                     alt="" 
@@ -157,7 +157,7 @@
 		},
 		data () {
 			return {
-				reportInfoMessage: 'у вас осталось 3 попытки'
+				reportInfoMessage: 'm_attempts_left'
 			}
 		},
 		components: {

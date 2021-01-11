@@ -1,7 +1,7 @@
 <template>
     <div class="edit-goal">
         <div class="header">
-            Редактирование цели
+            {{ $t('m_edit_goal') }}
         </div>
         <input 
             type="text" 
@@ -21,7 +21,7 @@
             class="save-button basic-buttons" 
             @click="saveGoal"
         >
-            Сохранить
+            {{ $t('m_save') }}
         </div>
     </div>  
 </template>

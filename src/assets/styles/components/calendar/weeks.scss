@@ -108,6 +108,10 @@
                     border: 1px solid #F0D267;
                     box-sizing: border-box;
                     border-radius: 5px;
+                    .description{
+                        max-width: 981px;
+                        overflow: hidden;
+                    }
                     .goalName{
                         margin-bottom: 16px;
                         width: 981px;

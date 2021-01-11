@@ -14,6 +14,9 @@
 </template>
 
 <script>
+
+                            // УДАЛИТЬ ЭТОТ КОМПОНЕНТ????????!!!
+
 import axios from 'axios';
 
 	export default {
