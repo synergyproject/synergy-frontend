@@ -50,6 +50,7 @@
 	"m_my_goals": "Мои Цели",
 	"m_create_game": "Создать игру",
 	"m_business_coach": "Бизнес-тренер:",
+	"m_mentor": "Ментор:",
 	"m_calendar_info_message": "Ваши цели пока не указаны, заполните пожалуйста цели",
 	"m_goals_calendar": "Календарь целей",
 	"m_week": "Неделя",
@@ -61,7 +62,7 @@
 		"У вас осталось 2 попытки",
 		"У вас осталось 1 попытка"		
 	],
-	"m_to_do_list": "TO DO лист на сегодня",
+	"m_to_do_list_for_today": "TO DO лист на сегодня",
 	"m_to_do_list_for_tomorrow": "TO DO лист на завтра",
 	"m_check_the_completed_boxes": "Отметь галочками выполненые пункты",
 	"m_goal_report": "Отчет по целям",
@@ -71,7 +72,22 @@
 	"m_edit_goal": "Редактирование цели",
 	"m_active": "Active",
 	"m_expired": "Expired",
-	"m_completed": "Completed"
-	
+	"m_completed": "Completed",
+	"m_enter_the_name_of_the_goal": "Введите название Цели...",
+	"m_enter_a_description_of_the_goal": "Введите описание Цели...",
+	"m_player": "Игрок",
+	"m_player_rating": "Рейтинг игроков",
+	"m_points": "Баллы",
+	"m_hide": "Свернуть",
+	"m_all_comments": "Все комментарии",
+	"m_edit_post": "Редактировать пост",
+	"m_delete_post": "Удалить пост",
+	"m_edit": "Настроить",
+	"m_start_date": "Дата старта:",
+	"m_end_date": "Дата окончания:",
+	"m_days_left": "Дней до конца:",
+	"m_active_players": "Активных Игроков:",
+	"m_banned_players": "Игроков в бане:",
+	"m_statistics": "Статистика"
 	
 }

@@ -39,15 +39,15 @@
                 <div class="rating">
                     <div class="rating__header">
                         <h3>
-                            Рейтинг игроков
+                            {{ $t('m_player_rating') }}
                         </h3>
                     </div>
                     <div class="rating__title">
                         <p class="rating__title-text">
-                            Игрок
+                            {{ $t('m_player') }}
                         </p>
                         <p class="rating__title-text">
-                            Баллы
+                            {{ $t('m_points') }}
                         </p>
                     </div>
                     <ul class="rating__list">

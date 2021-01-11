@@ -71,5 +71,22 @@
 	"m_edit_goal": "Edit goal",
 	"m_active": "Active",
 	"m_expired": "Expired",
-	"m_completed": "Completed"
+	"m_completed": "Completed",
+	"m_enter_the_name_of_the_goal": "Enter the name of the Goal...",
+	"m_enter_a_description_of_the_goal": "Enter a description of the Goal...",
+	"m_player": "Player",
+	"m_player_rating": "Player rating",
+	"m_points": "Points",
+	"m_hide": "Hide",
+	"m_show": "Show",
+	"m_all_comments": "All comments",
+	"m_edit_post": "Edit post",
+	"m_delete_post": "Delete post",
+	"m_edit": "Edit",
+	"m_start_date": "Start date:",
+	"m_end_date": "End date:",
+	"m_days_left": "Days left:",
+	"m_active_players": "Active Players:",
+	"m_banned_players": "Banned players:",
+	"m_statistics": "Statistics"
 }
