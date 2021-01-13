@@ -1,7 +1,7 @@
 <template>
     <div class="edit_fullname-window">
         <div class="info-block">
-            Введите имя
+            {{ $t('m_enter_your_name') }}
         </div>
         <input 
             type="text" 
@@ -11,7 +11,7 @@
         <div 
             class="info-block"
         >
-            Введите Фамилию
+            {{ $t('m_enter_your_last_name') }}
         </div>
         <input 
             type="text" 
@@ -22,7 +22,7 @@
             class="save-fullname-button basic-buttons" 
             @click="changeFullname()"
         >
-            Сохранить
+            {{ $t('m_save') }}
         </div>
     </div>
 </template>

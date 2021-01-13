@@ -1,19 +1,19 @@
 <template>
     <div class="edit-goal">
         <div class="header">
-            Редактирование цели
+            {{ $t('m_edit_goal') }}
         </div>
         <input 
             type="text" 
             class="goal-name" 
-            placeholder="Введите название Цели..."
+            :placeholder="$t(placeholderName)"
             maxlength="20"
             v-model="name"
         >
         <textarea
             type="text" 
             class="goal-description"
-            placeholder="Введите описание Цели..."
+            :placeholder="$t(placeholderDescription)"
             maxlength="1000"
             v-model="description"
         ></textarea>
@@ -21,7 +21,7 @@
             class="save-button basic-buttons" 
             @click="saveGoal"
         >
-            Сохранить
+            {{ $t('m_save') }}
         </div>
     </div>  
 </template>
@@ -38,7 +38,9 @@
 		data () {
 			return {
 				name: '',
-                description: ''
+                description: '',
+                placeholderName: 'm_enter_the_name_of_the_goal',
+                placeholderDescription: 'm_enter_a_description_of_the_goal'
 			}
 		},
 		components: {

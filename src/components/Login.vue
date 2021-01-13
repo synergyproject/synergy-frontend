@@ -1,101 +1,104 @@
 <template>
-	<div 
-		class="login-page" 
-		@keyup.enter="verificationPassword()"
-	>
-		<div class="greeting">
-			Добро пожаловать, 
-			{{ GET_INVITATION_PARAMETERS.email }}
-		</div>		
-		<div class="login-main-block">
-			<div class="validation-form">
-				<div class="login-controls">
-					<div class="validation-block">
+	<div class="login__wrapper">
+		<language-selector />
+		<div 
+			class="login-page" 
+			@keyup.enter="verificationPassword()"
+		>
+			<div class="greeting">
+				{{ $t('m_welcome') }}
+				{{ GET_INVITATION_PARAMETERS.email }}
+			</div>		
+			<div class="login-main-block">
+				<div class="validation-form">
+					<div class="login-controls">
+						<div class="validation-block">
+							<div 
+								class="eye" 
+								@click="changeEye(true)"
+							>
+								<img 
+									src="@/assets/img/icon_eye_close.png" 
+									v-show="this.eyePassVisible"
+								>
+								<img 
+									src="@/assets/img/icon_eye_open.png" 
+									v-show="!this.eyePassVisible"
+								>
+							</div>
+							<div class="input-header">
+								{{ $t('m_pick_password') }}
+							</div>
+							<input 
+								:type="this.inputTypePass" 
+								maxlength="64" 
+								autocomplete="off" 
+								v-model="pass"
+							>
+						</div>
+						<div class="validation-block">
+							<div 
+								class="eye"
+								v-on:click="changeEye(false)"
+							>
+								<img 
+									src="@/assets/img/icon_eye_close.png" 
+									v-show="this.eyePassСonfirmVisible"
+								>
+								<img 
+									src="@/assets/img/icon_eye_open.png" 
+									v-show="!this.eyePassСonfirmVisible"
+								>
+							</div>
+							<div class="input-header">
+								{{ $t('m_confirm_password') }}
+							</div>
+							<input 
+								:type="this.inputTypePassСonfirm" 
+								maxlength="64" 
+								autocomplete="off" 
+								v-model="passСonfirm"
+							>
+							<div class="input-basement">
+								<div class="input-basement__left">
+									<img src="@/assets/img/ahtung_circle.png">
+									<span>
+										{{ $t(info_message) }}
+									</span>
+								</div>
+							</div>
+						</div>
 						<div 
-							class="eye" 
-							@click="changeEye(true)"
+							class="save-button basic-buttons" 
+							@click="verificationPassword()"
 						>
-							<img 
-								src="@/assets/img/icon_eye_close.png" 
-								v-show="this.eyePassVisible"
-							>
-							<img 
-								src="@/assets/img/icon_eye_open.png" 
-								v-show="!this.eyePassVisible"
-							>
+							{{ $t('m_save') }}
 						</div>
-						<div class="input-header">
-							Придумайте пароль
-						</div>
-						<input 
-							:type="this.inputTypePass" 
-							maxlength="64" 
-							autocomplete="off" 
-							v-model="pass"
-						>
 					</div>
-					<div class="validation-block">
-						<div 
-							class="eye"
-							v-on:click="changeEye(false)"
+					<div class="password-help">
+						<img 
+							src="@/assets/img/help_circle.png" 
+							class="question-icon"
 						>
-							<img 
-								src="@/assets/img/icon_eye_close.png" 
-								v-show="this.eyePassСonfirmVisible"
-							>
-							<img 
-								src="@/assets/img/icon_eye_open.png" 
-								v-show="!this.eyePassСonfirmVisible"
-							>
-						</div>
-						<div class="input-header">
-							Повторите пароль
-						</div>
-						<input 
-							:type="this.inputTypePassСonfirm" 
-							maxlength="64" 
-							autocomplete="off" 
-							v-model="passСonfirm"
-						>
-						<div class="input-basement">
-							<div class="input-basement__left">
-								<img src="@/assets/img/ahtung_circle.png">
-								<span>
-									{{info_message}}
-								</span>
+						<div class="help-content">
+							<div class="help-content__text">
+								{{ $t('m_help_content_text[0]') }} <b>{{ $t('m_help_content_text[1]') }}</b><br>
+								{{ $t('m_help_content_text[2]') }} <b>{{ $t('m_help_content_text[3]') }}</b> {{ $t('m_help_content_text[4]') }}<br>
+								<br>
+								{{ $t('m_help_content_text[5]') }} <b>(A-z)</b>,<br>
+								{{ $t('m_help_content_text[6]') }} <b>(0-9)</b><br>
+								{{ $t('m_help_content_text[7]') }}
+								<b>( . , : ; ? ! * + % - < > @ [ ] { } ( ) / \ _ {} $ # )</b>.
+								<br><br>
+								{{ $t('m_help_content_text[8]') }} <b>А-Z</b>, {{ $t('m_help_content_text[9]') }}
+								{{ $t('m_help_content_text[10]') }} <b>а-z</b>, {{ $t('m_help_content_text[11]') }}
 							</div>
 						</div>
 					</div>
-					<div 
-						class="save-button basic-buttons" 
-						@click="verificationPassword()"
-					>
-						Сохранить
-					</div>
 				</div>
-				<div class="password-help">
-					<img 
-						src="@/assets/img/help_circle.png" 
-						class="question-icon"
-					>
-					<div class="help-content">
-						<div class="help-content__text">
-							Длина пароля должна быть <b>не менее 8</b><br>
-							и <b>не более 64</b> символов.<br> 
-							<br>
-							Пароль должен состоять из букв латинского алфавита <b>(A-z)</b>,<br> 
-							арабских цифр <b>(0-9)</b><br> 
-							и специальных символов:
-							<b>( . , : ; ? ! * + % - < > @ [ ] { } ( ) / \ _ {} $ # )</b>.	
-							<br><br>
-							Обязательно должна быть одна буква верхнего регистра <b>А-Z</b>, одна буква
-							нижнего регистра <b>а-z</b>, специальный символ и арабская цифра.
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>	
-	</div>
+			</div>	
+		</div>
+	</div>	
 </template>
 
 <script>
@@ -105,19 +108,24 @@
 	import ahtung_circle from '@/assets/img/ahtung_circle.png';
 	import icon_eye_close from '@/assets/img/icon_eye_close.png';
 	import icon_eye_open from '@/assets/img/icon_eye_open.png';
+	import LanguageSelector from './secondary/LanguageSelector.vue';
 
 	export default {
 		name: 'login',
+		components: {
+			Modal: Modal,
+			LanguageSelector
+		},
 		data () {
 			return {
 				pass: '',
 				passСonfirm: '',
-				info_message:'',
+				info_message: '',
 				errors: {
-					err_format: 'неверный формат пароля', 
-					err_confirm: 'пароль не совпадает',
-					err_emptyField: 'Заполните все поля',
-					good: 'Все ок'
+					err_format: 'm_incorrect_password_format', 
+					err_confirm: 'm_error_confirm_password',
+					err_emptyField: 'm_error_empty_field',
+					good: 'm_good'
 				},
 				modalVisible: false,
 				eyePassVisible: true,
@@ -125,9 +133,6 @@
 				inputTypePass: 'password',
 				inputTypePassСonfirm: 'password'
 			}
-		},
-		components: {
-	        Modal: Modal
 		},
 		computed: {
 			...mapGetters([

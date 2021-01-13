@@ -1,7 +1,7 @@
 <template>
     <div class="goal-list">
         <div class="header">
-            Выполнение целей
+            {{ $t('m_goals_progress') }}
         </div>
         <div class="list-wrapper">
             <div 
@@ -25,7 +25,7 @@
                             class="goal-status basic-buttons" 
                             @click="selectStatus(index)"
                         >
-                            {{goalStatus[GET_GOALS[index].status].status}}
+                            {{ $t(goalStatus[GET_GOALS[index].status].status) }}
                         </div>
                         <img 
                             src="@/assets/img/arrow_down.png" 
@@ -45,21 +45,21 @@
                                 class="goal-status basic-buttons" 
                                 @click="selectStatus(index, 0)"
                             >
-                                Активная
+                                {{ $t('m_active') }}
                             </div>
                             <div
                                 :style="{background: goalStatus[1].backgroundColor}" 
                                 class="goal-status basic-buttons" 
                                 @click="selectStatus(index, 1)"
                             >
-                                Просроченная
+                                {{ $t('m_expired') }}
                             </div>
                             <div 
                                 :style="{background: goalStatus[2].backgroundColor}" 
                                 class="goal-status basic-buttons" 
                                 @click="selectStatus(index, 2)" 
                             >
-                                Выполненная
+                                {{ $t('m_completed') }}
                             </div>
                         </div>
                     </div>
@@ -85,15 +85,15 @@
                 goalStatus: [
                     {
                         backgroundColor: '#F0D267', 
-                        status: 'Активная'
+                        status: 'm_active'
                     },
                     {
                         backgroundColor: '#FC916F', 
-                        status: 'Просроченная'
+                        status: 'm_expired'
                     },
                     {
                         backgroundColor: '#8AD468', 
-                        status: 'Выполненная'
+                        status: 'm_completed'
                     }
                 ]
 			}

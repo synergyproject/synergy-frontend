@@ -5,19 +5,18 @@
             v-for="(item, index) in getGamesList" 
             :key="index"
         >
-            <div>
+            <div class="game-left-wrapper">
                 <div class="photo"></div>
                 <div class="game-info-left">
                     <div class="game-info-left__name">
-                        {{ item.name }}
-                        <!-- {{item.name}} -->
+                        {{item.name}}
                     </div>
                     <div class="game-info-left__description">
                         <!-- {{item.description}} -->
                     </div>
                     <div class="game-info-left__mentor">
                         <div class="mentor-title">
-                            Ментор:
+                            {{ $t('m_mentor') }}
                         </div>
                         <div class="mentor">
                             {{item.mentor.firstName + ' ' + item.mentor.lastName}}
@@ -25,18 +24,18 @@
                     </div>
                     <div class="game-info-left__coach">
                         <div class="coach-title">
-                            Бизнес-тренер:
+                            {{ $t('m_business_coach') }}
                         </div>
                         <div class="coach">
-                            <!-- {{item.coach}} -->
+                            {{item.coach.firstName + ' ' + item.coach.lastName}}
                         </div>
                     </div>
                     <div class="game-info-left__buttons">
                         <div class="game-button basic-buttons">
-                            Войти
+                            {{ $t('m_enter') }}
                         </div>
                         <div class="game-button basic-buttons">
-                            Настроить
+                            {{ $t('m_edit') }}
                         </div>
                     </div>
                 </div>
@@ -45,7 +44,7 @@
                 <div class="info">
                     <div class="info-block">
                         <div class="title">
-                            Дата старта:
+                            {{ $t('m_start_date') }}
                         </div>
                         <div class="content">
                             {{item.startDate}}
@@ -53,7 +52,7 @@
                     </div>
                     <div class="info-block"> 
                         <div class="title">
-                            Дата окончания:
+                            {{ $t('m_end_date') }}
                         </div>
                         <div class="content">
                             {{item.endDate}}
@@ -61,7 +60,7 @@
                     </div>
                     <div class="info-block">
                         <div class="title">
-                            Дней до конца:
+                            {{ $t('m_days_left') }}
                         </div>
                         <div class="content">
                             {{daysLeft(item.startDate, item.endDate)}}
@@ -69,7 +68,7 @@
                     </div>
                     <div class="info-block">
                         <div class="title">
-                            Активных Игроков:
+                            {{ $t('m_active_players') }}
                         </div>
                         <div class="content">
                             {{item.activePlayers}}
@@ -77,7 +76,7 @@
                     </div>
                     <div class="info-block">
                         <div class="title">
-                            Игроков в бане:
+                            {{ $t('m_banned_players') }}
                         </div>
                         <div class="content">
                             {{item.bannedPlayers}}
@@ -85,7 +84,7 @@
                     </div> 
                 </div>
                 <div class="game-button basic-buttons">
-                    Статистика
+                    {{ $t('m_statistics') }}
                 </div>
             </div>    
         </div>

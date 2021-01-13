@@ -22,7 +22,7 @@
                         class="page-sidebar__menu-link"
                     >
                         <span>
-                            Кабинет игрока
+                            {{ $t('m_player_cabinet') }}
                         </span>
                     </router-link>
                 </li>
@@ -32,7 +32,8 @@
                         class="page-sidebar__menu-link"
                     >
                         <span>
-                            Лента
+                            <!-- не уверен в этом переводе до конца - лента / feed(news feed) -->
+                            {{ $t('m_feed') }}
                         </span>
                     </router-link>
                 </li>
@@ -42,7 +43,7 @@
                         class="page-sidebar__menu-link"
                     >
                         <span>
-                            Мои Цели
+                            {{ $t('m_my_goals') }}
                         </span>
                     </router-link>
                 </li>

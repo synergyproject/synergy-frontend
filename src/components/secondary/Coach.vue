@@ -2,11 +2,11 @@
     <div class="coach-page">
         <div class="coach-header">
             <div class="start-game-button basic-buttons">
-                Создать игру
+                {{ $t('m_create_game') }}
             </div>
             <div class="coach-info">
                 <div class="coach-info__title">
-                    Бизнес-тренер:
+                    {{ $t('m_business_coach') }}
                 </div>
                 <div class="coach-info__name">
                     {{coach}}

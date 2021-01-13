@@ -32,11 +32,6 @@
         height: 187px;
         margin-bottom: 40px;
         justify-content: space-between;
-        .photo{
-            width: 183px;
-            height: 187px;
-            background: #C4C4C4;
-        }
         .game-button{
             width: 100px;
             height: 32px;
@@ -48,63 +43,72 @@
             font-size: 12px;
             user-select: none;
         }
-        .game-info-left{
-            width: 220px;
-            margin-left: 39px;
-            flex-direction: column;
-            .game-info-left__name{
-                align-items: center;
-                height: 28px;
-                font-weight: bold;
-                font-size: 24px;
-                margin-bottom: 8px;
+        .game-left-wrapper{
+            .photo{
+                width: 183px;
+                height: 187px;
+                background: #C4C4C4;
             }
-            .game-info-left__description{
-                height: 21px;
-                font-size: 18px;
-                color: #626060;
-                margin-bottom: 22px;
-            }
-            .game-info-left__mentor{
-                height: 22px;
-                margin-bottom: 9px;
-                align-items: center;
-                .mentor-title{
-                    margin-right: 8px;
-                    font-size: 12px;
-                }
-                .mentor{
-                    height: 14px;
-                    background: #C4C4C4;
-                    border-radius: 15px;
+            .game-info-left{
+                max-width: 600px;
+                margin-left: 39px;
+                flex-direction: column;
+                .game-info-left__name{
                     align-items: center;
-                    justify-content: center;
-                    padding: 4px 8px 4px 8px;
-                    font-size: 12px;
+                    height: 28px;
+                    font-weight: bold;
+                    font-size: 24px;
+                    margin-bottom: 8px;
                 }
-            }
-            .game-info-left__coach{
-                height: 22px;
-                margin-bottom: 23px;
-                align-items: center;
-                .coach-title{
-                    margin-right: 8px;
-                    font-size: 12px;
+                .game-info-left__description{
+                    height: 21px;
+                    font-size: 18px;
+                    color: #626060;
+                    margin-bottom: 22px;
+                    overflow: hidden;
                 }
-                .coach{
-                    height: 14px;
-                    background: #C4C4C4;
-                    border-radius: 15px;
+                .game-info-left__mentor{
+                    height: 22px;
+                    margin-bottom: 9px;
                     align-items: center;
-                    justify-content: center;
-                    padding: 4px 8px 4px 8px;
-                    font-size: 12px;
+                    .mentor-title{
+                        margin-right: 8px;
+                        font-size: 12px;
+                    }
+                    .mentor{
+                        height: 14px;
+                        background: #C4C4C4;
+                        border-radius: 15px;
+                        align-items: center;
+                        justify-content: center;
+                        padding: 4px 8px 4px 8px;
+                        font-size: 12px;
+                    }
+                }
+                .game-info-left__coach{
+                    height: 22px;
+                    margin-bottom: 23px;
+                    align-items: center;
+                    .coach-title{
+                        margin-right: 8px;
+                        font-size: 12px;
+                    }
+                    .coach{
+                        height: 14px;
+                        background: #C4C4C4;
+                        border-radius: 15px;
+                        align-items: center;
+                        justify-content: center;
+                        padding: 4px 8px 4px 8px;
+                        font-size: 12px;
+                    }
+                }
+                .game-info-left__buttons{
+                    justify-content: space-between;
+                    width: 220px;
                 }
             }
-            .game-info-left__buttons{
-                justify-content: space-between;
-            }
-        }
+        }    
         .game-info-right{
             flex-direction: column;
             align-items: flex-end;

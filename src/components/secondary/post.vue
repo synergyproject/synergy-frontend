@@ -51,12 +51,12 @@
                         <ul class="post__menu-list">
                             <li class="post__menu-item">
                                 <span>
-                                    Редактировать пост
+                                    {{ $t('m_edit_post') }}
                                 </span>
                             </li>
                             <li class="post__menu-item">
                                 <span>
-                                    Удалить пост
+                                    {{ $t('m_delete_post') }}
                                 </span>
                             </li>
                         </ul>
@@ -78,13 +78,13 @@
                     class="post__text-show"
                     @click = "resizeText"
                 > 
-                    {{showText ?  "Свернуть" :"Показать полностью"}}
+                    {{showText ?  $t('m_hide') : $t('m_show')}}
                 </div>
             </div>
             <div v-else class="post__report">
                 <div class="post__report-goals">
                     <h4 class="post__report-title">
-                        Отчет по целям
+                        {{ $t('m_goal_report') }}
                     </h4>
                     <ol class="post__report-list">
                         <li 
@@ -104,7 +104,7 @@
                 </div>
                 <div class="post__report-todos">
                     <h4 class="post__report-title">
-                        TO DO  лист на сегодня
+                        {{ $t('m_to_do_list_for_today') }}
                     </h4>
                     <ol class="post__report-list">
                         <li 
@@ -174,7 +174,7 @@
                 class="post__comments-show" 
                 @click = "resizeComments"
             >
-                {{showComments ?  "Свернуть" :"Все комментарии"}}
+                {{showComments ?   $t('m_hide') : $t('m_all_comments')}}
             </div>
         </div>
         <div class="post__add-comment">

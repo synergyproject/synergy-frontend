@@ -1,173 +1,175 @@
 <template>
-    <div class="main-page">
+    <div class="main-wrapper">
 
-        <div class="primary">
-            <div class="primary-menu">
-                <div class="primary-menu-container">
-                    <div class="menu-buttons-container">
-                        <div 
-                            class="menu-button basic-buttons" 
-                            @click="goObjectives()"
-                        >
-                            ТЕСТ цели
-                        </div>
-                        <router-link
-                            to="/logout" 
-                            class="menu-button basic-buttons"
-                        >
-                            Выйти
-                        </router-link>
-                    </div>
-
-                    <!-- отображение / загрузка аватара -->
-                    <div class="avatar">
-                        <div v-if="GET_AVATAR">
-                            <img 
-                                :src="GET_AVATAR" 
-                                class="avatar-img"
+        <div class="main-page">
+            <div class="primary">
+                <div class="primary-menu">
+                    <div class="primary-menu-container">
+                        <div class="menu-buttons-container">
+                            <div 
+                                class="menu-button basic-buttons" 
+                                @click="goObjectives()"
                             >
+                                
+                            </div>
+                            <router-link
+                                to="/logout" 
+                                class="menu-button basic-buttons"
+                            >
+                                {{ $t('m_log_out') }}
+                            </router-link>
+                        </div>
+
+                        <!-- отображение / загрузка аватара -->
+                        <div class="avatar">
+                            <div v-if="GET_AVATAR">
+                                <img 
+                                    :src="GET_AVATAR" 
+                                    class="avatar-img"
+                                >
+                                <img 
+                                    src="@/assets/img/icon_pencil.png" 
+                                    class="pencil edit_avatar" 
+                                    @click="loadAvatar()"
+                                > 
+                            </div>                        
                             <img 
+                                v-else
                                 src="@/assets/img/icon_pencil.png" 
-                                class="pencil edit_avatar" 
+                                class="pencil" 
                                 @click="loadAvatar()"
-                            > 
-                        </div>                        
-                        <img 
-                            v-else
-                            src="@/assets/img/icon_pencil.png" 
-                            class="pencil" 
-                            @click="loadAvatar()"
-                        >    
-                    </div>
+                            >    
+                        </div>
 
-                    <div class="personal-data">
-                        <!-- Отображаем / редактируем Имя Фамилию -->
-                        <div class="full-name-container">
-                            <div class="full-name">
-                                {{GET_USER.firstName}} {{GET_USER.surname}}
-                            </div>
-                            <img 
-                                src="@/assets/img/icon_pencil.png" 
-                                class="pencil" 
-                                @click="loadFullName()"
-                            >
-                        </div>
-                        <div class="email">
-                            {{GET_USER.email}}
-                        </div>
-                        <!-- Отображаем / редактируем телеграм ник -->
-                        <div class="username-block">
-                            <div>
-                                <div class="circle"></div>
-                                <div 
-                                    class="username-block__content" 
-                                    v-show='!usernameTelegramInput'
-                                >
-                                    {{GET_USER.usernameTelegram}}
+                        <div class="personal-data">
+                            <!-- Отображаем / редактируем Имя Фамилию -->
+                            <div class="full-name-container">
+                                <div class="full-name">
+                                    {{GET_USER.firstName}} {{GET_USER.surname}}
                                 </div>
-                                <input 
-                                    type="text" 
-                                    placeholder="@telegram_username" 
-                                    maxlength="32" 
-                                    class="username-block__content" 
-                                    v-model="user.usernameTelegram" 
-                                    v-show='usernameTelegramInput'
-                                >  
-                            </div>
-                            <img 
-                                src="@/assets/img/icon_pencil.png" 
-                                class="pencil" 
-                                @click="EditUsernameTelegram()"
-                            >
-                        </div>
-                        <!-- Отображаем / редактируем телефон -->
-                        <div class="username-block">
-                            <div>
-                                <div class="circle"></div>
-                                <div 
-                                    class="username-block__content" 
-                                    v-show='!phoneInput'
+                                <img 
+                                    src="@/assets/img/icon_pencil.png" 
+                                    class="pencil" 
+                                    @click="loadFullName()"
                                 >
-                                    {{GET_USER.phone}}
-                                </div>
-                                <input 
-                                    type="text" 
-                                    placeholder="+380661234567" 
-                                    v-mask="'+38##########'" 
-                                    class="username-block__content" 
-                                    v-model="user.phone" 
-                                    v-show='phoneInput'
-                                >  
                             </div>
-                            <img 
-                                src="@/assets/img/icon_pencil.png" 
-                                class="pencil" 
-                                @click="EditPhone()"
-                            >
-                        </div>
-                        <!-- Отображаем / редактируем дату рождения -->
-                        <div class="username-block">
-                            <div>
-                                <div class="circle"></div>
-                                <div 
-                                    class="username-block__content" 
-                                    v-show='!birthdayInput'
+                            <div class="email">
+                                {{GET_USER.email}}
+                            </div>
+                            <!-- Отображаем / редактируем телеграм ник -->
+                            <div class="username-block">
+                                <div>
+                                    <div class="circle"></div>
+                                    <div 
+                                        class="username-block__content" 
+                                        v-show='!usernameTelegramInput'
+                                    >
+                                        {{GET_USER.usernameTelegram}}
+                                    </div>
+                                    <input 
+                                        type="text" 
+                                        placeholder="@telegram_username" 
+                                        maxlength="32" 
+                                        class="username-block__content" 
+                                        v-model="user.usernameTelegram" 
+                                        v-show='usernameTelegramInput'
+                                    >  
+                                </div>
+                                <img 
+                                    src="@/assets/img/icon_pencil.png" 
+                                    class="pencil" 
+                                    @click="EditUsernameTelegram()"
                                 >
-                                    {{formattedDate()}}
-                                </div>
-                                <input 
-                                    type="date" 
-                                    class="username-block__content" 
-                                    v-model="user.birthday" 
-                                    v-show='birthdayInput'
-                                >  
                             </div>
-                            <img 
-                                src="@/assets/img/icon_pencil.png" 
-                                class="pencil" 
-                                @click="EditBirthday()"
-                            >
-                        </div> 
-                    </div>
-                    <!-- кнопки управления -->
-                    <div class="setting-buttons-container">
-                        <div class="setting-button basic-buttons">
-                            Изменить пароль
+                            <!-- Отображаем / редактируем телефон -->
+                            <div class="username-block">
+                                <div>
+                                    <div class="circle"></div>
+                                    <div 
+                                        class="username-block__content" 
+                                        v-show='!phoneInput'
+                                    >
+                                        {{GET_USER.phone}}
+                                    </div>
+                                    <input 
+                                        type="text" 
+                                        placeholder="+380661234567" 
+                                        v-mask="'+38##########'" 
+                                        class="username-block__content" 
+                                        v-model="user.phone" 
+                                        v-show='phoneInput'
+                                    >  
+                                </div>
+                                <img 
+                                    src="@/assets/img/icon_pencil.png" 
+                                    class="pencil" 
+                                    @click="EditPhone()"
+                                >
+                            </div>
+                            <!-- Отображаем / редактируем дату рождения -->
+                            <div class="username-block">
+                                <div>
+                                    <div class="circle"></div>
+                                    <div 
+                                        class="username-block__content" 
+                                        v-show='!birthdayInput'
+                                    >
+                                        {{formattedDate()}}
+                                    </div>
+                                    <input 
+                                        type="date" 
+                                        class="username-block__content" 
+                                        v-model="user.birthday" 
+                                        v-show='birthdayInput'
+                                    >  
+                                </div>
+                                <img 
+                                    src="@/assets/img/icon_pencil.png" 
+                                    class="pencil" 
+                                    @click="EditBirthday()"
+                                >
+                            </div> 
                         </div>
-                        <div class="setting-button basic-buttons">
-                            Настроить уведомления
-                        </div>
-                        <div class="setting-button admin-button basic-buttons">
-                            Кабинет Администратора
+                        <!-- кнопки управления -->
+                        <div class="setting-buttons-container">
+                            <div class="setting-button basic-buttons">
+                                {{ $t('m_change_password') }}
+                            </div>
+                            <div class="setting-button basic-buttons">
+                                {{ $t('m_notifications_settings') }}
+                            </div>
+                            <div class="setting-button admin-button basic-buttons">
+                                {{ $t('m_administrator_account') }}
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div class="devider"></div>
+                <div :class="{ blur: blurIsActive }"></div>
             </div>
-            <div class="devider"></div>
-            <div :class="{ blur: blurIsActive }"></div>
-        </div>
 
-        <div class="secondary"> 
-            <modal v-show="this.modalVisible" @close='closeModal'>
-			    <template v-slot:modal-content>
-                    <avatar 
-                        v-show="avatarVisible" 
-                        @closeAvatar='closeModal'
-                    >
-                    </avatar>
-                    <fullname 
-                        v-show="fullNameVisible" 
-                        @closeFullName='closeModal'
-                    >
-                    </fullname>
-                    <profile 
-                        v-show="profileVisible" 
-                        @closeProfile='closeProfile'
-                    >
-                    </profile>
- 			    </template>
-		    </modal>                        
-            <coach v-show="coachVisible"></coach>
+            <div class="secondary"> 
+                <modal v-show="this.modalVisible" @close='closeModal'>
+                    <template v-slot:modal-content>
+                        <avatar 
+                            v-show="avatarVisible" 
+                            @closeAvatar='closeModal'
+                        >
+                        </avatar>
+                        <fullname 
+                            v-show="fullNameVisible" 
+                            @closeFullName='closeModal'
+                        >
+                        </fullname>
+                        <profile 
+                            v-show="profileVisible" 
+                            @closeProfile='closeProfile'
+                        >
+                        </profile>
+                    </template>
+                </modal>                        
+                <coach v-show="coachVisible"></coach>
+            </div>
         </div>
     </div>
 </template>

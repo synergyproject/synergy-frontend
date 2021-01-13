@@ -1,16 +1,48 @@
 import axios from 'axios'
 export default {
     state: {      
-        // каждый элемент массива todoList - массив задач на день
-        // 
+        
+// {
+// 	push_id: 0,
+// 	date: '10.12.2020 16.35.32',
+// 	dayTascks: [
+// 		{
+// 			tack_id: `id_+ '' +${this.getDate()}`,
+// 			description: this.desckInput,
+// 			checked: false
+// 		}
+// 	]
+// }
+
 		todoList: [
-			['Заполнить профиль',
-			'Поприветствовать коллег в общем чате',
-			'Заполнить календарь целей',
-			'Заполнить TO DO дист на завтра',
-			'какая то задача которую не видно'
+			[
+				{
+					description: 'Поприветствовать коллег в общем чате',
+					checked: false
+				},
+				{
+					description: 'Заполнить календарь целей',
+					checked: false
+				},
+				{
+					description: 'Заполнить TO DO дист на завтра',
+					checked: false
+				},
+				{
+					description: 'какая то задача которую не видно',
+					checked: false
+				}
 			],
-			['тут массив задач на следующий день и так до 56 дня']
+			[
+				{
+					description: 'тут массив задач на следующий день и так до 56 днятут массив задач на следующий день и так до 56 днятут массив задач на следующий день и так до 56 днятут массив задач на следующий день и так до 56 днятут массив задач на следующий день и так до 56 днятут массив задач на следующий день и так до 56 днятут массив задач на следующий день и так до 56 дня',
+					checked: false
+				},
+				{
+					description: 'задача день 2',
+					checked: false
+				}
+			]
 		],
 		//так как файлы не привязаны к цели или задаче то храним их просто в массиве,
 		//где каждый эллемент массива files - массив файлов от текущего дня (индекса files)
@@ -25,16 +57,15 @@ export default {
 				status: 0, 
 				description: 'rr',
 				reports: [
-					'нихрена не делал',
-					''
+					'лол кек чебурек'
 				]
 			},
 			{
 				name: 'Цель 2', 
-				status: 1, 
-				description: 'Какаято цель номер ДВААААААААААААААААААА',
+				status: 0, 
+				description: 'Какаято цель номер ДВААААА',
 				reports: [
-					'эшельбе бехельме'
+
 				]
 			},
 			{
@@ -42,7 +73,7 @@ export default {
 				status: 0, 
 				description: '',
 				reports: [
-					'отчет к 3 цели '
+					
 				]
 			}, 
 			{
@@ -66,7 +97,7 @@ export default {
 				status: 0, 
 				description: '',
 				reports: [
-
+					
 				]
 			}, 
 			{
@@ -82,7 +113,7 @@ export default {
 				status: 0, 
 				description: '',
 				reports: [
-					'pryvet'
+					
 				]
 			}, 
 			{
@@ -130,17 +161,42 @@ export default {
 	},
 
 	mutations: {
-		SET_TODOLIST (state, value) {
-			
+		SET_TODOLIST_CHECK (state, value) {			
+			state.todoList[value.dayIndex][value.taskIndex].checked = !state.todoList[value.dayIndex][value.taskIndex].checked
+		},
+		SET_TODOLIST_DESCRIPTION (state, value) {
+			//value в виде {dayIndex: number, tomorrowList: array}			
+			for (let i = 0; i < value.tomorrowList.length; i++) {
+				if (value.tomorrowList[i]) {
+					state.todoList[value.dayIndex][i] = {
+						description: value.tomorrowList[i],
+						checked: false
+					}
+				} else {
+					//если пользователь сохранил поле задачи пустым удаляем ее
+					state.todoList[value.dayIndex].splice(i, 1)
+				}
+				
+			}
 		},
 		SET_GOALS (state, value) {
+			//меняем Имя Игры, описание или статус
 			Object.assign(
 				state.goals[value[0]], 
 				value[1]
 			)
 		},
-		//value для SET_STATUS_MENU приходит в виде {index: number, visible: boolean}
+		SET_GOALS_REPORTS (state, value) {
+			//value в виде {dayIndex: number, reports: array}
+			//индекс массива value.reports соответствует номеру цели и содержит отчет к ней
+			//пустые элементы (нет отчета) тоже пушим чтоб отслеживать когда пропускали отчет
+			//value.dayIndex - день игры
+			for (let i = 0; i < value.reports.length; i++) {			
+				state.goals[i].reports[value.dayIndex] = value.reports[i];
+			}
+		},
 		SET_STATUS_MENU (state, value) {
+			//value приходит в виде {index: number, visible: boolean}
 			state.statusMenu[value.index].visible = value.visible
 		}
 	},	

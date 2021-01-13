@@ -23,6 +23,9 @@
 </template>
 
 <script>
+
+                        //   УДАЛИТЬ ЭТОТ КОМПОНЕНТ?????????                          
+
     import avatar from '@/assets/img/avatar.png'
     export default {
         name: "PageLayout",

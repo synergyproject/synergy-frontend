@@ -1,10 +1,10 @@
 <template>
     <div class="reports-wrapper">
         <div class="header report-header">
-            Заполните отчет
+            {{ $t('m_fill_report') }}
         </div>
         <div class="info-message">
-            {{reportInfoMessage}}
+            {{ $t(reportInfoMessage)[0] }}
         </div>
         <div class="report-wrapper">
             <div class="reports">
@@ -14,15 +14,16 @@
                         <div class="reports-item-header">
                             <div class="heading">
                                 <div>
-                                    TO DO лист на сегодня
+                                    {{ $t('m_to_do_list_for_today') }}
                                 </div>
                                 <img 
                                     src="@/assets/img/icon_pencil.png" 
-                                    class="pencil" 
+                                    class="pencil"
+                                    @click="editReport(1)" 
                                 >
                             </div>
                             <div class="heading-message">
-                                Отметь галочками выполненые пункты
+                                {{ $t('m_check_the_completed_boxes') }}
                             </div>
                         </div>
                         <div class="reports-content">
@@ -47,16 +48,16 @@
                         <div class="reports-item-header">
                             <div class="heading">
                                 <div>
-                                    Отчет по целям
+                                    {{ $t('m_goal_report') }}
                                 </div>
                                 <img 
                                     src="@/assets/img/icon_pencil.png" 
                                     class="pencil" 
-                                    @click="editGoal1()"
+                                    @click="editReport(2)"
                                 >
                             </div>
                             <div class="heading-message">
-                                Что ты сегодня сделал для достижения целей
+                                {{ $t('m_what_have_you_done_today') }}
                             </div>
                         </div>
                         <div class="reports-content">
@@ -101,16 +102,16 @@
                         <div class="reports-item-header">
                             <div class="heading">
                                 <div>
-                                    TO DO лист на завтра
+                                    {{ $t('m_to_do_list_for_tomorrow') }}
                                 </div>
                                 <img 
                                     src="@/assets/img/icon_pencil.png" 
                                     class="pencil" 
-                                    @click="editGoal1()"
+                                    @click="editReport(3)"
                                 >
                             </div>
                             <div class="heading-message">
-                                Заполнить обязательно
+                                {{ $t('m_required_fields') }}
                             </div>
                         </div>
                         <div class="reports-content">
@@ -132,20 +133,42 @@
 
             </div>
             <div class="sendreport-button basic-buttons">
-                Отправить отчет
+                {{ $t('m_send_report') }}
                 <img 
                     src="@/assets/img/ad_file.png" 
                     alt="" 
                     class="clip"
                 >
+                <div 
+                    class="counter" 
+                    v-if="fileCounter > 0"
+                >
+                    {{fileCounter}}
+                </div>
             </div>
         </div>
         <div></div>
+
+        <!--в зависимости от reportIndex открываем соответствуещее одно из 3 окон
+            редактирования тоду листов или целей-->
+        <modal v-show="this.modalVisible" @close='closeModal'>
+            <template v-slot:modal-content>
+                <edit-report 
+                    v-if="reportIndex > 0" 
+                    @closeReport='closeModal'
+                    :reportIndex='reportIndex'
+                    :dayIndex='dayIndex'
+                >
+                </edit-report>
+            </template>
+        </modal> 
     </div>  
 </template>
 
 <script>
-	import axios from 'axios';
+    import axios from 'axios';
+    import Modal from '@/components/modal/Modal';
+    import EditReport from '@/components/calendar/modal/EditReport';
     import icon_pencil from '@/assets/img/icon_pencil.png';
     import ad_file from '@/assets/img/ad_file.png';
 	import { mapMutations, mapGetters, mapActions } from 'vuex';
@@ -153,32 +176,45 @@
 	export default {
         name: 'Reports',
         props: {
-			dayIndex: Number
+            dayIndex: Number
 		},
 		data () {
 			return {
-				reportInfoMessage: 'у вас осталось 3 попытки'
+                reportInfoMessage: 'm_attempts_left',
+                fileCounter: 2,
+                reportIndex: 0,
+                modalVisible: false
 			}
 		},
 		components: {
-			
+            Modal: Modal,
+            EditReport: EditReport
 		},
-		mounted () {
-
-		},	
 		computed: {
             ...mapGetters(['GET_TODOLIST']),
             ...mapGetters(['GET_GOALS'])          
 		},			
 	  	methods: {
+
+            closeModal: function () {
+                this.modalVisible = false;
+                this.reportIndex = 0;    		
+            },
+
+            editReport: function(report) {
+                this.reportIndex = report;
+                this.modalVisible = true;
+            },
+
 			getTodo: function(day, index) {
                 //проверяем существует ли запись в массиве todo записи в текущем дне 
 				if (this.GET_TODOLIST.length >= day + 1) {
                     if (this.GET_TODOLIST[day].length >= index + 1 ) {
-                        return this.GET_TODOLIST[day][index]
+                        return this.GET_TODOLIST[day][index].description
                     }
 				}				
             },
+            
             getGoalReport: function(index, goal) {
                 // в зависимости от текущего дня игры выводим соответствующую цель и отчет к ней
                 // просроченные цели не выводим!! 

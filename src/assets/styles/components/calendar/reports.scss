@@ -108,6 +108,21 @@
                 position: absolute;
                 left: -65px;
             }
+            .counter{
+                width: 15px;
+                height: 15px;
+                border-radius: 50%;
+                background: #3E378D;
+                color: #FFFFFF;
+                font-weight: bold;
+                font-size: 10px;
+                line-height: 12px;
+                justify-content: center;
+                align-items: center;
+                position: absolute;
+                left: -47px;
+                top: 0;
+            }
         }
     }
 }
