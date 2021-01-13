@@ -5,11 +5,11 @@
             v-for="(item, index) in getGamesList" 
             :key="index"
         >
-            <div>
+            <div class="game-left-wrapper">
                 <div class="photo"></div>
                 <div class="game-info-left">
                     <div class="game-info-left__name">
-                        <!-- {{item.name}} -->
+                        {{item.name}}
                     </div>
                     <div class="game-info-left__description">
                         <!-- {{item.description}} -->
@@ -27,7 +27,7 @@
                             {{ $t('m_business_coach') }}
                         </div>
                         <div class="coach">
-                            <!-- {{item.coach}} -->
+                            {{item.coach.firstName + ' ' + item.coach.lastName}}
                         </div>
                     </div>
                     <div class="game-info-left__buttons">

@@ -18,7 +18,8 @@
                                 </div>
                                 <img 
                                     src="@/assets/img/icon_pencil.png" 
-                                    class="pencil" 
+                                    class="pencil"
+                                    @click="editReport(1)" 
                                 >
                             </div>
                             <div class="heading-message">
@@ -52,7 +53,7 @@
                                 <img 
                                     src="@/assets/img/icon_pencil.png" 
                                     class="pencil" 
-                                    @click="editGoal1()"
+                                    @click="editReport(2)"
                                 >
                             </div>
                             <div class="heading-message">
@@ -106,7 +107,7 @@
                                 <img 
                                     src="@/assets/img/icon_pencil.png" 
                                     class="pencil" 
-                                    @click="editGoal1()"
+                                    @click="editReport(3)"
                                 >
                             </div>
                             <div class="heading-message">
@@ -138,14 +139,36 @@
                     alt="" 
                     class="clip"
                 >
+                <div 
+                    class="counter" 
+                    v-if="fileCounter > 0"
+                >
+                    {{fileCounter}}
+                </div>
             </div>
         </div>
         <div></div>
+
+        <!--в зависимости от reportIndex открываем соответствуещее одно из 3 окон
+            редактирования тоду листов или целей-->
+        <modal v-show="this.modalVisible" @close='closeModal'>
+            <template v-slot:modal-content>
+                <edit-report 
+                    v-if="reportIndex > 0" 
+                    @closeReport='closeModal'
+                    :reportIndex='reportIndex'
+                    :dayIndex='dayIndex'
+                >
+                </edit-report>
+            </template>
+        </modal> 
     </div>  
 </template>
 
 <script>
-	import axios from 'axios';
+    import axios from 'axios';
+    import Modal from '@/components/modal/Modal';
+    import EditReport from '@/components/calendar/modal/EditReport';
     import icon_pencil from '@/assets/img/icon_pencil.png';
     import ad_file from '@/assets/img/ad_file.png';
 	import { mapMutations, mapGetters, mapActions } from 'vuex';
@@ -153,32 +176,45 @@
 	export default {
         name: 'Reports',
         props: {
-			dayIndex: Number
+            dayIndex: Number
 		},
 		data () {
 			return {
-				reportInfoMessage: 'm_attempts_left'
+                reportInfoMessage: 'm_attempts_left',
+                fileCounter: 2,
+                reportIndex: 0,
+                modalVisible: false
 			}
 		},
 		components: {
-			
+            Modal: Modal,
+            EditReport: EditReport
 		},
-		mounted () {
-
-		},	
 		computed: {
             ...mapGetters(['GET_TODOLIST']),
             ...mapGetters(['GET_GOALS'])          
 		},			
 	  	methods: {
+
+            closeModal: function () {
+                this.modalVisible = false;
+                this.reportIndex = 0;    		
+            },
+
+            editReport: function(report) {
+                this.reportIndex = report;
+                this.modalVisible = true;
+            },
+
 			getTodo: function(day, index) {
                 //проверяем существует ли запись в массиве todo записи в текущем дне 
 				if (this.GET_TODOLIST.length >= day + 1) {
                     if (this.GET_TODOLIST[day].length >= index + 1 ) {
-                        return this.GET_TODOLIST[day][index]
+                        return this.GET_TODOLIST[day][index].description
                     }
 				}				
             },
+            
             getGoalReport: function(index, goal) {
                 // в зависимости от текущего дня игры выводим соответствующую цель и отчет к ней
                 // просроченные цели не выводим!! 

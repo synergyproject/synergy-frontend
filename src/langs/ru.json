@@ -48,7 +48,7 @@
 	"m_player_cabinet": "Кабинет игрока",
 	"m_feed": "Лента",
 	"m_my_goals": "Мои Цели",
-	"m_create_game": "Создать игру",
+	"m_create_game": "+ Создать игру",
 	"m_business_coach": "Бизнес-тренер:",
 	"m_mentor": "Ментор:",
 	"m_calendar_info_message": "Ваши цели пока не указаны, заполните пожалуйста цели",
@@ -88,6 +88,9 @@
 	"m_days_left": "Дней до конца:",
 	"m_active_players": "Активных Игроков:",
 	"m_banned_players": "Игроков в бане:",
-	"m_statistics": "Статистика"
+	"m_statistics": "Статистика",
+	"m_edit_report_generalInfo_1": "Отметь, какие задачи ты сегодня выполнил",
+	"m_edit_report_generalInfo_2": "Что ты сегодня сделал для достижения целей",
+	"m_edit_report_generalInfo_3": "Заполнить обязательно. Без Заполненого  TO DO  листа ты не сможешь отправить отчет."
 	
 }

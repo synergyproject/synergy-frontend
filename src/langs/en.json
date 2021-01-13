@@ -48,8 +48,9 @@
 	"m_player_cabinet": "Player account",
 	"m_feed": "Feed",
 	"m_my_goals": "My Goals",
-	"m_create_game": "Create game",
+	"m_create_game": "+ Create game",
 	"m_business_coach": "Business coach:",
+	"m_mentor": "Mentor:",
 	"m_calendar_info_message": "Your goals have not been specified, please fill in the goals",
 	"m_goals_calendar": "Goals calendar",
 	"m_week": "Week",
@@ -88,5 +89,8 @@
 	"m_days_left": "Days left:",
 	"m_active_players": "Active Players:",
 	"m_banned_players": "Banned players:",
-	"m_statistics": "Statistics"
+	"m_statistics": "Statistics",
+	"m_edit_report_generalInfo_1": "Mark what tasks you completed today",
+	"m_edit_report_generalInfo_2": "What have you done today to achieve your goals",
+	"m_edit_report_generalInfo_3": "Required. Without a completed TO DO sheet, you will not be able to send a report"
 }

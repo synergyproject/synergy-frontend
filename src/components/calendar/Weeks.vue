@@ -4,7 +4,7 @@
             {{ $t(calendarInfoMessage) }}
         </div>
         <div class="header goals-header">
-            {{ $t('m_create_game') }}
+            {{ $t('m_goals_calendar') }}
         </div>
         <div class="goals-wrapper">
             <div class="goals">
@@ -195,8 +195,6 @@
                         >
                     </div>
                 </div>
-
-
 
                 
                 <div class="goals-container">
