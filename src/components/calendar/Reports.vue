@@ -6,9 +6,12 @@
         <div class="info-message">
             {{ $t(reportInfoMessage)[0] }}
         </div>
-        <div class="report-wrapper">
-            <div class="reports">
 
+        <div class="report-wrapper">
+            <!-- если цели не заполнены - блокируем раздел отчетов -->
+            <div class="goals-filled-wrapper" v-if="checkGoalsFull()"></div> 
+
+            <div class="reports">
                 <div class="reports-item-wrapper">
                     <div class="reports-item">
                         <div class="reports-item-header">
@@ -193,12 +196,21 @@
 		computed: {
             ...mapGetters(['GET_TODOLIST']),
             ...mapGetters(['GET_GOALS'])          
-		},			
+        },			
 	  	methods: {
-
             closeModal: function () {
                 this.modalVisible = false;
                 this.reportIndex = 0;    		
+            },
+
+            checkGoalsFull: function () {
+                //если не все цели заполнены - раздел отчеты не доступен (заблюрен ?)
+                let goals = this.GET_GOALS,
+                    goalsFilled = false;
+                for (let i = 0; i < goals.length; i++) {
+                    goalsFilled = goals[i].description ? false : true;
+                }
+                return goalsFilled;
             },
 
             editReport: function(report) {

@@ -1,7 +1,7 @@
 <template>
     <div class="weeks-wrapper">
         <div class="info-message">
-            {{ $t(calendarInfoMessage) }}
+            {{ $t(checkCalendarInfoMessage()) }}
         </div>
         <div class="header goals-header">
             {{ $t('m_goals_calendar') }}
@@ -323,6 +323,16 @@
             ...mapGetters(['GET_GOALS'])            
 		},			
 	  	methods: {
+            
+            //если не все цели заполнены то выводим предупреждение
+            checkCalendarInfoMessage() {
+                let goals = this.GET_GOALS,
+                    goalsFilled = false;
+                for (let i = 0; i < goals.length; i++) {
+                    goalsFilled = goals[i].description ? false : true;
+                }
+                return goalsFilled ? this.calendarInfoMessage : ''
+            },
             //определяем позицию слайдера на компоненте weeks
             sliderPosition: function () {
                 let position = this.dayIndex  * 18.7;
