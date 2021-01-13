@@ -1,5 +1,5 @@
 <template>
-	<div class="authorization__wrapper">
+	<div class="authorization__wrapper" :style="{backgroundImage:`url('${loginImage}')`}">
 		<language-selector />
 		<div
 			 class="authorization-page"
@@ -93,7 +93,8 @@
 	import ahtung_circle from '@/assets/img/ahtung_circle.png';
 	import icon_eye_close from '@/assets/img/icon_eye_close.png';
 	import icon_eye_open from '@/assets/img/icon_eye_open.png';
-	import LanguageSelector from './secondary/LanguageSelector.vue'
+	import LanguageSelector from './secondary/LanguageSelector.vue';
+	import bg from '@/assets/img/login_background.jpg'
 
 	export default {
 		name: 'authorization',
@@ -112,6 +113,7 @@
 				},
 				eyePassVisible: true,
 				inputTypePass: 'password',
+				loginImage:bg,
 			}
 		},
 		mounted () {
