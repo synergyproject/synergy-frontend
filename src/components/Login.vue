@@ -140,6 +140,10 @@
 			const urlQueryParam = window.location.search.split('=')[1];
 			this.SEND_INVITATION_TOKEN(urlQueryParam);
 		},
+		mounted() {
+			console.log(this.GET_AUTHORIZATION_TOKEN, 'GET_AUTHORIZATION_TOKEN');
+			console.log(this.GET_INVITATION_PARAMETERS, 'GET_INVITATION_PARAMETERS');
+		},
 	  	methods: {
 			...mapActions(['SEND_INVITATION_TOKEN', 'SEND_DATA_TO_CREATE_ACCOUNT']),
 	  		verificationPassword: function () {
