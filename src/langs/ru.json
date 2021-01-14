@@ -64,6 +64,7 @@
 	],
 	"m_to_do_list_for_today": "TO DO лист на сегодня",
 	"m_to_do_list_for_tomorrow": "TO DO лист на завтра",
+	"m_your_to_do_list_for_tomorrow": "Твой TO DO лист на завтра:",
 	"m_check_the_completed_boxes": "Отметь галочками выполненые пункты",
 	"m_goal_report": "Отчет по целям",
 	"m_what_have_you_done_today": "Что ты сегодня сделал для достижения целей",
@@ -91,6 +92,7 @@
 	"m_statistics": "Статистика",
 	"m_edit_report_generalInfo_1": "Отметь, какие задачи ты сегодня выполнил",
 	"m_edit_report_generalInfo_2": "Что ты сегодня сделал для достижения целей",
-	"m_edit_report_generalInfo_3": "Заполнить обязательно. Без Заполненого  TO DO  листа ты не сможешь отправить отчет."
+	"m_edit_report_generalInfo_3": "Заполнить обязательно. Без Заполненого  TO DO  листа ты не сможешь отправить отчет.",
+	"m_Thank_you_for_report": "Спасибо, твой отчет принят!"
 	
 }

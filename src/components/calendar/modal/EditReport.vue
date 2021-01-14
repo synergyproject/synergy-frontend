@@ -23,7 +23,7 @@
             >
                 <div 
                     class="today-list__container"
-                    v-for="(item, index) in GET_TODOLIST[dayIndex]"
+                    v-for="(item, index) in GET_TODOLIST[dayIndex].dayTascks"
                     :key="index"
                 >
                     <div class="task-description">
@@ -45,7 +45,7 @@
                     </div>
                     <div 
                         class="line"
-                        v-if="index < GET_TODOLIST[dayIndex].length-1"  
+                        v-if="index < GET_TODOLIST[dayIndex].dayTascks.length-1"  
                     ></div> 
                 </div> 
             </div>
@@ -85,7 +85,7 @@
             >
                 <div 
                     class="tomorrow-list__container"
-                    v-for="(item, index) in GET_TODOLIST[dayIndex+1]"
+                    v-for="(item, index) in GET_TODOLIST[dayIndex+1].dayTascks"
                     :key="index"
                 >
                     <div class="taskIndex">
@@ -97,6 +97,7 @@
                         v-model="tomorrowList[index]"
                     >
                 </div>
+                <!-- блок для добавления новой задачи -->
                 <div class="tomorrow-list__container">
                     <input 
                         type="text"
@@ -152,14 +153,18 @@
         created() {
             let goals = this.GET_GOALS,
                 list = this.GET_TODOLIST;
+            
             for (let i = 0; i < goals.length; i++) {
                 this.reports[i] = goals[i].reports[this.dayIndex]
             }
-            for (let i = 0; i < list[this.dayIndex+1].length; i++) {
-                this.tomorrowList[i] = list[this.dayIndex+1][i].description
+            if (list[this.dayIndex+1]) {
+                for (let i = 0; i < list[this.dayIndex+1].dayTascks.length; i++) {
+                    this.tomorrowList[i] = list[this.dayIndex+1].dayTascks[i].description
+                }
             }
         },			
 	  	methods: {
+            ...mapMutations(['SET_NEW_TODO_LIST']),
             ...mapMutations(['SET_TODOLIST_CHECK']),
             ...mapMutations(['SET_TODOLIST_DESCRIPTION']),
             ...mapMutations(['SET_GOALS_REPORTS']),

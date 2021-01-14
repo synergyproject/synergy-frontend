@@ -13,36 +13,28 @@ export default {
 // 		}
 // 	]
 // }
-
 		todoList: [
-			[
-				{
-					description: 'Поприветствовать коллег в общем чате',
-					checked: false
-				},
-				{
-					description: 'Заполнить календарь целей',
-					checked: false
-				},
-				{
-					description: 'Заполнить TO DO дист на завтра',
-					checked: false
-				},
-				{
-					description: 'какая то задача которую не видно',
-					checked: false
-				}
-			],
-			[
-				{
-					description: 'тут массив задач на следующий день и так до 56 днятут массив задач на следующий день и так до 56 днятут массив задач на следующий день и так до 56 днятут массив задач на следующий день и так до 56 днятут массив задач на следующий день и так до 56 днятут массив задач на следующий день и так до 56 днятут массив задач на следующий день и так до 56 дня',
-					checked: false
-				},
-				{
-					description: 'задача день 2',
-					checked: false
-				}
-			]
+			{
+				reportSent: false,
+				dayTascks: [
+					{
+						description: 'Поприветствовать коллег в общем чате',
+						checked: false
+					},
+					{
+						description: 'Заполнить календарь целей',
+						checked: false
+					},
+					{
+						description: 'Заполнить TO DO дист на завтра',
+						checked: false
+					},
+					{
+						description: 'какая то задача которую не видно',
+						checked: false
+					}
+				]
+			}	
 		],
 		//так как файлы не привязаны к цели или задаче то храним их просто в массиве,
 		//где каждый эллемент массива files - массив файлов от текущего дня (индекса files)
@@ -161,20 +153,35 @@ export default {
 	},
 
 	mutations: {
+		SET_NEW_TODO_LIST (state, value) {
+			state.todoList.push(value)
+		},	
 		SET_TODOLIST_CHECK (state, value) {			
-			state.todoList[value.dayIndex][value.taskIndex].checked = !state.todoList[value.dayIndex][value.taskIndex].checked
+			state.todoList[value.dayIndex].dayTascks[value.taskIndex].checked = !state.todoList[value.dayIndex].dayTascks[value.taskIndex].checked
+		},
+		SET_TODOLIST_REPORTSENT (state, value) {
+			//value в виде number (день игры)
+			state.todoList[value].reportSent = true
 		},
 		SET_TODOLIST_DESCRIPTION (state, value) {
 			//value в виде {dayIndex: number, tomorrowList: array}			
 			for (let i = 0; i < value.tomorrowList.length; i++) {
 				if (value.tomorrowList[i]) {
-					state.todoList[value.dayIndex][i] = {
+					// если списка на следующий день не существует - создаем
+					if (!state.todoList[value.dayIndex]) {       
+						state.todoList[value.dayIndex] = {
+							reportSent: false,
+							dayTascks: []
+						}
+					}
+					state.todoList[value.dayIndex].dayTascks[i] = {
 						description: value.tomorrowList[i],
 						checked: false
 					}
+	
 				} else {
 					//если пользователь сохранил поле задачи пустым удаляем ее
-					state.todoList[value.dayIndex].splice(i, 1)
+					state.todoList[value.dayIndex].dayTascks.splice(i, 1)
 				}
 				
 			}

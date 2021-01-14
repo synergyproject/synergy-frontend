@@ -64,6 +64,7 @@
 	],
 	"m_to_do_list_for_today": "TO DO list for today",
 	"m_to_do_list_for_tomorrow": "TO DO list for tomorrow",
+	"m_your_to_do_list_for_tomorrow": "Your TO DO list for tomorrow",
 	"m_check_the_completed_boxes": "Check the completed boxes",
 	"m_goal_report": "Goal report",
 	"m_what_have_you_done_today": "What have you done today to achieve your goals",
@@ -92,5 +93,6 @@
 	"m_statistics": "Statistics",
 	"m_edit_report_generalInfo_1": "Mark what tasks you completed today",
 	"m_edit_report_generalInfo_2": "What have you done today to achieve your goals",
-	"m_edit_report_generalInfo_3": "Required. Without a completed TO DO sheet, you will not be able to send a report"
+	"m_edit_report_generalInfo_3": "Required. Without a completed TO DO sheet, you will not be able to send a report",
+	"m_Thank_you_for_report": "Thank you, your report accepted!"
 }
