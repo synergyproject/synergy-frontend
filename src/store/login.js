@@ -26,6 +26,7 @@ export default {
           `http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/invitations/${payload}`
         )
         .then((response) => {
+			  console.log(response.data, 'response.data');
 			  commit("SET_INVITATION_PARAMETERS", response.data);
 			  commit("SET_AUTHORIZATION_TOKEN", response.headers.authorization);
 			  commit("SET_STATUS_CODE_FROM_SERVER", response.status)

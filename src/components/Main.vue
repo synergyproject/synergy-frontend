@@ -54,7 +54,7 @@
                                 >
                             </div>
                             <div class="email">
-                                {{GET_USER.email}}
+                                {{ }}
                             </div>
                             <!-- Отображаем / редактируем телеграм ник -->
                             <div class="username-block">
@@ -236,7 +236,7 @@
                 if (!this.GET_USER.phone) {
                     this.phoneInput = true
                 }
-            }    
+            } 
         },
         computed: {
             ...mapGetters(['GET_AVATAR']),

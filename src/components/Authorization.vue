@@ -94,7 +94,7 @@
 	import icon_eye_close from '@/assets/img/icon_eye_close.png';
 	import icon_eye_open from '@/assets/img/icon_eye_open.png';
 	import LanguageSelector from './secondary/LanguageSelector.vue';
-	import bg from '@/assets/img/login_background.jpg'
+	import bg from '@/assets/img/login_background.png'
 
 	export default {
 		name: 'authorization',
