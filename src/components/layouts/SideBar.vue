@@ -2,6 +2,7 @@
     <div class="page">
         <div class="page-sidebar">  
             <div class="page-sidebar__exit">
+                Выйти
             </div>
                 <div 
                     v-if="GET_AVATAR"

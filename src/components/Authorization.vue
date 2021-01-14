@@ -1,6 +1,9 @@
 <template>
 	<div class="authorization__wrapper">
 		<language-selector />
+		<!--<div class="main-logo">
+			<img src="@/assets/img/Logo_big.png" >
+		</div>-->
 		<div
 			 class="authorization-page"
 			 @keyup.enter="authorization()"
@@ -20,6 +23,7 @@
 								 maxlength="64"
 								 autocomplete="off"
 								 v-model="email"
+								 placeholder="youremail@gmail.com"
 							>
 						</div>
 						<div class="validation-block">
@@ -44,10 +48,11 @@
 								 maxlength="64"
 								 autocomplete="off"
 								 v-model="pass"
+								 placeholder="g0y9d8c"
 							>
 							<div class="input-basement">
 								<div class="input-basement__left">
-									<img src="@/assets/img/ahtung_circle.png">
+									<img src="@/assets/img/icon_attention.png">
 									<span>
 										{{ $t(info_message) }}
 									</span>

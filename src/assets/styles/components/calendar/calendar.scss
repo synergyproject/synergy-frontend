@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     height: 100vh;
-    background: #F3F1F1;
+    background: $colorBg;
     display: flex;
     *{
         display: flex
@@ -15,15 +15,15 @@
         margin-bottom: 16px;     
         align-items: center;
         flex-direction: column;
-        overflow: auto;
+        overflow-x: hidden;
+        overflow-y: auto;
 
         &::-webkit-scrollbar {
-            width: 12px;
+            width: 9px;
+            height: 166px;
         }            
         /* Track */
         &::-webkit-scrollbar-track {
-            margin-top: 10px;
-            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
             -webkit-border-radius: 10px;
             border-radius: 10px;
         }            
@@ -31,8 +31,7 @@
         &::-webkit-scrollbar-thumb {
             -webkit-border-radius: 10px;
             border-radius: 10px;
-            background: #C4C4C4;; 
-            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+            background: $colorPrimary50;
         }
     }    
 }

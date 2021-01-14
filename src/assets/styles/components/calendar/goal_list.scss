@@ -5,10 +5,11 @@
         font-size: 24px;
         line-height: 28px;
         margin-bottom: 20px;
+        color: $colorPrimary;
     }
     .list-wrapper{
         width: 1081px;
-        background: #FFFFFF;
+        background: $colorBgHeader;
         border-radius: 5px;
         margin-bottom: 29px;
         flex-direction: column;
@@ -18,7 +19,7 @@
             .line{
                 width: 1033px;
                 height: 1px;
-                background: #BCC0C9;
+                background: $borderColor;
             }
             .goal-container{
                 width: 1033px;
@@ -29,7 +30,7 @@
                 justify-content: space-between;
                 .goal-description-wrapper{
                     *{
-                        color: #09032E;
+                        color: $colorText;
                         font-weight: 500;
                         font-size: 14px;
                         line-height: 20px;
@@ -65,7 +66,7 @@
                         font-weight: 500;
                         font-size: 14px;
                         line-height: 16px;
-                        color: #09032E;
+                        color: $colorText;
                     }
                     .status-menu{
                         z-index: 100;
@@ -73,8 +74,8 @@
                         height: 152px;
                         border-radius: 5px;
                         box-sizing: border-box;
-                        border: 1px solid #BCC0C9;
-                        background: #FFFFFF;
+                        border: 1px solid $borderColor;
+                        background: $colorBgHeader;
                         position: absolute;
                         right: 204px;
                         // left: -8px;
