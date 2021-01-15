@@ -11,6 +11,9 @@
                         >
                             ТЕСТ цели
                         </div>
+                        <div class="logo">
+                            <img src="@/assets/img/Logo_dark.png" >
+                        </div>
                         <router-link
                             to="/logout" 
                             class="menu-button basic-buttons"

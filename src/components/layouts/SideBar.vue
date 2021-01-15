@@ -1,9 +1,15 @@
 <template>
     <div class="page">
         <div class="page-sidebar">  
-            <div class="page-sidebar__exit">
-                Выйти
+            <div class="logo">
+                <img src="@/assets/img/Logo_light.png" >
             </div>
+            <router-link
+                to="/logout" 
+                class="page-sidebar__exit"
+            >
+                Выйти
+            </router-link>
                 <div 
                     v-if="GET_AVATAR"
                     :style="{backgroundImage:`url(${GET_AVATAR})`}"

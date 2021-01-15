@@ -66,6 +66,9 @@
         width: 135px;
         background-color: $colorPrimary;
         padding-top: 30px;
+        .logo{
+            margin-bottom: 20px;
+        }
         &__exit{
             @include flex(row, center, center, nowrap);
             width: 91px;
