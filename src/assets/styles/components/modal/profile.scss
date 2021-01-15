@@ -1,7 +1,7 @@
 .profile-window{
     width: 922px;
     height: 461px;
-    background: #FFFFFF;
+    background: $colorBgHeader;
     z-index: 910;
     flex-direction: column;
     align-items: center;
@@ -20,6 +20,7 @@
         font-weight: 500;
         font-size: 20px;
         line-height: 23px;
+        color: $colorPrimary;
     }
     .profile-wrapper{
         margin-top: 38px;
@@ -38,14 +39,18 @@
             align-items: center;
             justify-content: center;
             flex-direction: column;
-            background: #E6E6E6;
+            border: 1px solid $borderColor;
             border-radius: 10px;
             margin-right: 71px;
+            .avatar-description div{
+                color: $colorPrimary;
+            }
             .avatar-description{
                 font-size: 16px;
                 line-height: 19px;
                 flex-direction: column;
                 align-items: center;
+
                 .avatar-requirements{
                     padding-top: 40px;
                     width: 200px;
@@ -53,6 +58,7 @@
                     font-size: 10px;
                     line-height: 10px;
                     text-align: center;
+
                 }
             }
             .avatar-img{
@@ -72,12 +78,12 @@
                     height: 40px;
                     font-size: 14px;
                     line-height: 16px;
-                    color: #000000;
+                    color: $colorText;
                 }
                 input{
                     width: 312px;
                     height: 40px;
-                    background: #F2F1F1;
+                    background: $colorBg;
                     border-radius: 5px;
                     outline: none;
                     border: none;
@@ -86,11 +92,13 @@
                     font-size: 14px;
                     line-height: 16px;
                 }
+                input::placeholder{
+                    color:$colorPrimary50;
+                }
                 .date{
                     width: auto;
                 }
                 .star{
-                    color: #777777;
                     font-size: 12px;
                     margin-left: 12px;
                 }
@@ -100,7 +108,6 @@
                 font-size: 12px;
                 line-height: 14px;
                 justify-content: flex-end;
-                color: #777777;
             }
         }
     }
@@ -111,8 +118,8 @@
         margin-top: 9px;
         width: 188px;
         height: 40px;
-        background: #656565;
+        background: $colorPrimary;
         border-radius: 100px;
-        color: #FFFFFF;
+        color: $colorBgHeader;
     }
 }

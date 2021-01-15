@@ -70,7 +70,7 @@
                     }
                     input{
                         height: 40px;
-                        background: #E4E4E4;
+                        background: $colorBg;
                         outline: none;
                         border: none;
                         padding-left: 12px;
@@ -81,12 +81,12 @@
                     @extend %display-center;
                     margin-top: 18px;
                     height: 40px;
-                    background-color: #545454;
+                    background-color: $colorPrimary;
                     border-radius: 100px;
                     font-weight: 500;
                     font-size: 14px;
                     line-height: 16px;
-                    color: #FFFFFF;
+                    color: $colorBgHeader;
                     user-select: none;  
                 }
             }

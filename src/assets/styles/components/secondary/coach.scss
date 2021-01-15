@@ -2,7 +2,7 @@
     *{
         display: flex;
         font-family: 'Roboto', sans-serif;
-        color: #000000;
+        color: $colorText;
     }
     width: 100%;
     align-items: center;
@@ -18,7 +18,7 @@
             align-items: center;
             justify-content: center;
             user-select: none;
-            background: #C4C4C4;
+            background: $colorSecond;
             border-radius: 23.5px;
             width: 215px;
             height: 32px;
@@ -35,7 +35,11 @@
             line-height: 28px;
             position: absolute;
             right: 65px;
-            top: 131px;
+            top: 45px;
+            & div{
+                color: $colorPrimary;
+            }
+            
             div{
                 align-self: flex-end;
             }

@@ -1,45 +1,55 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
-%display-center{
+
+@mixin flex($flexDir, $jc, $alignI, $wrap){
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: $flexDir;
+    justify-content: $jc;
+    align-items: $alignI;
+    flex-wrap: $wrap;
 }
 .authorization__wrapper{
+    @include flex(column, flex-start, center, nowrap);
     height: 100vh;
     background-repeat: no-repeat;
     background-position: top right;
     background-size: cover;
     position: relative;
+    
 }
+.main-logo{
+    margin-top: 73px;
+    margin-bottom: 104px;
+}	
 .authorization-page{
+    @include flex(column, flex-start, center, nowrap);
     margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    *{
-        font-family: 'Roboto', sans-serif;
-    }
+    padding: 40px 0;
+    background-color: $colorBgHeader;
+    width: 60%;
+    max-width: 771px;
+    border-radius: 5px;
+
     .greeting{
-            height: 23px;
-            white-space: nowrap;
-            font-size: 20px;
-            line-height: 23px;
-            margin-top: 217px;
-            margin-bottom: 36px;
-        }		
+        color: $colorPrimary;
+        margin-bottom: 36px;
+        height: 23px;
+        font-size: 20px;
+        line-height: 23px;
+    }		
     .authorization-main-block{
-        width: 342px;
-        height: 319px;
+
         *{
             display: flex;
         }
-        .validation-form{			
+        .validation-form{	
             height: 242px;
+            position: relative;
             .authorization-controls{
+                @include flex(row, center, center, nowrap);		
                 min-width: 342px;
                 flex-direction: column;
                 .validation-block{
+                    width: 373px;
                     height: 76px;
                     margin-bottom: 16px;
                     flex-direction: column;
@@ -57,12 +67,14 @@
                         }
                     }
                     .input-header{
+                        color: $colorPrimary;
                         height: 14px;
                         margin-bottom: 4px;
                     }
                     .input-basement{
                         display: flex;
                         margin-top: 4px;
+                        color: $colorError;
                         .input-basement__left{
                             font-style: italic;
                         }
@@ -73,54 +85,66 @@
                         }
                     }
                     input{
+                        color: $colorPrimary;
                         height: 40px;
-                        background: #E4E4E4;
+                        background-color: $colorBg;
                         outline: none;
                         border: none;
                         padding-left: 12px;
                         padding-right: 40px;
+                        border-radius: 5px;
+                        &::placeholder{
+                            color: $colorPrimary50;
+                        }
                     }
                 }
                 .save-button{
-                    @extend %display-center;
+                    @include flex(row, center, center, nowrap);
                     margin-top: 18px;
                     height: 40px;
-                    background-color: #545454;
+                    width: 184px;
+                    background-color: $colorPrimary;
                     border-radius: 100px;
                     font-weight: 500;
                     font-size: 14px;
                     line-height: 16px;
-                    color: #FFFFFF;
-                    user-select: none;  
+                    color: $colorBgHeader;
+                    user-select: none; 
+                    &:hover{
+                        background-color: $colorPrimaryHover;
+                    } 
                 }
             }
             .password-help{
+                position: absolute;
+                top:100px;
+                right: -34px;
                 margin-top: 21px; 
                 .question-icon{
                     width: 20px;
 					height: 20px;
-					margin-top: 100px;
-                    margin-left: 24px;
-                    margin-right: 10px;
+                    margin-left: 14px;
                     &:hover ~ .help-content{
                         display: flex;
                     }					
                 }
                 .help-content{
-                    width: 136px;
-                    height: 221px;
-                    background: #C4C4C4;
+                    position: absolute;
+                    top:0px;
+                    right: -219px;
+                    background-color: $colorBgHeader;
                     border-radius: 8px;
+                    border: 1px solid $borderColor;
                     display: none;
                     .help-content__text{
-                        width: 114px;
-                        height: 204px;
+                        padding: 8px;
+                        width: 209px;
+                        height: 200px;
                         font-style: normal;
                         font-weight: normal;
                         font-size: 9px;
                         line-height: 11px;
-                        color: #636363;
-                        margin: 6px 11px 11px 11px;
+                        color: $colorPrimary;
                         display: inline;
                         b{
                             display: inline;
