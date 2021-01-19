@@ -1,20 +1,25 @@
 <template>
     <div class="page">
-        <div class="page-sidebar">  
-            <div class="page-sidebar__exit">
-                Выйти
-            </div>
-                <div 
-                    v-if="GET_AVATAR"
-                    :style="{backgroundImage:`url(${GET_AVATAR})`}"
-                    class="avatar"
-                ></div>
-                <div
-                    v-else 
-                    class="avatar" 
-                    :style="{backgroundImage:`url(${bgImage})`}"
-                >
-            </div>
+        <div class="page-sidebar">
+            <div class="logo">
+                <img src="@/assets/img/Logo_light.png" >
+            </div>  
+            <router-link
+                to="/logout" 
+                class="page-sidebar__exit menu-button basic-buttons"
+            >
+                {{ $t('m_log_out') }}
+            </router-link>
+            <div 
+                v-if="GET_AVATAR"
+                :style="{backgroundImage:`url(${GET_AVATAR})`}"
+                class="avatar"
+            ></div>
+            <div
+                v-else 
+                class="avatar" 
+                :style="{backgroundImage:`url(${bgImage})`}"
+            ></div>
 
             <ul class="page-sidebar__menu">
                 <li class="page-sidebar__menu-item">

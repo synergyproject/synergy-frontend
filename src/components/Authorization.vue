@@ -1,9 +1,9 @@
 <template>
 	<div class="authorization__wrapper" :style="{backgroundImage:`url('${loginImage}')`}">
 		<language-selector />
-		<!--<div class="main-logo">
+		<div class="main-logo">
 			<img src="@/assets/img/Logo_big.png" >
-		</div>-->
+		</div>
 		<div
 			 class="authorization-page"
 			 @keyup.enter="authorization()"

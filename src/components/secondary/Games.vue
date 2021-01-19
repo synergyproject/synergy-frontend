@@ -106,7 +106,7 @@
         computed: {
             ...mapGetters(['GET_GAMES', 'GET_GAMES_LIST']),
             getGamesList() {
-                return this.GET_GAMES_LIST.games
+                return  this.GET_GAMES_LIST.games
             }
         },
         methods: {
