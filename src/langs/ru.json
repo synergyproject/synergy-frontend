@@ -93,6 +93,14 @@
 	"m_edit_report_generalInfo_1": "Отметь, какие задачи ты сегодня выполнил",
 	"m_edit_report_generalInfo_2": "Что ты сегодня сделал для достижения целей",
 	"m_edit_report_generalInfo_3": "Заполнить обязательно. Без Заполненого  TO DO  листа ты не сможешь отправить отчет.",
-	"m_Thank_you_for_report": "Спасибо, твой отчет принят!"
-	
+	"m_Thank_you_for_report": "Спасибо, твой отчет принят!",
+	"m_create_game_h2": "Cоздание игры",
+	"m_create_game_btn": "Создать игру",
+	"m_error_game_name": "Название игры не заполненно",
+	"m_error_game_startDate": "Дата начала игры не выбрана",
+	"m_game_name": "Название игры",
+	"m_game_description": "Описание игры",
+	"m_game_startDate": "Дата старта",
+	"m_game_endDate": "Дата окончания",
+	"m_8_weeks": "+ 8 недель"
 }

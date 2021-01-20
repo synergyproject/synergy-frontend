@@ -1,0 +1,171 @@
+.create-game{ 
+    @include flex(column, flex-start, flex-start, nowrap);
+    width: 850px;
+    height: 536px;
+    background-color: $colorBgHeader;
+    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    padding: 40px 80px;
+    .create-game__header{
+        align-self:center;
+        color: $colorPrimary;
+        @include font(700, 20px, 23px);
+
+    }
+    .create-game__content{
+        width: 100%;
+        @include flex(row, space-between, flex-start, nowrap);
+        .create-game__info{
+            @include flex(row, space-between, flex-start, wrap);
+            width: 453px;
+        }
+        .create-game__container{
+            position: relative;
+            @include flex(column, flex-start, flex-start, nowrap);
+            margin-bottom: 30px;
+            input[type=text],
+            textarea{
+                width: 453px;
+            }
+            input[type=date]{
+                width: 213px;
+            }
+            input,
+            textarea{
+                padding: 10px 12px;
+                background-color: $colorBg;
+                color:$colorText;
+                @include font(400, 14px, 20px);
+                border: none;
+                border-radius: 5px;
+                &::placeholder{
+                    color:$colorPrimary50;
+                }
+            }
+            textarea{
+                resize: none;
+                height: 117px;
+                overflow-x: hidden;
+                overflow-y: auto;
+                &::-webkit-scrollbar {
+                    width: 4px;
+                    height: 166px;
+                }            
+                /* Track */
+                &::-webkit-scrollbar-track {
+                    -webkit-border-radius: 10px;
+                    border-radius: 10px;
+                }            
+                /* Handle */
+                &::-webkit-scrollbar-thumb {
+                    -webkit-border-radius: 10px;
+                    border-radius: 10px;
+                    background: $colorPrimary50;
+                }
+
+            }
+            &-head{
+                margin-bottom: 4px;
+                color:$colorPrimary;
+                @include font(400, 12px, 14px);
+            }
+            &-star,
+            &-error,
+            &-after{
+                position: absolute;
+                @include font(400, 12px, 14px);
+            }
+            &-error,
+            &-after{
+                left:0;
+                top: 62px;
+            }
+            &-star{
+                color:$colorText;
+                right:-12px;
+                top: 18px;
+            }
+            &-after{
+                color:$colorSecondHover;
+            }
+            &-error{
+                display: none;
+                color:$colorError;
+                img{
+                    width: 14px;
+                    height: 14px;
+                    margin-right: 4px;
+                }
+                span{
+                    color:inherit;
+                }
+            }
+            &-error.redAlert{
+                display: flex;
+            }
+            &-star.redAlert{
+                color:$colorError;
+            }
+            
+        }
+    }
+    .avatar-window{  
+        width: 215px; 
+        height: 271px;
+        box-shadow: none;
+        .avatar-requirements{
+            position: relative;
+            width: 215px;
+            height: 215px;
+            .avatar-img{
+                position: absolute;
+                top:0;
+                left:0;
+                width: 215px;
+                height: 215px;
+            }
+            .avatar-requirements-info{
+                width: 150px;
+                height: 126px;
+            }
+            .decor-left-top{
+                top: 0px;
+                left: 0px;
+                border-bottom: none;
+                border-right: none;
+                border-top-left-radius: 10px;
+            }
+            .decor-left-bottom{
+                top: 135px;
+                left: 0px;
+                border-top: none;
+                border-right: none;
+                border-bottom-left-radius: 10px;
+            }
+            .decor-right-top{
+                top: 0px;
+                left: 135px;
+                border-bottom: none;
+                border-left: none;
+                border-top-right-radius: 10px;
+            }
+            .decor-right-bottom{
+                top: 135px;
+                left: 135px;
+                border-top: none;
+                border-left: none;
+                border-bottom-right-radius: 10px;
+            }
+        }
+    }
+    .confirm-button{
+        align-self:center;
+        width: 214px;
+        height: 40px;
+        @include flex(row, center, center, nowrap);
+        background-color: $colorPrimary;
+        color: $colorBgHeader;
+        @include font(500, 14px, 20px);
+        border-radius: 100px;
+    }
+} 
