@@ -6,19 +6,20 @@
                 <div class="primary-menu">
                     <div class="primary-menu-container">
                         <div class="menu-buttons-container">
-                            <div 
+                            <!-- <div 
                                 class="menu-button basic-buttons" 
                                 @click="goObjectives()"
-                            >
-                                
-                            </div>
+                            > 
+                            </div> -->
+                            <language-menu :languageMenuDesign='languageMenuDesign' />
                             <div class="logo">
                                 <img src="@/assets/img/Logo_dark.png" >
                             </div>
-                                
+                            
+                            <!-- <img src="@/assets/img/Logo_dark.png" @click="goObjectives()"> -->
                             <router-link
                                 to="/logout" 
-                                class="menu-button basic-buttons"
+                                class="menu-button"
                             >
                                 {{ $t('m_log_out') }}
                             </router-link>
@@ -58,12 +59,15 @@
                                 >
                             </div>
                             <div class="email">
-                                {{ }}
+                                {{GET_USER.email}}
                             </div>
                             <!-- Отображаем / редактируем телеграм ник -->
                             <div class="username-block">
                                 <div>
-                                    <div class="circle"></div>
+                                    <img 
+                                        src="@/assets/img/telegram.png" 
+                                        class="username-block__icon"
+                                    >
                                     <div 
                                         class="username-block__content" 
                                         v-show='!usernameTelegramInput'
@@ -88,7 +92,10 @@
                             <!-- Отображаем / редактируем телефон -->
                             <div class="username-block">
                                 <div>
-                                    <div class="circle"></div>
+                                    <img 
+                                        src="@/assets/img/phone.png" 
+                                        class="username-block__icon"
+                                    >
                                     <div 
                                         class="username-block__content" 
                                         v-show='!phoneInput'
@@ -113,7 +120,10 @@
                             <!-- Отображаем / редактируем дату рождения -->
                             <div class="username-block">
                                 <div>
-                                    <div class="circle"></div>
+                                    <img 
+                                        src="@/assets/img/calendar.png" 
+                                        class="username-block__icon"
+                                    >
                                     <div 
                                         class="username-block__content" 
                                         v-show='!birthdayInput'
@@ -148,6 +158,9 @@
                             >
                                 {{ $t('m_administrator_account') }}
                             </div>
+                        </div>
+                        <div class="license-counter">
+                            {{ $t('m_licenses_available') }} {{licenseCounter}}
                         </div>
                     </div>
                 </div>
@@ -184,6 +197,7 @@
 
 <script>
     import Modal from '@/components/modal/Modal';
+    import LanguageMenu from '@/components/secondary/LanguageMenu';
     import Avatar from '@/components/modal/Avatar';
     import Fullname from '@/components/modal/Fullname';
     import Profile from '@/components/modal/Profile';
@@ -191,6 +205,9 @@
     import Games from '@/components/secondary/Games';
     import Admin from '@/components/secondary/Admin';
     import icon_pencil from '@/assets/img/icon_pencil.png';
+    import telegram from '@/assets/img/telegram.png';
+    import phone from '@/assets/img/phone.png';
+    import calendar from '@/assets/img/calendar.png';
     import { mapMutations, mapGetters, mapActions } from 'vuex';
 
     export default {
@@ -209,21 +226,25 @@
                 usernameTelegramInput: false,
                 phoneInput: false,
                 birthdayInput: false,
+                licenseCounter: 5,
                 user: {
                     usernameTelegram: '',
                     phone: '',
                     birthday: ''
-                }
+                },
+                currentLanguage: 'eng',
+                languageMenuDesign: 1
             }
         },
         components: {
-            Modal: Modal,
-            Avatar: Avatar,
-            Fullname: Fullname,
-            Profile: Profile,
-            Coach: Coach,
-            Games: Games,
-            Admin
+            Admin,
+            Modal,
+            Avatar,
+            Fullname,
+            Profile,
+            Coach,
+            Games,
+            LanguageMenu
         },
         mounted () {
             //при построении страницы запрашиваем сервер через action данные о пользователе, играх и тд, и помещаем их в store
@@ -251,7 +272,7 @@
         },
         computed: {
             ...mapGetters(['GET_AVATAR']),
-            ...mapGetters(['GET_USER'])            
+            ...mapGetters(['GET_USER'])           
 		},    
         methods: {
             ...mapMutations(['SET_USER']),
@@ -319,7 +340,7 @@
                     this.birthdayInput = true;
                 }
             },
-            //отфарматируем вид даты для отображения пользователю
+            //отфoрматируем вид даты для отображения пользователю
             formattedDate: function () {
                 let date = this.GET_USER.birthday;
                 return date && date.split('-').reverse().join('.');

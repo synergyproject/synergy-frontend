@@ -80,6 +80,7 @@
 	"m_player_rating": "Рейтинг игроков",
 	"m_points": "Баллы",
 	"m_hide": "Свернуть",
+	"m_show": "Показать",
 	"m_all_comments": "Все комментарии",
 	"m_edit_post": "Редактировать пост",
 	"m_delete_post": "Удалить пост",
@@ -105,5 +106,6 @@
 	"m_8_weeks": "+ 8 недель",
 	"m_Business_Trainers_List": "Список Бизнес- тренеров",
 	"m_games_List": "Список игр",
-	"m_players_List": "Список игроков"
+	"m_players_List": "Список игроков",
+	"m_licenses_available": "Доступно лицензий:"
 }

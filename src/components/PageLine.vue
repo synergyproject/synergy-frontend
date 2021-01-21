@@ -1,5 +1,5 @@
 <template>
-    <side-bar>
+    <side-bar> 
         <div class="line">
             <div class="line-main">
                 <addpost :user = "GET_USERIN"></addpost>

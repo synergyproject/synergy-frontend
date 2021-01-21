@@ -1,9 +1,10 @@
 <template>
     <div class="page">
         <div class="page-sidebar">
+            <language-menu :languageMenuDesign='languageMenuDesign' />
             <div class="logo">
                 <img src="@/assets/img/Logo_light.png" >
-            </div>  
+            </div>
             <router-link
                 to="/logout" 
                 class="page-sidebar__exit menu-button basic-buttons"
@@ -19,8 +20,8 @@
                 v-else 
                 class="avatar" 
                 :style="{backgroundImage:`url(${bgImage})`}"
-            ></div>
-
+            >
+            </div>
             <ul class="page-sidebar__menu">
                 <li class="page-sidebar__menu-item">
                     <router-link 
@@ -61,13 +62,19 @@
 
 <script>
     import avatar from '@/assets/img/avatar.png'
+    import LanguageMenu from '@/components/secondary/LanguageMenu';
     import { mapGetters } from 'vuex';
+
     export default {
         name: "SideBar",
         data () {
             return {
-              bgImage: avatar                
+              bgImage: avatar,
+              languageMenuDesign: 2                
             }
+        },
+        components: {
+            LanguageMenu
         },
         computed: {
             ...mapGetters(['GET_AVATAR'])

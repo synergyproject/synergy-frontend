@@ -1,4 +1,4 @@
-{
+ {
 	"m_welcome": "Welcome!",
 	"m_enter_login": "Enter login",
 	"m_enter_password": "Enter password",
@@ -106,5 +106,6 @@
 	"m_8_weeks": "+ 8 weeks",
 	"m_Business_Trainers_List": "List of Business Trainers",
 	"m_games_List": "List of games",
-	"m_players_List": "List of players"
+	"m_players_List": "List of players",
+	"m_licenses_available": "Licenses available:"
 }
