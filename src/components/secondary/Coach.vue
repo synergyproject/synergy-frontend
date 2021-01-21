@@ -1,9 +1,13 @@
 <template>
     <div class="coach-page">
         <div class="coach-header">
-            <div class="start-game-button basic-buttons">
+            <div class="start-game-button basic-buttons" @click="openWindow()">
                 {{ $t('m_create_game') }}
             </div>
+            <modal-window v-if="this.createGameShow" @close='closeWindow'  >
+                <create-game @closeGame='closeWindow'>
+                </create-game>
+            </modal-window>
             <div class="coach-info">
                 <div class="coach-info__title">
                     {{ $t('m_business_coach') }}
@@ -19,19 +23,29 @@
 
 <script>
     import Games from '@/components/secondary/Games';
-    
+    import ModalWindow from '@/components/modal/ModalWindow';
+    import CreateGame from '@/components/modal/CreateGame';
     export default {
         name: "Coach",
         data () {
             return {
-                coach: 'Вася Щукин'
+                coach: 'Вася Щукин',
+                createGameShow: false,
             }
         },
         components: {
-            Games: Games
+            Games,
+            ModalWindow,
+            CreateGame
         },
         methods: {
-
+            openWindow() {
+                this.createGameShow = true
+            },
+            
+            closeWindow () {
+		  		this.createGameShow = false	  		
+            },
         }
     }
 </script>

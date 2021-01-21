@@ -53,7 +53,7 @@
         name: 'Avatar',
         data () {
             return {
-                activeDecorColor: '#C4C4C4'
+                activeDecorColor: '#BCC0C9'
             }
         },
         methods: {
@@ -67,7 +67,7 @@
 
                 if (size <= 2097152 && (fileFormat === 'jpg'|| fileFormat === 'png')) {
                     this.SET_AVATAR(event.target.files[0]);
-                    this.activeDecorColor = '#C4C4C4';
+                    this.activeDecorColor = '#BCC0C9';
                     this.$emit('closeAvatar');
                 } else {
                     this.activeDecorColor = 'red';

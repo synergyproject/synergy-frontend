@@ -91,6 +91,10 @@ export default {
     "SET_LIST_OF_GAMES"(state, payload) {
       state.gamesData = payload;
     },
+    "ADD_LIST_OF_GAMES"(state, payload) {
+      state.gamesData.games.push(payload)
+      console.log('state',state.gamesData.games);
+    },
     // SET_INVITATION_PARAMETERS(state, payload) {
     //   state.invitationsParameters = payload;
     // },
