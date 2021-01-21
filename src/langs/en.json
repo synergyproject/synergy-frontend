@@ -1,4 +1,4 @@
-{
+ {
 	"m_welcome": "Welcome!",
 	"m_enter_login": "Enter login",
 	"m_enter_password": "Enter password",
@@ -94,5 +94,6 @@
 	"m_edit_report_generalInfo_1": "Mark what tasks you completed today",
 	"m_edit_report_generalInfo_2": "What have you done today to achieve your goals",
 	"m_edit_report_generalInfo_3": "Required. Without a completed TO DO sheet, you will not be able to send a report",
-	"m_Thank_you_for_report": "Thank you, your report accepted!"
+	"m_Thank_you_for_report": "Thank you, your report accepted!",
+	"m_licenses_available": "Licenses available:"
 }

@@ -1,19 +1,27 @@
 <template>
     <div class="page">
-        <div class="page-sidebar">  
-            <div class="page-sidebar__exit">
-                Выйти
-            </div>
-                <div 
-                    v-if="GET_AVATAR"
-                    :style="{backgroundImage:`url(${GET_AVATAR})`}"
-                    class="avatar"
-                ></div>
-                <div
-                    v-else 
-                    class="avatar" 
-                    :style="{backgroundImage:`url(${bgImage})`}"
-                >
+        
+        <div class="page-sidebar">
+            <language-menu :languageMenuDesign='languageMenuDesign' />
+            <!-- <div class="page-sidebar__exit">
+                {{ $t('m_log_out') }}
+            </div> -->
+            <router-link
+                to="/logout" 
+                class="page-sidebar__exit"
+            >
+                {{ $t('m_log_out') }}
+            </router-link>
+            <div 
+                v-if="GET_AVATAR"
+                :style="{backgroundImage:`url(${GET_AVATAR})`}"
+                class="avatar"
+            ></div>
+            <div
+                v-else 
+                class="avatar" 
+                :style="{backgroundImage:`url(${bgImage})`}"
+            >
             </div>
 
             <ul class="page-sidebar__menu">
@@ -56,13 +64,19 @@
 
 <script>
     import avatar from '@/assets/img/avatar.png'
+    import LanguageMenu from '@/components/secondary/LanguageMenu';
     import { mapGetters } from 'vuex';
+
     export default {
         name: "SideBar",
         data () {
             return {
-              bgImage: avatar                
+              bgImage: avatar,
+              languageMenuDesign: 2                
             }
+        },
+        components: {
+            LanguageMenu
         },
         computed: {
             ...mapGetters(['GET_AVATAR'])

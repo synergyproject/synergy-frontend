@@ -37,27 +37,23 @@
             width: 100%;
             .primary-menu-container{
                 width: 220px;
-                height: 650px;
                 margin-top: 49px;
                 align-items: center;
                 flex-direction: column;
-                width: 220px;
                 position: absolute;
                 .menu-buttons-container{
                     justify-content: space-between;
                     width: 220px;
-                    margin-bottom: 36px;
+                    margin-bottom: 24px;
                     .menu-button{
                         align-items: center;
-                        justify-content: center;
-                        width: 98px;
-                        height: 24px;
                         color: $colorPrimary;
-                        border-radius: 15px;
-                        font-size: 12px;
-                        line-height: 14px;
-                        font-weight: 400;
-                        user-select: none; 
+                        max-width: 70px;
+                        font-size: 14px;
+                        line-height: 20px;
+                        user-select: none;
+                        overflow: hidden;
+                        text-decoration: none;
                     }
                 }
                 .avatar{
@@ -93,23 +89,22 @@
                     .email{
                         font-size: 12px;
                         line-height: 14px;
-                        text-decoration-line: underline;
                         color: $colorPrimary;
+                        margin-top: 8px;
                         margin-bottom: 24px;
                         overflow: hidden;
                     }
                     .username-block{
                         justify-content: space-between;
                         margin-bottom: 12px;
-                        .circle{
+                        .username-block__icon{
                             width: 24px;
                             height: 24px;
-                            background: rgba(196, 196, 196, 0.56);
-                            border-radius: 15px;
                             margin-right: 8px;
                         }
                         .username-block__content{
-                            font-size: 12px;
+                            font-size: 14px;
+                            line-height: 20px;
                             height: 24px;
                             align-items: center;
                             overflow: hidden;
@@ -134,12 +129,11 @@
                         font-size: 12px;
                         border: 1px solid $colorPrimary;
                         border-radius: 15px;
-                        width: 220px;
+                        min-width: 220px;
                         height: 32px;
-                        align-items: center;
-                        justify-content: center;
                         user-select: none;
-                        margin-bottom: 15px; 
+                        margin-bottom: 15px;
+                        text-align: center; 
                     }
                     .admin-button{
                         margin-top: 21px;
@@ -147,6 +141,11 @@
                         border: none;
                     }             
 
+                }
+                .license-counter{
+                    color: $colorPrimary;
+                    font-size: 14px;
+                    line-height: 20px;
                 }
             }
         }

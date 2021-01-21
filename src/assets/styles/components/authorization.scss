@@ -22,7 +22,6 @@
 }	
 .authorization-page{
     @include flex(column, flex-start, center, nowrap);
-    margin: 0;
     padding: 40px 0;
     background-color: $colorBgHeader;
     width: 60%;

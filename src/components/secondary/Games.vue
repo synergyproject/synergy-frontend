@@ -6,27 +6,29 @@
             :key="index"
         >
             <div class="game-left-wrapper">
-                <div class="photo"></div>
+                <!-- <div class="photo"></div> -->
+                <img :src="item.logoUrl" class="photo">
                 <div class="game-info-left">
                     <div class="game-info-left__name">
                         {{item.name}}
                     </div>
+                    <!-- от краткого описания отказались пока что?
                     <div class="game-info-left__description">
-                        <!-- {{item.description}} -->
-                    </div>
+                        {{item.description}}
+                    </div> -->
                     <div class="game-info-left__mentor">
-                        <div class="mentor-title">
-                            {{ $t('m_mentor') }}
+                        <div class="title">
+                            {{ $t('m_mentor') }} 
                         </div>
-                        <div class="mentor">
-                            {{item.mentor.firstName + ' ' + item.mentor.lastName}}
+                        <div class="full-name">
+                            {{item.mentor.firstName + ' ' + item.mentor.lastName}} 
                         </div>
                     </div>
                     <div class="game-info-left__coach">
-                        <div class="coach-title">
+                        <div class="title">
                             {{ $t('m_business_coach') }}
                         </div>
-                        <div class="coach">
+                        <div class="full-name">
                             {{item.coach.firstName + ' ' + item.coach.lastName}}
                         </div>
                     </div>
@@ -71,7 +73,7 @@
                             {{ $t('m_active_players') }}
                         </div>
                         <div class="content">
-                            {{item.activePlayers}}
+                            {{item.activeUsersCount}}
                         </div>
                     </div>
                     <div class="info-block">
@@ -79,7 +81,7 @@
                             {{ $t('m_banned_players') }}
                         </div>
                         <div class="content">
-                            {{item.bannedPlayers}}
+                            {{item.bannedUsersCount}}
                         </div>
                     </div> 
                 </div>
@@ -114,7 +116,7 @@
             daysLeft: function (startDate, endDate) {
                 let date1 = new Date(startDate),
                     date2 = new Date(endDate);
-                    return Math.ceil(Math.abs(date2.getTime() - date1.getTime()) / (1000 * 3600 * 24));
+                return Math.ceil(Math.abs(date2.getTime() - date1.getTime()) / (1000 * 3600 * 24));
             }
         },
         mounted() {

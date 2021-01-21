@@ -18,15 +18,20 @@
 </template>
 
 <script>
+	import { mapMutations} from 'vuex';
+
 	export default {
 		name: 'LanguageSelector',
 		methods: {
+			...mapMutations(['SET_CURRENT_LANGUAGE']),
+
 			setLocale(locale) {
 				import(`../../langs/${locale}.json`)
 				.then((msg) => {
 					this.$i18n.setLocaleMessage(locale, msg)
 					this.$i18n.locale = locale;
 				})
+				this.SET_CURRENT_LANGUAGE(locale)
 			}
 		}
 	}
