@@ -142,7 +142,10 @@
                             <div class="setting-button basic-buttons">
                                 {{ $t('m_notifications_settings') }}
                             </div>
-                            <div class="setting-button admin-button basic-buttons">
+                            <div
+                                class="setting-button admin-button basic-buttons"
+                                @click="openAdmin()"
+                            >
                                 {{ $t('m_administrator_account') }}
                             </div>
                         </div>
@@ -249,7 +252,10 @@
 		},    
         methods: {
             ...mapMutations(['SET_USER']),
-
+             openAdmin(){
+                this.coachVisible =  false;
+                this.adminVisible = true;
+            },
             closeModal: function () {
 		  		this.modalVisible = false;
                 this.avatarVisible = false;
