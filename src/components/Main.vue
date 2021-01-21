@@ -173,6 +173,7 @@
                     </template>
                 </modal>                        
                 <coach v-show="coachVisible"></coach>
+                <admin v-if="adminVisible"></admin>
             </div>
         </div>
     </div>
