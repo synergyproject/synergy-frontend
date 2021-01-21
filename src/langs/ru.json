@@ -102,5 +102,8 @@
 	"m_game_description": "Описание игры",
 	"m_game_startDate": "Дата старта",
 	"m_game_endDate": "Дата окончания",
-	"m_8_weeks": "+ 8 недель"
+	"m_8_weeks": "+ 8 недель",
+	"m_Business_Trainers_List": "Список Бизнес- тренеров",
+	"m_games_List": "Список игр",
+	"m_players_List": "Список игроков"
 }

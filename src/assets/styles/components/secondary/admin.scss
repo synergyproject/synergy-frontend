@@ -1,0 +1,65 @@
+.admin{
+    
+    a {
+        text-decoration: none;
+    }
+    a,
+    button{
+        cursor: pointer;
+    }
+    ul,
+    ul li {
+        list-style: none;
+    }
+
+    form,
+    p,
+    a,
+    button,
+    input,
+    ol,
+    ul,
+    li, 
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      margin: 0;
+      padding: 0;
+      color: inherit;
+    }
+
+   width: 100%;
+   padding: 32px 78px;
+   display: block;
+   &__header{
+    display: block;
+        h1{
+            display: block;
+            color: $colorPrimary;
+            @include font(400, 24px, 28px);
+            margin-bottom: 32px;
+            text-align: center;
+        }
+        .admin__menu{
+            @include flex(row, center, center, nowrap);
+            margin-bottom: 32px;
+            &-item{
+                @include flex(row, center, center, nowrap);
+                width: 237px;
+                height: 44px;
+                background-color: $colorBg;
+                cursor: pointer;
+                span{
+                    color: $colorText;
+                    @include font(400, 14px, 20px);
+                }
+            }
+            &-item.active{
+                background-color: $borderColor;
+            }
+        }
+   }
+}

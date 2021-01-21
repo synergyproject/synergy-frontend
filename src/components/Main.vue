@@ -142,7 +142,7 @@
                             <div class="setting-button basic-buttons">
                                 {{ $t('m_notifications_settings') }}
                             </div>
-                            <div class="setting-button admin-button basic-buttons">
+                            <div class="setting-button admin-button basic-buttons" @click="openAdmin">
                                 {{ $t('m_administrator_account') }}
                             </div>
                         </div>
@@ -173,6 +173,7 @@
                     </template>
                 </modal>                        
                 <coach v-show="coachVisible"></coach>
+                <admin v-if="adminVisible"></admin>
             </div>
         </div>
     </div>
@@ -184,6 +185,7 @@
     import Fullname from '@/components/modal/Fullname';
     import Profile from '@/components/modal/Profile';
     import Coach from '@/components/secondary/Coach';
+    import Admin from '@/components/secondary/Admin';
     import Games from '@/components/secondary/Games';
     import icon_pencil from '@/assets/img/icon_pencil.png';
     import { mapMutations, mapGetters, mapActions } from 'vuex';
@@ -200,6 +202,7 @@
                 coachVisible: false,
                 gamesVisible: false,
                 coachVisible: true,
+                adminVisible: false,
                 usernameTelegramInput: false,
                 phoneInput: false,
                 birthdayInput: false,
@@ -216,7 +219,8 @@
             Fullname: Fullname,
             Profile: Profile,
             Coach: Coach,
-            Games: Games
+            Games: Games,
+            Admin: Admin
         },
         mounted () {
             //при построении страницы запрашиваем сервер через action данные о пользователе, играх и тд, и помещаем их в store
@@ -248,7 +252,10 @@
 		},    
         methods: {
             ...mapMutations(['SET_USER']),
-
+            openAdmin(){
+                this.coachVisible =  false;
+                this.adminVisible = true;
+            },
             closeModal: function () {
 		  		this.modalVisible = false;
                 this.avatarVisible = false;
@@ -318,6 +325,7 @@
             goObjectives: function () {
                 this.$router.push({ path: '/calendar'})
             }
+
         }
     }
 </script>
