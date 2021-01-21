@@ -189,6 +189,7 @@
     import Profile from '@/components/modal/Profile';
     import Coach from '@/components/secondary/Coach';
     import Games from '@/components/secondary/Games';
+    import Admin from '@/components/secondary/Admin';
     import icon_pencil from '@/assets/img/icon_pencil.png';
     import { mapMutations, mapGetters, mapActions } from 'vuex';
 
@@ -203,6 +204,7 @@
                 profileVisible: false,
                 coachVisible: false,
                 gamesVisible: false,
+                adminVisible: false,
                 coachVisible: true,
                 usernameTelegramInput: false,
                 phoneInput: false,
@@ -220,7 +222,8 @@
             Fullname: Fullname,
             Profile: Profile,
             Coach: Coach,
-            Games: Games
+            Games: Games,
+            Admin
         },
         mounted () {
             //при построении страницы запрашиваем сервер через action данные о пользователе, играх и тд, и помещаем их в store
@@ -252,7 +255,7 @@
 		},    
         methods: {
             ...mapMutations(['SET_USER']),
-             openAdmin(){
+            openAdmin(){
                 this.coachVisible =  false;
                 this.adminVisible = true;
             },
