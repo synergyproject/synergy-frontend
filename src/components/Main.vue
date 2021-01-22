@@ -5,17 +5,12 @@
             <div class="primary">
                 <div class="primary-menu">
                     <div class="primary-menu-container">
+
                         <div class="menu-buttons-container">
-                            <!-- <div 
-                                class="menu-button basic-buttons" 
-                                @click="goObjectives()"
-                            > 
-                            </div> -->
                             <language-menu :languageMenuDesign='languageMenuDesign' />
-                            <div class="logo">
+                            <div class="logo" @click="goObjectives()">
                                 <img src="@/assets/img/Logo_dark.png" >
-                            </div>
-                            
+                            </div>                         
                             <!-- <img src="@/assets/img/Logo_dark.png" @click="goObjectives()"> -->
                             <router-link
                                 to="/logout" 
@@ -61,6 +56,7 @@
                             <div class="email">
                                 {{GET_USER.email}}
                             </div>
+
                             <!-- Отображаем / редактируем телеграм ник -->
                             <div class="username-block">
                                 <div>
@@ -89,6 +85,7 @@
                                     @click="EditUsernameTelegram()"
                                 >
                             </div>
+
                             <!-- Отображаем / редактируем телефон -->
                             <div class="username-block">
                                 <div>
@@ -117,6 +114,7 @@
                                     @click="EditPhone()"
                                 >
                             </div>
+
                             <!-- Отображаем / редактируем дату рождения -->
                             <div class="username-block">
                                 <div>
@@ -144,6 +142,7 @@
                                 >
                             </div> 
                         </div>
+                        
                         <!-- кнопки управления -->
                         <div class="setting-buttons-container">
                             <div class="setting-button basic-buttons">

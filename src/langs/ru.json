@@ -68,7 +68,7 @@
 	"m_check_the_completed_boxes": "Отметь галочками выполненые пункты",
 	"m_goal_report": "Отчет по целям",
 	"m_what_have_you_done_today": "Что ты сегодня сделал для достижения целей",
-	"m_send_report": "Отчет по целям",
+	"m_send_report": "Отправить отчет",
 	"m_goals_progress": "Выполнение целей",
 	"m_edit_goal": "Редактирование цели",
 	"m_active": "Active",
@@ -107,5 +107,8 @@
 	"m_Business_Trainers_List": "Список Бизнес- тренеров",
 	"m_games_List": "Список игр",
 	"m_players_List": "Список игроков",
-	"m_licenses_available": "Доступно лицензий:"
+	"m_licenses_available": "Доступно лицензий:",
+	"m_alert_messages_1": "Размер файлов не должен превышать 25 МБ!",
+	"m_alert_messages_2": "Допустимые форматы файлов: JPG, PNG, PDF, docx, xlsx",
+	"m_alert_messages_3": "Вы должны заполнить список дел на завтра!"
 }

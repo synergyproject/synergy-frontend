@@ -159,17 +159,31 @@
                     >
                         {{ $t('m_send_report') }}
                     </div>
-                    <img 
-                        src="@/assets/img/ad_file.png" 
-                        alt="" 
-                        class="clip"
-                    >
-                    <div 
-                        class="counter" 
-                        v-if="fileCounter > 0"
-                    >
-                        {{fileCounter}}
+                    <div class="alert-message">
+                        {{ $t(alertMessage) }}
                     </div>
+                    <input 
+                        id="loadFiles" 
+                        type="file"
+                        multiple
+                        @change="onFileChanged" 
+                    >
+                    <label 
+                        class="basic-buttons" 
+                        for="loadFiles"
+                    >
+                        <img 
+                            src="@/assets/img/ad_file.png" 
+                            alt="" 
+                            class="clip"
+                        >
+                        <div 
+                            class="counter" 
+                            v-if="checkFileCounter() > 0"
+                        >
+                            {{checkFileCounter()}}
+                        </div>
+                    </label>
                 </div>
             </div>
             <div></div>
@@ -192,7 +206,6 @@
 </template>
 
 <script>
-    import axios from 'axios';
     import Modal from '@/components/modal/Modal';
     import EditReport from '@/components/calendar/modal/EditReport';
     import icon_pencil from '@/assets/img/icon_pencil.png';
@@ -207,10 +220,15 @@
 		data () {
 			return {
                 reportInfoMessage: 'm_attempts_left',
-                fileCounter: 2,
                 reportIndex: 0,
                 modalVisible: false,
-                reportSent: false
+                reportSent: false,
+                alertMessage: '',
+                alertMessages: [
+                    'm_alert_messages_1',
+                    'm_alert_messages_2',
+                    'm_alert_messages_3'
+                ]
 			}
 		},
 		components: {
@@ -219,7 +237,8 @@
 		},
 		computed: {
             ...mapGetters(['GET_TODOLIST']),
-            ...mapGetters(['GET_GOALS'])          
+            ...mapGetters(['GET_GOALS']),
+            ...mapGetters(['GET_FILES'])           
         },
         created (){
             let list = this.GET_TODOLIST;
@@ -237,6 +256,7 @@
 	  	methods: {
             ...mapMutations(['SET_TODOLIST_REPORTSENT']),
             ...mapMutations(['SET_NEW_TODO_LIST']),
+            ...mapMutations(['SET_FILES']),
 
             closeModal: function () {
                 this.modalVisible = false;
@@ -256,13 +276,56 @@
                 this.modalVisible = true;
             },
             
-            sendReport: function() {
-                console.log(this.GET_TODOLIST[this.dayIndex+1])
-                console.log('dayTascks ',this.GET_TODOLIST[this.dayIndex+1].dayTascks)
-                if (this.GET_TODOLIST[this.dayIndex+1].dayTascks.length) {
-                    this.SET_TODOLIST_REPORTSENT(this.dayIndex)
+            checkFileCounter() {
+                return this.GET_FILES.length
+            },
+
+            onFileChanged (event) {
+                let uploadedFile = event.target.files;
+                let fileFormat = false;
+                let totalFileSize = 0;
+                
+                // получаем общий размер загруженных файлов
+                for (let i = 0; i < this.GET_FILES.length; i++) {
+                    totalFileSize = totalFileSize + this.GET_FILES[i].size                    
+                }
+                for (let i = 0; i < uploadedFile.length; i++) {
+                    totalFileSize = totalFileSize + uploadedFile[i].size                    
                 }
                 
+                // определяем есть ли в загруженных файлах неверные форматы
+                for (let i = 0; i < uploadedFile.length; i++) {
+                    let format = uploadedFile[i].name.split(".").pop(); 
+                    if (
+                        format === 'jpg' || 
+                        format === 'png' || 
+                        format === 'pdf' || 
+                        format === 'docx' || 
+                        format === 'xlsx'
+                    ) {
+                        fileFormat = true;
+                    }                
+                }
+                
+                //если файлы подходят к требованиям сохраняем их в store, иначе выводим сообщение с ошибкой
+                if (totalFileSize <= 26214400 && fileFormat) {
+                    for (let i = 0; i < uploadedFile.length; i++) {
+                        this.alertMessage = ''
+                        this.SET_FILES(uploadedFile[i])                  
+                    }
+                } else if (totalFileSize > 26214400) {
+                    this.alertMessage = this.alertMessages[0]
+                } else if (!fileFormat) {
+                    this.alertMessage = this.alertMessages[1]
+                }  
+            },
+
+            sendReport: function() {
+                if (this.GET_TODOLIST[this.dayIndex+1].dayTascks.length) {
+                    this.SET_TODOLIST_REPORTSENT(this.dayIndex)
+                } else {
+                    this.alertMessage = this.alertMessages[2]
+                }               
             },
 
 			getTodo: function(day, index) {

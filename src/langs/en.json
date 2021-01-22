@@ -107,5 +107,8 @@
 	"m_Business_Trainers_List": "List of Business Trainers",
 	"m_games_List": "List of games",
 	"m_players_List": "List of players",
-	"m_licenses_available": "Licenses available:"
+	"m_licenses_available": "Licenses available:",
+	"m_alert_messages_1": "Maximum upload file size 25 MB",
+	"m_alert_messages_2": "Acceptable file formats: JPG, PNG, PDF, docx, xlsx",
+	"m_alert_messages_3": "You should to fill the to-do list for tomorrow"
 }

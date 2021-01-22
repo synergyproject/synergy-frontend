@@ -1,19 +1,7 @@
 import axios from 'axios'
 export default {
     state: {      
-        
-// {
-// 	push_id: 0,
-// 	date: '10.12.2020 16.35.32',
-// 	dayTascks: [
-// 		{
-// 			tack_id: `id_+ '' +${this.getDate()}`,
-// 			description: this.desckInput,
-// 			checked: false
-// 		}
-// 	]
-// }
-		todoList: [
+        todoList: [
 			{
 				reportSent: false,
 				dayTascks: [
@@ -36,11 +24,11 @@ export default {
 				]
 			}	
 		],
-		//так как файлы не привязаны к цели или задаче то храним их просто в массиве,
-		//где каждый эллемент массива files - массив файлов от текущего дня (индекса files)
+		
 		files: [
 
 		],
+
 		// status имеет 3 варианта: 0 - 'Активная', 1 - 'Просроченная', 2 - 'Выполненная'
 		// reports - индекс массива равен дню в который был сделан отчет
 		goals: [
@@ -149,10 +137,16 @@ export default {
 		},
 		GET_STATUS_MENU (state) {
 			return state.statusMenu
+		},
+		GET_FILES (state) {
+			return state.files
 		}
 	},
 
 	mutations: {
+		SET_FILES (state, value) {
+			state.files.push(value)
+		},
 		SET_NEW_TODO_LIST (state, value) {
 			state.todoList.push(value)
 		},	
