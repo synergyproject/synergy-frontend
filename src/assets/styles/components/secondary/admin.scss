@@ -46,11 +46,13 @@
         .admin__menu{
             @include flex(row, center, center, nowrap);
             margin-bottom: 32px;
+            border-radius: 5px;
+            background-color: $colorBg;
             &-item{
                 @include flex(row, center, center, nowrap);
-                width: 237px;
+                width: 34%;
                 height: 44px;
-                background-color: $colorBg;
+                
                 cursor: pointer;
                 span{
                     color: $colorText;
@@ -59,7 +61,107 @@
             }
             &-item.active{
                 background-color: $borderColor;
+                border-radius: 5px;
             }
+
+        }
+   }
+    .table{
+        display: block;
+        width: 100%;
+        &__header{
+            padding: 19px 8px;
+            background-color: $colorBg;
+            border-bottom: 1px solid $borderColor;
+            width: 100%;
+            @include flex(row, flex-start, center, nowrap);
+            &-item{
+                cursor: pointer;
+                position: relative;
+                @include font(500, 14px, 20px);
+                @include flex(row, flex-start, center, wrap);
+                span{
+                    margin-right: 8px;
+                }
+            }
+            &-item.id{
+                width: 12%;
+            }
+            &-item.coach{
+                width: 24%;
+            }
+            &-item.games-list{
+                width: 30%;
+            }
+            &-item.delete{
+                width: 15%;
+            }
+            &-item.number{
+                width: 19%;
+            }
+
+        }
+        &__list{
+            height: calc(100vh - 425px);
+            width: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
+            &::-webkit-scrollbar {
+                width: 4px;
+                height: 50px;
+            }            
+            /* Track */
+            &::-webkit-scrollbar-track {
+                -webkit-border-radius: 10px;
+                border-radius: 10px;
+            }            
+            /* Handle */
+            &::-webkit-scrollbar-thumb {
+                -webkit-border-radius: 10px;
+                border-radius: 10px;
+                background: $colorPrimary50;
+            }
+            @include flex(column, flex-start, flex-start, nowrap);
+            &-row{
+                width: 100%;
+                padding: 19px 8px;
+                border-bottom: 1px solid $borderColor;
+            }
+            &-item{
+                @include font(400, 14px, 20px);
+                @include flex(row, flex-start, center, wrap);
+            }
+            &-item.id{
+                width: 12%;
+                padding-right: 35px;
+            }
+            &-item.coach{
+                width: 24%;
+                padding-right: 35px;
+            }
+            &-item.games-list{
+                width: 30%;
+                padding-right: 35px;
+            }
+            &-item.delete{
+                width: 15%;
+                @include flex(row, center, center, nowrap);
+            }
+            &-item.number{
+                width: 19%;
+                @include flex(row, center, center, nowrap);
+            }
+        }
+    }
+   .trainers-list{
+    width: 100%;
+    @include flex(column, center, center, nowrap);
+        .add-button{
+            @include font(400, 14px, 20px);
+            background-color: $colorSecond;
+            border-radius: 100px;
+            margin-bottom: 32px;
+            
         }
    }
 }
