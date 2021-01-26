@@ -22,34 +22,35 @@ export default {
 	actions: {
 		'SEND_INVITATION_TOKEN'({ commit }, payload) {
 			return axios
-        .get(
-          `http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/invitations/${payload}`
-        )
-        .then((response) => {
-			  console.log(response.data, 'response.data');
-			  commit("SET_INVITATION_PARAMETERS", response.data);
-			  commit("SET_AUTHORIZATION_TOKEN", response.headers.authorization);
-			  commit("SET_STATUS_CODE_FROM_SERVER", response.status)
-			  return response;
-			})
-			.catch((error) => {
-				throw error;
-			});
+				.get(
+				`http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/invitations/${payload}`
+				)
+				.then((response) => {
+					console.log(response.data, 'response.data');
+					commit("SET_INVITATION_PARAMETERS", response.data);
+					commit("SET_AUTHORIZATION_TOKEN", response.headers.authorization);
+					commit("SET_STATUS_CODE_FROM_SERVER", response.status)
+					return response;
+					})
+					.catch((error) => {
+						throw error;
+					});
 		},
 		'SEND_DATA_TO_CREATE_ACCOUNT'({ commit, state }, payload) {
-			return axios.post("http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/signup", payload, {
-				headers: {
-				  "Content-Type": "application/json",
-				  Authorization: state.authorizationToken
-				}
-			})
-			.then(response => {
-				commit("SET_STATUS_CODE_FROM_SERVER", response.status)
-				return response
-			})
-			.catch(error => {
-				throw error;
-			});
+			return axios
+				.post("http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/signup", payload, {
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: state.authorizationToken
+					}
+				})
+				.then(response => {
+					commit("SET_STATUS_CODE_FROM_SERVER", response.status)
+					return response
+				})
+				.catch(error => {
+					throw error;
+				});
 		}
 	},
 	getters: {

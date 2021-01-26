@@ -47,7 +47,7 @@
 </template>
 
 <script>
-    import { mapMutations, mapGetters, mapActions } from 'vuex';
+    import { mapActions } from 'vuex';
 
     export default {
         name: 'Avatar',
@@ -57,21 +57,18 @@
             }
         },
         methods: {
-            ...mapMutations(['SET_AVATAR']),
+            ...mapActions(['SEND_AVATAR']),
             
             onFileChanged (event) {
-                //при загрузке правильного файла пользователем отправляем его в хранилище
                 let uploadedFile = event.target.files[0],
                     size = uploadedFile.size,
                     fileFormat = uploadedFile.name.split(".").pop();
-
                 if (size <= 2097152 && (fileFormat === 'jpg'|| fileFormat === 'png')) {
-                    this.SET_AVATAR(event.target.files[0]);
                     this.activeDecorColor = '#BCC0C9';
+                    this.SEND_AVATAR(uploadedFile);
                     this.$emit('closeAvatar');
                 } else {
                     this.activeDecorColor = 'red';
-                    console.log('Ahtung ', fileFormat);
                 }   
             }
         }

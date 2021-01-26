@@ -4,82 +4,25 @@ import axios from 'axios'
 
 export default {
   state: {
-    // games: [
+    // игры приходят в таком виде
+    // "{"
+    //   games":[
     //   {
-    //     photo: "url",
-    //     name: "Название 1",
-    //     description: "описание",
-    //     mentor: "Витя Маликов",
-    //     coach: "Витя Маликов",
-    //     startDate: "01.01.2020",
-    //     endDate: "01.22.2020",
-    //     activePlayers: 6,
-    //     bannedPlayers: 0
-    //   },
-    //   {
-    //     photo: "url",
-    //     name: "Название 2",
-    //     description: "описание",
-    //     mentor: "Витя Маликов",
-    //     coach: "Витя Маликов",
-    //     startDate: "01.01.2020",
-    //     endDate: "01.04.2020",
-    //     activePlayers: 6,
-    //     bannedPlayers: 0
-    //   },
-    //   {
-    //     photo: "url",
-    //     name: "Название 3",
-    //     description: "описание",
-    //     mentor: "Витя Маликов",
-    //     coach: "Витя Маликов",
-    //     startDate: "11.13.1999",
-    //     endDate: "05.17.2044",
-    //     activePlayers: 6,
-    //     bannedPlayers: 0
-    //   },
-    //   {
-    //     photo: "url",
-    //     name: "Название 4",
-    //     description: "описание",
-    //     mentor: "Витя Маликов",
-    //     coach: "Витя Маликов",
-    //     startDate: "01.01.2020",
-    //     endDate: "01.04.2020",
-    //     activePlayers: 6,
-    //     bannedPlayers: 0
-    //   },
-    //   {
-    //     photo: "url",
-    //     name: "Название 5",
-    //     description: "описание",
-    //     mentor: "Витя Маликов",
-    //     coach: "Витя Маликов",
-    //     startDate: "01.01.2020",
-    //     endDate: "01.04.2020",
-    //     activePlayers: 6,
-    //     bannedPlayers: 0
-    //   },
-    //   {
-    //     photo: "url",
-    //     name: "Название 6",
-    //     description: "описание",
-    //     mentor: "Витя Маликов",
-    //     coach: "Витя Маликов",
-    //     startDate: "01.01.2020",
-    //     endDate: "01.04.2020",
-    //     activePlayers: 6,
-    //     bannedPlayers: 0
+    //     "id":2,
+    //     "logoUrl":"https://synergy-net.s3.eu-central-1.amazonaws.com/game/2.jpg",
+    //     "name":"Phasmophobia",
+    //     "description":"Phasmophobia is a 4 player online.",
+    //     "mentor":{"id":3,"password":"$2a$10$3bZrqyz6cLAzS67UlRn/vedy/rLIA0YX2SDgQAoADEkP.qbaJ45bm","firstName":"Alina","lastName":"Zubkova","email":"alinna135@gmail.com","gender":"FEMALE","status":"ACTIVE","phone":"+380634167525","dateOfBirth":"1991-12-01","telegram":"@Fine02","telegramChatId":null,"photo":"https://synergy-net.s3.eu-central-1.amazonaws.com/profile/9.jpg","roles":["COACH","PLAYER"]},
+    //     "coach":{"id":13,"password":"$2a$10$3bZrqyz6cLAzS67UlRn/vedy/rLIA0YX2SDgQAoADEkP.qbaJ45bm","firstName":"Иван","lastName":"Горячих","email":"morgotianin@gmail.com","gender":"MALE","status":"ACTIVE","phone":"+380663137126","dateOfBirth":null,"telegram":null,"telegramChatId":null,"photo":"https://synergy-net.s3.eu-central-1.amazonaws.com/profile/8.jpg","roles":["COACH","PLAYER"]},
+    //     "activeUsersCount":6,
+    //     "bannedUsersCount":4,
+    //     "startDate":"2021-01-28",
+    //     "endDate":"2021-03-28"
     //   }
-    // ],
     gamesData: {},
     // invitationsParameters: {}
   },
   getters: {
-    // возвращаем массив игр
-    // 'GET_GAMES' (state) {
-    //   return state.games
-    // },
     "GET_GAMES_LIST"(state) {
       return state.gamesData;
     },
@@ -93,7 +36,6 @@ export default {
     },
     "ADD_LIST_OF_GAMES"(state, payload) {
       state.gamesData.games.push(payload)
-      console.log('state',state.gamesData.games);
     },
     // SET_INVITATION_PARAMETERS(state, payload) {
     //   state.invitationsParameters = payload;
@@ -111,7 +53,6 @@ export default {
           }
         )
         .then((response) => {
-          console.log(response ,'response games');
           commit("SET_LIST_OF_GAMES", response.data);
           return response;
         })

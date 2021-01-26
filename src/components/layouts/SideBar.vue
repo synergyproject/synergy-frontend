@@ -12,8 +12,8 @@
                 {{ $t('m_log_out') }}
             </router-link>
             <div 
-                v-if="GET_AVATAR"
-                :style="{backgroundImage:`url(${GET_AVATAR})`}"
+                v-if="GET_USER.photo"
+                :style="{backgroundImage:`url(${GET_USER.photo})`}"
                 class="avatar"
             ></div>
             <div
@@ -77,7 +77,7 @@
             LanguageMenu
         },
         computed: {
-            ...mapGetters(['GET_AVATAR'])
+            ...mapGetters(['GET_USER']) 
 		}
     }
 

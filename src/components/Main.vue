@@ -11,7 +11,6 @@
                             <div class="logo" @click="goObjectives()">
                                 <img src="@/assets/img/Logo_dark.png" >
                             </div>                         
-                            <!-- <img src="@/assets/img/Logo_dark.png" @click="goObjectives()"> -->
                             <router-link
                                 to="/logout" 
                                 class="menu-button"
@@ -22,9 +21,9 @@
 
                         <!-- отображение / загрузка аватара -->
                         <div class="avatar">
-                            <div v-if="GET_AVATAR">
+                            <div v-if="GET_USER.photo">
                                 <img 
-                                    :src="GET_AVATAR" 
+                                    :src="GET_USER.photo" 
                                     class="avatar-img"
                                 >
                                 <img 
@@ -45,7 +44,7 @@
                             <!-- Отображаем / редактируем Имя Фамилию -->
                             <div class="full-name-container">
                                 <div class="full-name">
-                                    {{GET_USER.firstName}} {{GET_USER.surname}}
+                                    {{GET_USER.firstName}} {{GET_USER.lastName}}
                                 </div>
                                 <img 
                                     src="@/assets/img/icon_pencil.png" 
@@ -68,7 +67,7 @@
                                         class="username-block__content" 
                                         v-show='!usernameTelegramInput'
                                     >
-                                        {{GET_USER.usernameTelegram}}
+                                        {{GET_USER.telegram}}
                                     </div>
                                     <input 
                                         type="text" 
@@ -176,7 +175,7 @@
                         >
                         </avatar>
                         <fullname 
-                            v-show="fullNameVisible" 
+                            v-if="fullNameVisible" 
                             @closeFullName='closeModal'
                         >
                         </fullname>
@@ -207,7 +206,7 @@
     import telegram from '@/assets/img/telegram.png';
     import phone from '@/assets/img/phone.png';
     import calendar from '@/assets/img/calendar.png';
-    import { mapMutations, mapGetters, mapActions } from 'vuex';
+    import { mapGetters, mapActions } from 'vuex';
 
     export default {
         name: "Main",
@@ -246,35 +245,39 @@
             LanguageMenu
         },
         mounted () {
-            //при построении страницы запрашиваем сервер через action данные о пользователе, играх и тд, и помещаем их в store
-            this.user.usernameTelegram = this.GET_USER.usernameTelegram;
-            this.user.phone = this.GET_USER.phone;
-            this.user.birthday = this.GET_USER.birthday;
-            // при первом логине пользователь видит модальное окно "заполнить профиль"
-            if (!this.GET_USER.firstName || !this.GET_USER.surname || !this.GET_USER.phone) {
-                this.blurIsActive = true;
-                this.modalVisible = true;
-                this.profileVisible = true;
-            } else {
-                //поля телеграмНик, дата рождения могут оставаться пустыми но тогда они видны как input
-                //  - намекаем пользователю что надо заполнить
-                if (!this.GET_USER.usernameTelegram) {
-                    this.usernameTelegramInput = true
-                }
-                if (!this.GET_USER.birthday) {
-                    this.birthdayInput = true
-                }
-                if (!this.GET_USER.phone) {
-                    this.phoneInput = true
-                }
-            } 
+            this.USERS_FROM_SERVER()
+                //при построении страницы запрашиваем данные о пользователе
+                .then(resolve => {
+                    this.user.usernameTelegram = this.GET_USER.telegram;
+                    this.user.phone = this.GET_USER.phone;
+                    this.user.birthday = this.GET_USER.dateOfBirth;
+        console.log(this.GET_USER);
+                    // при первом логине пользователь видит модальное окно "заполнить профиль"
+                    if (!this.GET_USER.firstName || !this.GET_USER.lastName || !this.GET_USER.phone) {
+                        this.blurIsActive = true;
+                        this.modalVisible = true;
+                        this.profileVisible = true;
+                    } else {
+                        //поля телеграм, дата рождения могут оставаться пустыми но тогда они видны как input
+                        //  - намекаем пользователю что надо заполнить
+                        if (!this.GET_USER.telegram) {
+                            this.usernameTelegramInput = true
+                        }
+                        if (!this.GET_USER.dateOfBirth) {
+                            this.birthdayInput = true
+                        }
+                        if (!this.GET_USER.phone) {
+                            this.phoneInput = true
+                        }
+                    }
+                })
         },
         computed: {
-            ...mapGetters(['GET_AVATAR']),
             ...mapGetters(['GET_USER'])           
 		},    
         methods: {
-            ...mapMutations(['SET_USER']),
+            ...mapActions(['USERS_FROM_SERVER', 'SEND_USER']),
+
             openAdmin(){
                 this.coachVisible =  false;
                 this.adminVisible = true;
@@ -288,10 +291,10 @@
                 this.blurIsActive = false;
                 this.profileVisible = false;
                 this.closeModal();
-                if (!this.GET_USER.usernameTelegram) {
+                if (!this.GET_USER.telegram) {
                     this.usernameTelegramInput = true
                 }
-                if (!this.GET_USER.birthday) {
+                if (!this.GET_USER.dateOfBirth) {
                     this.birthdayInput = true
                 }
                 if (!this.GET_USER.phone) {
@@ -313,10 +316,11 @@
                 this.usernameTelegramInput = !this.usernameTelegramInput;
                 //проверяем что ник состоит от 5 до 32 "символов цифр  _" и начинается с @ 
                 let usernameTelegramCheck = /^[@][\w]{5,32}$/.test(this.user.usernameTelegram);
-                //проверяем если был активен input, соответствует требованиям, его поле не пустое и потом кликнули каранлаш то меняем значение в store и на сервере.  
+                //проверяем если был активен input, соответствует требованиям, его поле не пустое 
+                // и потом кликнули каранлаш то меняем значение в store и на сервере.  
                 if (!this.usernameTelegramInput && this.user.usernameTelegram && usernameTelegramCheck) {
-                    this.SET_USER({usernameTelegram: this.user.usernameTelegram})
-                } else if (!this.user.usernameTelegram || !usernameTelegramCheck) {
+                    this.SEND_USER({telegram: this.user.usernameTelegram})
+                } else if (!this.user.telegram || !usernameTelegramCheck) {
                     //если пользователь не заполнил поле или оно не соответствует требованиям оно остается как input
                     this.usernameTelegramInput = true;
                 }
@@ -326,7 +330,7 @@
                 this.phoneInput = !this.phoneInput;
                 let phoneCheck =  this.user.phone.length === 13;
                 if (!this.phoneInput && phoneCheck) {
-                    this.SET_USER({phone: this.user.phone})
+                    this.SEND_USER({phone: this.user.phone})
                 } else {
                     this.phoneInput = true;
                 }
@@ -334,14 +338,14 @@
             EditBirthday: function () {
                 this.birthdayInput = !this.birthdayInput;
                 if (!this.birthdayInput && this.user.birthday) {
-                    this.SET_USER({birthday: this.user.birthday})
+                    this.SEND_USER({dateOfBirth: this.user.birthday})
                 } else if (!this.user.birthday) {
                     this.birthdayInput = true;
                 }
             },
             //отфoрматируем вид даты для отображения пользователю
             formattedDate: function () {
-                let date = this.GET_USER.birthday;
+                let date = this.GET_USER.dateOfBirth;
                 return date && date.split('-').reverse().join('.');
             },
             
