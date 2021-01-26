@@ -116,30 +116,37 @@
         methods: {
             ...mapActions(['GAMES_FROM_SERVER']),
 
-// че заа фигня ошибка№?? отображение смотри
-            daysLeft: function (startDate, endDate) {
-                // let date1 = new Date(startDate),
-                //     date2 = new Date(endDate);
-                // return Math.ceil(Math.abs(date2.getTime() - date1.getTime()) / 86400000);
-                let startDateNumber = Math.ceil((Date.parse(startDate)) / 86400000);
-                let endDateNumber = Math.ceil((Date.parse(endDate)) / 86400000);
-                return (endDateNumber - startDateNumber)
-            },
-            
-            getGameStatus: function(startDate, endDate) {
+            // все даты в днях чтобы легче было отслеживать 
+            calcCurrentDate: function() {
                 let	date = new Date();
-                let	currentDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();			
-                
-                //даты получаем в днях чтоб было проще 
-                let currentDateNumber = Math.ceil((Date.parse(currentDate)) / 86400000);
-                let startDateNumber = Math.ceil((Date.parse(startDate)) / 86400000);
-                let endDateNumber = Math.ceil((Date.parse(endDate)) / 86400000);
+                let	currentDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+                return Math.ceil((Date.parse(currentDate)) / 86400000);
+            },
+
+            daysLeft: function (startDate, endDate) {
+                let startDateNumber = Math.ceil((Date.parse(startDate)) / 86400000),
+                    endDateNumber = Math.ceil((Date.parse(endDate)) / 86400000),
+                    currentDateNumber = this.calcCurrentDate();
+
+                if (currentDateNumber < startDateNumber) {
+                    return endDateNumber - startDateNumber
+                } else if (endDateNumber >= startDateNumber && currentDateNumber <= endDateNumber) {
+                    return endDateNumber - currentDateNumber;
+                } else {
+                    return 0
+                }
+            },
+
+            getGameStatus: function(startDate, endDate) {
+                let startDateNumber = Math.ceil((Date.parse(startDate)) / 86400000),
+                    endDateNumber = Math.ceil((Date.parse(endDate)) / 86400000),
+                    currentDateNumber = this.calcCurrentDate();
 
                 if (currentDateNumber < startDateNumber) {
                     return "Черновая"
                 } else if (currentDateNumber >= startDateNumber && currentDateNumber <= endDateNumber) {
                     return "Активная"
-                } else if (currentDateNumber > endDateNumber) {
+                } else {
                     return "Законченная"
                 }
             }
