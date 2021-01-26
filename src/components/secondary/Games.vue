@@ -12,10 +12,6 @@
                     <div class="game-info-left__name">
                         {{item.name}}
                     </div>
-                    <!-- от краткого описания отказались пока что?
-                    <div class="game-info-left__description">
-                        {{item.description}}
-                    </div> -->
                     <div class="game-info-left__mentor">
                         <div class="title">
                             {{ $t('m_mentor') }} 
@@ -85,8 +81,8 @@
                         </div>
                     </div> 
                 </div>
-                <div class="game-button basic-buttons">
-                    {{ $t('m_statistics') }}
+                <div class="game-button">
+                    {{getGameStatus(item.startDate, item.endDate)}}
                 </div>
             </div>    
         </div>
@@ -94,33 +90,59 @@
 </template>
 
 <script>
-    import { mapMutations, mapGetters, mapActions } from 'vuex';
+    import { mapGetters, mapActions } from 'vuex';
     
     export default {
         name: "Games",
+
         data () {
             return {
             }
         },
-        components: {
 
-        },
         computed: {
             ...mapGetters(['GET_GAMES', 'GET_GAMES_LIST']),
+
             getGamesList() {
                 return  this.GET_GAMES_LIST.games
             }
         },
-        methods: {
-            ...mapActions(['GAMES_FROM_SERVER']),
-            daysLeft: function (startDate, endDate) {
-                let date1 = new Date(startDate),
-                    date2 = new Date(endDate);
-                return Math.ceil(Math.abs(date2.getTime() - date1.getTime()) / (1000 * 3600 * 24));
-            }
-        },
+
         mounted() {
             this.GAMES_FROM_SERVER();
+        
+        },
+
+        methods: {
+            ...mapActions(['GAMES_FROM_SERVER']),
+
+// че заа фигня ошибка№?? отображение смотри
+            daysLeft: function (startDate, endDate) {
+                // let date1 = new Date(startDate),
+                //     date2 = new Date(endDate);
+                // return Math.ceil(Math.abs(date2.getTime() - date1.getTime()) / 86400000);
+                let startDateNumber = Math.ceil((Date.parse(startDate)) / 86400000);
+                let endDateNumber = Math.ceil((Date.parse(endDate)) / 86400000);
+                return (endDateNumber - startDateNumber)
+            },
+            
+            getGameStatus: function(startDate, endDate) {
+                let	date = new Date();
+                let	currentDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();			
+                
+                //даты получаем в днях чтоб было проще 
+                let currentDateNumber = Math.ceil((Date.parse(currentDate)) / 86400000);
+                let startDateNumber = Math.ceil((Date.parse(startDate)) / 86400000);
+                let endDateNumber = Math.ceil((Date.parse(endDate)) / 86400000);
+
+                if (currentDateNumber < startDateNumber) {
+                    return "Черновая"
+                } else if (currentDateNumber >= startDateNumber && currentDateNumber <= endDateNumber) {
+                    return "Активная"
+                } else if (currentDateNumber > endDateNumber) {
+                    return "Законченная"
+                }
+            }
         }
     }
 </script>

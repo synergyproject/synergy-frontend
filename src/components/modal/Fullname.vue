@@ -16,7 +16,7 @@
         <input 
             type="text" 
             maxlength="64" 
-            v-model="fullname.surname"
+            v-model="fullname.lastName"
         >
         <div 
             class="save-fullname-button basic-buttons" 
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-    import { mapMutations, mapGetters, mapActions } from 'vuex';
+    import { mapGetters, mapActions } from 'vuex';
 
     export default {
         name: "Fullname",
@@ -36,23 +36,25 @@
             return {
                 fullname: {
                     firstName: '', 
-                    surname: ''
+                    lastName: ''
                 }
             }
+        },  
+        mounted() {
+            this.fullname.firstName = this.GET_USER.firstName;
+            this.fullname.lastName = this.GET_USER.lastName;
+            console.log(this.fullname);
         },
-        components: {
-
-        },
+        computed: {
+            ...mapGetters(['GET_USER'])           
+		},
         methods: {
-            ...mapMutations(['SET_USER']),
+            ...mapActions(['SEND_USER']),
 
             changeFullname() {
-                if (this.fullname.firstName && this.fullname.surname) {
-                    this.SET_USER(this.fullname);
-                    this.fullname.firstName = '';
-                    this.fullname.surname = '';
+                if (this.fullname.firstName && this.fullname.lastName) {
+                    this.SEND_USER(this.fullname);
                     this.$emit('closeFullName'); 
-                    // и отправляем данные на сервер 
                 }
             }
         }

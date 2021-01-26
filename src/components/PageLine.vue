@@ -106,11 +106,23 @@
             window.removeEventListener('resize', this.onResize);
         },
         computed: {
-            ...mapGetters(['GET_USERIN']),
             ...mapGetters(['GET_USER']),
+            ...mapActions(['USERS_FROM_SERVER', 'SEND_USER']),
+
+            ...mapGetters(['GET_USERIN']),
             ...mapGetters(['GET_POSTS']),
             ...mapGetters(['GET_GAME'])            
-		},  
+        },
+        mounted() {
+			//если новый пользователь захочет перейти на эту страницу (например через адресную строку), 
+			//не заполнив профиль - возвращаем его обратно на main к заполнению
+			this.USERS_FROM_SERVER()
+                .then(resolve => {
+                    if (!this.GET_USER.firstName || !this.GET_USER.lastName || !this.GET_USER.phone) {
+                        this.$router.push({ path: '/main'})
+                    } 
+            })
+        },      
         methods: {
             onResize(){
                 this.keyR = +this.keyR + 1

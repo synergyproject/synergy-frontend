@@ -62,7 +62,7 @@
                     <input 
                         type="text" 
                         maxlength="64" 
-                        v-model="user.surname"
+                        v-model="user.lastName"
                     >
                     <div 
                         class="star" 
@@ -78,7 +78,7 @@
                     <input 
                         type="date" 
                         class="date" 
-                        v-model="user.birthday"
+                        v-model="user.dateOfBirth"
                     >
                 </div>
                 <div class="profile-container">
@@ -106,7 +106,7 @@
                         type="text" 
                         placeholder="@telegram_username" 
                         maxlength="32" 
-                        v-model="user.usernameTelegram"
+                        v-model="user.telegram"
                     >
                 </div>
                 <div class="note">
@@ -124,51 +124,51 @@
 </template>
 
 <script>
-    import { mapMutations, mapGetters, mapActions } from 'vuex';
+    import { mapActions } from 'vuex';
 
     export default {
         name: 'Profile',
+
         data () {
             return {
                 user: {
                     firstName: '', 
-                    surname: '', 
-                    usernameTelegram: '', 
+                    lastName: '', 
+                    telegram: '', 
                     phone: '', 
-                    birthday: '', 
-                    avatar: null
+                    dateOfBirth: ''
                 },
+                avatar: null,
                 avatarUrl: '',
                 redAlertActive: false,
                 avatarRedAlertActive: false
             }
         },
-        components: {
 
-        },
         methods: {
-            ...mapMutations(['SET_USER']),
-            ...mapMutations(['SET_AVATAR']),
+            ...mapActions(['SEND_USER', 'SEND_AVATAR']),
 
             changeProfile() {
                 let phoneCheck = this.user.phone.length === 13;
-                if (phoneCheck && this.user.firstName && this.user.surname) {
-                    console.log(this.user)
-                    this.SET_USER(this.user);
-                    this.SET_AVATAR(this.user.avatar);
+                
+                if (phoneCheck && this.user.firstName && this.user.lastName) {
+                    if (this.avatar) {
+                        this.SEND_AVATAR(this.avatar);
+                    }
+                    this.SEND_USER(this.user);
                     this.$emit('closeProfile');
                 } else {
                     this.redAlertActive = true;
-                    console.log(this.redAlertActive)
                 }
             },
+
             loadAvatar (event) {
                 let uploadedFile = event.target.files[0],
                     size = uploadedFile.size,
                     fileFormat = uploadedFile.name.split(".").pop()
                 if (size <= 2097152 && (fileFormat === 'jpg'|| fileFormat === 'png')) {
-                    this.user.avatar = event.target.files[0];
-                    this.avatarUrl = URL.createObjectURL(this.user.avatar);
+                    this.avatar = event.target.files[0];
+                    this.avatarUrl = URL.createObjectURL(this.avatar);
                 } else {
                     this.avatarRedAlertActive = true;
                 }

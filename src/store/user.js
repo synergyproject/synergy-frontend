@@ -1,27 +1,29 @@
 import axios from 'axios'
 export default {
     state: {
-        user: {
-            firstName: 'Prokofey', 
-            surname: 'Kuznetsov', 
-            email:'Prokofey_Kuznetsov@gmail.com', 
-            usernameTelegram: '@ahtung', 
-            phone: '+380501234567', 
-            birthday: '1999-09-25', 
-            avatar: null
-        },
+        users: {},
+        //В таком виде приходит обьект users
+        // {
+        //     "dateOfBirth": "string",
+        //     "email": "string",
+        //     "firstName": "string",
+        //     "gender": "string",
+        //     "id": 0,
+        //     "lastName": "string",
+        //     "phone": "string",
+        //     "photo": "string",
+        //     "roles": [
+        //       "string"
+        //     ],
+        //     "status": "string",
+        //     "telegram": "string",
+        //     "telegramChatId": 0
+        // }
         currentLanguage: 'Eng'
     },
     getters: {
-        GET_AVATAR (state) {
-            if (state.user.avatar) {
-                return URL.createObjectURL(state.user.avatar)
-            } else {
-                return null
-            }
-        },
         GET_USER (state) {
-            return state.user
+            return state.users
         },
         GET_CURRENT_LANGUAGE (state) {
             return state.currentLanguage
@@ -32,9 +34,6 @@ export default {
         SET_AVATAR (state, value) {
             state.user.avatar = value
         },
-        SET_USER (state, value) {
-            Object.assign(state.user, value)
-        },
         SET_CURRENT_LANGUAGE (state, value) {
             switch (value) {
                 case 'en':
@@ -44,23 +43,70 @@ export default {
                     state.currentLanguage = 'Рус';
                     break;
             }
-        }
+        },
+        "SET_LIST_OF_USERS"(state, payload) {
+            state.users = payload;
+        },
+
     },
   
     actions: {
-      //запрашиваем аватарку у сервера
-      // FETCH_AVATAR ({commit}) {
-      //   return axios('http://some-url', {
-      //     method: "GET"
-      //   })
-      //   .then((avatar) => {
-      //     commit('SET_AVATAR', avatar);
-      //     return avatar;
-      //   })
-      //   .catch((error) => {
-      //     console.log(error);
-      //     return error;
-      //   })
-      // }
+        'USERS_FROM_SERVER'({ commit }) {
+            return axios
+                .get(
+                    "http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/users",
+                    {
+                        headers: {
+                            Authorization: `Bearer ${localStorage.getItem("token")}`
+                        },
+                    }
+                )
+                .then((response) => {
+                    commit("SET_LIST_OF_USERS", response.data);
+                    return response;
+                })
+                .catch((error) => {
+                    throw error;
+                });
+        },
+        
+        'SEND_USER'({ commit }, payload) {           
+			return axios
+				.put("http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/users", payload, {
+				    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${localStorage.getItem("token")}`
+					}
+				})
+				.then(response => {
+                    commit("SET_LIST_OF_USERS", response.data)
+					return response
+				})
+				.catch(error => {
+					throw error;
+				});
+        },
+        
+        'SEND_AVATAR'({ commit }, payload) {
+            let formData = new FormData();
+            formData.append('file', payload);
+
+			return axios
+				.post("http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/users/photo", formData, {
+				    headers: {
+                        'content-type': 'multipart/form-data',
+                        Authorization: `Bearer ${localStorage.getItem("token")}`
+					}
+				})
+				.then(response => {
+                    commit("SET_LIST_OF_USERS", response.data)
+					return response
+				})
+				.catch(error => {
+					throw error;
+				});
+		}
+
+
     }   
 }
