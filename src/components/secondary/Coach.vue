@@ -17,7 +17,8 @@
                 </div>
             </div>
         </div>
-        <games></games>                                                                                                                        
+        <games></games> 
+                                                                                                                    
     </div>
 </template>
 

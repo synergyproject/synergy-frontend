@@ -116,5 +116,8 @@
 	"m_delete":"Delete",
 	"m_licenses_number": "Number of licenses",
 	"m_yes":"Yes",
-	"m_no":"No"
+	"m_no":"No",
+	"m_set_game":"Setting up the game",
+	"m_save_settings":"Save settings",
+	"m_finish_game":"Finish the game"
 }

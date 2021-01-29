@@ -26,6 +26,10 @@ export default {
     "GET_GAMES_LIST"(state) {
       return state.gamesData;
     },
+    "GET_GAME_BY_ID": state => id =>{
+      const game = state.gamesData.games.find(item => item.id==id )
+      return game;
+    },
     // GET_INVITATION_PARAMETERS(state) {
     //   return state.invitationsParameters;
     // },
@@ -36,6 +40,12 @@ export default {
     },
     "ADD_LIST_OF_GAMES"(state, payload) {
       state.gamesData.games.push(payload)
+    },
+    "SET_LIST_OF_GAMES"(state, payload) {
+      state.gamesData = payload;
+    },
+    "SET_GAME_BY_ID"(state, payload) {
+      state.gamesData.games = state.gamesData.games.map(item =>item.id == payload.id ? item = payload : item = item)
     },
     // SET_INVITATION_PARAMETERS(state, payload) {
     //   state.invitationsParameters = payload;

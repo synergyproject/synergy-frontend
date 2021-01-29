@@ -1,10 +1,18 @@
-<template>
+<template>        
+
     <div class="games-main">
+
+        <modal-window v-if="setOpen" @close='closeWindow' >
+            <setting-up-game :id = "gameID" @closeChangeGame='closeWindow'>
+            </setting-up-game>
+        </modal-window>
         <div 
             class="game" 
             v-for="(item, index) in getGamesList" 
             :key="index"
         >
+
+
             <div class="game-left-wrapper">
                 <!-- <div class="photo"></div> -->
                 <img :src="item.logoUrl" class="photo">
@@ -32,7 +40,7 @@
                         <div class="game-button basic-buttons">
                             {{ $t('m_enter') }}
                         </div>
-                        <div class="game-button basic-buttons">
+                        <div class="game-button basic-buttons" @click="openWindow" :idItem='item.id'>
                             {{ $t('m_edit') }}
                         </div>
                     </div>
@@ -90,6 +98,8 @@
 </template>
 
 <script>
+    import SettingUpGame from '@/components/modal/SettingUpGame';
+    import ModalWindow from '@/components/modal/ModalWindow';
     import { mapGetters, mapActions } from 'vuex';
     
     export default {
@@ -97,9 +107,14 @@
 
         data () {
             return {
+                setOpen: false,
+                gameID:""
             }
         },
-
+        components: {
+            SettingUpGame,
+            ModalWindow 
+        },
         computed: {
             ...mapGetters(['GET_GAMES', 'GET_GAMES_LIST']),
 
@@ -110,11 +125,20 @@
 
         mounted() {
             this.GAMES_FROM_SERVER();
+            
         
         },
 
         methods: {
             ...mapActions(['GAMES_FROM_SERVER']),
+            openWindow(e) {
+                this.gameID = e.target.getAttribute('idItem');
+                this.setOpen = true;
+                
+            },
+            closeWindow () {
+		  		this.setOpen = false			
+            },
 
             // все даты в днях чтобы легче было отслеживать 
             calcCurrentDate: function() {
