@@ -70,7 +70,7 @@
                         </div>
                         <input 
                             type="text"
-                            placeholder="Введите текст..."
+                            :placeholder="$t(placeholderInfo[0])"
                             maxlength="1000"
                             v-model="reports[index]"
                         >
@@ -83,9 +83,14 @@
                 class="edit-report__right-wrapper"
                 v-else
             >
-                <div 
+                <!-- <div 
                     class="tomorrow-list__container"
                     v-for="(item, index) in GET_TODOLIST[dayIndex+1].dayTascks"
+                    :key="index"
+                > -->
+                <div 
+                    class="tomorrow-list__container"
+                    v-for="(item, index) in tomorrowList"
                     :key="index"
                 >
                     <div class="taskIndex">
@@ -102,9 +107,15 @@
                     <input 
                         type="text"
                         maxlength="1000"
-                        placeholder="Добавить задачу +"
+                        :placeholder="$t(placeholderInfo[1])"
                         v-model="newTask"
                     >
+                </div>
+                <div 
+                    class="add-task basic-buttons"
+                    @click="addTask()"
+                >
+                    Добавить задачу
                 </div>
             </div>
 
@@ -113,16 +124,17 @@
 </template>
 
 <script>
-    import axios from 'axios';
     import checked from '@/assets/img/checked.png';
 	import { mapMutations, mapGetters, mapActions } from 'vuex';
 
 	export default {
         name: 'EditReport',
+
         props: {
             reportIndex: Number,
             dayIndex: Number
-		},
+        },
+        
 		data () {
 			return {
 				headlines: [
@@ -135,6 +147,10 @@
                     'm_edit_report_generalInfo_2',
                     'm_edit_report_generalInfo_3'
                 ],
+                placeholderInfo: [
+                    'm_enter_text',
+                    'm_new_task'
+                ],
                 //в reports записываем отчеты к цели в текущем дне
                 //индекс массива reports соответствует номеру текущей цели
                 reports: [],
@@ -142,14 +158,17 @@
                 tomorrowList: [],
                 newTask: ''
 			}
-		},
+        },
+        
 		components: {
 			
-        },   
+        },
+
 		computed: {
             ...mapGetters(['GET_TODOLIST']),
             ...mapGetters(['GET_GOALS']) 
         },
+
         created() {
             let goals = this.GET_GOALS,
                 list = this.GET_TODOLIST;
@@ -162,7 +181,8 @@
                     this.tomorrowList[i] = list[this.dayIndex+1].dayTascks[i].description
                 }
             }
-        },			
+        },
+
 	  	methods: {
             ...mapMutations(['SET_NEW_TODO_LIST']),
             ...mapMutations(['SET_TODOLIST_CHECK']),
@@ -172,6 +192,7 @@
             closeReport: function() {
                 this.$emit('closeReport');                
             },
+
             checkTask: function(index) {
                 this.SET_TODOLIST_CHECK (
                     {
@@ -180,6 +201,14 @@
                     }
                 )
             },
+
+            addTask: function () {
+                if (this.newTask) {
+                    this.tomorrowList.push(this.newTask)
+                }
+                this.newTask = ''
+            },
+
             save: function() {
                 switch (this.reportIndex) {
                     case 1:
@@ -207,7 +236,9 @@
                         break;
                 }
                 this.closeReport();                
-            }
+            },
+
+
         }      			
 	}
 </script>

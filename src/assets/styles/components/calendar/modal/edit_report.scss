@@ -160,6 +160,17 @@
                     color: #BCC0C9;
                 }
             }
+            .add-task{
+                width: 204px;
+                height: 40px;
+                background: $colorSecond;
+                border-radius: 100px;
+                color: #3E378D;
+                font-style: normal;
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 20px;
+            }
         }
     }
 }

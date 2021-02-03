@@ -111,10 +111,6 @@
 	"m_alert_messages_1": "Размер файлов не должен превышать 25 МБ!",
 	"m_alert_messages_2": "Допустимые форматы файлов: JPG, PNG, PDF, docx, xlsx",
 	"m_alert_messages_3": "Вы должны заполнить список дел на завтра!",
-	"m_add_business_coach":"+ Добавить Бизнес тренера",
-	"m_ID":"ID",
-	"m_delete":"Удален",
-	"m_licenses_number": "Кол-во лицензий",
-	"m_yes":"Да",
-	"m_no":"Нет"
+	"m_new_task": "Новая задача",
+	"m_enter_text": "Введите текст..."
 }
