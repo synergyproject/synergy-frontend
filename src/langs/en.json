@@ -112,5 +112,11 @@
 	"m_alert_messages_2": "Acceptable file formats: JPG, PNG, PDF, docx, xlsx",
 	"m_alert_messages_3": "You should to fill the to-do list for tomorrow",
 	"m_new_task": "New task",
-	"m_enter_text": "Enter text..."
+	"m_enter_text": "Enter text...",
+	"m_add_business_coach":"+ Add Business Coach",
+	"m_ID":"ID",
+	"m_delete":"Delete",
+	"m_licenses_number": "Number of licenses",
+	"m_yes":"Yes",
+	"m_no":"No"
 }
