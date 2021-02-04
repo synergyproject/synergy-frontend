@@ -114,10 +114,12 @@
 	"m_add_business_coach":"+ Add Business Coach",
 	"m_ID":"ID",
 	"m_delete":"Delete",
+	"m_del":"Delete",
 	"m_licenses_number": "Number of licenses",
 	"m_yes":"Yes",
 	"m_no":"No",
 	"m_set_game":"Setting up the game",
 	"m_save_settings":"Save settings",
-	"m_finish_game":"Finish the game"
+	"m_finish_game":"Finish the game",
+	"m_add_player":"+ Add player"
 }

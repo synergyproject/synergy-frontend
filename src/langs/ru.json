@@ -114,10 +114,12 @@
 	"m_add_business_coach":"+ Добавить Бизнес тренера",
 	"m_ID":"ID",
 	"m_delete":"Удален",
+	"m_del":"Удалить",
 	"m_licenses_number": "Кол-во лицензий",
 	"m_yes":"Да",
 	"m_no":"Нет",
 	"m_set_game":"Настройка игры",
 	"m_save_settings":"Сохранить настройки",
-	"m_finish_game":"Завершить игру"
+	"m_finish_game":"Завершить игру",
+	"m_add_player":"+ Добавить игрока"
 }

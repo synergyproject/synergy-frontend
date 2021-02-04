@@ -149,6 +149,39 @@
         </div> 
         	
         <hr />
+        <div class="set_game__players">
+            <h2 class="set_game__players-head">
+                {{ $t("m_players_List") }}
+            </h2>
+            <div class="set_game__players-licenses">
+                {{ $t("m_licenses_available") }} {{changeGame.licensesAvailable}}
+            </div>
+            <div class="set_game__players-add">
+                <input
+                    type="text"
+                    maxlength="64"
+                    autocomplete="off"
+                    placeholder="youremail@gmail.com"
+                >
+                <div class="confirm-button basic-buttons">
+                    {{ $t("m_add_player") }}
+                </div>
+            </div>
+            <ul v-show = "changeGame.players.length" class="set_game__players-list">
+                <li  class="set_game__players-item" v-for ="(item, num) in changeGame.players" :key = "num">
+                    <div class="set_game__players-name">
+                        {{item.firstName}} {{item.lastName}}
+                    </div>
+                    <div class="set_game__players-options">
+                        <div  class="status" :style="{backgroundImage:`url(${item.status==='ACTIVE' ? activeImg : item.status==='BAN' ? banImg: item.status==='OUT' ? outImg: '' })`}"></div>
+                        <div class="del-button basic-buttons">
+                            {{ $t("m_del") }}
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
         <div class="set_game-buttons">
             <div class="confirm-button basic-buttons" @click ="chengeGame">
                 {{ $t("m_save_settings") }}
@@ -165,12 +198,18 @@
 <script>
     import { mapMutations, mapGetters, mapActions } from 'vuex';
     import ModalWindow from '@/components/modal/ModalWindow';
+    import active from '@/assets/img/active.png';
+    import ban from '@/assets/img/ban.png';
+    import out from '@/assets/img/not authorized.png';
 
     export default {
         name: 'SettingUpGame',
         props:['id'],
         data () {
             return {
+                activeImg: active,
+                banImg: ban,
+                outImg: out,
                 changeGame: {
                     id:'',
                     logoUrl: '',
@@ -182,23 +221,88 @@
                     endDate: '',
                     activeUsersCount: '',
                     bannedUsersCount: '', 
-                    licensesAvailable: '0',
-                    players: [],
-                    // players: [
-                    //     {
-                    //         dateOfBirth: "2020-01-31",
-                    //         email: "morgotianin@gmail.com",
-                    //         firstName: "Иван",
-                    //         gender: "MALE",
-                    //         id: '13',
-                    //         lastName: "Горячих",
-                    //         phone: "+380663137126",
-                    //         photo: '',
-                    //         roles: ["COACH", "PLAYER"],
-                    //         status: "ACTIVE",
-                    //         telegram: "@telegrammmm"
-                    //     }
-                    // ]
+                    licensesAvailable: '7',
+                    // players: [],
+                    players: [
+                        {
+                            dateOfBirth: "2020-01-31",
+                            email: "morgotianin@gmail.com",
+                            firstName: "Иван",
+                            gender: "MALE",
+                            id: '13',
+                            lastName: "Горячих",
+                            phone: "+380663137126",
+                            photo: '',
+                            roles: ["COACH", "PLAYER"],
+                            status: "ACTIVE",
+                            telegram: "@telegrammmm"
+                        },
+                                                {
+                            dateOfBirth: "2020-01-31",
+                            email: "morgotianin@gmail.com",
+                            firstName: "Андрей",
+                            gender: "MALE",
+                            id: '14',
+                            lastName: "Горячих",
+                            phone: "+380663137126",
+                            photo: '',
+                            roles: ["COACH", "PLAYER"],
+                            status: "BAN",
+                            telegram: "@telegrammmm"
+                        },
+                        {
+                            dateOfBirth: "2020-01-31",
+                            email: "morgotianin@gmail.com",
+                            firstName: "Иван",
+                            gender: "MALE",
+                            id: '13',
+                            lastName: "Горячих",
+                            phone: "+380663137126",
+                            photo: '',
+                            roles: ["COACH", "PLAYER"],
+                            status: "OUT",
+                            telegram: "@telegrammmm"
+                        },
+                            {
+                            dateOfBirth: "2020-01-31",
+                            email: "morgotianin@gmail.com",
+                            firstName: "Иван",
+                            gender: "MALE",
+                            id: '13',
+                            lastName: "Горячих",
+                            phone: "+380663137126",
+                            photo: '',
+                            roles: ["COACH", "PLAYER"],
+                            status: "OUT",
+                            telegram: "@telegrammmm"
+                        },                            
+                        {
+                            dateOfBirth: "2020-01-31",
+                            email: "morgotianin@gmail.com",
+                            firstName: "Иван",
+                            gender: "MALE",
+                            id: '13',
+                            lastName: "Горячих",
+                            phone: "+380663137126",
+                            photo: '',
+                            roles: ["COACH", "PLAYER"],
+                            status: "OUT",
+                            telegram: "@telegrammmm"
+                        },                            
+                        {
+                            dateOfBirth: "2020-01-31",
+                            email: "morgotianin@gmail.com",
+                            firstName: "Иван",
+                            gender: "MALE",
+                            id: '13',
+                            lastName: "Горячих",
+                            phone: "+380663137126",
+                            photo: '',
+                            roles: ["COACH", "PLAYER"],
+                            status: "OUT",
+                            telegram: "@telegrammmm"
+                        }
+                    ]
                 },
                 activeDecorColor: '#BCC0C9',
                 modalVisible:false,
