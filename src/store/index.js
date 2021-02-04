@@ -6,6 +6,7 @@ import games from './games.js';
 import calendar from './calendar.js';
 import user from './user.js';
 import login from './login.js';
+import coaches from './coaches.js';
 
 Vue.use(Vuex)
 
@@ -17,6 +18,8 @@ export default new Vuex.Store({
     calendar,
     user,
     login,
+    coaches
+
   },
 });
 

@@ -22,15 +22,6 @@ export default {
 						checked: false
 					}
 				]
-			},
-			{
-				reportSent: false,
-				dayTascks: [
-					{
-						description: 'Day2',
-						checked: false
-					}
-				]
 			}	
 		],
 		
@@ -141,15 +132,12 @@ export default {
 		GET_TODOLIST (state) {
 			return state.todoList
 		},
-
 		GET_GOALS (state) {
 			return state.goals
 		},
-
 		GET_STATUS_MENU (state) {
 			return state.statusMenu
 		},
-
 		GET_FILES (state) {
 			return state.files
 		}
