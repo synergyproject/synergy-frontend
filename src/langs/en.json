@@ -1,4 +1,4 @@
- {
+{
 	"m_welcome": "Welcome!",
 	"m_enter_login": "Enter login",
 	"m_enter_password": "Enter password",
@@ -49,7 +49,6 @@
 	"m_feed": "Feed",
 	"m_my_goals": "My Goals",
 	"m_create_game": "+ Create game",
-	"m_business_coach": "Business coach:",
 	"m_mentor": "Mentor:",
 	"m_calendar_info_message": "Your goals have not been specified, please fill in the goals",
 	"m_goals_calendar": "Goals calendar",
@@ -117,5 +116,8 @@
 	"m_delete":"Delete",
 	"m_licenses_number": "Number of licenses",
 	"m_yes":"Yes",
-	"m_no":"No"
+	"m_no":"No",
+	"m_new_task": "New task",
+	"m_enter_text": "Enter text...",
+	"m_add_task": "Add task"
 }

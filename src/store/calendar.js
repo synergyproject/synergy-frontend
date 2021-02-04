@@ -147,39 +147,38 @@ export default {
 		SET_FILES (state, value) {
 			state.files.push(value)
 		},
+
 		SET_NEW_TODO_LIST (state, value) {
 			state.todoList.push(value)
-		},	
+		},
+
 		SET_TODOLIST_CHECK (state, value) {			
 			state.todoList[value.dayIndex].dayTascks[value.taskIndex].checked = !state.todoList[value.dayIndex].dayTascks[value.taskIndex].checked
 		},
+
 		SET_TODOLIST_REPORTSENT (state, value) {
 			//value в виде number (день игры)
 			state.todoList[value].reportSent = true
 		},
+
 		SET_TODOLIST_DESCRIPTION (state, value) {
-			//value в виде {dayIndex: number, tomorrowList: array}			
+			//value в виде {dayIndex: number, tomorrowList: array}	     
+			
+			state.todoList[value.dayIndex] = {
+				reportSent: false,
+				dayTascks: []
+			}
+
 			for (let i = 0; i < value.tomorrowList.length; i++) {
-				if (value.tomorrowList[i]) {
-					// если списка на следующий день не существует - создаем
-					if (!state.todoList[value.dayIndex]) {       
-						state.todoList[value.dayIndex] = {
-							reportSent: false,
-							dayTascks: []
-						}
-					}
-					state.todoList[value.dayIndex].dayTascks[i] = {
+				if (value.tomorrowList[i]) {		
+					state.todoList[value.dayIndex].dayTascks.push({
 						description: value.tomorrowList[i],
 						checked: false
-					}
-	
-				} else {
-					//если пользователь сохранил поле задачи пустым удаляем ее
-					state.todoList[value.dayIndex].dayTascks.splice(i, 1)
-				}
-				
+					})	
+				} 			
 			}
 		},
+
 		SET_GOALS (state, value) {
 			//меняем Имя Игры, описание или статус
 			Object.assign(
@@ -187,6 +186,7 @@ export default {
 				value[1]
 			)
 		},
+
 		SET_GOALS_REPORTS (state, value) {
 			//value в виде {dayIndex: number, reports: array}
 			//индекс массива value.reports соответствует номеру цели и содержит отчет к ней
@@ -196,6 +196,7 @@ export default {
 				state.goals[i].reports[value.dayIndex] = value.reports[i];
 			}
 		},
+		
 		SET_STATUS_MENU (state, value) {
 			//value приходит в виде {index: number, visible: boolean}
 			state.statusMenu[value.index].visible = value.visible

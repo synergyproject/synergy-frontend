@@ -49,7 +49,6 @@
 	"m_feed": "Лента",
 	"m_my_goals": "Мои Цели",
 	"m_create_game": "+ Создать игру",
-	"m_business_coach": "Бизнес-тренер:",
 	"m_mentor": "Ментор:",
 	"m_calendar_info_message": "Ваши цели пока не указаны, заполните пожалуйста цели",
 	"m_goals_calendar": "Календарь целей",
@@ -113,8 +112,12 @@
 	"m_alert_messages_3": "Вы должны заполнить список дел на завтра!",
 	"m_add_business_coach":"+ Добавить Бизнес тренера",
 	"m_ID":"ID",
+	"m_business_coach":"Бизнес-тренер",
 	"m_delete":"Удален",
 	"m_licenses_number": "Кол-во лицензий",
 	"m_yes":"Да",
-	"m_no":"Нет"
-}
+	"m_no":"Нет",
+	"m_new_task": "Новая задача",
+	"m_enter_text": "Введите текст...",
+	"m_add_task": "Добавить задачу"
+}	
