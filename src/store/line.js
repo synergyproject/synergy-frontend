@@ -1,7 +1,9 @@
 import axios from 'axios'
+let Storage = localStorage.getItem('GameId');
+Storage ? JSON.parse(Storage): [];
 export default {
     state: {
-      selectedGameId:'',
+      selectedGameId: Storage ? JSON.parse(Storage): '0',
       userIn: {
         userId: '47',
         firstName: 'Валентин', 
@@ -224,6 +226,7 @@ export default {
     mutations: {
       SET_SELECTED_GAME_ID (state, payload) {
         state.selectedGameId = payload;
+        localStorage.setItem('GameId', JSON.stringify(state.selectedGameId))
       },
     }
 

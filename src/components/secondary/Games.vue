@@ -29,12 +29,8 @@
                         </div>
                     </div>
                     <div class="game-info-left__buttons">
-                        <div class="game-button basic-buttons"  @click ="sendID">
-                            <router-link
-                                to="/line" :id = "item.id"
-                            >
-                                {{ $t('m_enter') }}
-                            </router-link>
+                        <div class="game-button basic-buttons"  @click ="sendID" :idItem = "item.id">
+                            {{ $t('m_enter') }}
                         </div>
                         <div class="game-button basic-buttons">
                             {{ $t('m_edit') }}
@@ -121,8 +117,9 @@
             ...mapActions(['GAMES_FROM_SERVER']),
             ...mapMutations(['SET_SELECTED_GAME_ID']),
             sendID(e){
-                console.log('id', e.target)
-                this.SET_SELECTED_GAME_ID()
+                
+                this.SET_SELECTED_GAME_ID(e.target.getAttribute('idItem'))
+                this.$router.push({ path: '/line'})
             },
             // все даты в днях чтобы легче было отслеживать 
             calcCurrentDate: function() {

@@ -95,6 +95,13 @@
         },
         data () {
             return {
+                game:{
+                    id:'',
+                    name:'',
+                    date:'',
+
+
+                },
                 bgImage: avatar,
                 keyR: 0
             }
@@ -107,7 +114,7 @@
         },
         computed: {
             ...mapGetters(['GET_USER']),
-
+            ...mapGetters(['GET_SELECTED_GAME_ID'], ['GET_GAME_BY_ID']),
 
             ...mapGetters(['GET_USERIN']),
             ...mapGetters(['GET_POSTS']),
@@ -122,9 +129,15 @@
                         this.$router.push({ path: '/main'})
                     } 
             })
+            console.log('GET_SELECTED_GAME_ID', this.GET_SELECTED_GAME_ID)
+            if(this.GET_SELECTED_GAME_ID==='0'){
+                this.$router.push({ path: '/main'}) ;
+            }
+            console.log('data',this.GET_GAME_BY_ID(this.GET_SELECTED_GAME_ID).id)
+
         },      
         methods: {
-            ...mapActions(['USERS_FROM_SERVER', 'SEND_USER']),
+            ...mapActions(['USERS_FROM_SERVER', 'SEND_USER'], ['GAMES_FROM_SERVER']),            
             onResize(){
                 this.keyR = +this.keyR + 1
             }
