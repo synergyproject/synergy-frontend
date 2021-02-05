@@ -110,7 +110,7 @@
 	"m_alert_messages_1": "Maximum upload file size 25 MB",
 	"m_alert_messages_2": "Acceptable file formats: JPG, PNG, PDF, docx, xlsx",
 	"m_alert_messages_3": "You should to fill the to-do list for tomorrow",
-	"m_add_business_coach":"+ Add Business Coach",
+	"m_add_business_coach":"Add Business Coach",
 	"m_ID":"ID",
 	"m_business_coach":"Business Coach",
 	"m_delete":"Delete",
@@ -119,5 +119,14 @@
 	"m_no":"No",
 	"m_new_task": "New task",
 	"m_enter_text": "Enter text...",
-	"m_add_task": "Add task"
+	"m_add_task": "Add task",
+	"m_enter_mail": "Enter email",
+	"m_wrong_email": "Wrong email format",
+	"m_trainer_exists": "Such Business Coach already exists",
+	"m_trainer_blocked": "This Business Coach was previously blocked. First you need to unblock account",
+	"m_send_invitation": "Send an invitation",
+	"m_invitation_letter": "Invitation letter sent to Business coach",
+	"m_player_already_registered": "This email is already registered as a Player. Do you want to transfer him to the 'Business Coach' status",
+	"m_cancel": "Cansel",
+	"m_transfer": "Transfer"
 }

@@ -163,7 +163,7 @@
                     </div>
                 </div>
                 <div class="devider"></div>
-                <div :class="{ blur: blurIsActive }"></div>
+                <div :class="{ blur: GET_PRIMARY_BLUR }"></div>
             </div>
 
             <div class="secondary"> 
@@ -206,13 +206,12 @@
     import telegram from '@/assets/img/telegram.png';
     import phone from '@/assets/img/phone.png';
     import calendar from '@/assets/img/calendar.png';
-    import { mapGetters, mapActions } from 'vuex';
+    import { mapGetters, mapActions, mapMutations } from 'vuex';
 
     export default {
         name: "Main",
         data () {
             return {
-                blurIsActive: false,
                 modalVisible: false,
                 avatarVisible: false,
                 fullNameVisible: false,
@@ -251,10 +250,10 @@
                     this.user.usernameTelegram = this.GET_USER.telegram;
                     this.user.phone = this.GET_USER.phone;
                     this.user.birthday = this.GET_USER.dateOfBirth;
-        console.log(this.GET_USER);
+
                     // при первом логине пользователь видит модальное окно "заполнить профиль"
                     if (!this.GET_USER.firstName || !this.GET_USER.lastName || !this.GET_USER.phone) {
-                        this.blurIsActive = true;
+                        this.SET_PRIMARY_BLUR(true);
                         this.modalVisible = true;
                         this.profileVisible = true;
                     } else {
@@ -273,10 +272,11 @@
                 })
         },
         computed: {
-            ...mapGetters(['GET_USER'])           
+            ...mapGetters([ 'GET_USER', 'GET_PRIMARY_BLUR' ])           
 		},    
         methods: {
-            ...mapActions(['USERS_FROM_SERVER', 'SEND_USER']),
+            ...mapMutations([ 'SET_PRIMARY_BLUR' ]),
+            ...mapActions([ 'USERS_FROM_SERVER', 'SEND_USER' ]),
 
             openAdmin(){
                 this.coachVisible =  false;
@@ -288,7 +288,7 @@
                 this.fullNameVisible = false;	  		
             },
             closeProfile: function() {
-                this.blurIsActive = false;
+                this.SET_PRIMARY_BLUR(false);
                 this.profileVisible = false;
                 this.closeModal();
                 if (!this.GET_USER.telegram) {
