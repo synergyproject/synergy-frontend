@@ -29,8 +29,12 @@
                         </div>
                     </div>
                     <div class="game-info-left__buttons">
-                        <div class="game-button basic-buttons">
-                            {{ $t('m_enter') }}
+                        <div class="game-button basic-buttons"  @click ="sendID">
+                            <router-link
+                                to="/line" :id = "item.id"
+                            >
+                                {{ $t('m_enter') }}
+                            </router-link>
                         </div>
                         <div class="game-button basic-buttons">
                             {{ $t('m_edit') }}
@@ -90,7 +94,7 @@
 </template>
 
 <script>
-    import { mapGetters, mapActions } from 'vuex';
+    import { mapGetters, mapActions, mapMutations } from 'vuex';
     
     export default {
         name: "Games",
@@ -115,7 +119,11 @@
 
         methods: {
             ...mapActions(['GAMES_FROM_SERVER']),
-
+            ...mapMutations(['SET_SELECTED_GAME_ID']),
+            sendID(e){
+                console.log('id', e.target)
+                this.SET_SELECTED_GAME_ID()
+            },
             // все даты в днях чтобы легче было отслеживать 
             calcCurrentDate: function() {
                 let	date = new Date();

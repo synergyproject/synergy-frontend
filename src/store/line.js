@@ -1,6 +1,7 @@
 import axios from 'axios'
 export default {
     state: {
+      selectedGameId:'',
       userIn: {
         userId: '47',
         firstName: 'Валентин', 
@@ -214,9 +215,17 @@ export default {
       // возвращаем данные по выбранной игре
       GET_GAME (state) {
         return state.game
-      }
+      },
+      GET_SELECTED_GAME_ID (state) {
+        return state.selectedGameId
+      },
+
     },
-  
+    mutations: {
+      SET_SELECTED_GAME_ID (state, payload) {
+        state.selectedGameId = payload;
+      },
+    }
 
   
 

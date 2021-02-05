@@ -107,7 +107,7 @@
         },
         computed: {
             ...mapGetters(['GET_USER']),
-            ...mapActions(['USERS_FROM_SERVER', 'SEND_USER']),
+
 
             ...mapGetters(['GET_USERIN']),
             ...mapGetters(['GET_POSTS']),
@@ -124,6 +124,7 @@
             })
         },      
         methods: {
+            ...mapActions(['USERS_FROM_SERVER', 'SEND_USER']),
             onResize(){
                 this.keyR = +this.keyR + 1
             }
