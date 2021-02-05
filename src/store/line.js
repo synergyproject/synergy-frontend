@@ -1,3 +1,4 @@
+
 import axios from 'axios'
 let Storage = localStorage.getItem('GameId');
 Storage ? JSON.parse(Storage): [];
@@ -64,138 +65,138 @@ export default {
 
         ]
       },
+      posts:[],
+      // posts:[
+      //   {
+      //     postId:'1',
+      //     autor: {firstName: 'Иван', surname: 'Иванов', avatar: null, userId: '17'},
+      //     date: '01.09.2020',
+      //     selfPost: true,
+      //     postСhanges: false,
+      //     likes: '12',
+      //     text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et /  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et / Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et /Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id es. Laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit am e enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex eadskvjbv',
+      //     comments: [
+      //       {
+      //           id:'1/1',
+      //           text: 'officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad'
+      //       },
 
-      posts:[
-        {
-          postId:'1',
-          autor: {firstName: 'Иван', surname: 'Иванов', avatar: null, userId: '17'},
-          date: '01.09.2020',
-          selfPost: true,
-          postСhanges: false,
-          likes: '12',
-          text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et /  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et / Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et /Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id es. Laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit am e enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex eadskvjbv',
-          comments: [
-            {
-                id:'1/1',
-                text: 'officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad'
-            },
+      //     ],
+      //     goals: [
 
-          ],
-          goals: [
+      //     ],
+      //     todos: [
 
-          ],
-          todos: [
+      //     ],
+      //     files:[
+      //       '@/assets/img/test.png',
+      //       '@/assets/img/test.png',
+      //       '@/assets/img/test.pdf',
+      //       '@/assets/img/test.docx',
+      //       '@/assets/img/test.png',
 
-          ],
-          files:[
-            '@/assets/img/test.png',
-            '@/assets/img/test.png',
-            '@/assets/img/test.pdf',
-            '@/assets/img/test.docx',
-            '@/assets/img/test.png',
-
-          ]
-
-
-
-        },
-        {
-          postId:'2',
-          autor: {firstName: 'Валерия', surname: 'Клименко', avatar: null, userId: '24'},
-          date: '03.09.2020',
-          selfPost: false,
-          postСhanges: false,
-          likes: '0',
-          text: '',
-          comments: [
-            {
-                id:'1/1',
-                text: 'officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad'
-            },
-            {
-                id:'1/2',
-                text: 'officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad'
-            }
-          ],
-          goals: [
-            {
-              name: 'Назвние сколько поместится',
-              report:'Lorem ipsum dolor sit amet,  ipsum dolor sit amet...'
-            },
-            {
-              name: 'Назвние сколько поместится',
-              report:'Lorem ipsum dolor sit amet,  ipsum dolor sit amet...'
-            },
-            {
-              name: 'Назвние сколько поместится',
-              report:'Lorem ipsum dolor sit amet,  ipsum dolor sit amet...'
-            },
-            {
-              name: 'Назвние сколько поместится',
-              report:'Lorem ipsum dolor sit amet,  ipsum dolor sit amet...'
-            },
-            {
-              name: 'Назвние сколько поместится',
-              report:'Lorem ipsum dolor sit amet,  ipsum dolor sit amet...'
-            },
-            {
-              name: 'Назвние сколько поместится',
-              report:'Lorem ipsum dolor sit amet,  ipsum dolor sit amet...'
-            }
-          ],
-          todos: [
-            'Lorem ipsum dolor sit amet,  ipsum dolor sit amet,met,  ipsum dolor sit amet',
-            'Lorem ipsum dolor sit amet,  ipsum dolor sit amet,met,  ipsum dolor sit amet',
-            'Lorem ipsum dolor sit amet,  ipsum dolor sit amet,met,  ipsum dolor sit amet',
-            'Lorem ipsum dolor sit amet,  ipsum dolor sit amet,met,  ipsum dolor sit amet',
-            'Lorem ipsum dolor sit amet,  ipsum dolor sit amet,met,  ipsum dolor sit amet',
-            'Lorem ipsum dolor sit amet,  ipsum dolor sit amet,met,  ipsum dolor sit amet'
-          ],
-          files:[
-            '@/assets/img/test.png',
-            '@/assets/img/test.pdf',
-            '@/assets/img/test.docx',
-            '@/assets/img/test.docx',
-          ]
+      //     ]
 
 
 
-        },
-        {
-          postId:'3',
-          autor: {
-            firstName: 'Валентин', 
-            surname: 'Добровольский', 
-            avatar: null, 
-            userId: '47'
-          },
-          date: '15.09.2020',
-          selfPost: true,
-          postСhanges: true,
-          likes: '9',
-          text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-          comments: [
-            {
-                id:'1/1',
-                text: 'officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad'
-            },
-            {
-                id:'1/2',
-                text: 'officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad'
-            },
-            {
-              id:'1/3',
-              text: 'officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad'
-          }
-          ],
-          goals: [
-          ],
-          todos: [
-          ],
-          files:[
-          ]
-        }
-      ]
+      //   },
+      //   {
+      //     postId:'2',
+      //     autor: {firstName: 'Валерия', surname: 'Клименко', avatar: null, userId: '24'},
+      //     date: '03.09.2020',
+      //     selfPost: false,
+      //     postСhanges: false,
+      //     likes: '0',
+      //     text: '',
+      //     comments: [
+      //       {
+      //           id:'1/1',
+      //           text: 'officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad'
+      //       },
+      //       {
+      //           id:'1/2',
+      //           text: 'officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad'
+      //       }
+      //     ],
+      //     goals: [
+      //       {
+      //         name: 'Назвние сколько поместится',
+      //         report:'Lorem ipsum dolor sit amet,  ipsum dolor sit amet...'
+      //       },
+      //       {
+      //         name: 'Назвние сколько поместится',
+      //         report:'Lorem ipsum dolor sit amet,  ipsum dolor sit amet...'
+      //       },
+      //       {
+      //         name: 'Назвние сколько поместится',
+      //         report:'Lorem ipsum dolor sit amet,  ipsum dolor sit amet...'
+      //       },
+      //       {
+      //         name: 'Назвние сколько поместится',
+      //         report:'Lorem ipsum dolor sit amet,  ipsum dolor sit amet...'
+      //       },
+      //       {
+      //         name: 'Назвние сколько поместится',
+      //         report:'Lorem ipsum dolor sit amet,  ipsum dolor sit amet...'
+      //       },
+      //       {
+      //         name: 'Назвние сколько поместится',
+      //         report:'Lorem ipsum dolor sit amet,  ipsum dolor sit amet...'
+      //       }
+      //     ],
+      //     todos: [
+      //       'Lorem ipsum dolor sit amet,  ipsum dolor sit amet,met,  ipsum dolor sit amet',
+      //       'Lorem ipsum dolor sit amet,  ipsum dolor sit amet,met,  ipsum dolor sit amet',
+      //       'Lorem ipsum dolor sit amet,  ipsum dolor sit amet,met,  ipsum dolor sit amet',
+      //       'Lorem ipsum dolor sit amet,  ipsum dolor sit amet,met,  ipsum dolor sit amet',
+      //       'Lorem ipsum dolor sit amet,  ipsum dolor sit amet,met,  ipsum dolor sit amet',
+      //       'Lorem ipsum dolor sit amet,  ipsum dolor sit amet,met,  ipsum dolor sit amet'
+      //     ],
+      //     files:[
+      //       '@/assets/img/test.png',
+      //       '@/assets/img/test.pdf',
+      //       '@/assets/img/test.docx',
+      //       '@/assets/img/test.docx',
+      //     ]
+
+
+
+      //   },
+      //   {
+      //     postId:'3',
+      //     autor: {
+      //       firstName: 'Валентин', 
+      //       surname: 'Добровольский', 
+      //       avatar: null, 
+      //       userId: '47'
+      //     },
+      //     date: '15.09.2020',
+      //     selfPost: true,
+      //     postСhanges: true,
+      //     likes: '9',
+      //     text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+      //     comments: [
+      //       {
+      //           id:'1/1',
+      //           text: 'officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad'
+      //       },
+      //       {
+      //           id:'1/2',
+      //           text: 'officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad'
+      //       },
+      //       {
+      //         id:'1/3',
+      //         text: 'officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad'
+      //     }
+      //     ],
+      //     goals: [
+      //     ],
+      //     todos: [
+      //     ],
+      //     files:[
+      //     ]
+      //   }
+      // ]
     },
     getters: {
       // //возвращаем url аватарки
@@ -228,9 +229,30 @@ export default {
         state.selectedGameId = payload;
         localStorage.setItem('GameId', JSON.stringify(state.selectedGameId))
       },
-    }
+      SET_LIST_OF_POSTS (state, payload) {
+        state.posts = payload;
+      },
+    },
+    actions: {
+      "POSTS_FROM_SERVER"({ commit }, payload) {
+        console.log('ii', )
+        return axios
+          .get(
+            `http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/games/${payload}/feed`,
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            }
+          )
+          .then((response) => {
+            commit("SET_LIST_OF_POSTS", response.data.posts);
+            return response;
+          })
+          .catch((error) => {
+            throw error;
+          });
+      },
 
-  
-
-    
-}
+    },
+  } 

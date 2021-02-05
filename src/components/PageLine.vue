@@ -8,7 +8,7 @@
                     :key = "keyR"
                 >
                     <post 
-                        v-for ="(post, num) in GET_POSTS" 
+                        v-for ="(post, num) in getPosts" 
                         :key = "post.id" 
                         :post = "post" 
                         :num = "num" 
@@ -20,19 +20,19 @@
                 <div class="side">
                     <div class="side__info">
                         <h4 class="side__info-name">
-                            {{GET_GAME.title}}
+                            {{game.name}}
                         </h4>
                         <p class="side__info-date">
-                            {{GET_GAME.date}}
+                            {{game.date}}
                         </p>
                     </div>
                     <div class="side__user">
                         <div 
                             class="avatar" 
-                            :style="{backgroundImage:`url(${GET_USERIN.avatar ? GET_USERIN.avatar : bgImage})`}"
+                            :style="{backgroundImage:`url(${game.coach.photo ? game.coach.photo: bgImage})`}"
                         ></div>
                         <h4 class="side__user-name">
-                            {{GET_USERIN.firstName}} {{GET_USERIN.surname}}
+                            {{game.coach.firstName}} {{game.coach.lastName}}
                         </h4>
                     </div>
                 </div>
@@ -99,28 +99,38 @@
                     id:'',
                     name:'',
                     date:'',
-
+                    coach: {
+                        firstName: "",
+                        id: "",
+                        lastName: "",
+                        photo: ""
+                    }
 
                 },
                 bgImage: avatar,
-                keyR: 0
+                keyR: 0,
+
             }
-        },
-        mounted(){
-            window.addEventListener('resize', this.onResize);
         },
         beforeDestroy(){
             window.removeEventListener('resize', this.onResize);
         },
         computed: {
             ...mapGetters(['GET_USER']),
-            ...mapGetters(['GET_SELECTED_GAME_ID'], ['GET_GAME_BY_ID']),
-
+            ...mapGetters(['GET_SELECTED_GAME_ID']),
+            ...mapGetters(["GET_GAME_BY_ID"]),   
+            ...mapGetters(["GET_GAMES_LIST"]),   
             ...mapGetters(['GET_USERIN']),
             ...mapGetters(['GET_POSTS']),
-            ...mapGetters(['GET_GAME'])            
+            ...mapGetters(['GET_GAME']), 
+            getPosts(){
+                console.log('posts', this.GET_POSTS)
+                return  this.GET_POSTS
+            }
+                      
         },
         mounted() {
+            window.addEventListener('resize', this.onResize);
 			//если новый пользователь захочет перейти на эту страницу (например через адресную строку), 
 			//не заполнив профиль - возвращаем его обратно на main к заполнению
 			this.USERS_FROM_SERVER()
@@ -129,17 +139,41 @@
                         this.$router.push({ path: '/main'})
                     } 
             })
-            console.log('GET_SELECTED_GAME_ID', this.GET_SELECTED_GAME_ID)
+
             if(this.GET_SELECTED_GAME_ID==='0'){
                 this.$router.push({ path: '/main'}) ;
             }
-            console.log('data',this.GET_GAME_BY_ID(this.GET_SELECTED_GAME_ID).id)
+
+            //Получаем данные по игре
+            this.GAMES_FROM_SERVER()
+            let data = this.GET_GAME_BY_ID(this.GET_SELECTED_GAME_ID)
+            this.game.id = data.id
+            this.game.name = data.name
+            this.game.date = this.createDate(data.endDate)
+            this.game.coach.id = data.coach.id
+            this.game.coach.firstName = data.coach.firstName
+            this.game.coach.lastName = data.coach.lastName
+            this.game.coach.photo = data.coach.photo
+            
+            this.POSTS_FROM_SERVER(this.GET_SELECTED_GAME_ID)
 
         },      
         methods: {
-            ...mapActions(['USERS_FROM_SERVER', 'SEND_USER'], ['GAMES_FROM_SERVER']),            
+            ...mapActions(['GAMES_FROM_SERVER']),
+            ...mapActions(['POSTS_FROM_SERVER']),
+            ...mapActions(['USERS_FROM_SERVER'], ['SEND_USER']),            
             onResize(){
                 this.keyR = +this.keyR + 1
+            },
+            createDate(date){
+                let f = new Date(date)
+                let year= f.getFullYear()
+                let month= f.getMonth()+1
+                let day = f.getDate()
+                month = (month < 10) ? '0' + month : month;
+                day  = (day  < 10) ? '0' + day  : day;
+                return [day, month, year,].join('.')
+
             }
         }
     }
