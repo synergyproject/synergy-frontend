@@ -21,10 +21,12 @@ export default {
         // }
         currentLanguage: 'Eng'
     },
+
     getters: {
         GET_USER (state) {
             return state.users
         },
+
         GET_CURRENT_LANGUAGE (state) {
             return state.currentLanguage
         }
@@ -34,6 +36,7 @@ export default {
         SET_AVATAR (state, value) {
             state.user.avatar = value
         },
+
         SET_CURRENT_LANGUAGE (state, value) {
             switch (value) {
                 case 'en':
@@ -44,14 +47,15 @@ export default {
                     break;
             }
         },
-        "SET_LIST_OF_USERS"(state, payload) {
+
+        SET_LIST_OF_USERS (state, payload) {
             state.users = payload;
         },
 
     },
   
     actions: {
-        'USERS_FROM_SERVER'({ commit }) {
+        USERS_FROM_SERVER ({ commit }) {
             return axios
                 .get(
                     "http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/users",
@@ -70,7 +74,7 @@ export default {
                 });
         },
         
-        'SEND_USER'({ commit }, payload) {           
+        SEND_USER({ commit }, payload) {           
 			return axios
 				.put("http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/users", payload, {
 				    headers: {
@@ -87,7 +91,7 @@ export default {
 				});
         },
         
-        'SEND_AVATAR'({ commit }, payload) {
+        SEND_AVATAR ({ commit }, payload) {
             let formData = new FormData();
             formData.append('file', payload);
 

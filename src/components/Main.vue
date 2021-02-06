@@ -150,14 +150,20 @@
                             <div class="setting-button basic-buttons">
                                 {{ $t('m_notifications_settings') }}
                             </div>
+                            <!-- блок отображается только для администратора -->
                             <div
                                 class="setting-button admin-button basic-buttons"
+                                v-if="checkRoles('ADMIN')"
                                 @click="openAdmin()"
                             >
                                 {{ $t('m_administrator_account') }}
                             </div>
                         </div>
-                        <div class="license-counter">
+                        <!-- блок отображается только для тренера -->
+                        <div 
+                            class="license-counter"
+                            v-if="checkRoles('COACH')"
+                        >
                             {{ $t('m_licenses_available') }} {{licenseCounter}}
                         </div>
                     </div>
@@ -210,6 +216,7 @@
 
     export default {
         name: "Main",
+
         data () {
             return {
                 modalVisible: false,
@@ -227,12 +234,14 @@
                 user: {
                     usernameTelegram: '',
                     phone: '',
-                    birthday: ''
+                    birthday: '',
+                    roles: []
                 },
                 currentLanguage: 'eng',
                 languageMenuDesign: 1
             }
         },
+
         components: {
             Admin,
             Modal,
@@ -243,6 +252,7 @@
             Games,
             LanguageMenu
         },
+
         mounted () {
             this.USERS_FROM_SERVER()
                 //при построении страницы запрашиваем данные о пользователе
@@ -250,6 +260,7 @@
                     this.user.usernameTelegram = this.GET_USER.telegram;
                     this.user.phone = this.GET_USER.phone;
                     this.user.birthday = this.GET_USER.dateOfBirth;
+                    this.user.roles = this.GET_USER.roles;
 
                     // при первом логине пользователь видит модальное окно "заполнить профиль"
                     if (!this.GET_USER.firstName || !this.GET_USER.lastName || !this.GET_USER.phone) {
@@ -271,9 +282,11 @@
                     }
                 })
         },
+
         computed: {
             ...mapGetters([ 'GET_USER', 'GET_PRIMARY_BLUR' ])           
-		},    
+		},  
+
         methods: {
             ...mapMutations([ 'SET_PRIMARY_BLUR' ]),
             ...mapActions([ 'USERS_FROM_SERVER', 'SEND_USER' ]),
@@ -282,11 +295,13 @@
                 this.coachVisible =  false;
                 this.adminVisible = true;
             },
+
             closeModal: function () {
 		  		this.modalVisible = false;
                 this.avatarVisible = false;
                 this.fullNameVisible = false;	  		
             },
+
             closeProfile: function() {
                 this.SET_PRIMARY_BLUR(false);
                 this.profileVisible = false;
@@ -301,16 +316,19 @@
                     this.phoneInput = true
                 }
             },
+
             loadAvatar: function() {
                 this.closeModal();
                 this.modalVisible = true;
                 this.avatarVisible = true;
             },
+
             loadFullName: function() {
                 this.closeModal();
                 this.modalVisible = true;
                 this.fullNameVisible = true;
             },
+
             EditUsernameTelegram: function () {
                 //при клике на карандаш превращаем div в input и наоборот
                 this.usernameTelegramInput = !this.usernameTelegramInput;
@@ -325,6 +343,7 @@
                     this.usernameTelegramInput = true;
                 }
             },
+
             //такие же деиствия для обработки поля телефона и даты
             EditPhone: function () {
                 this.phoneInput = !this.phoneInput;
@@ -335,6 +354,7 @@
                     this.phoneInput = true;
                 }
             },
+
             EditBirthday: function () {
                 this.birthdayInput = !this.birthdayInput;
                 if (!this.birthdayInput && this.user.birthday) {
@@ -343,6 +363,7 @@
                     this.birthdayInput = true;
                 }
             },
+
             //отфoрматируем вид даты для отображения пользователю
             formattedDate: function () {
                 let date = this.GET_USER.dateOfBirth;
@@ -351,6 +372,11 @@
             
             goObjectives: function () {
                 this.$router.push({ path: '/calendar'})
+            },
+
+            //в зависимости от роли юзера отображается блок "количество лицензий" / "кабинет администратора"
+            checkRoles: function (role) {
+                return this.user.roles.includes(role)
             }
         }
     }

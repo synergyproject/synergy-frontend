@@ -7,11 +7,13 @@
     width: 100%;
     align-items: center;
     flex-direction: column;
+
     .coach-header{
         margin-top: 49px;
         margin-bottom: 49px;
         padding-right: 32px;
         justify-content: center;
+
         .start-game-button{
             align-items: center;
             justify-content: center;
@@ -23,6 +25,7 @@
             margin-bottom: 47px;
             position: relative;
         }
+
         .coach-info{
             align-self: flex-end;
             justify-content: flex-end;
@@ -34,6 +37,7 @@
             position: absolute;
             right: 65px;
             top: 45px;
+
             & div{
                 color: $colorPrimary;
             }
@@ -42,5 +46,14 @@
                 align-self: flex-end;
             }
         }
+    }
+
+    .games-header {
+        margin-top: 49px;
+        margin-bottom: 49px;
+        font-weight: bold;
+        font-size: 24px;
+        line-height: 28px;
+        color: #3E378D;
     }
 }

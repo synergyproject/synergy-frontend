@@ -97,14 +97,17 @@
                 
             }
         },
+
         components: {
             Modal,
             AddTrainer
 		},
+
         computed: {
             ...mapGetters([ 'GET_COACHES' ]),
          
 		}, 
+
         methods: {
             ...mapMutations([ 'SET_COACHES', 'SET_PRIMARY_BLUR' ]),
 
