@@ -36,7 +36,7 @@
 			v-if="emailSentVisible"
 		>
 			<div class="email-sent-header">
-				{{$t(m_invitation_letter)}}
+				{{$t('m_invitation_letter')}}
 			</div>
 			<img 
 				src="@/assets/img/check-mark.png"
