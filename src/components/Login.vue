@@ -112,10 +112,12 @@
 
 	export default {
 		name: 'login',
+
 		components: {
 			Modal: Modal,
 			LanguageSelector
 		},
+
 		data () {
 			return {
 				pass: '',
@@ -134,6 +136,7 @@
 				inputTypePassСonfirm: 'password'
 			}
 		},
+
 		computed: {
 			...mapGetters([
 				'GET_INVITATION_PARAMETERS',
@@ -141,16 +144,15 @@
 				'GET_STATUS_CODE_FROM_SERVER'
 			])
 		},
+
 		created() {
 			const urlQueryParam = window.location.search.split('=')[1];
 			this.SEND_INVITATION_TOKEN(urlQueryParam);
 		},
-		mounted() {
-			console.log(this.GET_AUTHORIZATION_TOKEN, 'GET_AUTHORIZATION_TOKEN');
-			console.log(this.GET_INVITATION_PARAMETERS, 'GET_INVITATION_PARAMETERS');
-		},
+		
 	  	methods: {
 			...mapActions(['SEND_INVITATION_TOKEN', 'SEND_DATA_TO_CREATE_ACCOUNT']),
+
 	  		verificationPassword: function () {
 	  			let passStatus = /(?=.*[0-9])(?=.*[.,:;?!*+%\-<>@[\]{}()/\\_$#])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z\.,:;\?!\*\+%-<>@\[\]\{\}/\\_\$#]{8,}/g.test(this.pass);
 					// (?=.*[0-9]) - строка содержит хотя бы одно число;
@@ -159,32 +161,35 @@
 					// (?=.*[A-Z]) - строка содержит хотя бы одну латинскую букву в верхнем регистре;
 					// [0-9a-zA-Z!@#$%^&*]{8,} - строка состоит не менее, чем из 8 вышеупомянутых символов.
 
-					if (this.pass && this.passСonfirm) {
-						if (!passStatus) {
-							this.info_message = this.errors.err_format
-						} else {
-							if (this.pass === this.passСonfirm) {	
-								this.info_message = this.errors.good
-								this.sendDataToCreateAccount().then(() => this.goToPageHandler());
-							} else {
-								this.info_message = this.errors.err_confirm
-							}	
-						}						
+				if (this.pass && this.passСonfirm) {
+					if (!passStatus) {
+						this.info_message = this.errors.err_format
 					} else {
-						this.info_message = this.errors.err_emptyField
-					}
+						if (this.pass === this.passСonfirm) {	
+							this.info_message = this.errors.good
+							this.sendDataToCreateAccount().then(() => this.goToPageHandler());
+						} else {
+							this.info_message = this.errors.err_confirm
+						}	
+					}						
+				} else {
+					this.info_message = this.errors.err_emptyField
+				}
 	  		},
+
 			sendDataToCreateAccount: function () {
-				  const dataObject = {
-					  email: this.GET_INVITATION_PARAMETERS.email,
-					  gameId: this.GET_INVITATION_PARAMETERS.gameId,
-					  password: this.pass
-				  }
-				  return this.SEND_DATA_TO_CREATE_ACCOUNT(dataObject);
+				const dataObject = {
+					email: this.GET_INVITATION_PARAMETERS.email,
+					gameId: this.GET_INVITATION_PARAMETERS.gameId,
+					password: this.pass
+				}
+				return this.SEND_DATA_TO_CREATE_ACCOUNT(dataObject);
 			},
+
 			closeModal: function () {
 		  		this.modalVisible = false;	  		
 		  	},
+
 		  	changeEye: function (eye) {
 		  		if (eye === true) {
 		  			this.eyePassVisible = !this.eyePassVisible;
@@ -194,6 +199,7 @@
 		  			this.inputTypePassСonfirm = this.eyePassСonfirmVisible ? 'password' : 'text'
 		  		}		  		
 			},
+
 			goToPageHandler() {
 				if(this.GET_STATUS_CODE_FROM_SERVER === 201) {
 					this.$router.push({path: '/'});

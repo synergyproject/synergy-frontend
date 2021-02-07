@@ -5,8 +5,8 @@
 			<img src="@/assets/img/Logo_big.png" >
 		</div>
 		<div
-			 class="authorization-page"
-			 @keyup.enter="authorization()"
+			class="authorization-page"
+			@keyup.enter="authorization()"
 		>
 			<div class="greeting">
 				{{ $t('m_welcome') }}
@@ -19,17 +19,17 @@
 								{{ $t('m_enter_login') }}
 							</div>
 							<input
-								 type="text"
-								 maxlength="64"
-								 autocomplete="off"
-								 v-model="email"
-								 placeholder="youremail@gmail.com"
+								type="text"
+								maxlength="64"
+								autocomplete="off"
+								v-model="email"
+								placeholder="youremail@gmail.com"
 							>
 						</div>
 						<div class="validation-block">
 							<div
-								 class="eye"
-								 @click="changeEye(false)"
+								class="eye"
+								@click="changeEye(false)"
 							>
 								<img
 									 src="@/assets/img/icon_eye_close.png"
@@ -44,11 +44,11 @@
 								{{ $t('m_enter_password') }}
 							</div>
 							<input
-								 :type="this.inputTypePass"
-								 maxlength="64"
-								 autocomplete="off"
-								 v-model="pass"
-								 placeholder="g0y9d8c"
+								:type="this.inputTypePass"
+								maxlength="64"
+								autocomplete="off"
+								v-model="pass"
+								placeholder="g0y9d8c"
 							>
 							<div class="input-basement">
 								<div class="input-basement__left">
@@ -60,16 +60,16 @@
 							</div>
 						</div>
 						<div
-							 class="save-button basic-buttons"
-							 @click="authorization()"
+							class="save-button basic-buttons"
+							@click="authorization()"
 						>
 							{{ $t('m_enter') }}
 						</div>
 					</div>
 					<div class="password-help">
 						<img
-							 src="@/assets/img/help_circle.png"
-							 class="question-icon"
+							src="@/assets/img/help_circle.png"
+							class="question-icon"
 						>
 						<div class="help-content">
 							<div class="help-content__text">

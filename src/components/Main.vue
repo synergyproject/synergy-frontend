@@ -144,7 +144,10 @@
                         
                         <!-- кнопки управления -->
                         <div class="setting-buttons-container">
-                            <div class="setting-button basic-buttons">
+                            <div 
+                                class="setting-button basic-buttons"
+                                @click="changePassword()"
+                            >
                                 {{ $t('m_change_password') }}
                             </div>
                             <div class="setting-button basic-buttons">
@@ -191,8 +194,14 @@
                         >
                         </profile>
                     </template>
-                </modal>                        
-                <coach v-show="coachVisible"></coach>
+                </modal> 
+
+                <coach 
+                    v-if="coachVisible" 
+                    :changePassVisisble='changePassVisisble'
+                    @closeChangePass='changePassword()'
+                ></coach>
+
                 <admin v-if="adminVisible"></admin>
             </div>
         </div>
@@ -238,7 +247,8 @@
                     roles: []
                 },
                 currentLanguage: 'eng',
-                languageMenuDesign: 1
+                languageMenuDesign: 1,
+                changePassVisisble: false
             }
         },
 
@@ -294,6 +304,10 @@
             openAdmin(){
                 this.coachVisible =  false;
                 this.adminVisible = true;
+            },
+
+            changePassword: function () {
+                this.changePassVisisble = !this.changePassVisisble
             },
 
             closeModal: function () {

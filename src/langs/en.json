@@ -71,6 +71,8 @@
 	"m_goals_progress": "Goals progress",
 	"m_edit_goal": "Edit goal",
 	"m_active": "Active",
+	"m_draft": "Draft",
+	"m_finished": "Finished",
 	"m_expired": "Expired",
 	"m_completed": "Completed",
 	"m_enter_the_name_of_the_goal": "Enter the name of the Goal...",

@@ -1,37 +1,48 @@
 <template>
-    <div class="coach-page">
-
+    <div class="second-wrapper">
         <div 
-            class="coach-header"
-            v-if="coachHeaderVisible"
+            class="coach-page"
+            v-if="!changePassVisisble"
         >
             <div 
-                class="start-game-button basic-buttons" 
-                @click="openWindow()"
+                class="coach-header"
+                v-if="coachHeaderVisible"
             >
-                {{ $t('m_create_game') }}
-            </div>
-            <div class="coach-info">
-                <div class="coach-info__title">
-                    {{ $t('m_business_coach') }}
+                <div 
+                    class="start-game-button basic-buttons" 
+                    @click="openWindow()"
+                >
+                    {{ $t('m_create_game') }}
                 </div>
-                <div class="coach-info__name">
-                    {{GET_USER.firstName}} {{GET_USER.lastName}}
-                </div>
+                <!-- временно скрыто до реализации сортировки по тренерам -->
+                <!-- <div class="coach-info">
+                    <div class="coach-info__title">
+                        {{ $t('m_business_coach') }}
+                    </div>
+                    <div class="coach-info__name">
+                        {{GET_USER.firstName}} {{GET_USER.lastName}}
+                    </div>
+                </div> -->
             </div>
-        </div>
-        <div 
-            class="games-header"
-            v-else
-        >
-            {{ $t('m_games') }}
+            <div 
+                class="games-header"
+                v-else
+            >
+                {{ $t('m_games') }}
+            </div>
+
+            <games></games>
+
+            <modal-window v-if="this.createGameShow" @close='closeWindow'>
+                <create-game @closeGame='closeWindow'></create-game>
+            </modal-window>                                                                                                                        
         </div>
 
-        <games></games>
-
-        <modal-window v-if="this.createGameShow" @close='closeWindow'>
-            <create-game @closeGame='closeWindow'></create-game>
-        </modal-window>                                                                                                                        
+        <change-pass 
+            class="change-pass"
+            v-if="changePassVisisble"
+            @closeChangePass='closeChangePass()'
+        ></change-pass>
     </div>
 </template>
 
@@ -39,14 +50,18 @@
     import Games from '@/components/secondary/Games';
     import ModalWindow from '@/components/modal/ModalWindow';
     import CreateGame from '@/components/modal/CreateGame';
+    import ChangePass from '@/components/secondary/ChangePass';
     import { mapMutations, mapGetters, mapActions } from 'vuex';
     
     export default {
         name: "Coach",
 
+        props: {
+			changePassVisisble: Boolean
+        },
+        
         data () {
             return {
-                coach: 'Вася Щукин',
                 createGameShow: false,
                 coachHeaderVisible: false
             }
@@ -55,7 +70,8 @@
         components: {
             Games,
             ModalWindow,
-            CreateGame
+            CreateGame,
+            ChangePass
         },
 
         mounted () {
@@ -82,7 +98,12 @@
             closeWindow () {
 		  		this.createGameShow = false;
                 this.SET_PRIMARY_BLUR(false);	  		
+            },
+
+            closeChangePass () {
+                this.$emit('closeChangePass');
             }
+
         }
     }
 </script>

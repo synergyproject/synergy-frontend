@@ -82,7 +82,7 @@
                     </div> 
                 </div>
                 <div class="game-button">
-                    {{getGameStatus(item.startDate, item.endDate)}}
+                    {{$t(getGameStatus(item.startDate, item.endDate))}}
                 </div>
             </div>    
         </div>
@@ -143,11 +143,11 @@
                     currentDateNumber = this.calcCurrentDate();
 
                 if (currentDateNumber < startDateNumber) {
-                    return "Черновая"
+                    return "m_draft"
                 } else if (currentDateNumber >= startDateNumber && currentDateNumber <= endDateNumber) {
-                    return "Активная"
+                    return "m_active"
                 } else {
-                    return "Законченная"
+                    return "m_finished"
                 }
             }
         }
