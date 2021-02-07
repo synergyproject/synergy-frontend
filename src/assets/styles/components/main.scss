@@ -45,6 +45,14 @@
                     justify-content: space-between;
                     width: 220px;
                     margin-bottom: 24px;
+                    position: relative;
+                    // удолить
+                    .for-backend {
+                        position: absolute;
+                        top: -25px;
+                        font-size: 12px;
+                    }
+                    // удолить
                     .menu-button{
                         align-items: center;
                         color: $colorPrimary;

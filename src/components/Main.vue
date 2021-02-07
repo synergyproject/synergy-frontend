@@ -7,6 +7,13 @@
                     <div class="primary-menu-container">
 
                         <div class="menu-buttons-container">
+
+                            <!-- удолить -->
+                            <div class="for-backend">
+                                commit:  SYNERGY-261 is ready
+                            </div>
+                            <!-- удолить -->
+                            
                             <language-menu :languageMenuDesign='languageMenuDesign' />
                             <div class="logo" @click="goObjectives()">
                                 <img src="@/assets/img/Logo_dark.png" >
