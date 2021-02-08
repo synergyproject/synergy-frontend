@@ -1,164 +1,181 @@
-
-.main-page{  
-    margin: 0;
-    padding: 0;
-    height: 100vh;
+.main-wrapper {
     background: $colorBgHeader;
     display: flex;
-    .secondary{
-        position: fixed;
-        right: 0;
-        width: 80%;
-        height: 100vh;
-    }
+    height: 100vh;
+
     *{
         display: flex;
         font-family: 'Roboto', sans-serif;
         color: $colorText;
     }
-    .primary{
-        position: fixed;
-        width: 20%;      //размер поставил пока примерно
-        height: 100vh;
+
+    .primary-menu{
+        background-color: $colorBg;
+        justify-content: center;
+        width: 20%;
+        position: relative;
+        border-right: 2px solid $borderColor;
+        overflow: auto;
+
+        .primary-menu-container{
+            margin-top: 49px;
+            align-items: center;
+            flex-direction: column;
+            
+            .menu-buttons-container{
+                justify-content: space-between;
+                width: 220px;
+                margin-bottom: 24px;
+                position: relative;
+                .menu-button{
+                    align-items: center;
+                    color: $colorPrimary;
+                    max-width: 70px;
+                    font-size: 14px;
+                    line-height: 20px;
+                    user-select: none;
+                    overflow: hidden;
+                    text-decoration: none;
+                }
+            }
+            .avatar{
+                position: relative;
+                width: 220px;
+                height: 220px;
+                background: $colorBgHeader;
+                border-radius: 10px;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 27px;
+
+                .avatar-img{
+                    width: 220px;
+                    height: 220px;
+                }
+                
+                .edit-avatar {
+                    background-color: rgba(255, 255, 255, 0.7);
+                    border-radius: 5px;
+                    width: 24px;
+                    height: 24px;
+                    position: absolute;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    display: none;
+                    
+                    img {
+                        opacity: 1 !important;
+                        width: 15px;
+                        height: 15px; 
+                    }
+                }                   
+            }
+            .avatar:hover .edit-avatar{
+                display: flex;
+            }
+
+            .personal-data{
+                width: 220px;
+                flex-direction: column;
+                .full-name-container{
+                    justify-content: space-between;
+                    .full-name{
+                        font-weight: bold;
+                        font-size: 16px;
+                        line-height: 19px;
+                        overflow: hidden;
+                    }
+                }
+                .email{
+                    font-size: 12px;
+                    line-height: 14px;
+                    color: $colorPrimary;
+                    margin-top: 8px;
+                    margin-bottom: 24px;
+                    overflow: hidden;
+                }
+                .username-block{
+                    justify-content: space-between;
+                    margin-bottom: 12px;
+                    .username-block__icon{
+                        width: 24px;
+                        height: 24px;
+                        margin-right: 8px;
+                    }
+                    .username-block__content{
+                        font-size: 14px;
+                        line-height: 20px;
+                        height: 24px;
+                        align-items: center;
+                        overflow: hidden;
+                    }
+                    input{
+                        background: $colorBgHeader;
+                        outline: none;
+                        border: none;
+                        padding-top: 0;
+                        padding-bottom: 0;
+                        padding-left: 6px;
+                        padding-right: 6px;
+                    }                            
+                }
+            }
+            .setting-buttons-container{
+                margin-top: 24px;
+                align-items: center;
+                flex-direction: column;
+                .setting-button{
+                    background-color: $colorBgHeader;
+                    font-size: 12px;
+                    border: 1px solid $colorPrimary;
+                    border-radius: 15px;
+                    min-width: 220px;
+                    height: 32px;
+                    user-select: none;
+                    margin-bottom: 15px;
+                    text-align: center; 
+                }
+                .admin-button{
+                    margin-top: 21px;
+                    background: $colorSecond;
+                    border: none;
+                }             
+
+            }
+            .license-counter{
+                color: $colorPrimary;
+                font-size: 14px;
+                line-height: 20px;
+            }
+        }
+
         .blur{
-            width: 100%;
             background: rgba(0,0,0,.4);
             position: absolute;
-            z-index: 910;
+            z-index: 100;
             left: 0px;
             top: 0px;
             bottom: 0px;
             right: 0px;
             backdrop-filter: blur(3px);
         }
-        .primary-menu{
-            background-color: $colorBg;
-            justify-content: center;
-            width: 100%;
-            .primary-menu-container{
-                width: 220px;
-                margin-top: 49px;
-                align-items: center;
-                flex-direction: column;
-                position: absolute;
-                .menu-buttons-container{
-                    justify-content: space-between;
-                    width: 220px;
-                    margin-bottom: 24px;
-                    position: relative;
-                    // удолить
-                    .for-backend {
-                        position: absolute;
-                        top: -25px;
-                        font-size: 12px;
-                    }
-                    // удолить
-                    .menu-button{
-                        align-items: center;
-                        color: $colorPrimary;
-                        max-width: 70px;
-                        font-size: 14px;
-                        line-height: 20px;
-                        user-select: none;
-                        overflow: hidden;
-                        text-decoration: none;
-                    }
-                }
-                .avatar{
-                    width: 220px;
-                    height: 220px;
-                    background: $colorBgHeader;
-                    border-radius: 10px;
-                    align-items: center;
-                    justify-content: center;
-                    margin-bottom: 27px;
-                    .avatar-img{
-                        width: 220px;
-                        height: 220px;
-                    }
-                    .edit_avatar{
-                        position: absolute;
-                        left: 225px;
-                        
-                    }                        
-                }
-                .personal-data{
-                    width: 220px;
-                    flex-direction: column;
-                    .full-name-container{
-                        justify-content: space-between;
-                        .full-name{
-                            font-weight: bold;
-                            font-size: 16px;
-                            line-height: 19px;
-                            overflow: hidden;
-                        }
-                    }
-                    .email{
-                        font-size: 12px;
-                        line-height: 14px;
-                        color: $colorPrimary;
-                        margin-top: 8px;
-                        margin-bottom: 24px;
-                        overflow: hidden;
-                    }
-                    .username-block{
-                        justify-content: space-between;
-                        margin-bottom: 12px;
-                        .username-block__icon{
-                            width: 24px;
-                            height: 24px;
-                            margin-right: 8px;
-                        }
-                        .username-block__content{
-                            font-size: 14px;
-                            line-height: 20px;
-                            height: 24px;
-                            align-items: center;
-                            overflow: hidden;
-                        }
-                        input{
-                            background: $colorBgHeader;
-                            outline: none;
-                            border: none;
-                            padding-top: 0;
-                            padding-bottom: 0;
-                            padding-left: 6px;
-                            padding-right: 6px;
-                        }                            
-                    }
-                }
-                .setting-buttons-container{
-                    margin-top: 24px;
-                    align-items: center;
-                    flex-direction: column;
-                    .setting-button{
-                        background-color: $colorBgHeader;
-                        font-size: 12px;
-                        border: 1px solid $colorPrimary;
-                        border-radius: 15px;
-                        min-width: 220px;
-                        height: 32px;
-                        user-select: none;
-                        margin-bottom: 15px;
-                        text-align: center; 
-                    }
-                    .admin-button{
-                        margin-top: 21px;
-                        background: $colorSecond;
-                        border: none;
-                    }             
-
-                }
-                .license-counter{
-                    color: $colorPrimary;
-                    font-size: 14px;
-                    line-height: 20px;
-                }
-            }
-        }
     }
-    .devider{
-        border: 1px solid $borderColor;
+
+    .secondary{
+        position: relative;
+        width: 80%;
+    }
+       
+    .blur{
+        width: 100%;
+        background: rgba(0,0,0,.4);
+        position: absolute;
+        z-index: 10;
+        left: 0px;
+        top: 0px;
+        bottom: 0px;
+        right: 0px;
+        backdrop-filter: blur(3px);
     }
 }

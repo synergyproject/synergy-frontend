@@ -66,7 +66,7 @@
 							{{ $t('m_enter') }}
 						</div>
 					</div>
-					<div class="password-help">
+					<!-- <div class="password-help">
 						<img
 							src="@/assets/img/help_circle.png"
 							class="question-icon"
@@ -85,7 +85,7 @@
 								{{ $t('m_help_content_text[10]') }} <b>а-z</b>, {{ $t('m_help_content_text[11]') }}
 							</div>
 						</div>
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</div>
@@ -94,7 +94,6 @@
 
 <script>
 	import axios from 'axios';
-	import help_circle from '@/assets/img/help_circle.png';
 	import ahtung_circle from '@/assets/img/ahtung_circle.png';
 	import icon_eye_close from '@/assets/img/icon_eye_close.png';
 	import icon_eye_open from '@/assets/img/icon_eye_open.png';
@@ -103,9 +102,11 @@
 
 	export default {
 		name: 'authorization',
+
 		components: {
 			LanguageSelector
 		},
+
 		data () {
 			return {
 				email: '',
@@ -113,18 +114,19 @@
 				info_message:'',
 				errors: {
 					err_confirm: 'm_error_confirm',
-					err_emptyField: 'm_error_empty_field',
-					good: 'm_good' //test
+					err_emptyField: 'm_error_empty_field'
 				},
 				eyePassVisible: true,
 				inputTypePass: 'password',
-				loginImage:bg,
+				loginImage: bg,
 			}
 		},
+
 		mounted () {
 			if(this.$store.state.auth.token)
 			this.$router.push({ path: '/main'})
-		},			
+		},
+
 	  	methods: {
 			authorization: function () {
 				if (this.email && this.pass) {
@@ -134,16 +136,19 @@
 					this.info_message = this.errors.err_emptyField
 				}
 			},
+
 		  	changeEye: function (eye) {
 		  		this.eyePassVisible = !this.eyePassVisible;
 		  		this.inputTypePass = this.eyePassVisible ? 'password' : 'text'	  		
 			},
+
 			send(){
-				this.info_message = ''
+				this.info_message = '';
 				const data = JSON.stringify({
 					username: this.email,
 					password: this.pass
 				});
+				
 				axios.post('http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/login', data, {
 					headers: {
 						'Content-Type': 'application/json'
@@ -160,7 +165,6 @@
 				})
 				.catch(error => {
 					this.info_message = error.message
-					console.dir(error);
 				});
 			}  	
 		}  			

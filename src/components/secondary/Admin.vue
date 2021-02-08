@@ -1,5 +1,12 @@
 <template>
     <div class="admin">
+        <div 
+            class="return-link"
+            @click="closeAdmin()"
+        >
+            Back
+        </div>
+
         <div class="admin__header">
             <h1>{{ $t("m_administrator_account") }}</h1>
             <ul class="admin__menu">
@@ -33,6 +40,7 @@
     
     export default {
         name: "Admin",
+
         data () {
             return {
                 trainersList: false,
@@ -41,22 +49,30 @@
                 
             }
         },
+
         components: {
             GamesList,
             PlayersList,
             TrainersList
         },
+
         methods: {
+            closeAdmin () {
+                this.$emit('closeAdmin');
+            },
+
             trainersListOn(){
                 this.trainersList = true;
                 this.gamesList = false;
                 this.playersList=false;
             },
+
             gamesListOn(){
                 this.trainersList = false;
                 this.gamesList = true;
                 this.playersList=false;
             },
+
             playersListOn(){
                 this.trainersList = false;
                 this.gamesList = false;
