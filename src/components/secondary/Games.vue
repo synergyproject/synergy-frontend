@@ -29,7 +29,7 @@
                         </div>
                     </div>
                     <div class="game-info-left__buttons">
-                        <div class="game-button basic-buttons"  @click ="sendID" :idItem = "item.id">
+                        <div class="game-button basic-buttons"  @click ="sendID(item.id)">
                             {{ $t('m_enter') }}
                         </div>
                         <div class="game-button basic-buttons">
@@ -101,7 +101,7 @@
         },
 
         computed: {
-            ...mapGetters(['GET_GAMES', 'GET_GAMES_LIST']),
+            ...mapGetters(['GET_GAMES', 'GET_GAMES_LIST', 'GET_SELECTED_GAME']),
 
             getGamesList() {
 
@@ -116,13 +116,15 @@
         },
 
         methods: {
-            ...mapActions(['GAMES_FROM_SERVER']),
-            ...mapMutations(['SET_SELECTED_GAME_ID']),
-            sendID(e){
-                
-                this.SET_SELECTED_GAME_ID(e.target.getAttribute('idItem'))
-                this.$router.push({ path: '/line'})
+            ...mapActions(['GAMES_FROM_SERVER', 'SELECTED_GAMES_FROM_SERVER']),
+            sendID(id){
+                this.SELECTED_GAMES_FROM_SERVER(id)
+                    .then(resolve => {
+                        this.$router.push({ path: '/line'})
+                     
+            })
             },
+           
             // все даты в днях чтобы легче было отслеживать 
             calcCurrentDate: function() {
                 let	date = new Date();

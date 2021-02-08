@@ -8,7 +8,7 @@
                     :key = "keyR"
                 >
                     <post 
-                        v-for ="(post, num) in getPosts" 
+                        v-for ="(post, num) in GET_POSTS" 
                         :key = "post.id" 
                         :post = "post" 
                         :num = "num" 
@@ -20,19 +20,19 @@
                 <div class="side">
                     <div class="side__info">
                         <h4 class="side__info-name">
-                            {{game.name}}
+                            {{GET_SELECTED_GAME.name}}
                         </h4>
                         <p class="side__info-date">
-                            {{game.date}}
+                            {{createDate(GET_SELECTED_GAME.endDate)}}
                         </p>
                     </div>
                     <div class="side__user">
                         <div 
                             class="avatar" 
-                            :style="{backgroundImage:`url(${game.coach.photo ? game.coach.photo: bgImage})`}"
+                            :style="{backgroundImage:`url(${GET_SELECTED_GAME.coach.photo ? GET_SELECTED_GAME.coach.photo: bgImage})`}"
                         ></div>
                         <h4 class="side__user-name">
-                            {{game.coach.firstName}} {{game.coach.lastName}}
+                            {{GET_SELECTED_GAME.coach.firstName}} {{GET_SELECTED_GAME.coach.lastName}}
                         </h4>
                     </div>
                 </div>
@@ -95,69 +95,40 @@
         },
         data () {
             return {
-                game:{
-                    id:'',
-                    name:'',
-                    date:'',
-                    coach: {
-                        firstName: "",
-                        id: "",
-                        lastName: "",
-                        photo: ""
-                    }
-
-                },
                 bgImage: avatar,
                 keyR: 0,
 
             }
         },
         beforeDestroy(){
-            window.removeEventListener('resize', this.onResize);
+            window.removeEventListener('resize', this.onResize)
+            localStorage.removeItem('GameSelected')
         },
         computed: {
-            ...mapGetters(['GET_USER']),
-            ...mapGetters(['GET_SELECTED_GAME_ID']),
-            ...mapGetters(["GET_GAME_BY_ID"]),   
-            ...mapGetters(["GET_GAMES_LIST"]),   
-            ...mapGetters(['GET_USERIN']),
-            ...mapGetters(['GET_POSTS']),
-            ...mapGetters(['GET_GAME']), 
-            getPosts(){
-                console.log('posts', this.GET_POSTS)
-                return  this.GET_POSTS
-            }
+            ...mapGetters(['GET_USER', 'GET_SELECTED_GAME','GET_GAME_BY_ID', 'GET_GAMES_LIST','GET_USERIN', 'GET_POSTS', 'GET_GAME']),
+
                       
         },
-        mounted() {
-            window.addEventListener('resize', this.onResize);
-			//если новый пользователь захочет перейти на эту страницу (например через адресную строку), 
-			//не заполнив профиль - возвращаем его обратно на main к заполнению
-			this.USERS_FROM_SERVER()
-                .then(resolve => {
-                    if (!this.GET_USER.firstName || !this.GET_USER.lastName || !this.GET_USER.phone) {
-                        this.$router.push({ path: '/main'})
-                    } 
-            })
+        created(){
+           
+            this.POSTS_FROM_SERVER(this.GET_SELECTED_GAME.id)
 
-            if(this.GET_SELECTED_GAME_ID==='0'){
-                this.$router.push({ path: '/main'}) ;
-            }
-
-            //Получаем данные по игре
-            this.GAMES_FROM_SERVER()
-            let data = this.GET_GAME_BY_ID(this.GET_SELECTED_GAME_ID)
-            this.game.id = data.id
-            this.game.name = data.name
-            this.game.date = this.createDate(data.endDate)
-            this.game.coach.id = data.coach.id
-            this.game.coach.firstName = data.coach.firstName
-            this.game.coach.lastName = data.coach.lastName
-            this.game.coach.photo = data.coach.photo
+            window.addEventListener('resize', this.onResize)
             
-            this.POSTS_FROM_SERVER(this.GET_SELECTED_GAME_ID)
+            // if(!this.GET_SELECTED_GAME.id){
+            //     this.$router.push({ path: '/main'}) ;
+            // }
 
-        },      
+            // this.USERS_FROM_SERVER()
+            //     .then(resolve => {
+            //         if (!this.GET_USER.firstName || !this.GET_USER.lastName || !this.GET_USER.phone) {
+            //             this.$router.push({ path: '/main'})
+            //         } 
+            // })
+        },
+        mounted(){
+
+        },    
         methods: {
             ...mapActions(['GAMES_FROM_SERVER']),
             ...mapActions(['POSTS_FROM_SERVER']),
@@ -172,7 +143,9 @@
                 let day = f.getDate()
                 month = (month < 10) ? '0' + month : month;
                 day  = (day  < 10) ? '0' + day  : day;
+
                 return [day, month, year,].join('.')
+                
 
             }
         }
