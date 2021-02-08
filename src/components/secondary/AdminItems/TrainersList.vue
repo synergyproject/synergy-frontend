@@ -123,7 +123,7 @@
             closeModal() {
                 this.SET_PRIMARY_BLUR(false);
 				this.modalVisible = false;	  	
-            },
+            }
         }
     }
 </script>
