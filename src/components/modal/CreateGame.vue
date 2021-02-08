@@ -155,15 +155,34 @@
                     startDate: '',
                     endDate: '',
                     activeUsersCount: '',
-                    bannedUsersCount: ''
+                    bannedUsersCount: '', 
+                    licensesAvailable: '',
+                    players: [],
+                    // players: [
+                    //     {
+                    //         dateOfBirth: "2020-01-31",
+                    //         email: "morgotianin@gmail.com",
+                    //         firstName: "Иван",
+                    //         gender: "MALE",
+                    //         id: '13',
+                    //         lastName: "Горячих",
+                    //         phone: "+380663137126",
+                    //         photo: '',
+                    //         roles: ["COACH", "PLAYER"],
+                    //         status: "ACTIVE",
+                    //         telegram: "@telegrammmm"
+                    //     }
+                    // ]
                 },
                 redAlertName: false,
                 redAlertDate: false,
                 photoRedAlertActive: false
             }
         },
+
         methods: {
             ...mapMutations(['ADD_LIST_OF_GAMES']),
+
             loadPhoto (event) {
                 let uploadedFile = event.target.files[0],
                     size = uploadedFile.size,
@@ -173,9 +192,11 @@
                 } else {
                     this.photoRedAlertActive = true;
                 }
-            }, 
+            },
+
             createGame(){
                 if (this.game.name && this.game.startDate) {
+                    this.game.id =  Date.now()
                     this.ADD_LIST_OF_GAMES(this.game);
                     this.$emit('closeGame')
                     this.redAlertName = false;
@@ -191,10 +212,9 @@
                 } else if(!this.game.startDate){
                     this.redAlertName = false
                     this.redAlertDate = true
-                }
-
-                
+                }                
             },
+
             changeDate(){
                 let f = new Date(this.game.startDate)
                 f.setDate(f.getDate() + 56)
@@ -204,9 +224,7 @@
                 month = (month < 10) ? '0' + month : month;
                 day  = (day  < 10) ? '0' + day  : day;
                 this.game.endDate = [year, month, day].join('-')
-            },
-
-
+            }
         }
     }
 </script>

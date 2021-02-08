@@ -17,16 +17,31 @@ export default {
         //     "startDate":"2021-01-28",
         //     "endDate":"2021-03-28"
         //   }
-        gamesData: {},
+        gamesData: {}
     },
     
     getters: {
         "GET_GAMES_LIST"(state) {
             return state.gamesData;
         },
+
         // GET_INVITATION_PARAMETERS(state) {
         //   return state.invitationsParameters;
         // },
+
+        "GET_GAME_BY_ID": state => id =>{
+            const game = state.gamesData.games.find(item => item.id==id )
+            return game;
+        },
+
+        // GET_INVITATION_PARAMETERS(state) {
+        //   return state.invitationsParameters;
+        // },
+    },
+
+    mutations: {
+        "SET_LIST_OF_GAMES"(state, payload) {
+        state.gamesData = payload;
     },
 
     mutations: {
@@ -37,41 +52,43 @@ export default {
         "ADD_LIST_OF_GAMES"(state, payload) {
             state.gamesData.games.push(payload)
         },
+
         // SET_INVITATION_PARAMETERS(state, payload) {
         //   state.invitationsParameters = payload;
         // },
     },
 
+    "SET_LIST_OF_GAMES"(state, payload) {
+        state.gamesData = payload;
+    },
+
+    "SET_GAME_BY_ID"(state, payload) {
+        state.gamesData.games = state.gamesData.games.map(item =>item.id == payload.id ? item = payload : item = item)
+    },
+
+    // SET_INVITATION_PARAMETERS(state, payload) {
+    //   state.invitationsParameters = payload;
+    // }
+  },
+
     actions: {
         "GAMES_FROM_SERVER"({ commit }) {
-            return axios
-                .get(
-                    "http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/games",
+        return axios
+            .get(
+                "http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/games",
                 {
                     headers: {
-                        Authorization: `Bearer ${localStorage.getItem("token")}`
-                    }
-                })
-                .then((response) => {
-                    commit("SET_LIST_OF_GAMES", response.data);
-                    return response;
-                })
-                .catch((error) => {
-                    throw error;
-                });
-        },
-        // SEND_INVITATION_TOKEN({ commit }) {
-        //   return axios
-        //     .get(
-        //       `http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/invitations/Z6t_hsUDTE`
-        //     )
-        //     .then((response) => {
-        //       commit("SET_INVITATION_PARAMETERS", response.data);
-        //       return response;
-        //     })
-        //     .catch((error) => {
-        //       throw error;
-        //     });
-        // },
-    },
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                }
+            )
+            .then((response) => {
+                commit("SET_LIST_OF_GAMES", response.data);
+                return response;
+            })
+            .catch((error) => {
+                throw error;
+            });
+        }
+    }    
 }

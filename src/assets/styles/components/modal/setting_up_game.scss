@@ -1,26 +1,60 @@
-.create-game{ 
+.set_game{ 
     @include flex(column, flex-start, flex-start, nowrap);
     width: 850px;
-    height: 536px;
+    height: 963px;
     background-color: $colorBgHeader;
     box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.5);
     border-radius: 5px;
     padding: 40px 80px;
-    .create-game__header{
+    .modal-backdrop{
+
+        width: 100%;
+        height: 100%;
+        .avatar-window {
+            width: 340px;
+            height: 396px;
+
+        }
+    }
+    .avatar{
+        width: 215px;
+        height: 215px;
+        background: $colorBg;
+        border-radius: 10px;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 27px;
+        .avatar-img{
+            width: 220px;
+            height: 220px;
+        }
+        .edit_avatar{
+            position: absolute;
+            left: 225px;
+            
+        }                        
+    }
+    hr{
+        width: 100%;
+        height: 2px;
+        margin-bottom: 32px;
+        background-color: $colorBg;
+    }
+    .set_game__header{
         align-self:center;
         color: $colorPrimary;
         @include font(700, 20px, 23px);
         margin: 0 0 32px 0;
 
     }
-    .create-game__content{
+    .set_game__content{
         width: 100%;
         @include flex(row, space-between, flex-start, nowrap);
-        .create-game__info{
+        .set_game__info{
             @include flex(row, space-between, flex-start, wrap);
             width: 453px;
         }
-        .create-game__container{
+        .set_game__container{
             position: relative;
             @include flex(column, flex-start, flex-start, nowrap);
             margin-bottom: 30px;
@@ -159,14 +193,108 @@
             }
         }
     }
-    .confirm-button{
-        align-self:center;
-        width: 214px;
-        height: 40px;
-        @include flex(row, center, center, nowrap);
-        background-color: $colorPrimary;
-        color: $colorBgHeader;
-        @include font(500, 14px, 20px);
-        border-radius: 100px;
+    .set_game__players{
+        width: 100%;
+        @include flex(column, flex-start, center, nowrap);
+        &-head{
+            color: $colorPrimary;
+            @include font(700, 20px, 23px);
+            margin: 0 0 4px 0;
+        }
+        &-licenses{
+            color: $colorPrimary;
+            @include font(400, 14px, 20px);
+            margin-bottom: 20px;
+        }
+        &-add{
+            width: 100%;
+            margin-bottom: 23px;
+            @include flex(row, space-between, center, nowrap);
+            input{
+                width: 466px;
+                padding: 10px 12px;
+                background-color: $colorBg;
+                color:$colorText;
+                @include font(400, 14px, 20px);
+                border: none;
+                border-radius: 5px;
+                &::placeholder{
+                    color:$colorPrimary50;
+                }
+            }
+            .confirm-button{
+                width: 214px;
+                height: 40px;
+                @include font(400, 14px, 20px);
+                border:1px solid $colorPrimary;
+                border-radius: 10012px;
+            }
+        }
+        &-list{
+            width: 100%;
+            padding: 0;
+            @include flex(column, flex-start, flex-start, nowrap);
+            border-top: 2px solid $colorSecond;
+            border-bottom: 2px solid $colorSecond;
+            max-height: 226px;
+            overflow-x: hidden;
+            overflow-y: auto;
+            &::-webkit-scrollbar {
+                width: 4px;
+                height: 166px;
+            }            
+            /* Track */
+            &::-webkit-scrollbar-track {
+                -webkit-border-radius: 10px;
+                border-radius: 10px;
+            }            
+            /* Handle */
+            &::-webkit-scrollbar-thumb {
+                -webkit-border-radius: 10px;
+                border-radius: 10px;
+                background: $colorPrimary50;
+            }
+            .set_game__players-item{
+                @include font(400, 14px, 20px);
+                width: 100%;
+                padding: 8px;
+                @include flex(row, space-between, center, nowrap);
+                &:not(:last-child){
+                    border-bottom: 1px solid $borderColor;
+                }
+                .del-button{
+                    color: $colorPrimary;
+                }
+            }
+
+        }
+        .status{
+            width: 36px;
+            height: 36px;
+        }
     }
+    .set_game-buttons{
+        align-self:center;
+        margin-top: 34px;
+        .confirm-button,
+        .finish-button{
+            width: 214px;
+            height: 40px;
+            @include flex(row, center, center, nowrap);
+           
+            border-radius: 100px;
+        }
+        .confirm-button{
+            @include font(400, 14px, 20px);
+            color: $colorText;
+            background-color: $colorSecond;
+            margin-right: 24px;
+        }
+        .finish-button{
+            @include font(500, 14px, 20px);
+            color: $colorBgHeader;
+            background-color: $colorPrimary;
+        }
+    }
+
 } 

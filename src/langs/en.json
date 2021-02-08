@@ -117,6 +117,7 @@
 	"m_ID":"ID",
 	"m_business_coach":"Business Coach",
 	"m_delete":"Delete",
+	"m_del":"Delete",
 	"m_licenses_number": "Number of licenses",
 	"m_yes":"Yes",
 	"m_no":"No",
@@ -131,5 +132,9 @@
 	"m_invitation_letter": "Invitation letter sent to Business coach",
 	"m_player_already_registered": "This email is already registered as a Player. Do you want to transfer him to the 'Business Coach' status",
 	"m_cancel": "Cansel",
-	"m_transfer": "Transfer"
+	"m_transfer": "Transfer",
+	"m_set_game":"Setting up the game",
+	"m_save_settings":"Save settings",
+	"m_finish_game":"Finish the game",
+	"m_add_player":"+ Add player"
 }
