@@ -96,6 +96,7 @@
                         type="date" 
                         class="start-date" 
                         v-model="game.startDate"
+                        @change="changeDate"
                     >
 
                     <div 
@@ -119,6 +120,7 @@
                         type="date" 
                         class="end-date" 
                         v-model="game.endDate"
+                        disabled
                     >
                     
                     <div class="create-game__container-after">
@@ -193,6 +195,17 @@
 
                 
             },
+            changeDate(){
+                let f = new Date(this.game.startDate)
+                f.setDate(f.getDate() + 56)
+                let year= f.getFullYear()
+                let month= f.getMonth()+1
+                let day = f.getDate()
+                month = (month < 10) ? '0' + month : month;
+                day  = (day  < 10) ? '0' + day  : day;
+                this.game.endDate = [year, month, day].join('-')
+            },
+
 
         }
     }
