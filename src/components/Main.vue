@@ -251,7 +251,7 @@
                     this.user.usernameTelegram = this.GET_USER.telegram;
                     this.user.phone = this.GET_USER.phone;
                     this.user.birthday = this.GET_USER.dateOfBirth;
-        console.log(this.GET_USER);
+        console.log('user.main',this.GET_USER);
                     // при первом логине пользователь видит модальное окно "заполнить профиль"
                     if (!this.GET_USER.firstName || !this.GET_USER.lastName || !this.GET_USER.phone) {
                         this.blurIsActive = true;

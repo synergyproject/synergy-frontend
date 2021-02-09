@@ -99,6 +99,7 @@ export default {
 					}
 				})
 				.then(response => {
+                    
                     commit("SET_LIST_OF_USERS", response.data)
 					return response
 				})

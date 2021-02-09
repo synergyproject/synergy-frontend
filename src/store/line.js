@@ -99,7 +99,6 @@ export default {
       SET_SELECTED_GAME (state, payload) {
         state.selectedGame = payload;
         localStorage.setItem('GameSelected', JSON.stringify(state.selectedGame))
-        console.log('11', state.selectedGame )
       },
       SET_LIST_OF_POSTS (state, payload) {
         state.posts = payload;
@@ -107,7 +106,6 @@ export default {
     },
     actions: {
       "POSTS_FROM_SERVER"({ commit }, payload) {
-        console.log('ii', )
         return axios
           .get(
             `http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/games/${payload}/feed`,
@@ -136,6 +134,7 @@ export default {
             }
           )
           .then((response) => {
+
             commit("SET_SELECTED_GAME", response.data);
             return response;
           })
@@ -143,5 +142,24 @@ export default {
             throw error;
           });
       },
+
+      'SEND_LIKE'({ commit}, payload) {
+
+        return axios
+          .post(`http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/games/${payload.gameID}/feed/${payload.postID}/likes`, payload.info, {
+            headers: {
+              
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            }
+          })
+          // .then(response => {
+          //   // console.log('posts', response)
+          //   // commit("POSTS_FROM_SERVER", response.data.posts)
+          //   return response
+          // })
+          // .catch(error => {
+          //   throw error;
+          // });
+      }      
     },
   } 

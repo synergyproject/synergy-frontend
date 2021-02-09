@@ -1,7 +1,7 @@
 <template>
     <article class="addpost">
         <div class="avatar" 
-            :style="{backgroundImage:`url(${user.avatar ? user.avatar : bgImage})`}"
+            :style="{backgroundImage:`url(${user.photo ? user.photo  : bgImage})`}"
         ></div>
         <form class="addpost__form">
             <div class="addpost__text-wrap">

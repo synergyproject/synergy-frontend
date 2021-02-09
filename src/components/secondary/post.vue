@@ -1,5 +1,5 @@
 <template>            
-    <article :class="'post '+'post_'+num">
+    <article :class="'post '+'post_'+num" >
         <header class="post__header">
             <div class="post__author">
                 <div 
@@ -29,6 +29,8 @@
                     <img 
                         class="post__likes-icon"
                         :src="heartUrl"
+                        @click = "addLike"
+                        
                     >
                     <div class="post__likes-amount">
                         {{post.likes.length}}
@@ -180,7 +182,7 @@
         <div class="post__add-comment">
             <div 
                 class="avatar" 
-                :style="{backgroundImage:`url(${post.author.photo ?  post.author.photo : bgImage})`}"
+                :style="{backgroundImage:`url(${user.photo ?  user.photo : bgImage})`}"
             >
             </div>
             <form class="post__form">
@@ -204,14 +206,16 @@
     import photo from '@/assets/img/test.png'
     import heart from '@/assets/img/heart.png'
     import heartFill from '@/assets/img/heart_fill.png'
+
+    import { mapMutations, mapGetters, mapActions } from 'vuex';
     export default {
         name: "post",
-        props:['post', 'num', 'user'],
+        props:['post', 'num', 'user', 'gameID'],
         data () {
             return {
                 bgImage: avatar,
                 // bgPhoto: photo,
-                myPost: this.user.userId == this.post.author.id,
+                myPost: this.user.id === this.post.author.id,
                 created: this.post.type ==="CREATED",
                 showTextBtn:false,
                 showText: true,
@@ -227,7 +231,7 @@
             }
         },
         mounted () {
-
+            
             //сворачиваем текст в постах если он больше заданной высоты
             let text = document.querySelector(`.post_${this.num}>.post__main>.post__info>.post__text`)
             if (text&&text.clientHeight>192) {
@@ -260,6 +264,7 @@
         },
         
         methods: {
+            ...mapActions(['SEND_LIKE', 'POSTS_FROM_SERVER']),  
             resizeText(e) {
                 let text = document.querySelector(`.post_${this.num}>.post__main>.post__info>.post__text`)
                 if (text.classList.contains('close')){
@@ -299,7 +304,28 @@
             fileName(){
                 let name = this.files.map(item => item.slice(+item.lastIndexOf('/')+1))
                 return name
-            }
+            },
+            addLike(){
+                const data = {
+                    gameID: this.gameID,
+                    postID: this.post.id,
+                    info: {
+                        email: this.user.email,
+                        firstName: this.user.firstName,
+                        id: this.user.id,
+                        lastName: this.user.lastName,
+                        photo: this.user.photo
+                    }
+                }
+
+                this.SEND_LIKE(data)
+                    .then(resolve => {
+                        this.POSTS_FROM_SERVER(this.gameID)
+                        this.heartUrl = heartFill
+                     
+                    })
+            },
+
 
         }
     }
