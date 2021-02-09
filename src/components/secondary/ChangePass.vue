@@ -4,16 +4,16 @@
             class="return-link"
             @click="closeChangePass()"
         >
-            Back
+            {{ $t('m_back') }}
         </div>
         
         <div class="change-password-container">
             <div class="change-password-header">
-                Изменение пароля
+                {{ $t('m_change_password') }}
             </div>
             <div class="change-password-input">
                 <div class="input-header">
-                    Введите старый пароль
+                    {{ $t('m_enter_old_password') }}
                 </div>
                 <input 
                     type="password" 
@@ -38,7 +38,7 @@
                     >
                 </div>
                 <div class="input-header">
-                    Придумайте пароль
+                    {{ $t('m_pick_password') }}
                 </div>
                 <input 
                     :type="this.inputTypePass" 
@@ -63,7 +63,7 @@
                     >
                 </div>
                 <div class="input-header">
-                    Повторите пароль
+                    {{ $t('m_confirm_password') }}
                 </div>
                 <input 
                     :type="this.inputTypePassСonfirm"
@@ -78,7 +78,7 @@
                         {{ $t(info_message) }}
                     </div>
                     <div class="input-basement__right">
-                        Забыли пароль?
+                        {{ $t('m_forgot_password') }}
                     </div>    
                 </div>
             </div>
@@ -86,7 +86,7 @@
                 class="change-password-button basic-buttons"
                 @click="verificationPassword()"
             >
-                Сохранить
+                {{ $t('m_save') }}
             </div>
         </div>
 
@@ -94,7 +94,7 @@
 </template>
 
 <script>
-    import { mapMutations } from 'vuex';
+    import { mapActions } from 'vuex';
     
     export default {
         name: "ChangePass",
@@ -113,17 +113,19 @@
 					err_format: 'm_incorrect_password_format', 
 					err_confirm: 'm_error_confirm_password',
 					err_emptyField: 'm_error_empty_field',
-					good: 'm_good'
+					good: 'm_password_changed'
 				}
             }
         },
 
         methods: {
+            ...mapActions([ 'SEND_NEW_PASSWORD' ]),
+
             closeChangePass () {
                 this.$emit('closeChangePass');
             },
 
-		  	changeEye: function (eye) {
+		  	changeEye (eye) {
 		  		if (eye === true) {
 		  			this.eyePassVisible = !this.eyePassVisible;
 		  			this.inputTypePass = this.eyePassVisible ? 'password' : 'text'
@@ -133,7 +135,7 @@
 		  		}		  		
 			},
 
-            verificationPassword: function () {
+            verificationPassword () {
 	  			let passStatus = /(?=.*[0-9])(?=.*[.,:;?!*+%\-<>@[\]{}()/\\_$#])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z\.,:;\?!\*\+%-<>@\[\]\{\}/\\_\$#]{8,}/g.test(this.newPassword);
 
 				if (this.newPassword && this.confirmedNewPassword && this.oldPassword) {
@@ -142,7 +144,12 @@
 					} else {
 						if (this.newPassword === this.confirmedNewPassword) {	
 							this.info_message = this.errors.good
-                            //отправка на бэк
+                            this.SEND_NEW_PASSWORD (
+                                {
+                                    newPassword: this.newPassword,
+                                    oldPassword: this.oldPassword
+                                }
+                            );
 						} else {
 							this.info_message = this.errors.err_confirm
 						}	
@@ -150,7 +157,7 @@
 				} else {
 					this.info_message = this.errors.err_emptyField
 				}
-	  		}
+	  		}     
         }
 
     }

@@ -74,7 +74,7 @@ export default {
                 });
         },
         
-        SEND_USER({ commit }, payload) {           
+        SEND_USER({ commit }, payload) {          
 			return axios
 				.put("http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/users", payload, {
 				    headers: {
@@ -109,7 +109,25 @@ export default {
 				.catch(error => {
 					throw error;
 				});
-		}
+		},
+
+        SEND_NEW_PASSWORD ({ commit }, payload) {
+            console.log(payload);
+            return axios
+                .put("http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/users/updatePassword", payload, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${localStorage.getItem("token")}`
+                    }
+                })
+                .then(response => {
+                    return response
+                })
+                .catch(error => {
+                    throw error;
+                });
+
+        }
 
 
     }   

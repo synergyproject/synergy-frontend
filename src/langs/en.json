@@ -136,5 +136,9 @@
 	"m_set_game":"Setting up the game",
 	"m_save_settings":"Save settings",
 	"m_finish_game":"Finish the game",
-	"m_add_player":"+ Add player"
+	"m_add_player":"+ Add player",
+	"m_password_changed": "Your password successfully changed",
+	"m_enter_old_password":"Enter your old password",
+	"m_forgot_password":"Forgot your password?",
+	"m_back":"Back"
 }

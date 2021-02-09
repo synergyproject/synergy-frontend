@@ -41,35 +41,21 @@ export default {
 
     mutations: {
         "SET_LIST_OF_GAMES"(state, payload) {
-        state.gamesData = payload;
-    },
-
-    mutations: {
-        "SET_LIST_OF_GAMES"(state, payload) {
             state.gamesData = payload;
         },
 
         "ADD_LIST_OF_GAMES"(state, payload) {
             state.gamesData.games.push(payload)
         },
-
+        
+        "SET_GAME_BY_ID"(state, payload) {
+            state.gamesData.games = state.gamesData.games.map(item =>item.id == payload.id ? item = payload : item = item)
+        }
         // SET_INVITATION_PARAMETERS(state, payload) {
         //   state.invitationsParameters = payload;
         // },
-    },
 
-    "SET_LIST_OF_GAMES"(state, payload) {
-        state.gamesData = payload;
     },
-
-    "SET_GAME_BY_ID"(state, payload) {
-        state.gamesData.games = state.gamesData.games.map(item =>item.id == payload.id ? item = payload : item = item)
-    },
-
-    // SET_INVITATION_PARAMETERS(state, payload) {
-    //   state.invitationsParameters = payload;
-    // }
-  },
 
     actions: {
         "GAMES_FROM_SERVER"({ commit }) {

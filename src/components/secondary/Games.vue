@@ -131,6 +131,7 @@
 
         methods: {
             ...mapActions(['GAMES_FROM_SERVER']),
+            
             openWindow(e) {
                 this.gameID = e.target.getAttribute('idItem');
                 this.setOpen = true;

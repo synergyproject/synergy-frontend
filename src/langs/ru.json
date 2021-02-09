@@ -135,5 +135,9 @@
 	"m_set_game":"Настройка игры",
 	"m_save_settings":"Сохранить настройки",
 	"m_finish_game":"Завершить игру",
-	"m_add_player":"+ Добавить игрока"
+	"m_add_player":"+ Добавить игрока",
+	"m_password_changed": "Ваш пароль успешно изменен",
+	"m_enter_old_password":"Введите старый пароль",
+	"m_forgot_password":"Забыли пароль?",
+	"m_back":"Назад"
 }

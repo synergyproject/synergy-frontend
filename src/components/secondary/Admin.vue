@@ -4,7 +4,7 @@
             class="return-link"
             @click="closeAdmin()"
         >
-            Back
+            {{ $t('m_back') }}
         </div>
 
         <div class="admin__header">
