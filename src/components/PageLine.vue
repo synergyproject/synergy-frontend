@@ -2,7 +2,10 @@
     <side-bar> 
         <div class="line">
             <div class="line-main">
-                <addpost :user = "GET_USER"></addpost>
+                <addpost 
+                    :user = "GET_USER"
+                    :gameID = "GET_SELECTED_GAME.id"
+                ></addpost>
                 <section 
                     class = "posts" 
                     :key = "keyR"

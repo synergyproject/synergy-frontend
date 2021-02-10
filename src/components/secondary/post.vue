@@ -29,11 +29,11 @@
                     <img 
                         class="post__likes-icon"
                         :src="heartUrl"
-                        @click = "addLike"
+                        @click = "changeLike"
                         
                     >
                     <div class="post__likes-amount">
-                        {{post.likes.length}}
+                        {{post.likes ? post.likes.length : '0'}}
                     </div>
                 </div>
                 <div 
@@ -56,7 +56,7 @@
                                     {{ $t('m_edit_post') }}
                                 </span>
                             </li>
-                            <li class="post__menu-item">
+                            <li class="post__menu-item" @click="delPost">
                                 <span>
                                     {{ $t('m_delete_post') }}
                                 </span>
@@ -248,13 +248,14 @@
             }
             //отрисовка изображений и файлов
             this.img = this.post.fileUrls.filter(item => item.match( /\.(?:jpe?g|gif|png)$/i))
-            if(this.img.length>0){
-                this.showImg = true
+            if(this.img){
+                this.img.length>0 ? this.showImg = true : this.showImg = false
             }
            
             this.files = this.post.fileUrls.filter(item => !item.match(/\.(?:jpe?g|gif|png)$/i))
-            if(this.files.length>0){
-                this.showFiles = true
+            if(this.files){
+                this.files.length>0 ? this.showFiles = true : this.showFiles = false
+                
             }
             
 
@@ -264,7 +265,7 @@
         },
         
         methods: {
-            ...mapActions(['SEND_LIKE', 'POSTS_FROM_SERVER']),  
+            ...mapActions(['SEND_LIKE', 'DEL_LIKE', 'POSTS_FROM_SERVER', 'DEL_POST']),  
             resizeText(e) {
                 let text = document.querySelector(`.post_${this.num}>.post__main>.post__info>.post__text`)
                 if (text.classList.contains('close')){
@@ -305,7 +306,7 @@
                 let name = this.files.map(item => item.slice(+item.lastIndexOf('/')+1))
                 return name
             },
-            addLike(){
+            changeLike(){
                 const data = {
                     gameID: this.gameID,
                     postID: this.post.id,
@@ -317,15 +318,43 @@
                         photo: this.user.photo
                     }
                 }
+                const myLike = this.post.likes.find(item=> item.id === this.user.id)
+               
+                if( myLike){
+                    this.DEL_LIKE(data)
+                        .then(resolve => {
+                            this.POSTS_FROM_SERVER(this.gameID)
+                                .then(resolve => {
+                                    this.post.likes.length ? this.heartUrl = heartFill : this.heartUrl = heart
+                        
+                                })
+                        })
+                } else{
+                    this.SEND_LIKE(data)
+                        .then(resolve => {
+                            this.POSTS_FROM_SERVER(this.gameID)
+                            this.heartUrl = heartFill
+                        
+                        })
+                }
 
-                this.SEND_LIKE(data)
+
+            },
+            delPost(){
+                const data = {
+                    gameID: this.gameID,
+                    postID: this.post.id,
+
+                }
+
+
+                this.DEL_POST(data)                
                     .then(resolve => {
                         this.POSTS_FROM_SERVER(this.gameID)
-                        this.heartUrl = heartFill
+                        
                      
                     })
-            },
-
+            }
 
         }
     }
