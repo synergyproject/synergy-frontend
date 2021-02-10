@@ -192,7 +192,8 @@ export default {
           files:[
           ]
         }
-      ]
+      ],
+
     },
     getters: {
       // //возвращаем url аватарки
@@ -214,8 +215,13 @@ export default {
       // возвращаем данные по выбранной игре
       GET_GAME (state) {
         return state.game
-      }
+      },
+
     },
+
+
+
+
   
 
   

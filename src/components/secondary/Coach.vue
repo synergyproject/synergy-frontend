@@ -31,8 +31,9 @@
                 {{ $t('m_games') }}
             </div>
 
-            <games></games>
-
+            <games v-show="!GET_CHANGING_GAME.changing"></games>
+            <setting-up-game v-show="GET_CHANGING_GAME.changing" :id = "GET_CHANGING_GAME.gameID" @closeCH='closeChanging' @closeChangeGame='closeChanging'>
+            </setting-up-game>
             <modal-window v-if="this.createGameShow" @close='closeWindow'>
                 <create-game @closeGame='closeWindow'></create-game>
             </modal-window>                                                                                                                        
@@ -51,6 +52,7 @@
     import ModalWindow from '@/components/modal/ModalWindow';
     import CreateGame from '@/components/modal/CreateGame';
     import ChangePass from '@/components/secondary/ChangePass';
+    import SettingUpGame from '@/components/modal/SettingUpGame';
     import { mapMutations, mapGetters, mapActions } from 'vuex';
     
     export default {
@@ -71,7 +73,8 @@
             Games,
             ModalWindow,
             CreateGame,
-            ChangePass
+            ChangePass, 
+            SettingUpGame
         },
 
         mounted () {
@@ -83,11 +86,11 @@
         },
 
         computed: {
-            ...mapGetters([ 'GET_USER' ])           
+            ...mapGetters([ 'GET_USER', 'GET_CHANGING_GAME' ])           
 		}, 
 
         methods: {
-            ...mapMutations([ 'SET_PRIMARY_BLUR' ]),
+            ...mapMutations([ 'SET_PRIMARY_BLUR',  'SET_CHANGING_GAME']),
             ...mapActions([ 'USERS_FROM_SERVER' ]),
 
             openWindow() {
@@ -102,6 +105,9 @@
 
             closeChangePass () {
                 this.$emit('closeChangePass');
+            },
+            closeChanging(){
+                this.SET_CHANGING_GAME('')
             }
 
         }

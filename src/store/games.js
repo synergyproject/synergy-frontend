@@ -17,7 +17,12 @@ export default {
         //     "startDate":"2021-01-28",
         //     "endDate":"2021-03-28"
         //   }
-        gamesData: {}
+        gamesData: {},
+        changingGame:{
+            changing: false,
+            gameID:''
+    
+        }
     },
     
     getters: {
@@ -33,7 +38,9 @@ export default {
             const game = state.gamesData.games.find(item => item.id==id )
             return game;
         },
-
+        GET_CHANGING_GAME (state) {
+            return state.changingGame
+        }
         // GET_INVITATION_PARAMETERS(state) {
         //   return state.invitationsParameters;
         // },
@@ -50,6 +57,11 @@ export default {
         
         "SET_GAME_BY_ID"(state, payload) {
             state.gamesData.games = state.gamesData.games.map(item =>item.id == payload.id ? item = payload : item = item)
+        },
+        SET_CHANGING_GAME (state, payload){
+            payload == '' ? state.changingGame.gameID = '' : state.changingGame.gameID = payload 
+            payload == '' ? state.changingGame.changing = false : state.changingGame.changing = true
+            console.log('ID2', state.changingGame.gameID)
         }
         // SET_INVITATION_PARAMETERS(state, payload) {
         //   state.invitationsParameters = payload;
