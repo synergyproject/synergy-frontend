@@ -225,6 +225,10 @@ export default {
         return state.game
       },
 
+      GET_SELECTED_GAME (state) {
+        return state.selectedGame
+      }
+
     },
     mutations: {
       SET_SELECTED_GAME (state, payload) {
@@ -270,7 +274,6 @@ export default {
             }
           )
           .then((response) => {
-
             commit("SET_SELECTED_GAME", response.data);
             return response;
           })

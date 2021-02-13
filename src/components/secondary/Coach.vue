@@ -32,8 +32,15 @@
             </div>
 
             <games v-show="!GET_CHANGING_GAME.changing"></games>
-            <setting-up-game v-show="GET_CHANGING_GAME.changing" :id = "GET_CHANGING_GAME.gameID" @closeCH='closeChanging' @closeChangeGame='closeChanging'>
+
+            <setting-up-game 
+                v-show="GET_CHANGING_GAME.changing" 
+                :id = "GET_CHANGING_GAME.gameID" 
+                @closeCH='closeChanging' 
+                @closeChangeGame='closeChanging'
+            >
             </setting-up-game>
+            
             <modal-window v-if="this.createGameShow" @close='closeWindow'>
                 <create-game @closeGame='closeWindow'></create-game>
             </modal-window>                                                                                                                        

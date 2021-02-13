@@ -35,7 +35,7 @@
                         </div>
                     </div>
                     <div class="game-info-left__buttons">
-                        <div class="game-button basic-buttons"  @click ="sendID(item.id)">
+                        <div class="game-button basic-buttons"  @click="sendID(item.id)">
                             {{ $t('m_enter') }}
                         </div>
                         <div class="game-button basic-buttons" @click="openWindow(item.id)">
@@ -126,9 +126,10 @@
 
         methods: {
             ...mapMutations([ 'SET_CHANGING_GAME' ]),
-            ...mapActions([ 'GAMES_FROM_SERVER' ]),
+            ...mapActions([ 'GAMES_FROM_SERVER', 'SELECTED_GAMES_FROM_SERVER' ]),
             
             openWindow(id) {
+                console.log(id)
                 this.SET_CHANGING_GAME(id)               
             },
 

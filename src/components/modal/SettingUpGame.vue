@@ -327,7 +327,7 @@
 		},
         mounted() {
             this.GAMES_FROM_SERVER()
-            console.log('1',this.id)
+            console.log('тест1',this.id)
             this.changeGame.id= this.GET_GAME_BY_ID(this.id).id
             this.changeGame.logoUrl = this.GET_GAME_BY_ID(this.id).logoUrl
             this.changeGame.name= this.GET_GAME_BY_ID(this.id).name
