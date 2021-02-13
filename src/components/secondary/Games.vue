@@ -2,10 +2,10 @@
 
     <div class="games-main">
 
-        <modal-window v-if="setOpen" @close='closeWindow' >
+        <!--<modal-window v-if="setOpen" @close='closeWindow' >
             <setting-up-game :id = "gameID" @closeChangeGame='closeWindow'>
             </setting-up-game>
-        </modal-window>
+        </modal-window>-->
         <div 
             class="game" 
             v-for="(item, index) in getGamesList" 
@@ -38,7 +38,7 @@
                         <div class="game-button basic-buttons"  @click ="sendID(item.id)">
                             {{ $t('m_enter') }}
                         </div>
-                        <div class="game-button basic-buttons" @click="openWindow" :idItem='item.id'>
+                        <div class="game-button basic-buttons" @click="openWindow(item.id)">
                             {{ $t('m_edit') }}
                         </div>
                     </div>
@@ -96,8 +96,8 @@
 </template>
 
 <script>
-    import SettingUpGame from '@/components/modal/SettingUpGame';
-    import ModalWindow from '@/components/modal/ModalWindow';
+    // import SettingUpGame from '@/components/modal/SettingUpGame';
+    // import ModalWindow from '@/components/modal/ModalWindow';
     import { mapGetters, mapActions, mapMutations } from 'vuex';
     
     export default {
@@ -105,13 +105,12 @@
 
         data () {
             return {
-                setOpen: false,
-                gameID:""
+
             }
         },
         components: {
-            SettingUpGame,
-            ModalWindow 
+            // SettingUpGame,
+            // ModalWindow 
         },
         computed: {
             ...mapGetters(['GET_GAMES', 'GET_GAMES_LIST', 'GET_SELECTED_GAME']),
@@ -126,11 +125,11 @@
         },
 
         methods: {
-            ...mapActions(['GAMES_FROM_SERVER', 'SELECTED_GAMES_FROM_SERVER']),
-
-            openWindow(e) {
-                this.gameID = e.target.getAttribute('idItem');
-                this.setOpen = true;               
+            ...mapMutations([ 'SET_CHANGING_GAME' ]),
+            ...mapActions([ 'GAMES_FROM_SERVER' ]),
+            
+            openWindow(id) {
+                this.SET_CHANGING_GAME(id)               
             },
 
             closeWindow () {

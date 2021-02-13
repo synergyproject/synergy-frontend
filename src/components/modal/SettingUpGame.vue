@@ -1,5 +1,12 @@
 <template>
     <div class="set_game">
+    	<div
+            class="cross" 
+            @click="close()"
+		>				
+            <img src="@/assets/img/off_close.png">
+            
+		</div>
         <modal-window v-if="this.modalVisible" @close='closeWindow'>
             <div class="avatar-window">
                 <div>
@@ -316,9 +323,11 @@
         },
         computed: {
             ...mapGetters(["GET_GAMES_LIST"]),  
-            ...mapGetters(["GET_GAME_BY_ID"]),         
+            ...mapGetters(["GET_GAME_BY_ID", 'GET_CHANGING_GAME']),         
 		},
         mounted() {
+            this.GAMES_FROM_SERVER()
+            console.log('1',this.id)
             this.changeGame.id= this.GET_GAME_BY_ID(this.id).id
             this.changeGame.logoUrl = this.GET_GAME_BY_ID(this.id).logoUrl
             this.changeGame.name= this.GET_GAME_BY_ID(this.id).name
@@ -335,7 +344,7 @@
 
         methods: {
             ...mapMutations(['SET_GAME_BY_ID']),
-
+             ...mapActions(['GAMES_FROM_SERVER']),
             loadPhoto (event) {
                 let uploadedFile = event.target.files[0],
                     size = uploadedFile.size,
@@ -387,6 +396,9 @@
 		  		this.modalVisible = false;
             
             },
+            close() {
+			    this.$emit('closeCH')
+			}
 
         }
     }
