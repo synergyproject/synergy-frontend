@@ -4,19 +4,19 @@
             <div class="post__author">
                 <div 
                     class="avatar"
-                    :style="{backgroundImage:`url(${post.autor.avatar ?  post.autor.avatar : bgImage})`}"
+                    :style="{backgroundImage:`url(${post.author.photo ?  post.author.photo : bgImage})`}"
                 >                  
                 </div>
                 <div class="post__author-info">
                     <h3 class="post__author-name">
-                        {{post.autor.firstName}} {{post.autor.surname}}
+                        {{post.author.firstName}} {{post.author.lastName}}
                     </h3>
                     <div class="post__date">
                         <span class="post__date-main">
-                            {{post.date}}
+                            {{post.createdOn}}
                         </span>
                         <span 
-                            v-show = "post.postСhanges" 
+                            v-show = "post.updatedOn" 
                             class="post__date-edit"
                         >
                             (Edit)
@@ -31,7 +31,7 @@
                         :src="heartUrl"
                     >
                     <div class="post__likes-amount">
-                        {{post.likes}}
+                        {{post.likes.length}}
                     </div>
                 </div>
                 <div 
@@ -67,7 +67,7 @@
         </header>
         <div class="post__main">
             <div 
-                v-if= "post.selfPost"
+                v-if= "created"
                 class="post__info"
             >
                 <div class="post__text">
@@ -123,7 +123,7 @@
                     class="post__photo-list"
                 >
                     <div 
-                        v-for="item in img.slice(0, 2)" 
+                        v-for="item in img" 
                         class="post__photo-item" 
                         :style="{backgroundImage:`url(${item})`}"
                     ></div>
@@ -162,7 +162,7 @@
                 >
                     <div 
                         class="avatar" 
-                        :style="{backgroundImage:`url(${user.avatar ? user.avatar : bgImage})`}"
+                        :style="{backgroundImage:`url(${comment.author.photo ? comment.author.photo : bgImage})`}"
                     ></div>
                     <p class="comment">
                         {{comment.text}}
@@ -180,7 +180,7 @@
         <div class="post__add-comment">
             <div 
                 class="avatar" 
-                :style="{backgroundImage:`url(${bgImage})`}"
+                :style="{backgroundImage:`url(${post.author.photo ?  post.author.photo : bgImage})`}"
             >
             </div>
             <form class="post__form">
@@ -210,8 +210,9 @@
         data () {
             return {
                 bgImage: avatar,
-                bgPhoto: photo,
-                myPost: this.user.userId == this.post.autor.userId,
+                // bgPhoto: photo,
+                myPost: this.user.userId == this.post.author.id,
+                created: this.post.type ==="CREATED",
                 showTextBtn:false,
                 showText: true,
                 showComments: true,
@@ -226,6 +227,7 @@
             }
         },
         mounted () {
+
             //сворачиваем текст в постах если он больше заданной высоты
             let text = document.querySelector(`.post_${this.num}>.post__main>.post__info>.post__text`)
             if (text&&text.clientHeight>192) {
@@ -241,11 +243,12 @@
                 this.showCommentsBtn = true   
             }
             //отрисовка изображений и файлов
-            this.img = this.post.files.filter(item => item.match(/\**\/\*.jpg|jpeg|png/i))
+            this.img = this.post.fileUrls.filter(item => item.match( /\.(?:jpe?g|gif|png)$/i))
             if(this.img.length>0){
                 this.showImg = true
             }
-            this.files = this.post.files.filter(item => !item.match(/\**\/\*.jpg|jpeg|png/i))
+           
+            this.files = this.post.fileUrls.filter(item => !item.match(/\.(?:jpe?g|gif|png)$/i))
             if(this.files.length>0){
                 this.showFiles = true
             }

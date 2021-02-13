@@ -35,7 +35,7 @@
                         </div>
                     </div>
                     <div class="game-info-left__buttons">
-                        <div class="game-button basic-buttons">
+                        <div class="game-button basic-buttons"  @click ="sendID(item.id)">
                             {{ $t('m_enter') }}
                         </div>
                         <div class="game-button basic-buttons" @click="openWindow" :idItem='item.id'>
@@ -98,7 +98,7 @@
 <script>
     import SettingUpGame from '@/components/modal/SettingUpGame';
     import ModalWindow from '@/components/modal/ModalWindow';
-    import { mapGetters, mapActions } from 'vuex';
+    import { mapGetters, mapActions, mapMutations } from 'vuex';
     
     export default {
         name: "Games",
@@ -114,7 +114,7 @@
             ModalWindow 
         },
         computed: {
-            ...mapGetters(['GET_GAMES', 'GET_GAMES_LIST']),
+            ...mapGetters(['GET_GAMES', 'GET_GAMES_LIST', 'GET_SELECTED_GAME']),
 
             getGamesList() {
                 return  this.GET_GAMES_LIST.games
@@ -126,17 +126,24 @@
         },
 
         methods: {
-            ...mapActions(['GAMES_FROM_SERVER']),
-            
+            ...mapActions(['GAMES_FROM_SERVER', 'SELECTED_GAMES_FROM_SERVER']),
+
             openWindow(e) {
                 this.gameID = e.target.getAttribute('idItem');
-                this.setOpen = true;
-                
+                this.setOpen = true;               
             },
+
             closeWindow () {
 		  		this.setOpen = false			
             },
 
+            sendID(id){
+                this.SELECTED_GAMES_FROM_SERVER(id)
+                    .then(resolve => {
+                        this.$router.push({ path: '/line'})
+                    })
+            },
+           
             // все даты в днях чтобы легче было отслеживать 
             calcCurrentDate: function() {
                 let	date = new Date();

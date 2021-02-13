@@ -32,12 +32,9 @@ export default {
         "GET_GAME_BY_ID": state => id =>{
             const game = state.gamesData.games.find(item => item.id==id )
             return game;
-        },
-
-        // GET_INVITATION_PARAMETERS(state) {
-        //   return state.invitationsParameters;
-        // },
+        }
     },
+  
 
     mutations: {
         "SET_LIST_OF_GAMES"(state, payload) {
