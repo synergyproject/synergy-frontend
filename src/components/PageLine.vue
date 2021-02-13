@@ -2,7 +2,10 @@
     <side-bar> 
         <div class="line">
             <div class="line-main">
-                <addpost :user = "GET_USERIN"></addpost>
+                <addpost 
+                    :user = "GET_USER"
+                    :gameID = "GET_SELECTED_GAME.id"
+                ></addpost>
                 <section 
                     class = "posts" 
                     :key = "keyR"
@@ -12,7 +15,8 @@
                         :key = "post.id" 
                         :post = "post" 
                         :num = "num" 
-                        :user = "GET_USERIN"
+                        :user = "GET_USER"
+                        :gameID = "GET_SELECTED_GAME.id"
                     ></post>
                 </section>
             </div>
@@ -105,34 +109,28 @@
             localStorage.removeItem('GameSelected')
         },
         computed: {
-            ...mapGetters(['GET_USER', 'GET_SELECTED_GAME','GET_GAME_BY_ID', 'GET_GAMES_LIST','GET_USERIN', 'GET_POSTS', 'GET_GAME']),
+            ...mapGetters(['GET_USER', 'GET_SELECTED_GAME', 'GET_POSTS', 'GET_GAME']),
 
                       
         },
         created(){
-           
-            this.POSTS_FROM_SERVER(this.GET_SELECTED_GAME.id)
-
             window.addEventListener('resize', this.onResize)
+            this.GET_SELECTED_GAME.id ? this.POSTS_FROM_SERVER(this.GET_SELECTED_GAME.id) : this.$router.push({ path: '/main'}) 
             
-            // if(!this.GET_SELECTED_GAME.id){
-            //     this.$router.push({ path: '/main'}) ;
-            // }
 
-            // this.USERS_FROM_SERVER()
-            //     .then(resolve => {
-            //         if (!this.GET_USER.firstName || !this.GET_USER.lastName || !this.GET_USER.phone) {
-            //             this.$router.push({ path: '/main'})
-            //         } 
-            // })
+
+            this.USERS_FROM_SERVER()
+                .then(resolve => {
+                    if (!this.GET_USER.firstName || !this.GET_USER.lastName || !this.GET_USER.phone) {
+                        this.$router.push({ path: '/main'})
+                    } 
+            })
         },
         mounted(){
-
+            
         },    
         methods: {
-            ...mapActions(['GAMES_FROM_SERVER']),
-            ...mapActions(['POSTS_FROM_SERVER']),
-            ...mapActions(['USERS_FROM_SERVER'], ['SEND_USER']),            
+            ...mapActions(['POSTS_FROM_SERVER', 'USERS_FROM_SERVER']),        
             onResize(){
                 this.keyR = +this.keyR + 1
             },

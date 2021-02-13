@@ -1,5 +1,5 @@
 <template>            
-    <article :class="'post '+'post_'+num">
+    <article :class="'post '+'post_'+num" >
         <header class="post__header">
             <div class="post__author">
                 <div 
@@ -29,9 +29,11 @@
                     <img 
                         class="post__likes-icon"
                         :src="heartUrl"
+                        @click = "changeLike"
+                        
                     >
                     <div class="post__likes-amount">
-                        {{post.likes.length}}
+                        {{post.likes ? post.likes.length : '0'}}
                     </div>
                 </div>
                 <div 
@@ -54,7 +56,7 @@
                                     {{ $t('m_edit_post') }}
                                 </span>
                             </li>
-                            <li class="post__menu-item">
+                            <li class="post__menu-item" @click="delPost">
                                 <span>
                                     {{ $t('m_delete_post') }}
                                 </span>
@@ -180,7 +182,7 @@
         <div class="post__add-comment">
             <div 
                 class="avatar" 
-                :style="{backgroundImage:`url(${post.author.photo ?  post.author.photo : bgImage})`}"
+                :style="{backgroundImage:`url(${user.photo ?  user.photo : bgImage})`}"
             >
             </div>
             <form class="post__form">
@@ -204,14 +206,16 @@
     import photo from '@/assets/img/test.png'
     import heart from '@/assets/img/heart.png'
     import heartFill from '@/assets/img/heart_fill.png'
+
+    import { mapMutations, mapGetters, mapActions } from 'vuex';
     export default {
         name: "post",
-        props:['post', 'num', 'user'],
+        props:['post', 'num', 'user', 'gameID'],
         data () {
             return {
                 bgImage: avatar,
                 // bgPhoto: photo,
-                myPost: this.user.userId == this.post.author.id,
+                myPost: this.user.id === this.post.author.id,
                 created: this.post.type ==="CREATED",
                 showTextBtn:false,
                 showText: true,
@@ -227,7 +231,7 @@
             }
         },
         mounted () {
-
+            
             //сворачиваем текст в постах если он больше заданной высоты
             let text = document.querySelector(`.post_${this.num}>.post__main>.post__info>.post__text`)
             if (text&&text.clientHeight>192) {
@@ -244,13 +248,14 @@
             }
             //отрисовка изображений и файлов
             this.img = this.post.fileUrls.filter(item => item.match( /\.(?:jpe?g|gif|png)$/i))
-            if(this.img.length>0){
-                this.showImg = true
+            if(this.img){
+                this.img.length>0 ? this.showImg = true : this.showImg = false
             }
            
             this.files = this.post.fileUrls.filter(item => !item.match(/\.(?:jpe?g|gif|png)$/i))
-            if(this.files.length>0){
-                this.showFiles = true
+            if(this.files){
+                this.files.length>0 ? this.showFiles = true : this.showFiles = false
+                
             }
             
 
@@ -260,6 +265,7 @@
         },
         
         methods: {
+            ...mapActions(['SEND_LIKE', 'DEL_LIKE', 'POSTS_FROM_SERVER', 'DEL_POST']),  
             resizeText(e) {
                 let text = document.querySelector(`.post_${this.num}>.post__main>.post__info>.post__text`)
                 if (text.classList.contains('close')){
@@ -299,6 +305,55 @@
             fileName(){
                 let name = this.files.map(item => item.slice(+item.lastIndexOf('/')+1))
                 return name
+            },
+            changeLike(){
+                const data = {
+                    gameID: this.gameID,
+                    postID: this.post.id,
+                    info: {
+                        email: this.user.email,
+                        firstName: this.user.firstName,
+                        id: this.user.id,
+                        lastName: this.user.lastName,
+                        photo: this.user.photo
+                    }
+                }
+                const myLike = this.post.likes.find(item=> item.id === this.user.id)
+               
+                if( myLike){
+                    this.DEL_LIKE(data)
+                        .then(resolve => {
+                            this.POSTS_FROM_SERVER(this.gameID)
+                                .then(resolve => {
+                                    this.post.likes.length ? this.heartUrl = heartFill : this.heartUrl = heart
+                        
+                                })
+                        })
+                } else{
+                    this.SEND_LIKE(data)
+                        .then(resolve => {
+                            this.POSTS_FROM_SERVER(this.gameID)
+                            this.heartUrl = heartFill
+                        
+                        })
+                }
+
+
+            },
+            delPost(){
+                const data = {
+                    gameID: this.gameID,
+                    postID: this.post.id,
+
+                }
+
+
+                this.DEL_POST(data)                
+                    .then(resolve => {
+                        this.POSTS_FROM_SERVER(this.gameID)
+                        
+                     
+                    })
             }
 
         }
