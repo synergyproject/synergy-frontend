@@ -330,11 +330,7 @@
             this.changeGame.activeUsersCount= this.GET_GAME_BY_ID(this.id).activeUsersCount
             this.changeGame.bannedUsersCount = this.GET_GAME_BY_ID(this.id).bannedUsersCount
             this.GET_GAME_BY_ID(this.id).licensesAvailable ? this.changeGame.licensesAvailable= this.GET_GAME_BY_ID(this.id).licensesAvailable : this.changeGame.licensesAvailable=this.changeGame.licensesAvailable
-            this.GET_GAME_BY_ID(this.id).players ? this.changeGame.players = this.GET_GAME_BY_ID(this.id).players : this.changeGame.players = this.changeGame.players
-
-            console.log("game", this.changeGame)
-            console.log("games", this.GET_GAMES_LIST.games)
-            
+            this.GET_GAME_BY_ID(this.id).players ? this.changeGame.players = this.GET_GAME_BY_ID(this.id).players : this.changeGame.players = this.changeGame.players           
         },
 
         methods: {
@@ -347,14 +343,12 @@
                 if (size <= 2097152 && (fileFormat === 'jpg'|| fileFormat === 'png')) {
                     this. changeGame.logoUrl = URL.createObjectURL(event.target.files[0]);
                     this.modalVisible = false	
-                    console.log('!!', this. changeGame)
                 } else {
                     this.photoRedAlertActive = true;
                 }
-            }, 
+            },
+
             chengeGame(){
-                console.log("game", this.changeGame)
-                console.log("games", this.GET_GAMES_LIST.games)
                 if (this. changeGame.name && this. changeGame.startDate) {
                     this.SET_GAME_BY_ID(this.changeGame);
                     this.$emit('closeChangeGame')

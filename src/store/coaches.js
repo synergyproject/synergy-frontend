@@ -1,89 +1,101 @@
 import axios from 'axios'
 
 export default {
-  state: {
-    coaches: [
-      {
-        id: "999999",
-        firstName:  "Дима",
-        lastName: "Лопухин",
-        games: ['Игра 1', 'Игра 2', 'Игра 3', 'Игра 4', 'Игра 5', 'Игра 6', 'Игра 7'],
-        delete:"Y",
-        licenses:"12"
-
-      },
-      {
-        id: "999999",
-        firstName:  "Лена",
-        lastName: "Лисичкина",
-        games: ['Игра 1'],
-        delete:"N",
-        licenses:"12"
-
-      },
-      {
-        id: "999999",
-        firstName:  "Лена",
-        lastName: "Лисичкина",
-        games: ['Игра 1'],
-        delete:"N",
-        licenses:"12"
-
-      },
-      {
-        id: "999999",
-        firstName:  "Лена",
-        lastName: "Лисичкина",
-        games: ['Игра 1'],
-        delete:"N",
-        licenses:"12"
-
-      },
-      {
-        id: "66",
-        firstName:  "Лена",
-        lastName: "Лиси",
-        games: ['Игра 1'],
-        delete:"N",
-        licenses:"12"
-
-      },
-      {
-        id: "9",
-        firstName:  "Aня",
-        lastName: "Лисичкина",
-        games: ['Игра 3'],
-        delete:"N",
-        licenses:"12"
-
-      },
-      {
-        id: "999999",
-        firstName:  "Лена",
-        lastName: "Лисичкина",
-        games: ['Игра 1'],
-        delete:"N",
-        licenses:"6"
-
-      },
-
-    ],
-  
-  },
-  getters: {
-
-    'GET_COACHES' (state) {
-      return state.coaches
+    state: {
+        // coaches приходят в виде
+        // {
+        //     "coaches": [
+        //       {
+        //         "email": "string",
+        //         "firstName": "string",
+        //         "games": [
+        //           {
+        //             "id": 0,
+        //             "name": "string"
+        //           }
+        //         ],
+        //         "gender": "string",
+        //         "id": 0,
+        //         "lastName": "string",
+        //         "licenses": 0,
+        //         "status": "string"        active archived locked
+        //       }
+        //     ],
+        //     "currentPage": 0,
+        //     "totalPages": 0,
+        //     "totalPosts": 0
+        // }
+        coaches: {}   
     },
 
-  },
-  mutations: {
-    "SET_COACH"(state, payload) {
-      state.state.coaches.push(payload);
+    getters: {
+        GET_COACHES (state) {
+            return state.coaches
+        }
     },
 
-  },
-  actions: {
-    
-  },
-};
+    mutations: {
+        SET_COACH (state, payload) {
+            state.state.coaches.push(payload);
+        },
+
+        SET_LIST_OF_COACHES (state, payload) {
+            state.coaches = payload;
+        },
+    },
+
+    actions: {
+        COACHES_FROM_SERVER ({ commit }, payload) {
+            //payload в виде обьекта {sort, order, page}
+            return axios
+                .get(
+                    `http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/coaches?sort=${payload.sort}&order=${payload.order}&page=${payload.page}`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${localStorage.getItem("token")}`
+                        }
+                    }
+                )
+                .then((response) => {
+                    commit("SET_LIST_OF_COACHES", response.data);
+                    return response;
+                })
+                .catch((error) => {
+                    throw error;
+                });
+        },
+
+        INVITE_COACH ({ commit }, payload) {          
+			return axios
+				.post("http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/coaches/invitations", payload, {
+				    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${localStorage.getItem("token")}`
+					}
+				})
+				.then((response) => {
+					return response
+				})
+				.catch((error) => {
+					return error.response;
+				})
+        },
+        
+        ADD_NEW_COACH ({ commit }, payload) { 
+            return axios
+            .post(`http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/users/${payload.id}/roles`, payload.role, {
+				    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${localStorage.getItem("token")}`
+					}
+				})
+				.then((response) => {
+					return response
+				})
+				.catch((error) => {
+					throw error;
+				})
+        }, 
+    }
+}
+

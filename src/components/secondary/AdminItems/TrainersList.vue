@@ -9,69 +9,101 @@
         <div class="table">
             <ul class="table__header">
                 <li class="table__header-item id">
-                    <span>{{ $t("m_ID") }}</span>
+                    <span
+                        @click="changeOrder('id', orders.id)"
+                    >
+                        {{ $t("m_ID") }}
+                    </span>
                     <img 
                         src="@/assets/img/arrow_down.png" 
                         class="table__select" 
-                        @click="select()"
                     >
                 </li>
                 <li class="table__header-item coach">
-                    <span>{{ $t('m_business_coach') }}</span>
+                    <span
+                        @click="changeOrder('name', orders.name)"
+                    >
+                        {{ $t('m_business_coach') }}
+                    </span>
                     <img 
                         src="@/assets/img/arrow_down.png" 
                         class="table__select" 
-                        @click="select()"
                     >
                 </li>
                 <li class="table__header-item games-list">
-                    <span>{{ $t('m_games_List') }}</span>
-                    <img 
+                    <span class="games-list-header">
+                        {{ $t('m_games_List') }}
+                    </span>
+                    <!-- <img 
                         src="@/assets/img/arrow_down.png" 
                         class="table__select" 
-                        @click="select()"
-                    >
+                    > -->
                 </li>
                 <li class="table__header-item delete">
-                    <span>{{ $t('m_delete') }}</span>
+                    <span
+                        @click="changeOrder('status', orders.status)"
+                    >
+                        {{ $t('m_delete') }}
+                    </span>
                     <img 
                         src="@/assets/img/arrow_down.png" 
                         class="table__select" 
-                        @click="select()"
                     >
                 </li>
                 <li class="table__header-item number">
-                    <span>{{ $t('m_licenses_number') }}</span>
+                    <span
+                        @click="changeOrder('licenses', orders.licenses)"
+                    >
+                        {{ $t('m_licenses_number') }}
+                    </span>
                     <img 
                         src="@/assets/img/arrow_down.png" 
                         class="table__select" 
-                        @click="select()"
                     >
                 </li>
             </ul>
             <ul class="table__list">
                 <li 
                     class="table__list-row"
-                    v-for="(coach, item) in GET_COACHES" 
+                    v-for="(coach, item) in GET_COACHES.coaches" 
                     :key="item" 
                 >
                     <div class="table__list-item id">
                         {{coach.id}}
                     </div>
                     <div class="table__list-item coach">
-                        {{coach.firstName}} {{coach.lastName}}
+                        {{coach.lastName}} {{coach.firstName}}
                     </div>
                     <div class="table__list-item games-list">
-                        {{coach.games.join(", ")}} 
+                        <div class="games-list-wrapper">
+                            <div 
+                                class="game"
+                                v-for="(game, item) in coach.games" 
+                                :key="item"
+                            >
+                                {{game.name}}
+                            </div>
+                        </div>                        
                     </div>
                     <div class="table__list-item delete">
-                        {{coach.delete=="Y" ? $t('m_yes') : $t('m_no') }}
+                        {{coach.status === "locked" ? $t('m_yes') : $t('m_no') }}
                     </div>
                     <div class="table__list-item number">
-                        {{coach.licenses}} 
+                        {{coach.licenses === null ? 0 : coach.licenses}} 
                     </div>
                 </li>
             </ul>
+        </div>
+
+        <div class="pages-wrapper">
+            <div 
+                class="page"
+                v-for="(item, index) in totalPages" 
+                :key="index"
+                @click="changePage(index)"
+            >
+                {{item}}
+            </div>
         </div>
 
         <modal @close='closeModal' v-show="modalVisible" v-if="modalVisible">
@@ -93,8 +125,20 @@
 
         data () {
             return {
-                modalVisible: false
-                
+                modalVisible: false,
+                //true = 'default', false = 'revert'
+                orders: {
+                    id: true,
+                    name: true,
+                    status: true,
+                    licenses: true
+                },
+  				totalPages: [],
+                coachDisplay: {
+                    sort: 'id',
+                    order: 'default',
+                    page: 0
+                }                     
             }
         },
 
@@ -103,6 +147,15 @@
             AddTrainer
 		},
 
+        mounted () {
+            this.COACHES_FROM_SERVER(this.coachDisplay)
+            .then(resolve => {
+                for (let i = 1; i <= this.GET_COACHES.totalPages; i++) {
+                    this.totalPages.push(i)                           
+                }
+            })         
+        },
+
         computed: {
             ...mapGetters([ 'GET_COACHES' ]),
          
@@ -110,14 +163,23 @@
 
         methods: {
             ...mapMutations([ 'SET_COACHES', 'SET_PRIMARY_BLUR' ]),
+            ...mapActions([ 'COACHES_FROM_SERVER' ]),
+            
+            changePage (index) {
+                this.coachDisplay.page = index;
+                this.COACHES_FROM_SERVER(this.coachDisplay)
+            },
 
-            openCreateCoach() {
+            openCreateCoach () {
                 this.SET_PRIMARY_BLUR(true);
                 this.modalVisible = true;
             },
-
-            select() {
-
+            
+            changeOrder (sort, orderValue) {
+                this.coachDisplay.sort = sort;
+                this.coachDisplay.order = !orderValue ? 'default' : 'revert';
+                this.orders[sort] = !orderValue;
+                this.COACHES_FROM_SERVER(this.coachDisplay)
             },
 
             closeModal() {

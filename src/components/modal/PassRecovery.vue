@@ -16,14 +16,17 @@
 <script>
 	export default {
 		name: 'PassRecovery',
+
 		data () {
 			return {
 				
 			}
 		},
+
 		components: {
 	       
 	    },			
+        
 	  	methods: {
  	  			  	
 		}  			

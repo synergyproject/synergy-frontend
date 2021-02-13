@@ -75,10 +75,11 @@
     import icon_pencil from '@/assets/img/icon_pencil.png';
     import arrow_down from '@/assets/img/arrow_down.png';
     import arrow_up from '@/assets/img/arrow_up.png';
-	import { mapMutations, mapGetters, mapActions } from 'vuex';
+	import { mapMutations, mapGetters } from 'vuex';
 
 	export default {
 		name: 'GoalList',
+
 		data () {
 			return {
                 //запрашивая в хранилище GET_GOALS[index].status - получаем номер элемента массива goalStatus с нужным цветом и текстом кнопки для текущей цели                                                     
@@ -98,17 +99,13 @@
                 ]
 			}
 		},
-		components: {
-			
-		},
-		mounted () {
-
-		},	
+	
 		computed: {
             ...mapGetters(['GET_TODOLIST']),
             ...mapGetters(['GET_GOALS']),
             ...mapGetters(['GET_STATUS_MENU'])           
-		},			
+		},
+        			
 	  	methods: {
             ...mapMutations(['SET_GOALS']),
             ...mapMutations(['SET_STATUS_MENU']),

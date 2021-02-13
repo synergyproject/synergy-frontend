@@ -32,9 +32,11 @@
 
 	export default {
         name: 'EditGoal',
+
         props: {
 			goalIndex: Number
 		},
+
 		data () {
 			return {
 				name: '',
@@ -43,16 +45,20 @@
                 placeholderDescription: 'm_enter_a_description_of_the_goal'
 			}
 		},
+
 		components: {
 			
 		},
+
 		mounted () {
             this.name = this.GET_GOALS[this.goalIndex].name;
             this.description = this.GET_GOALS[this.goalIndex].description;
-		},	
+		},
+
 		computed: {
             ...mapGetters(['GET_GOALS'])
-		},			
+		},
+        			
 	  	methods: {
             ...mapMutations(['SET_GOALS']),
 

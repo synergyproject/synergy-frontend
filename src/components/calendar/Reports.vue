@@ -185,13 +185,16 @@
     import EditReport from '@/components/calendar/modal/EditReport';
     import icon_pencil from '@/assets/img/icon_pencil.png';
     import ad_file from '@/assets/img/ad_file.png';
-	import { mapMutations, mapGetters, mapActions } from 'vuex';
+	import { mapMutations, mapGetters } from 'vuex';
 
 	export default {
+
         name: 'Reports',
+
         props: {
             dayIndex: Number
 		},
+
 		data () {
 			return {
                 reportInfoMessage: 'm_attempts_left',
@@ -206,15 +209,18 @@
                 ]
 			}
 		},
+
 		components: {
             Modal: Modal,
             EditReport: EditReport
 		},
+
 		computed: {
             ...mapGetters(['GET_TODOLIST']),
             ...mapGetters(['GET_GOALS']),
             ...mapGetters(['GET_FILES'])           
         },
+
         created (){
             let list = this.GET_TODOLIST;
             
@@ -227,7 +233,8 @@
 			        }
                 )
             }
-        },			
+        },
+
 	  	methods: {
             ...mapMutations(['SET_TODOLIST_REPORTSENT']),
             ...mapMutations(['SET_NEW_TODO_LIST']),

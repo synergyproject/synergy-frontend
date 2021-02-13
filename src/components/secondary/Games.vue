@@ -11,8 +11,6 @@
             v-for="(item, index) in getGamesList" 
             :key="index"
         >
-
-
             <div class="game-left-wrapper">
                 <!-- <div class="photo"></div> -->
                 <img :src="item.logoUrl" class="photo">
@@ -124,9 +122,7 @@
         },
 
         mounted() {
-            this.GAMES_FROM_SERVER();
-            
-        
+            this.GAMES_FROM_SERVER();       
         },
 
         methods: {

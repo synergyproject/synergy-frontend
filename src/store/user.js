@@ -17,7 +17,8 @@ export default {
         //     ],
         //     "status": "string",
         //     "telegram": "string",
-        //     "telegramChatId": 0
+        //     "telegramChatId": 0,
+        //     "licenses": number  
         // }
         currentLanguage: 'Eng'
     },

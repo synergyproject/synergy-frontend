@@ -293,9 +293,11 @@
 
 	export default {
         name: 'Weeks',
+
         props: {
 			dayIndex: Number
 		},
+
 		data () {
 			return {
 				calendarInfoMessage: 'm_calendar_info_message',
@@ -314,14 +316,17 @@
                 currentGoal: 0
 			}
 		},
+
 		components: {
             Modal: Modal,
             EditGoal: EditGoal
 		},
+
 		computed: {
             ...mapGetters(['GET_AVATAR']),
             ...mapGetters(['GET_GOALS'])            
-		},			
+		},	
+
 	  	methods: {
             
             //если не все цели заполнены то выводим предупреждение
@@ -333,21 +338,25 @@
                 }
                 return goalsFilled ? this.calendarInfoMessage : ''
             },
+
             //определяем позицию слайдера на компоненте weeks
             sliderPosition: function () {
                 let position = this.dayIndex  * 18.7;
                 return { left: position + 'px' }
             },
+
             //открываем модальное окно редактирования цели
             editGoal: function (index) {
                 this.closeGoalInfo();
                 this.goalIndex = index;
                 this.modalVisible = true
             },
+
             closeModal: function () {
                 this.closeGoalInfo();
 				this.modalVisible = false	  	
             },
+
             //открываем инфоокно текущей цели (line - номер линии (1 из 4х) где должно появиться инфоокно, goal - номер цели)
             openGoalInfo: function (line, goal) {
                 this.currentGoal = goal;
@@ -356,6 +365,7 @@
                 this.goalName = this.GET_GOALS[goal].name;
                 this.description = this.GET_GOALS[goal].description;
             },
+            
             closeGoalInfo: function () {
                 this.goalInfoWrapper = false;
                 for (let i = 0; i < this.goalInfo.length; i++) {

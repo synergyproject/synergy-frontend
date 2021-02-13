@@ -169,7 +169,7 @@
                     class="license-counter"
                     v-if="checkRoles('COACH')"
                 >
-                    {{ $t('m_licenses_available') }} {{licenseCounter}}
+                    {{ $t('m_licenses_available') }} {{user.licenses}}
                 </div>
             </div>
             <div class="blur" v-if="GET_PRIMARY_BLUR"></div>
@@ -243,12 +243,12 @@
                 usernameTelegramInput: false,
                 phoneInput: false,
                 birthdayInput: false,
-                licenseCounter: 5,
                 user: {
                     usernameTelegram: '',
                     phone: '',
                     birthday: '',
-                    roles: []
+                    roles: [],
+                    licenses: 0
                 },
                 currentLanguage: 'eng',
                 languageMenuDesign: 1,
@@ -275,6 +275,7 @@
                     this.user.phone = this.GET_USER.phone;
                     this.user.birthday = this.GET_USER.dateOfBirth;
                     this.user.roles = this.GET_USER.roles;
+                    this.user.licenses = this.GET_USER.licenses;
 
                     // при первом логине пользователь видит модальное окно "заполнить профиль"
                     if (!this.GET_USER.firstName || !this.GET_USER.lastName || !this.GET_USER.phone) {

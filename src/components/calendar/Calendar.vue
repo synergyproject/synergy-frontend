@@ -18,20 +18,24 @@
 
 	export default {
 		name: 'calendar',
+
 		data () {
 			return {
 				dayIndex: 0
 			}
 		},
+
 		components: {
 			SideBar: SideBar,
 			Weeks: Weeks,
 			Reports: Reports,
 			GoalList: GoalList
 		},
+
 		computed: {
             ...mapGetters(['GET_USER'])           
 		},
+
 		mounted() {
 			//если новый пользователь захочет перейти на эту страницу (например через адресную строку), 
 			//не заполнив профиль - возвращаем его обратно на main к заполнению
@@ -50,6 +54,7 @@
 			// пока что this.dayIndex установим в 0 для теста
 			this.dayIndex = 0;
 		},
+		
 		methods: {
 			...mapActions(['USERS_FROM_SERVER'])
 		}	    			

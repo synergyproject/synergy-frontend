@@ -113,6 +113,7 @@ export default {
 				]
 			}
 		],
+
 		//отображаем/скрываем меню выбора статуса цели
 		statusMenu: [
 			{visible: false}, 
@@ -132,12 +133,15 @@ export default {
 		GET_TODOLIST (state) {
 			return state.todoList
 		},
+
 		GET_GOALS (state) {
 			return state.goals
 		},
+
 		GET_STATUS_MENU (state) {
 			return state.statusMenu
 		},
+
 		GET_FILES (state) {
 			return state.files
 		}
@@ -201,7 +205,8 @@ export default {
 			//value приходит в виде {index: number, visible: boolean}
 			state.statusMenu[value.index].visible = value.visible
 		}
-	},	
+	},
+		
 	actions: {
 	
 	}    

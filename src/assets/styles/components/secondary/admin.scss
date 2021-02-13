@@ -61,7 +61,9 @@
             background-color: $colorBg;
             &-item{
                 @include flex(row, center, center, nowrap);
-                width: 34%;
+                // Исправим после MVP 
+                // width: 34%;
+                width: 50%;
                 height: 44px;
                 
                 cursor: pointer;
@@ -87,12 +89,15 @@
             width: 100%;
             @include flex(row, flex-start, center, nowrap);
             &-item{
-                cursor: pointer;
                 position: relative;
                 @include font(500, 14px, 20px);
                 @include flex(row, flex-start, center, wrap);
                 span{
+                    cursor: pointer;
                     margin-right: 8px;
+                }
+                .games-list-header{
+                    cursor: default;
                 }
             }
             &-item.id{
@@ -106,9 +111,11 @@
             }
             &-item.delete{
                 width: 15%;
+                justify-content: center;
             }
             &-item.number{
                 width: 19%;
+                justify-content: center;
             }
 
         }
@@ -153,6 +160,12 @@
             &-item.games-list{
                 width: 30%;
                 padding-right: 35px;
+                .games-list-wrapper{
+                    flex-direction: column;
+                    .game:not(:last-child){
+                        margin-bottom: 10px;
+                    }
+                }
             }
             &-item.delete{
                 width: 15%;
@@ -164,9 +177,10 @@
             }
         }
     }
-   .trainers-list{
-    width: 100%;
-    @include flex(column, center, center, nowrap);
+    .trainers-list{
+        width: 100%;
+        @include flex(column, center, center, nowrap);
+
         .add-button{
             @include font(400, 14px, 20px);
             background-color: $colorSecond;
@@ -174,5 +188,19 @@
             margin-bottom: 32px;
             
         }
-   }
+
+        .pages-wrapper{
+            margin-top: 10px;
+            padding-right: 20px;
+            width: 100%;
+            justify-content: flex-end;
+            
+            .page {
+                padding: 5px;
+                margin-right: 10px;
+                height: 30px;
+                cursor: pointer;
+            }
+        }
+    }
 }

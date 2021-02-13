@@ -67,15 +67,18 @@
 
     export default {
         name: "SideBar",
+
         data () {
             return {
               bgImage: avatar,
               languageMenuDesign: 2                
             }
         },
+
         components: {
             LanguageMenu
         },
+        
         computed: {
             ...mapGetters(['GET_USER']) 
 		}

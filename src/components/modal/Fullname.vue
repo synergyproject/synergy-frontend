@@ -32,6 +32,7 @@
 
     export default {
         name: "Fullname",
+
         data () {
             return {
                 fullname: {
@@ -39,15 +40,17 @@
                     lastName: ''
                 }
             }
-        },  
+        },
+
         mounted() {
             this.fullname.firstName = this.GET_USER.firstName;
             this.fullname.lastName = this.GET_USER.lastName;
-            console.log(this.fullname);
         },
+
         computed: {
             ...mapGetters(['GET_USER'])           
 		},
+        
         methods: {
             ...mapActions(['SEND_USER']),
 

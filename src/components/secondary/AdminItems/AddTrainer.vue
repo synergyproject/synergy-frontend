@@ -60,7 +60,7 @@
 				</div>
 				<div 
 					class="basic-buttons"
-					@click="closeModal()"
+					@click="addNewCoach()"
 				>
 					{{$t('m_transfer')}}
 				</div>
@@ -70,6 +70,8 @@
 </template>
 
 <script>
+	import { mapActions } from 'vuex';
+
 	export default {
         name: 'AddTrainer',
         
@@ -85,54 +87,70 @@
 				addTrainerVisible: true,
 				emailSentVisible: false,
 				playerToTrainerVisible: false,
-
-				//заглушка
-				existingCoach: 'existing@gmail.com',
-				blockedCoach: 'blocked@gmail.com',
-				player: 'player@gmail.com'
-
+				coachId: ''
 			}
         },
         			
 	  	methods: {
+			...mapActions([ 'ADD_NEW_COACH', 'INVITE_COACH']),
+
             checkEmail() {
 				let reg = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
 				if (reg.test(this.email)) {
-					this.sendInvite()
+					this.INVITE_COACH(
+						{
+							email: this.email
+						}
+					)
+					.then(resolve => {
+						this.sendInvite(resolve)
+					})
 				} else {
 					this.errorMessage = this.errors[0]
 				}
 			},
 
-			sendInvite() {
-				//отправка мыла на бэк для проверки
-				//пока заглушка
-
-				switch (this.email) {
+			sendInvite(resolve) {
+				switch (resolve.status) {
 					//такой тренер существует
-					case this.existingCoach:
+					case 409:
 						this.errorMessage = this.errors[1]
 						break;
 					//такой тренер заблокирован	
-					case this.blockedCoach:
+					case 406:
 						this.errorMessage = this.errors[2]
 						break;
 					//это емейл игрока	
-					case this.player:
+					case 206:
+						this.coachId = resolve.data.id;
 						this.addTrainerVisible = false;
 						this.emailSentVisible = false;
 						this.playerToTrainerVisible = true;
 						break;
-					//перевод текущего аккаунта в тренеры	
-					default:
+					//приглашение удачно отправлено	
+					case 201:
 						this.addTrainerVisible = false;
 						this.playerToTrainerVisible = false;
 						this.emailSentVisible = true;
 						break;
+					default: 
+						console.log('default error: ', status);	
 				}
 			},
 			
+			addNewCoach () {
+				this.ADD_NEW_COACH(
+					{
+						id: this.coachId,
+						role: {
+							role: "COACH"
+						}
+					}
+				);
+				this.closeModal()
+			},
+
 			closeModal() {
 				this.$emit('closeModal');
 			}

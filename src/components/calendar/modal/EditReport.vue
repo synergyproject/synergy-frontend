@@ -159,10 +159,6 @@
                 newTask: ''
 			}
         },
-        
-		components: {
-			
-        },
 
 		computed: {
             ...mapGetters(['GET_TODOLIST']),
@@ -236,9 +232,7 @@
                         break;
                 }
                 this.closeReport();                
-            },
-
-
+            }
         }      			
 	}
 </script>

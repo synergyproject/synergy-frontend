@@ -12,15 +12,15 @@ import layout from './layout.js';
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  modules: {
-    auth,
-    games,
-    line,
-    calendar,
-    user,
-    login,
-    coaches,
-    layout
-  },
+    modules: {
+        auth,
+        games,
+        line,
+        calendar,
+        user,
+        login,
+        coaches,
+        layout
+    },
 });
 

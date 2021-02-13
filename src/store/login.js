@@ -6,6 +6,7 @@ export default {
 		authorizationToken: '',
 		statusCode: 0
 	},
+
 	mutations: {
 		"SET_INVITATION_PARAMETERS"(state, payload) {
 			state.invitationParameters = payload;
@@ -17,6 +18,7 @@ export default {
 			state.statusCode = payload;
 		}
 	},
+
 	actions: {
 		'SEND_INVITATION_TOKEN'({ commit }, payload) {
 			return axios
@@ -24,7 +26,6 @@ export default {
 				`http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/invitations/${payload}`
 				)
 				.then((response) => {
-					console.log(response.data, 'response.data');
 					commit("SET_INVITATION_PARAMETERS", response.data);
 					commit("SET_AUTHORIZATION_TOKEN", response.headers.authorization);
 					commit("SET_STATUS_CODE_FROM_SERVER", response.status)
@@ -34,6 +35,7 @@ export default {
 						throw error;
 					});
 		},
+
 		'SEND_DATA_TO_CREATE_ACCOUNT'({ commit, state }, payload) {
 			return axios
 				.post("http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/signup", payload, {
@@ -51,6 +53,7 @@ export default {
 				});
 		}
 	},
+
 	getters: {
 		"GET_INVITATION_PARAMETERS"(state) {
       		return state.invitationParameters;

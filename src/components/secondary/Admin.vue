@@ -20,11 +20,12 @@
                         {{ $t("m_games_List") }}
                     </span>
                 </li>
-                <li class="admin__menu-item" :class="{active:playersList}" @click="playersListOn()">
+                <!-- Сделаем игроков после MVP -->
+                <!-- <li class="admin__menu-item" :class="{active:playersList}" @click="playersListOn()">
                     <span>
                         {{ $t("m_players_List") }}
                     </span>
-                </li>
+                </li> -->
             </ul>
         </div>
         <trainers-list v-if="trainersList"></trainers-list>     
@@ -43,9 +44,9 @@
 
         data () {
             return {
-                trainersList: false,
-                gamesList:true,
-                playersList:false,
+                trainersList: true,
+                gamesList: false,
+                playersList: false,
                 
             }
         },
