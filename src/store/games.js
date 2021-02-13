@@ -58,7 +58,7 @@ export default {
         "GAMES_FROM_SERVER"({ commit }) {
         return axios
             .get(
-                "http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/games",
+                "http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/games/users",
                 {
                     headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
