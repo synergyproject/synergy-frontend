@@ -250,7 +250,7 @@
             Slider
         },
         mounted () {
-            
+            console.log('post', this.post)
             //сворачиваем текст в постах если он больше заданной высоты
             let text = document.querySelector(`.post_${this.num}>.post__main>.post__info>.post__text`)
             if (text&&text.clientHeight>192) {
