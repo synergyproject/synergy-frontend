@@ -30,21 +30,10 @@ export default {
             return state.gamesData;
         },
 
-        // GET_INVITATION_PARAMETERS(state) {
-        //   return state.invitationsParameters;
-        // },
-
-        "GET_GAME_BY_ID": state => id =>{
-            const game = state.gamesData.games.find(item => item.id==id )
-            return game;
-        },
         
         GET_CHANGING_GAME (state) {
             return state.changingGame
         }
-        // GET_INVITATION_PARAMETERS(state) {
-        //   return state.invitationsParameters;
-        // },
     },
 
   

@@ -184,7 +184,8 @@
             ...mapMutations(['ADD_LIST_OF_GAMES']),
 
             loadPhoto (event) {
-                let uploadedFile = event.target.files[0],
+                let uploadedFile = event.target.files[0];
+                
                     size = uploadedFile.size,
                     fileFormat = uploadedFile.name.split(".").pop()
                 if (size <= 2097152 && (fileFormat === 'jpg'|| fileFormat === 'png')) {

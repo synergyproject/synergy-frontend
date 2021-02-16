@@ -2,10 +2,6 @@
 
     <div class="games-main">
 
-        <!--<modal-window v-if="setOpen" @close='closeWindow' >
-            <setting-up-game :id = "gameID" @closeChangeGame='closeWindow'>
-            </setting-up-game>
-        </modal-window>-->
         <div 
             class="game" 
             v-for="(item, index) in getGamesList" 

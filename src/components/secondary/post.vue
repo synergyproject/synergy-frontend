@@ -13,7 +13,7 @@
                     </h3>
                     <div class="post__date">
                         <span class="post__date-main">
-                            {{post.createdOn}}
+                            {{createDate(post.createdOn)}}
                         </span>
                         <span 
                             v-show = "post.updatedOn" 
@@ -125,10 +125,15 @@
                     class="post__photo-list"
                 >
                     <div 
-                        v-for="item in img" 
+                        v-for="item in img.slice(0,2)" 
                         class="post__photo-item" 
                         :style="{backgroundImage:`url(${item})`}"
-                    ></div>
+                    >
+                        <div v-if="img.length>2" class="post__photo-hover" @click="openSliderWindow">
+                            + {{ img.length - 2 }}
+                        </div>
+                    </div>
+                    
                 </div>
                 <div 
                     v-if="showFiles" 
@@ -185,23 +190,32 @@
                 :style="{backgroundImage:`url(${user.photo ?  user.photo : bgImage})`}"
             >
             </div>
-            <form class="post__form">
-                <div class="post__addtext-wrap">
-                    <div 
-                        class="post__addtext" 
-                        contenteditable="true"
-                    ></div>
+            <div class="post__form">
+                <div class="post__addtext-wrap" >
+                    <input  class="post__input"  
+                        
+                        v-model="commentText"
+                    >
+                    <div class="post__addtext" @click="openCommentInput" >
+                        {{commentText}}
+                    </div>
                 </div>
                 
-                <button class="post__form-btn">
+                <button class="post__form-btn" @click="addComment">
                     <img src="@/assets/img/arrow-right.png">
                 </button>
-            </form>
+            </div>
         </div>
+        <modal-window v-if="this.sliderShow" @close='closeSliderWindow'>
+            <slider :img = "img"></slider>
+        </modal-window> 
     </article>
 </template>
 
 <script>
+    import ModalWindow from '@/components/modal/ModalWindow';
+    import Slider from '@/components/modal/Slider';
+
     import avatar from '@/assets/img/avatar.png'
     import photo from '@/assets/img/test.png'
     import heart from '@/assets/img/heart.png'
@@ -214,7 +228,6 @@
         data () {
             return {
                 bgImage: avatar,
-                // bgPhoto: photo,
                 myPost: this.user.id === this.post.author.id,
                 created: this.post.type ==="CREATED",
                 showTextBtn:false,
@@ -226,9 +239,15 @@
                 showFiles: false,
                 img: [],
                 files: [],
+                commentText:'',
+                sliderShow: false
                 
                                
             }
+        },
+        components: {
+            ModalWindow,
+            Slider
         },
         mounted () {
             
@@ -265,7 +284,19 @@
         },
         
         methods: {
-            ...mapActions(['SEND_LIKE', 'DEL_LIKE', 'POSTS_FROM_SERVER', 'DEL_POST']),  
+            ...mapActions(['SEND_LIKE', 'DEL_LIKE', 'POSTS_FROM_SERVER', 'DEL_POST', 'SEND_COMMENT']),  
+            createDate(date){
+                let f = new Date(date)
+                let year= f.getFullYear()
+                let month= f.getMonth()+1
+                let day = f.getDate()
+                month = (month < 10) ? '0' + month : month;
+                day  = (day  < 10) ? '0' + day  : day;
+
+                return [day, month, year,].join('.')
+                
+
+            },
             resizeText(e) {
                 let text = document.querySelector(`.post_${this.num}>.post__main>.post__info>.post__text`)
                 if (text.classList.contains('close')){
@@ -354,6 +385,36 @@
                         
                      
                     })
+            },
+            openCommentInput(){
+                
+                document.querySelector(`.post_${this.num} .post__input`).focus()
+               
+            },
+            addComment(){
+                const data = {
+                    gameID:this.gameID,
+                    info:{
+                            postId: `${this.post.id}`,
+                            text: this.commentText
+                        }
+                }
+                console.log('data', data)
+                this.SEND_COMMENT(data)
+                .then(resolve => {
+                        this.POSTS_FROM_SERVER(this.gameID)
+                        this.commentText=''
+                        
+                    })
+                
+                
+            },
+            closeSliderWindow() {
+                this.sliderShow = false;
+
+            },
+            openSliderWindow(){
+                this.sliderShow = true;
             }
 
         }

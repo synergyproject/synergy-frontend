@@ -323,23 +323,23 @@
         },
         computed: {
             ...mapGetters(["GET_GAMES_LIST"]),  
-            ...mapGetters(["GET_GAME_BY_ID", 'GET_CHANGING_GAME']),         
+            ...mapGetters([ 'GET_CHANGING_GAME']),         
 		},
         mounted() {
-            this.GAMES_FROM_SERVER()
-            console.log('тест1',this.id)
-            this.changeGame.id= this.GET_GAME_BY_ID(this.id).id
-            this.changeGame.logoUrl = this.GET_GAME_BY_ID(this.id).logoUrl
-            this.changeGame.name= this.GET_GAME_BY_ID(this.id).name
-            this.changeGame.description = this.GET_GAME_BY_ID(this.id).description
-            this.changeGame.mentor= this.GET_GAME_BY_ID(this.id).mentor
-            this.changeGame.coach = this.GET_GAME_BY_ID(this.id).coach
-            this.changeGame.startDate= this.GET_GAME_BY_ID(this.id).startDate
-            this.changeGame.endDate = this.GET_GAME_BY_ID(this.id).endDate
-            this.changeGame.activeUsersCount= this.GET_GAME_BY_ID(this.id).activeUsersCount
-            this.changeGame.bannedUsersCount = this.GET_GAME_BY_ID(this.id).bannedUsersCount
-            this.GET_GAME_BY_ID(this.id).licensesAvailable ? this.changeGame.licensesAvailable= this.GET_GAME_BY_ID(this.id).licensesAvailable : this.changeGame.licensesAvailable=this.changeGame.licensesAvailable
-            this.GET_GAME_BY_ID(this.id).players ? this.changeGame.players = this.GET_GAME_BY_ID(this.id).players : this.changeGame.players = this.changeGame.players           
+            // this.GAMES_FROM_SERVER()
+            // console.log('тест1',this.id)
+            // this.changeGame.id= this.GET_GAME_BY_ID(this.id).id
+            // this.changeGame.logoUrl = this.GET_GAME_BY_ID(this.id).logoUrl
+            // this.changeGame.name= this.GET_GAME_BY_ID(this.id).name
+            // this.changeGame.description = this.GET_GAME_BY_ID(this.id).description
+            // this.changeGame.mentor= this.GET_GAME_BY_ID(this.id).mentor
+            // this.changeGame.coach = this.GET_GAME_BY_ID(this.id).coach
+            // this.changeGame.startDate= this.GET_GAME_BY_ID(this.id).startDate
+            // this.changeGame.endDate = this.GET_GAME_BY_ID(this.id).endDate
+            // this.changeGame.activeUsersCount= this.GET_GAME_BY_ID(this.id).activeUsersCount
+            // this.changeGame.bannedUsersCount = this.GET_GAME_BY_ID(this.id).bannedUsersCount
+            // this.GET_GAME_BY_ID(this.id).licensesAvailable ? this.changeGame.licensesAvailable= this.GET_GAME_BY_ID(this.id).licensesAvailable : this.changeGame.licensesAvailable=this.changeGame.licensesAvailable
+            // this.GET_GAME_BY_ID(this.id).players ? this.changeGame.players = this.GET_GAME_BY_ID(this.id).players : this.changeGame.players = this.changeGame.players           
         },
 
         methods: {
