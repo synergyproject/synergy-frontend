@@ -3,13 +3,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    position: absolute;
+    position: fixed;
     z-index: 900;
     left: 0px;
     top: 0px;
     bottom: 0px;
     right: 0px;
-    backdrop-filter: blur(3px);
+    backdrop-filter: blur(2px);
     .modal-content{
         position: relative;
         display: flex;

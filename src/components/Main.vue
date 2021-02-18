@@ -169,7 +169,7 @@
                     class="license-counter"
                     v-if="checkRoles('COACH')"
                 >
-                    {{ $t('m_licenses_available') }} {{user.licenses}}
+                    {{ $t('m_licenses_available') }} {{GET_LICENSES}}
                 </div>
             </div>
             <div class="blur" v-if="GET_PRIMARY_BLUR"></div>
@@ -198,14 +198,18 @@
 
             <coach 
                 v-if="coachVisible" 
-                :changePassVisisble='changePassVisisble'
-                @closeChangePass='changePassword()'
             ></coach>
 
             <admin 
                 v-if="adminVisible"
                 @closeAdmin='closeAdmin()'
             ></admin>
+
+            <change-pass 
+                class="change-pass"
+                v-if="changePassVisisble"
+                @closeChangePass='closeChangePassword()'
+            ></change-pass>
         </div>
 
     </div>
@@ -221,6 +225,7 @@
     import Coach from '@/components/secondary/Coach';
     import Games from '@/components/secondary/Games';
     import Admin from '@/components/secondary/Admin';
+    import ChangePass from '@/components/secondary/ChangePass';
     import icon_pencil from '@/assets/img/icon_pencil.png';
     import telegram from '@/assets/img/telegram.png';
     import phone from '@/assets/img/phone.png';
@@ -236,10 +241,10 @@
                 avatarVisible: false,
                 fullNameVisible: false,
                 profileVisible: false,
-                coachVisible: false,
-                gamesVisible: false,
                 adminVisible: false,
+                changePassVisisble: false,
                 coachVisible: true,
+
                 usernameTelegramInput: false,
                 phoneInput: false,
                 birthdayInput: false,
@@ -247,12 +252,10 @@
                     usernameTelegram: '',
                     phone: '',
                     birthday: '',
-                    roles: [],
-                    licenses: 0
+                    roles: []
                 },
                 currentLanguage: 'eng',
-                languageMenuDesign: 1,
-                changePassVisisble: false
+                languageMenuDesign: 1
             }
         },
 
@@ -264,7 +267,8 @@
             Profile,
             Coach,
             Games,
-            LanguageMenu
+            LanguageMenu,
+            ChangePass
         },
 
         mounted () {
@@ -275,7 +279,6 @@
                     this.user.phone = this.GET_USER.phone;
                     this.user.birthday = this.GET_USER.dateOfBirth;
                     this.user.roles = this.GET_USER.roles;
-                    this.user.licenses = this.GET_USER.licenses;
 
                     // при первом логине пользователь видит модальное окно "заполнить профиль"
                     if (!this.GET_USER.firstName || !this.GET_USER.lastName || !this.GET_USER.phone) {
@@ -299,7 +302,11 @@
         },
 
         computed: {
-            ...mapGetters([ 'GET_USER', 'GET_PRIMARY_BLUR' ])           
+            ...mapGetters([ 
+                'GET_USER', 
+                'GET_PRIMARY_BLUR',
+                'GET_LICENSES' 
+            ])           
 		},  
 
         methods: {
@@ -321,8 +328,15 @@
             },
 
             changePassword () {
-                this.changePassVisisble = !this.changePassVisisble;
+                this.changePassVisisble = true;
+                this.coachVisible =  false;
+                this.adminVisible = false;
+                this.closeModal();
+            },
+
+            closeChangePassword () {
                 this.coachVisible =  true;
+                this.changePassVisisble = false;
                 this.adminVisible = false;
                 this.closeModal();
             },

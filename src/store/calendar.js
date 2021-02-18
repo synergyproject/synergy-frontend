@@ -208,6 +208,26 @@ export default {
 	},
 		
 	actions: {
-	
+		GET_TASKS_FROM_SERVER ({ commit }, payload) {
+			console.log(payload);
+            return axios
+                .get(
+                    `http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/games/${payload}/tasks`,
+                    {
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${localStorage.getItem("token")}`,
+                        },
+                    }
+                )
+                .then((response) => {
+                    // commit("SET_CURRENT_GAME", response.data);
+					console.log(response.data);
+                    return response.data;
+                })
+                .catch((error) => {
+                    throw error;
+                });       
+        }
 	}    
 }

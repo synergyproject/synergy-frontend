@@ -59,8 +59,8 @@ const router = new VueRouter({
 
 router.beforeEach( async (to, from, next) => {
 	const authToken = to.query.token;
-	console.log(to, 'to');
-	console.log(from, 'from');
+	// console.log(to, 'to');
+	// console.log(from, 'from');
 
 	if(!authToken && to.path === '/signup') {
 		next('/');

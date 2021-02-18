@@ -2,7 +2,7 @@
     background: $colorBgHeader;
     display: flex;
     height: 100vh;
-
+    
     *{
         display: flex;
         font-family: 'Roboto', sans-serif;
@@ -176,6 +176,6 @@
         top: 0px;
         bottom: 0px;
         right: 0px;
-        backdrop-filter: blur(3px);
+        backdrop-filter: blur(2px);
     }
 }

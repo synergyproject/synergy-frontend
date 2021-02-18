@@ -33,10 +33,17 @@
 		},
 
 		computed: {
-            ...mapGetters(['GET_USER'])           
+            ...mapGetters([ 
+				'GET_USER', 
+				'GET_CURRENT_GAME_ID' 
+			])           
 		},
 
 		mounted() {
+			let id = this.GET_CURRENT_GAME_ID;
+			this.GET_TASKS_FROM_SERVER(id);
+
+
 			//если новый пользователь захочет перейти на эту страницу (например через адресную строку), 
 			//не заполнив профиль - возвращаем его обратно на main к заполнению
 			this.USERS_FROM_SERVER()
@@ -56,7 +63,10 @@
 		},
 		
 		methods: {
-			...mapActions(['USERS_FROM_SERVER'])
+			...mapActions([ 
+				'USERS_FROM_SERVER',
+				'GET_TASKS_FROM_SERVER'
+			])
 		}	    			
 	}
 </script>

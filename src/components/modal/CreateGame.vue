@@ -6,40 +6,31 @@
                 <div>
                     <div class="avatar-requirements">
                         <img 
-                            :src="game.logoUrl" 
+                            :src="logoUrl" 
                             class="avatar-img" 
-                            v-if="game.logoUrl"
+                            v-if="logoUrl"
                         > 
                         <div 
                             class="decor decor-left-top" 
-                            v-if="!game.logoUrl"
+                            v-if="!logoUrl"
                             :style="{ borderColor: activeDecorColor }"
                         ></div>
                         <div 
                             class="decor decor-left-bottom" 
-                            v-if="!game.logoUrl"
+                            v-if="!logoUrl"
                             :style="{ borderColor: activeDecorColor }"
                         ></div>
                         <div 
                             class="decor decor-right-top" 
-                            v-if="!game.logoUrl"
+                            v-if="!logoUrl"
                             :style="{ borderColor: activeDecorColor }"
                         ></div>
                         <div 
                             class="decor decor-right-bottom" 
-                            v-if="!game.logoUrl"
+                            v-if="!logoUrl"
                             :style="{ borderColor: activeDecorColor }"
                         ></div>    
                         <div class="avatar-requirements-info">
-                            <!-- Рекомендуемый размер фото<br>
-                            не менее 220 пикселей в ширину<br>
-                            и 220 пикселей в высоту.<br>
-                            <br>
-                            Загружается быстрее всего<br>
-                            в виде файла sRGB .JPG<br> 
-                            Допустимый размер файла не более 2 мегабайт.<br>
-                            <br>
-                            Допустимые форматы: jpg, png. -->
                             {{ $t('m_photo_info') }}
                         </div>
                     </div>
@@ -64,7 +55,7 @@
                     <input 
                         type="text" 
                         maxlength="200" 
-                        v-model="game.name"
+                        v-model="gameData.name"
 						placeholder="Введите название"
                     >
                     <div  class="create-game__container-star" :class="{ redAlert: redAlertName }">
@@ -84,7 +75,7 @@
                     </div>
                     <textarea
                         maxlength="1000" 
-                        v-model="game.description"
+                        v-model="gameData.description"
                     >
                     </textarea>
                 </div>
@@ -95,7 +86,7 @@
                     <input 
                         type="date" 
                         class="start-date" 
-                        v-model="game.startDate"
+                        v-model="gameData.startDate"
                         @change="changeDate"
                     >
 
@@ -119,7 +110,7 @@
                     <input 
                         type="date" 
                         class="end-date" 
-                        v-model="game.endDate"
+                        v-model="gameData.endDate"
                         disabled
                     >
                     
@@ -138,42 +129,22 @@
 </template>
 
 <script>
-    import { mapMutations, mapGetters, mapActions } from 'vuex';
+    import { mapActions } from 'vuex';
 
     export default {
         name: 'CreateGame',
+        
         data () {
             return {
                 activeDecorColor: '#BCC0C9',
-                game: {
-                    id:'',
-                    logoUrl: '',
+                gameData: {
                     name: '',
                     description: '',
-                    mentor: {},
-                    coach: {},
-                    startDate: '',
                     endDate: '',
-                    activeUsersCount: '',
-                    bannedUsersCount: '', 
-                    licensesAvailable: '',
-                    players: [],
-                    // players: [
-                    //     {
-                    //         dateOfBirth: "2020-01-31",
-                    //         email: "morgotianin@gmail.com",
-                    //         firstName: "Иван",
-                    //         gender: "MALE",
-                    //         id: '13',
-                    //         lastName: "Горячих",
-                    //         phone: "+380663137126",
-                    //         photo: '',
-                    //         roles: ["COACH", "PLAYER"],
-                    //         status: "ACTIVE",
-                    //         telegram: "@telegrammmm"
-                    //     }
-                    // ]
+                    startDate: ''
                 },
+                logoUrl: '',
+                logoFile:'',
                 redAlertName: false,
                 redAlertDate: false,
                 photoRedAlertActive: false
@@ -181,49 +152,69 @@
         },
 
         methods: {
-            ...mapMutations(['ADD_LIST_OF_GAMES']),
+            ...mapActions([ 
+                'SEND_GAME_LOGO',
+                'CREATE_NEW_GAME',
+                'GAMES_FROM_SERVER'
+            ]),
 
             loadPhoto (event) {
                 let uploadedFile = event.target.files[0],
                     size = uploadedFile.size,
                     fileFormat = uploadedFile.name.split(".").pop()
+
                 if (size <= 2097152 && (fileFormat === 'jpg'|| fileFormat === 'png')) {
-                    this.game.logoUrl = URL.createObjectURL(event.target.files[0]);
+                    this.logoUrl = URL.createObjectURL(event.target.files[0]);
+                    this.logoFile = uploadedFile;
                 } else {
                     this.photoRedAlertActive = true;
                 }
             },
 
             createGame(){
-                if (this.game.name && this.game.startDate) {
-                    this.game.id =  Date.now()
-                    this.ADD_LIST_OF_GAMES(this.game);
+                if (this.gameData.name && this.gameData.startDate) {
                     this.$emit('closeGame')
                     this.redAlertName = false;
                     this.redAlertDate = false;
 
-                } 
-                if(!this.game.name&!this.game.startDate){
+                    this.CREATE_NEW_GAME (this.gameData)
+                        .then(resolve => {                       
+                            if (this.logoFile && resolve.status === 201) {
+                                this.SEND_GAME_LOGO({
+                                    file: this.logoFile,
+                                    id: resolve.data
+                                })
+                                .then(resolve => { 
+                                    this.GAMES_FROM_SERVER()
+                                })    
+                            } else {
+                                this.GAMES_FROM_SERVER()
+                            }    
+                        })
+
+                }
+
+                if (!this.gameData.name && !this.game.startDate) {
                     this.redAlertName = true
                     this.redAlertDate = true
-                } else if(!this.game.name){
+                } else if (!this.gameData.name) {
                     this.redAlertName = true
                     this.redAlertDate = false
-                } else if(!this.game.startDate){
+                } else if (!this.gameData.startDate) {
                     this.redAlertName = false
                     this.redAlertDate = true
                 }                
             },
 
             changeDate(){
-                let f = new Date(this.game.startDate)
+                let f = new Date(this.gameData.startDate)
                 f.setDate(f.getDate() + 56)
                 let year= f.getFullYear()
                 let month= f.getMonth()+1
                 let day = f.getDate()
                 month = (month < 10) ? '0' + month : month;
                 day  = (day  < 10) ? '0' + day  : day;
-                this.game.endDate = [year, month, day].join('-')
+                this.gameData.endDate = [year, month, day].join('-')
             }
         }
     }

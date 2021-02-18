@@ -1,39 +1,42 @@
 <template>
     <div class="set_game">
-    	<div
-            class="cross" 
-            @click="close()"
-		>				
-            <img src="@/assets/img/off_close.png">
-            
-		</div>
+        <div 
+            class="return-link"
+            @click="closeCH()"
+        >
+            {{ $t('m_back') }}
+        </div>
+
         <modal-window v-if="this.modalVisible" @close='closeWindow'>
-            <div class="avatar-window">
+            <div 
+                class="avatar-window"
+                v-if="avatarWindowVisible"
+            >
                 <div>
                     <div class="avatar-requirements">
                         <img 
-                            :src="changeGame.logoUrl" 
+                            :src="this.GET_CURRENT_GAME.logoUrl" 
                             class="avatar-img" 
-                            v-if="changeGame.logoUrl"
+                            v-if="this.GET_CURRENT_GAME.logoUrl"
                         > 
                         <div 
                             class="decor decor-left-top" 
-                            v-if="!changeGame.logoUrl"
+                            v-if="!this.GET_CURRENT_GAME.logoUrl"
                             :style="{ borderColor: activeDecorColor }"
                         ></div>
                         <div 
                             class="decor decor-left-bottom" 
-                            v-if="!changeGame.logoUrl"
+                            v-if="!this.GET_CURRENT_GAME.logoUrl"
                             :style="{ borderColor: activeDecorColor }"
                         ></div>
                         <div 
                             class="decor decor-right-top" 
-                            v-if="!changeGame.logoUrl"
+                            v-if="!this.GET_CURRENT_GAME.logoUrl"
                             :style="{ borderColor: activeDecorColor }"
                         ></div>
                         <div 
                             class="decor decor-right-bottom" 
-                            v-if="!changeGame.logoUrl"
+                            v-if="!this.GET_CURRENT_GAME.logoUrl"
                             :style="{ borderColor: activeDecorColor }"
                         ></div>    
                         <div class="avatar-requirements-info">
@@ -43,7 +46,7 @@
                     <input 
                         id="loadPhoto" 
                         type="file" 
-                        @change="loadPhoto"
+                        @change="sendPhoto"
                     >
                     <label 
                         class="load-button basic-buttons" 
@@ -53,23 +56,32 @@
                     </label>
                 </div>
             </div>
-                
+            <div 
+                class="finish-game"
+                v-if="finishGameVisible"
+            >
+                <div>
+                    закончить игру?
+                </div>
+                <div 
+                    class="end-game-button basic-buttons"
+                    @click="confirmFinishGame()"
+                >
+                    Подтвердить
+                </div>
+            
+            </div>    
         </modal-window>        
-        <h2 class="set_game__header">{{ $t("m_set_game") }}</h2>
+        <h2 class="set_game__header">
+            {{ $t("m_set_game") }}
+        </h2>
         <div class="set_game__content">
-                <!-- отображение / загрузка аватара -->
+
             <div class="avatar">
-                <div v-if="this.changeGame.logoUrl">
-               
+                <div v-if="this.GET_CURRENT_GAME.logoUrl">         
                     <img 
-                        :src="this.changeGame.logoUrl"
-                        
+                        :src="this.GET_CURRENT_GAME.logoUrl"                        
                         class="avatar-img"
-                    >
-                    <img 
-                        src="@/assets/img/icon_pencil.png" 
-                        class="pencil edit_avatar" 
-                        @click="loadLogo()"
                     > 
                 </div>                        
                 <img 
@@ -77,9 +89,18 @@
                     src="@/assets/img/icon_pencil.png" 
                     class="pencil" 
                     @click="loadLogo()"
-                >    
+                >
+                <div 
+                    class="edit-avatar"
+                    @click="loadLogo()"
+                >
+                    <img 
+                        src="@/assets/img/icon_pencil.png" 
+                        class="pencil edit_avatar" 
+                    >
+                </div>    
             </div>
-            <div class="set_game__info">
+            <div class="set_game__info"> 
                 <div class="set_game__container">
                     <div class="set_game__container-head">
                         {{ $t("m_game_name") }}
@@ -87,9 +108,8 @@
                     <input 
                         type="text" 
                         maxlength="200" 
-                        v-model="changeGame.name"
-						placeholder="Введите название"
-                        
+                        v-model="gameData.name"
+						:placeholder="$t('m_enter_title')"                       
                     >
                     <div  class="set_game__container-star" :class="{ redAlert: redAlertName }">
                         *
@@ -102,16 +122,17 @@
                     </div>
                 </div>
 
-               <div class="set_game__container">
+                <div class="set_game__container">
                     <div class="set_game__container-head">
                         {{ $t("m_game_description") }}
                     </div>
                     <textarea
                         maxlength="1000" 
-                        v-model="changeGame.description"
+                        v-model="gameData.description"
                     >
                     </textarea>
                 </div>
+
                 <div class="set_game__container">
                     <div class="set_game__container-head">
                         {{ $t("m_game_startDate") }}
@@ -119,7 +140,7 @@
                     <input 
                         type="date" 
                         class="start-date" 
-                        v-model="changeGame.startDate"
+                        v-model="gameData.startDate"
                         @change="changeDate"
                     >
 
@@ -143,7 +164,7 @@
                     <input 
                         type="date" 
                         class="end-date" 
-                        v-model="changeGame.endDate"
+                        v-model="gameData.endDate"
                         disabled
                     >
                     
@@ -151,7 +172,6 @@
                         {{ $t("m_8_weeks") }}
                     </div>
                 </div>
-
             </div>  
         </div> 
         	
@@ -160,46 +180,120 @@
             <h2 class="set_game__players-head">
                 {{ $t("m_players_List") }}
             </h2>
+
             <div class="set_game__players-licenses">
-                {{ $t("m_licenses_available") }} {{changeGame.licensesAvailable}}
+                {{ $t("m_licenses_available") }} {{GET_LICENSES}}
             </div>
             <div class="set_game__players-add">
+                <!-- убираем блок если нет лицензий -->
                 <input
+                    v-if="GET_LICENSES"
+                    v-model="email"
                     type="text"
                     maxlength="64"
                     autocomplete="off"
                     placeholder="youremail@gmail.com"
                 >
-                <div class="confirm-button basic-buttons">
+                <div 
+                    class="confirm-button basic-buttons"
+                    v-if="GET_LICENSES"
+                    @click="addPlayer()"
+                >
                     {{ $t("m_add_player") }}
                 </div>
+                <div 
+					class="alert-message"
+					v-if="errorMessage"
+				>
+					<img src="@/assets/img/icon_attention.png">
+					{{$t(errorMessage)}}
+				</div>
             </div>
-            <ul v-show = "changeGame.players.length" class="set_game__players-list">
-                <li  class="set_game__players-item" v-for ="(item, num) in changeGame.players" :key = "num">
+
+            <ul class="set_game__players-list">
+                <li  
+                    class="set_game__players-item" 
+                    v-for ="(item, num) in GET_CURRENT_GAME.activeUsers" 
+                    :key = "num"
+                >
                     <div class="set_game__players-name">
                         {{item.firstName}} {{item.lastName}}
                     </div>
                     <div class="set_game__players-options">
-                        <div  class="status" :style="{backgroundImage:`url(${item.status==='ACTIVE' ? activeImg : item.status==='BAN' ? banImg: item.status==='OUT' ? outImg: '' })`}"></div>
-                        <div class="del-button basic-buttons">
+                        <div 
+                            class="del-button basic-buttons"
+                            @click="deleteUser(item.id)"
+                        >
                             {{ $t("m_del") }}
                         </div>
+                        <div
+                            class="status" 
+                            :style="{ backgroundImage: `url(${activeImg})` }"
+                        ></div>                      
+                    </div>
+                </li>
+                <li  
+                    class="set_game__players-item" 
+                    v-for ="(item, num) in GET_CURRENT_GAME.bannedUsers" 
+                    :key = "'banned' + num"
+                >
+                    <div class="set_game__players-name">
+                        {{item.firstName}} {{item.lastName}}
+                    </div>
+                    <div class="set_game__players-options">
+                        <div 
+                            class="del-button basic-buttons"
+                            @click="deleteUser(item.id)"
+                        >
+                            {{ $t("m_del") }}
+                        </div>
+                        <div
+                            class="status" 
+                            :style="{ backgroundImage: `url(${banImg})` }"
+                        ></div>                       
+                    </div>
+                </li>
+                <li  
+                    class="set_game__players-item" 
+                    v-for ="(item, num) in GET_CURRENT_GAME.invitations" 
+                    :key = "'invitations' + num"
+                >
+                    <div class="set_game__players-name invited">
+                        {{item.email}} 
+                    </div>
+                    <div class="set_game__players-options">
+                        <div 
+                            class="del-button basic-buttons"
+                           @click="canselInvitation(item.email)"
+                        >
+                            {{ $t("m_cancel") }}
+                        </div>   
+                        <div
+                            class="status" 
+                            :style="{ backgroundImage: `url(${outImg})` }"
+                        ></div>                                            
                     </div>
                 </li>
             </ul>
         </div>
 
         <div class="set_game-buttons">
-            <div class="confirm-button basic-buttons" @click ="chengeGame">
+            <div 
+                class="confirm-button basic-buttons" 
+                @click="editGame()"
+            >
                 {{ $t("m_save_settings") }}
             </div>
-            <div class="finish-button basic-buttons" >
+            <div 
+                class="finish-button basic-buttons"
+                @click="finishGame()"
+
+            >
                 {{ $t("m_finish_game") }}
             </div>
         </div>
 
     </div>
-
 </template>
 
 <script>
@@ -211,194 +305,221 @@
 
     export default {
         name: 'SettingUpGame',
-        props:['id'],
+
         data () {
             return {
+                gameData: {
+                    name: '',
+                    description: '',
+                    endDate: '',
+                    startDate: ''
+                },
+                id: '',
                 activeImg: active,
                 banImg: ban,
                 outImg: out,
-                changeGame: {
-                    id:'',
-                    logoUrl: '',
-                    name: '',
-                    description: '',
-                    mentor: {},
-                    coach: {},
-                    startDate: '',
-                    endDate: '',
-                    activeUsersCount: '',
-                    bannedUsersCount: '', 
-                    licensesAvailable: '7',
-                    // players: [],
-                    players: [
-                        {
-                            dateOfBirth: "2020-01-31",
-                            email: "morgotianin@gmail.com",
-                            firstName: "Иван",
-                            gender: "MALE",
-                            id: '13',
-                            lastName: "Горячих",
-                            phone: "+380663137126",
-                            photo: '',
-                            roles: ["COACH", "PLAYER"],
-                            status: "ACTIVE",
-                            telegram: "@telegrammmm"
-                        },
-                                                {
-                            dateOfBirth: "2020-01-31",
-                            email: "morgotianin@gmail.com",
-                            firstName: "Андрей",
-                            gender: "MALE",
-                            id: '14',
-                            lastName: "Горячих",
-                            phone: "+380663137126",
-                            photo: '',
-                            roles: ["COACH", "PLAYER"],
-                            status: "BAN",
-                            telegram: "@telegrammmm"
-                        },
-                        {
-                            dateOfBirth: "2020-01-31",
-                            email: "morgotianin@gmail.com",
-                            firstName: "Иван",
-                            gender: "MALE",
-                            id: '13',
-                            lastName: "Горячих",
-                            phone: "+380663137126",
-                            photo: '',
-                            roles: ["COACH", "PLAYER"],
-                            status: "OUT",
-                            telegram: "@telegrammmm"
-                        },
-                            {
-                            dateOfBirth: "2020-01-31",
-                            email: "morgotianin@gmail.com",
-                            firstName: "Иван",
-                            gender: "MALE",
-                            id: '13',
-                            lastName: "Горячих",
-                            phone: "+380663137126",
-                            photo: '',
-                            roles: ["COACH", "PLAYER"],
-                            status: "OUT",
-                            telegram: "@telegrammmm"
-                        },                            
-                        {
-                            dateOfBirth: "2020-01-31",
-                            email: "morgotianin@gmail.com",
-                            firstName: "Иван",
-                            gender: "MALE",
-                            id: '13',
-                            lastName: "Горячих",
-                            phone: "+380663137126",
-                            photo: '',
-                            roles: ["COACH", "PLAYER"],
-                            status: "OUT",
-                            telegram: "@telegrammmm"
-                        },                            
-                        {
-                            dateOfBirth: "2020-01-31",
-                            email: "morgotianin@gmail.com",
-                            firstName: "Иван",
-                            gender: "MALE",
-                            id: '13',
-                            lastName: "Горячих",
-                            phone: "+380663137126",
-                            photo: '',
-                            roles: ["COACH", "PLAYER"],
-                            status: "OUT",
-                            telegram: "@telegrammmm"
-                        }
-                    ]
-                },
                 activeDecorColor: '#BCC0C9',
-                modalVisible:false,
+                avatarWindowVisible: false,
+                finishGameVisible: false,
+                modalVisible: false,
                 redAlertName: false,
                 redAlertDate: false,
-                photoRedAlertActive: false
+                photoRedAlertActive: false,
+                errors: [
+					'm_wrong_email',
+                    'm_player_locked',
+                    'm_player_in_game'
+				],
+                errorMessage: '',
+                email: ''
             }
         },
+
         components: {
             ModalWindow 
         },
+
         computed: {
-            ...mapGetters(["GET_GAMES_LIST"]),  
-            ...mapGetters(["GET_GAME_BY_ID", 'GET_CHANGING_GAME']),         
+            ...mapGetters([
+                'GET_CURRENT_GAME_ID',   
+                'GET_CURRENT_GAME',
+                'GET_LICENSES'
+            ])
 		},
+
         mounted() {
-            this.GAMES_FROM_SERVER()
-            console.log('тест1',this.id)
-            this.changeGame.id= this.GET_GAME_BY_ID(this.id).id
-            this.changeGame.logoUrl = this.GET_GAME_BY_ID(this.id).logoUrl
-            this.changeGame.name= this.GET_GAME_BY_ID(this.id).name
-            this.changeGame.description = this.GET_GAME_BY_ID(this.id).description
-            this.changeGame.mentor= this.GET_GAME_BY_ID(this.id).mentor
-            this.changeGame.coach = this.GET_GAME_BY_ID(this.id).coach
-            this.changeGame.startDate= this.GET_GAME_BY_ID(this.id).startDate
-            this.changeGame.endDate = this.GET_GAME_BY_ID(this.id).endDate
-            this.changeGame.activeUsersCount= this.GET_GAME_BY_ID(this.id).activeUsersCount
-            this.changeGame.bannedUsersCount = this.GET_GAME_BY_ID(this.id).bannedUsersCount
-            this.GET_GAME_BY_ID(this.id).licensesAvailable ? this.changeGame.licensesAvailable= this.GET_GAME_BY_ID(this.id).licensesAvailable : this.changeGame.licensesAvailable=this.changeGame.licensesAvailable
-            this.GET_GAME_BY_ID(this.id).players ? this.changeGame.players = this.GET_GAME_BY_ID(this.id).players : this.changeGame.players = this.changeGame.players           
+            this.id = this.GET_CURRENT_GAME_ID;
+
+            this.GET_GAME_BY_ID_FROM_SERVER(this.id)
+                .then(resolve => {
+                    this.gameData.name = resolve.name;
+                    this.gameData.description = resolve.description;
+                    this.gameData.endDate = resolve.endDate;
+                    this.gameData.startDate = resolve.startDate;
+                    this.SET_LICENSES(resolve.coach.licenses);
+                })            
         },
 
         methods: {
-            ...mapMutations(['SET_GAME_BY_ID']),
-             ...mapActions(['GAMES_FROM_SERVER']),
-            loadPhoto (event) {
+            ...mapMutations([                
+                'SET_LICENSES'
+            ]),
+
+            ...mapActions([ 
+                'GET_GAME_BY_ID_FROM_SERVER',
+                'SEND_GAME_LOGO',
+                'INVITE_NEW_PLAYER',
+                'DELETE_PLAYER',
+                'CANSEL_INVITATION',
+                'SEND_EDITED_GAME'
+            ]),         
+
+            sendPhoto (event) {
                 let uploadedFile = event.target.files[0],
                     size = uploadedFile.size,
                     fileFormat = uploadedFile.name.split(".").pop()
+
                 if (size <= 2097152 && (fileFormat === 'jpg'|| fileFormat === 'png')) {
-                    this. changeGame.logoUrl = URL.createObjectURL(event.target.files[0]);
+                    this.SEND_GAME_LOGO({
+                        file: uploadedFile,
+                        id: this.id
+                    })
+
                     this.modalVisible = false	
                 } else {
                     this.photoRedAlertActive = true;
                 }
             },
 
-            chengeGame(){
-                if (this. changeGame.name && this. changeGame.startDate) {
-                    this.SET_GAME_BY_ID(this.changeGame);
-                    this.$emit('closeChangeGame')
-                    this.redAlertName = false;
-                    this.redAlertDate = false;
-
-                } 
-                if(!this.changeGame.name&!this.changeGame.startDate){
-                    this.redAlertName = true
-                    this.redAlertDate = true
-                } else if(!this.changeGame.name){
-                    this.redAlertName = true
-                    this.redAlertDate = false
-                } else if(!this.changeGame.startDate){
-                    this.redAlertName = false
-                    this.redAlertDate = true
+            editGame () {
+                if (this.gameData.name && this.gameData.startDate) {
+                    this.SEND_EDITED_GAME ({
+                        gameId: this.id,
+                        data: this.gameData
+                    })
+                    .then(resolve => {
+                        if (resolve.status === 202) {
+                            this.redAlertName = false;
+                            this.redAlertDate = false;
+                            this.closeCH();
+                        } else {
+                            console.log(resolve.status);
+                        }
+                    })
                 }
 
-                
+                if (!this.gameData.name && !this.gameData.startDate) {
+                    this.redAlertName = true
+                    this.redAlertDate = true
+                } else if (!this.gameData.name) {
+                    this.redAlertName = true
+                    this.redAlertDate = false
+                } else if (!this.gameData.startDate) {
+                    this.redAlertName = false
+                    this.redAlertDate = true
+                }               
             },
-            changeDate(){
-                let f = new Date(this.changeGame.startDate)
+
+            finishGame () {
+                this.modalVisible = true;
+                this.finishGameVisible = true;
+            },
+            
+            confirmFinishGame () {
+                //для завершения игры отправляем на бек дату конца игры сегодняшним днем
+                let	date = new Date();
+                let year = date.getFullYear()
+                let month = date.getMonth()+1
+                let day = date.getDate()
+                month = (month < 10) ? '0' + month : month;
+                day  = (day  < 10) ? '0' + day  : day;
+                this.gameData.endDate = [year, month, day].join('-')
+                this.closeWindow();
+                this.editGame();
+            },
+            
+            changeDate () {
+                let f = new Date(this.gameData.startDate)
                 f.setDate(f.getDate() + 56)
                 let year= f.getFullYear()
                 let month= f.getMonth()+1
                 let day = f.getDate()
                 month = (month < 10) ? '0' + month : month;
                 day  = (day  < 10) ? '0' + day  : day;
-                this.changeGame.endDate = [year, month, day].join('-')
+                this.gameData.endDate = [year, month, day].join('-')
+            },
 
-            },
-            loadLogo() {
+            loadLogo () {
                 this.modalVisible = true;
+                this.avatarWindowVisible = true;
             },
+
             closeWindow () {
 		  		this.modalVisible = false;
-            
+                this.avatarWindowVisible = false;
+                this.finishGameVisible = false;         
             },
-            close() {
+
+            closeCH () {
 			    this.$emit('closeCH')
-			}
+			},
+
+            addPlayer () {
+                this.errorMessage = '';
+                let reg = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+				if (reg.test(this.email)) {
+
+					this.INVITE_NEW_PLAYER(
+						{   
+                            id: this.id,
+							email: {email: this.email}
+						}
+					)
+                    .then(resolve => {
+                        switch (resolve.status) {
+                            case 201:
+                                this.GET_GAME_BY_ID_FROM_SERVER(this.id)
+                                break;
+                            case 406:
+                                this.errorMessage = this.errors[1]
+                                break;
+                            case 400:
+                                this.errorMessage = this.errors[2]
+                                break;
+                            default:
+                                this.errorMessage = resolve.status
+                                break;
+                        }
+					})
+				} else {
+					this.errorMessage = this.errors[0]
+				}
+            },
+
+            deleteUser (userId) {
+                this.DELETE_PLAYER({
+                    gameId: this.id,
+                    userId: userId
+                })
+                .then(resolve => {
+                    if (resolve.status === 202) {
+                        this.GET_GAME_BY_ID_FROM_SERVER(this.id)
+                    }
+                })
+            },
+
+            canselInvitation (email) {
+                this.CANSEL_INVITATION({
+                    gameId: this.id,
+					email: {email: email}
+                })
+                .then(resolve => {
+                    if (resolve.status === 204) {
+                        this.GET_GAME_BY_ID_FROM_SERVER(this.id)
+                    }
+                })
+            }
 
         }
     }

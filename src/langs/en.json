@@ -140,5 +140,8 @@
 	"m_password_changed": "Your password successfully changed",
 	"m_enter_old_password":"Enter your old password",
 	"m_forgot_password":"Forgot your password?",
-	"m_back":"Back"
+	"m_back":"Back",
+	"m_enter_title": "Enter the title",
+	"m_player_locked": "Player with current email is locked/archived. Please contact administrator",
+	"m_player_in_game": "This player is already in the game"
 }

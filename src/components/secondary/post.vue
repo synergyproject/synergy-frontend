@@ -125,7 +125,8 @@
                     class="post__photo-list"
                 >
                     <div 
-                        v-for="item in img" 
+                        v-for="(item, num) in img"
+                        :key = "num" 
                         class="post__photo-item" 
                         :style="{backgroundImage:`url(${item})`}"
                     ></div>
@@ -135,7 +136,8 @@
                     class="post__files-list"
                 >
                     <div 
-                        v-for="item in fileName()" 
+                        v-for="(item, num) in fileName()" 
+                        :key = "num"
                         class="post__files-item"
                     >
                         <a 

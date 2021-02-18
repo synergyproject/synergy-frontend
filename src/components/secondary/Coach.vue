@@ -1,12 +1,12 @@
 <template>
-    <div class="second-wrapper">
+    <div class="second-wrapper" v-cloak>
         <div 
             class="coach-page"
-            v-if="!changePassVisisble"
+            v-if="coachPageVisible"
         >
             <div 
                 class="coach-header"
-                v-if="coachHeaderVisible"
+                v-if="getHeaderVisible()"
             >
                 <div 
                     class="start-game-button basic-buttons" 
@@ -31,26 +31,18 @@
                 {{ $t('m_games') }}
             </div>
 
-            <games v-show="!GET_CHANGING_GAME.changing"></games>
+            <games @openSetting='openSetting()'></games>
 
-            <setting-up-game 
-                v-show="GET_CHANGING_GAME.changing" 
-                :id = "GET_CHANGING_GAME.gameID" 
-                @closeCH='closeChanging' 
-                @closeChangeGame='closeChanging'
-            >
-            </setting-up-game>
-            
             <modal-window v-if="this.createGameShow" @close='closeWindow'>
                 <create-game @closeGame='closeWindow'></create-game>
             </modal-window>                                                                                                                        
         </div>
 
-        <change-pass 
-            class="change-pass"
-            v-if="changePassVisisble"
-            @closeChangePass='closeChangePass()'
-        ></change-pass>
+        <setting-up-game 
+            v-if="settingVisible" 
+            @closeCH='closeSetting()' 
+        >
+        </setting-up-game>
     </div>
 </template>
 
@@ -58,21 +50,17 @@
     import Games from '@/components/secondary/Games';
     import ModalWindow from '@/components/modal/ModalWindow';
     import CreateGame from '@/components/modal/CreateGame';
-    import ChangePass from '@/components/secondary/ChangePass';
     import SettingUpGame from '@/components/modal/SettingUpGame';
     import { mapMutations, mapGetters, mapActions } from 'vuex';
     
     export default {
         name: "Coach",
-
-        props: {
-			changePassVisisble: Boolean
-        },
         
         data () {
             return {
                 createGameShow: false,
-                coachHeaderVisible: false
+                coachPageVisible: true,
+                settingVisible: false
             }
         },
 
@@ -80,16 +68,11 @@
             Games,
             ModalWindow,
             CreateGame,
-            ChangePass, 
             SettingUpGame
         },
 
         mounted () {
-            //"создать игру" и имя тренера отображаем только если зашел тренер
-            this.USERS_FROM_SERVER()
-                .then(resolve => {
-                    this.coachHeaderVisible = this.GET_USER.roles.includes('COACH')
-                })    
+            this.USERS_FROM_SERVER()   
         },
 
         computed: {
@@ -97,26 +80,30 @@
 		}, 
 
         methods: {
-            ...mapMutations([ 'SET_PRIMARY_BLUR',  'SET_CHANGING_GAME']),
+            ...mapMutations([ 'SET_CHANGING_GAME']),
             ...mapActions([ 'USERS_FROM_SERVER' ]),
+
+            getHeaderVisible () {
+               return this.GET_USER.roles.includes('COACH')
+            },
+
+            openSetting() {
+                this.coachPageVisible = false;
+                this.settingVisible = true
+            },
+
+            closeSetting() {
+                this.coachPageVisible = true;
+                this.settingVisible = false
+            },
 
             openWindow() {
                 this.createGameShow = true;
-                this.SET_PRIMARY_BLUR(true);
             },
             
             closeWindow () {
 		  		this.createGameShow = false;
-                this.SET_PRIMARY_BLUR(false);	  		
-            },
-
-            closeChangePass () {
-                this.$emit('closeChangePass');
-            },
-            closeChanging(){
-                this.SET_CHANGING_GAME('')
             }
-
         }
     }
 </script>

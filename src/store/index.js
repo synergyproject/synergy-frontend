@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 import line from './line.js';
 import auth from './auth.js';
 import games from './games.js';
+import editedgame from './editedgame.js';
 import calendar from './calendar.js';
 import user from './user.js';
 import login from './login.js';
@@ -15,6 +16,7 @@ export default new Vuex.Store({
     modules: {
         auth,
         games,
+        editedgame,
         line,
         calendar,
         user,

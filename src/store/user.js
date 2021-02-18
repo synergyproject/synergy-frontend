@@ -19,7 +19,8 @@ export default {
         //     "telegram": "string",
         //     "telegramChatId": 0,
         //     "licenses": number  
-        // }
+        // },
+        licenses: 0, 
         currentLanguage: 'Eng'
     },
 
@@ -30,6 +31,10 @@ export default {
 
         GET_CURRENT_LANGUAGE (state) {
             return state.currentLanguage
+        },
+         
+        GET_LICENSES (state) {
+            return state.licenses
         }
     },
   
@@ -53,6 +58,10 @@ export default {
             state.users = payload;
         },
 
+        SET_LICENSES (state, payload) {
+            state.licenses = payload
+        }
+
     },
   
     actions: {
@@ -68,6 +77,7 @@ export default {
                 )
                 .then((response) => {
                     commit("SET_LIST_OF_USERS", response.data);
+                    commit("SET_LICENSES", response.data.licenses);
                     return response;
                 })
                 .catch((error) => {
@@ -114,7 +124,6 @@ export default {
 		},
 
         SEND_NEW_PASSWORD ({ commit }, payload) {
-            console.log(payload);
             return axios
                 .put("http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/users/updatePassword", payload, {
                     headers: {
