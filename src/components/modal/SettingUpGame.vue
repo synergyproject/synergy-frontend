@@ -139,7 +139,8 @@
                     </div>
                     <input 
                         type="date" 
-                        class="start-date" 
+                        class="start-date"
+                        :min="setMinStartDate()" 
                         v-model="gameData.startDate"
                         @change="changeDate"
                     >
@@ -438,6 +439,16 @@
                 this.editGame();
             },
             
+            setMinStartDate () {
+                let	date = new Date();
+                let year = date.getFullYear()
+                let month = date.getMonth()+1
+                let day = date.getDate()
+                month = (month < 10) ? '0' + month : month;
+                day  = (day  < 10) ? '0' + day  : day;
+                return [year, month, day+1].join('-')
+            },
+
             changeDate () {
                 let f = new Date(this.gameData.startDate)
                 f.setDate(f.getDate() + 56)

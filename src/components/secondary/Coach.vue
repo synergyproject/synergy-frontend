@@ -76,7 +76,10 @@
         },
 
         computed: {
-            ...mapGetters([ 'GET_USER', 'GET_CHANGING_GAME' ])           
+            ...mapGetters([ 
+                'GET_USER', 
+                'GET_CHANGING_GAME' 
+            ])           
 		}, 
 
         methods: {
@@ -84,7 +87,7 @@
             ...mapActions([ 'USERS_FROM_SERVER' ]),
 
             getHeaderVisible () {
-               return this.GET_USER.roles.includes('COACH')
+                return this.GET_USER.roles.includes("COACH")
             },
 
             openSetting() {
