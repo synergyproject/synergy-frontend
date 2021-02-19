@@ -5,29 +5,31 @@
         ></div>
         <div class="addpost__form">
             <div class="addpost__text-wrap" >
-                <input class="addpost__input"  
+                <input  class="addpost__input"  
                     
                     v-model="text"
                 >
-                <div class="addpost__text" @click="openInput" contentea>
+                <div class="addpost__text" @click="openInput" contenteditable ="true">
                     {{text}}
                 </div>
             </div>
 
             
-            <div class="addpost__files">
+            <label class="addpost__files" for="post-files">
                 <input 
+                    id ="post-files"
                     class="addpost__files-input" 
                     type="file" 
+                    @change="loadFile"
                     accept=".jpg, .png, .pdf, .docx, .xlsx" 
-                    multiple="multiple" 
+                 
                     name="send-file"
                 >
                 <img 
                     class="addpost__files-icon" 
                     src="@/assets/img/add-icon.png"
                 >
-            </div>
+            </label>
             <button class="addpost__form-btn" @click="addPost">
                 <img src="@/assets/img/arrow-right.png">
 
@@ -57,6 +59,22 @@
 
         methods: {
             ...mapActions(['SEND_POST', 'POSTS_FROM_SERVER']), 
+            
+            loadFile (event) {
+                const uploadedFile = event.target.files[0];
+                const filesSize = this.files.reduce(function(sum, item) {
+                                                                            return sum + item.size;
+                                                                        }, 0);
+                let size = filesSize + uploadedFile.size;
+                let fileFormat = uploadedFile.name.split(".").pop()
+                if (size <= 26214400 && (fileFormat === 'jpg'|| fileFormat === 'png'||fileFormat === 'pdf'||fileFormat === 'docx'||fileFormat === 'xlsx')) {
+                   
+                    this.files.push(uploadedFile)
+                    
+                } else {
+                    alert('Последний выбранный вами файл не удовлетворяет требованиям и не был загружен')
+                }
+            },
             addPost(){
                 const data = {
                     gameID:this.gameID,
@@ -68,7 +86,7 @@
                 .then(resolve => {
                         this.POSTS_FROM_SERVER(this.gameID)
                         this.text=''
-                     
+                        this.files=[]
                     })
                 
                 

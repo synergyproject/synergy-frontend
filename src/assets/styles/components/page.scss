@@ -393,13 +393,32 @@
                         .post__photo-item{
                             width: 48%;
                             height: 213px;
+                            border-radius: 5px;
                             background-color: $colorBg;
                             background-repeat: no-repeat;
                             background-position: center center;
                             background-size: cover;
                             position: relative;
                             cursor: pointer;
+                            &:nth-child(1){
+                                .post__photo-hover{
+                                    display: none
+                                }
+                            }
                         }
+                        .post__photo-hover{
+                            @include flex(row, center, center, nowrap);
+                            color: $colorBgHeader;
+                            background-color: rgba(2, 3, 22, 0.7);
+                            border-radius: 5px;
+                            @include font(500, 24px, 28px);
+                            width: 100%;
+                            height: 100%;
+                            position: absolute;
+                            cursor: pointer;
+ 
+                        }
+
                     }
                     .post__files-list{
                         @include flex(row, flex-start, center, nowrap);
@@ -455,6 +474,13 @@
                     }
                 }
                 &__add-comment{
+                    input{
+
+                        position: absolute;
+                        width: 10%;
+                        z-index: -1;
+    
+                    }
                     padding: 24px 0px 28px 0px;
                     @include flex(row, flex-start, center, nowrap);
                     .avatar{
@@ -469,6 +495,7 @@
                         @include flex(row, flex-start, center, nowrap);
                         background-color: $colorBg;
                         .post__addtext-wrap{
+                            position: relative;
                             width: calc(100% - 40px);
                             .post__addtext{
                                 cursor: text;
