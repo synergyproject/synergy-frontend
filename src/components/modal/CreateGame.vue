@@ -160,8 +160,7 @@
             ]),
 
             loadPhoto (event) {
-                let uploadedFile = event.target.files[0];
-                
+                let uploadedFile = event.target.files[0],                
                     size = uploadedFile.size,
                     fileFormat = uploadedFile.name.split(".").pop()
 
