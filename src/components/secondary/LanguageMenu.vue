@@ -42,6 +42,13 @@
             <div 
                 class="language"
                 :class="getLanguageStyles()"
+                @click="setLocale('ua')" 
+            >
+                Укр
+            </div>
+            <div 
+                class="language"
+                :class="getLanguageStyles()"
                 @click="setLocale('en')" 
             >
                 Eng

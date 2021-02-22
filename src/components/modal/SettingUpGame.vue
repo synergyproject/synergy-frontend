@@ -477,10 +477,10 @@
 
             addPlayer () {
                 this.errorMessage = '';
-                let reg = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+                let lowerEmail = this.email.toLowerCase();
+                let checkedEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(lowerEmail);
 
-				if (reg.test(this.email)) {
-
+				if (checkedEmail) {
 					this.INVITE_NEW_PLAYER(
 						{   
                             id: this.id,

@@ -171,6 +171,51 @@
                 >
                     {{ $t('m_licenses_available') }} {{GET_LICENSES}}
                 </div>
+
+
+
+                <div class="help-container">
+                    <div 
+                        class="help"
+                        v-if="helpVisible"
+                        @click="openHelpForm()"
+                    >
+                        ?
+                        <div class="contact-support">
+                            {{ $t('m_contact_support') }}
+                        </div>
+                    </div>
+                    <div 
+                        class="help-form"
+                        v-else
+                    >
+                        <div class="help-info">
+                            {{ $t('m_message_to_support') }}
+                        </div>
+                        <textarea
+                            maxlength="1000"
+                            v-model="helpRequest"                       
+                        ></textarea>
+                        <div class="help-buttons-container">
+                            <div 
+                                class="basic-buttons help-button"
+                                @click="sendHelpRequest()"
+                            >
+                                {{ $t('m_send') }}
+                            </div>
+                            <div 
+                                class="basic-buttons help-button"
+                                @click="closeHelpForm()"
+                            >
+                                {{ $t('m_cancel') }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
             </div>
             <div class="blur" v-if="GET_PRIMARY_BLUR"></div>
         </div>
@@ -244,7 +289,7 @@
                 adminVisible: false,
                 changePassVisisble: false,
                 coachVisible: true,
-
+                helpVisible: true,
                 usernameTelegramInput: false,
                 phoneInput: false,
                 birthdayInput: false,
@@ -255,7 +300,8 @@
                     roles: []
                 },
                 currentLanguage: 'eng',
-                languageMenuDesign: 1
+                languageMenuDesign: 1,
+                helpRequest: ''
             }
         },
 
@@ -311,7 +357,11 @@
 
         methods: {
             ...mapMutations([ 'SET_PRIMARY_BLUR' ]),
-            ...mapActions([ 'USERS_FROM_SERVER', 'SEND_USER' ]),
+            ...mapActions([ 
+                'USERS_FROM_SERVER', 
+                'SEND_USER',
+                'SEND_QUESTION' 
+            ]),
 
             openAdmin () {
                 this.coachVisible =  false;
@@ -422,6 +472,23 @@
             //в зависимости от роли юзера отображается блок "количество лицензий" / "кабинет администратора"
             checkRoles (role) {
                 return this.user.roles.includes(role)
+            },
+
+            openHelpForm () {
+                this.helpVisible = false
+            },
+
+            closeHelpForm () {
+                this.helpVisible = true
+            },
+
+            sendHelpRequest () {
+                if (this.helpRequest) {
+                    this.SEND_QUESTION({
+                        text: this.helpRequest
+                    })
+                }
+                this.helpVisible = true
             }
         }
     }

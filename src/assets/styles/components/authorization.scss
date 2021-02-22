@@ -74,6 +74,8 @@
                         display: flex;
                         margin-top: 4px;
                         color: $colorError;
+                        justify-content: space-between;
+
                         .input-basement__left{
                             font-style: italic;
                         }
@@ -81,6 +83,13 @@
                             height: 14px;
                             width: 14px;
                             margin-right: 4px;
+                        }
+                        .input-basement__right{
+                            font-weight: normal;
+                            font-size: 12px;
+                            line-height: 14px;
+                            color: #3E378D;
+                            cursor: pointer;
                         }
                     }
                     input{
@@ -114,43 +123,6 @@
                     } 
                 }
             }
-            // .password-help{
-            //     position: absolute;
-            //     top:100px;
-            //     right: -34px;
-            //     margin-top: 21px; 
-            //     .question-icon{
-            //         width: 20px;
-			// 		height: 20px;
-            //         margin-left: 14px;
-            //         &:hover ~ .help-content{
-            //             display: flex;
-            //         }					
-            //     }
-            //     .help-content{
-            //         position: absolute;
-            //         top:0px;
-            //         right: -219px;
-            //         background-color: $colorBgHeader;
-            //         border-radius: 8px;
-            //         border: 1px solid $borderColor;
-            //         display: none;
-            //         .help-content__text{
-            //             padding: 8px;
-            //             width: 209px;
-            //             height: 200px;
-            //             font-style: normal;
-            //             font-weight: normal;
-            //             font-size: 9px;
-            //             line-height: 11px;
-            //             color: $colorPrimary;
-            //             display: inline;
-            //             b{
-            //                 display: inline;
-            //             }
-            //         }
-            //     }
-            // }
         }
     }   
 }

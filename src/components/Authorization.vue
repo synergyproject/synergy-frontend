@@ -32,12 +32,12 @@
 								@click="changeEye(false)"
 							>
 								<img
-									 src="@/assets/img/icon_eye_close.png"
-									 v-show="this.eyePassVisible"
+									src="@/assets/img/icon_eye_close.png"
+									v-show="this.eyePassVisible"
 								>
 								<img
-									 src="@/assets/img/icon_eye_open.png"
-									 v-show="!this.eyePassVisible"
+									src="@/assets/img/icon_eye_open.png"
+									v-show="!this.eyePassVisible"
 								>
 							</div>
 							<div class="input-header">
@@ -51,11 +51,22 @@
 								placeholder="g0y9d8c"
 							>
 							<div class="input-basement">
-								<div class="input-basement__left">
+								<div>
+									<div 
+										class="input-basement__left"
+										v-if="info_message"
+									>
 									<img src="@/assets/img/icon_attention.png">
 									<span>
 										{{ $t(info_message) }}
 									</span>
+								</div>
+								</div>
+								<div 
+									class="input-basement__right"
+									@click="forgotPassword()"
+								>
+									{{ $t('m_forgot_password') }}
 								</div>
 							</div>
 						</div>
@@ -66,29 +77,15 @@
 							{{ $t('m_enter') }}
 						</div>
 					</div>
-					<!-- <div class="password-help">
-						<img
-							src="@/assets/img/help_circle.png"
-							class="question-icon"
-						>
-						<div class="help-content">
-							<div class="help-content__text">
-								{{ $t('m_help_content_text[0]') }} <b>{{ $t('m_help_content_text[1]') }}</b><br>
-								{{ $t('m_help_content_text[2]') }} <b>{{ $t('m_help_content_text[3]') }}</b> {{ $t('m_help_content_text[4]') }}<br>
-								<br>
-								{{ $t('m_help_content_text[5]') }} <b>(A-z)</b>,<br>
-								{{ $t('m_help_content_text[6]') }} <b>(0-9)</b><br>
-								{{ $t('m_help_content_text[7]') }}
-								<b>( . , : ; ? ! * + % - < > @ [ ] { } ( ) / \ _ {} $ # )</b>.
-								<br><br>
-								{{ $t('m_help_content_text[8]') }} <b>А-Z</b>, {{ $t('m_help_content_text[9]') }}
-								{{ $t('m_help_content_text[10]') }} <b>а-z</b>, {{ $t('m_help_content_text[11]') }}
-							</div>
-						</div>
-					</div> -->
 				</div>
 			</div>
 		</div>
+
+		<modal v-show="this.modalVisible" v-if="this.modalVisible" @close='closeModal'>
+			<template v-slot:modal-content>
+				<pass-recovery @close='closeModal'></pass-recovery>	
+			</template>
+		</modal> 
 	</div>
 </template>
 
@@ -98,13 +95,17 @@
 	import icon_eye_close from '@/assets/img/icon_eye_close.png';
 	import icon_eye_open from '@/assets/img/icon_eye_open.png';
 	import LanguageSelector from './secondary/LanguageSelector.vue';
-	import bg from '@/assets/img/login_background.png'
+	import bg from '@/assets/img/login_background.png';
+	import Modal from '@/components/modal/Modal';
+	import PassRecovery from '@/components/modal/PassRecovery';
 
 	export default {
 		name: 'authorization',
 
 		components: {
-			LanguageSelector
+			LanguageSelector,
+			PassRecovery,
+			Modal
 		},
 
 		data () {
@@ -114,9 +115,11 @@
 				info_message:'',
 				errors: {
 					err_confirm: 'm_error_confirm',
-					err_emptyField: 'm_error_empty_field'
+					err_emptyField: 'm_error_empty_field',
+					err_email: 'm_wrong_email'
 				},
 				eyePassVisible: true,
+				modalVisible: false,
 				inputTypePass: 'password',
 				loginImage: bg,
 			}
@@ -128,12 +131,21 @@
 		},
 
 	  	methods: {
+			closeModal () {
+		  		this.modalVisible = false  		
+            },
+
 			authorization: function () {
-				if (this.email && this.pass) {
-					this.info_message = this.errors.good
+				this.info_message = '';
+                let lowerEmail = this.email.toLowerCase();
+                let checkedEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(lowerEmail);
+
+				if (checkedEmail && this.pass) {
 					this.send()
-				} else {
+				} else if (!this.pass) {
 					this.info_message = this.errors.err_emptyField
+				} else if (!checkedEmail) {
+					this.info_message = this.errors.err_email
 				}
 			},
 
@@ -157,16 +169,19 @@
 				.then(response => {
 					const token = response.headers.authorization.split(' ')[1]
 					this.$store.dispatch('SET_TOKEN', token)
-					this.info_message = this.errors.good
 				})
 				.then(resolve => {
 					if(this.$store.state.auth.token)
 						this.$router.push({ path: '/main'})
 				})
 				.catch(error => {
-					this.info_message = error.message
+					this.info_message = this.errors.err_confirm
 				});
-			}  	
+			},
+			
+			forgotPassword () {
+				this.modalVisible = true
+			}
 		}  			
 	}
 </script>

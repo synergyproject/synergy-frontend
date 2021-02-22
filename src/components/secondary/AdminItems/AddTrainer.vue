@@ -95,9 +95,11 @@
 			...mapActions([ 'ADD_NEW_COACH', 'INVITE_COACH']),
 
             checkEmail() {
-				let reg = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+				this.errorMessage = '';
+                let lowerEmail = this.email.toLowerCase();
+                let checkedEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(lowerEmail);
 
-				if (reg.test(this.email)) {
+				if (checkedEmail) {
 					this.INVITE_COACH(
 						{
 							email: this.email

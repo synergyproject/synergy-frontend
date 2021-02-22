@@ -73,13 +73,16 @@
                     placeholder="********"
                 >
                 <div class="input-basement">
-                    <div class="input-basement__left">
-                        <img src="@/assets/img/icon_attention.png">
-                        {{ $t(info_message) }}
-                    </div>
-                    <div class="input-basement__right">
-                        {{ $t('m_forgot_password') }}
-                    </div>    
+                    <div
+                    >
+                        <div 
+                            class="input-basement__left"
+                            v-if="info_message"
+                        >
+                            <img src="@/assets/img/icon_attention.png">
+                            {{ $t(info_message) }}
+                        </div>
+                    </div> 
                 </div>
             </div>
             <div 

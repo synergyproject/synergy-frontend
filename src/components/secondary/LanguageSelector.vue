@@ -14,6 +14,13 @@
 		>
 			{{ 'RU' }}
 		</a>
+		<a
+			 class="language-selector__link"
+			 href="#"
+			 @click="setLocale('ua')"
+		>
+			{{ 'UA' }}
+		</a>
 	</div>
 </template>
 

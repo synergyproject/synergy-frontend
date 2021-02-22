@@ -129,6 +129,7 @@
 	"m_trainer_exists": "Such Business Coach already exists",
 	"m_trainer_blocked": "This Business Coach was previously blocked. First you need to unblock account",
 	"m_send_invitation": "Send an invitation",
+	"m_send": "Send",
 	"m_invitation_letter": "Invitation letter sent to Business coach",
 	"m_player_already_registered": "This email is already registered as a Player. Do you want to transfer him to the 'Business Coach' status",
 	"m_cancel": "Canсel",
@@ -143,5 +144,7 @@
 	"m_back":"Back",
 	"m_enter_title": "Enter the title",
 	"m_player_locked": "Player with current email is locked/archived. Please contact administrator",
-	"m_player_in_game": "This player is already in the game"
+	"m_player_in_game": "This player is already in the game",
+	"m_message_to_support": "Send a message to technical support",
+	"m_contact_support": "Contact technical support"
 }

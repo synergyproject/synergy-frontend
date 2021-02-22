@@ -138,8 +138,23 @@ export default {
                     throw error;
                 });
 
+        },
+
+        SEND_QUESTION ({ commit }, payload) {
+            return axios
+            .post(`http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/support`, payload, 
+                {
+				    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${localStorage.getItem("token")}`
+					}
+				})
+				.then((response) => {
+					return response
+				})
+				.catch((error) => {
+					throw error;
+				})
         }
-
-
     }   
 }
