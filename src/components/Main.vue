@@ -483,6 +483,7 @@
             },
 
             sendHelpRequest () {
+                console.log(this.helpRequest);
                 if (this.helpRequest) {
                     this.SEND_QUESTION({
                         text: this.helpRequest
