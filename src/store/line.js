@@ -228,5 +228,29 @@ export default {
             throw error;
           });
       }, 
+      'CHANGE_POST'({ commit}, payload) {
+        const formData = new FormData();
+        formData.append('text', payload.text);
+        formData.append('fileUrls', payload.fileUrls);
+        // payload.fileUrls.forEach(url => {
+        //   formData.append('fileUrls', url)
+        //   })
+
+        return axios
+          .put(`http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/games/${payload.gameID}/feed/${payload.postID}`, formData, {
+            headers: {
+              
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            }
+          })
+          .then(response => {
+            console.log('posts', response)
+            // commit("SET_NEW_POST", response.data)
+            return response
+          })
+          .catch(error => {
+            throw error;
+          });
+      },  
     },
   } 
