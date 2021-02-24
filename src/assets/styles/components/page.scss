@@ -324,7 +324,15 @@
                     .post__text.close{
                         max-height: 192px;
                     }
-                    .post__text-show{
+                    .post__text.change{
+                        padding: 10px;
+                        border: 1px solid $colorPrimary;
+                    }
+                    .post__text-btn.hidden{
+                        display: none;
+                    }
+                    .post__text-show,
+                    .post__text-btn{
                         margin-top: 12px;
                         color:$colorSecond;
                         @include font(500, 14px, 16px);

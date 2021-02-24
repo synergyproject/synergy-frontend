@@ -1,5 +1,5 @@
 <template>            
-    <article :class="'post '+'post_'+num" >
+    <article :class="'post '+'post_'+num" @click="closeMenu">
         <header class="post__header">
             <div class="post__author">
                 <div 
@@ -42,7 +42,7 @@
                 >
                     <div 
                         class="post__menu-img"
-                        @click = "showMenu"
+                        @click.stop = "showMenu"
                     >
                         <img 
                             class="post__menu-icon"
@@ -51,7 +51,7 @@
                     </div>
                     <div class="post__menu-listwrap">
                         <ul class="post__menu-list">
-                            <li class="post__menu-item">
+                            <li class="post__menu-item" @click="openChange">
                                 <span>
                                     {{ $t('m_edit_post') }}
                                 </span>
@@ -74,6 +74,9 @@
             >
                 <div class="post__text">
                     {{post.text}}
+                </div>
+                <div class="post__text-btn hidden" @click="saveChange">
+                    {{$t("m_save")}}
                 </div>
                 <div 
                     v-if="showTextBtn"
@@ -286,7 +289,8 @@
         },
         
         methods: {
-            ...mapActions(['SEND_LIKE', 'DEL_LIKE', 'POSTS_FROM_SERVER', 'DEL_POST', 'SEND_COMMENT']),  
+            ...mapActions(['SEND_LIKE', 'DEL_LIKE', 'POSTS_FROM_SERVER', 'DEL_POST', 'SEND_COMMENT', 'CHANGE_POST']),  
+            
             createDate(date){
                 let f = new Date(date)
                 let year= f.getFullYear()
@@ -326,7 +330,15 @@
 
             
             },
+            closeMenu(){
+                
+                let menu = document.querySelector(`.post_${this.num}>.post__header>.post__settings>.post__menu>.post__menu-listwrap`)                
+                if(menu&&menu.classList.contains('visible')) {
+                    menu.classList.remove('visible')}
+              
+            },
             showMenu(){
+                
                 let menu = document.querySelector(`.post_${this.num}>.post__header>.post__settings>.post__menu>.post__menu-listwrap`)                
                 if(menu.classList.contains('visible')) {
                     
@@ -335,6 +347,7 @@
                     menu.classList.add('visible')
                 }
             },
+
             fileName(){
                 let name = this.files.map(item => item.slice(+item.lastIndexOf('/')+1))
                 return name
@@ -417,10 +430,48 @@
             },
             openSliderWindow(){
                 this.sliderShow = true;
+            },
+            openChange(){
+                const text = document.querySelector(`.post_${this.num} .post__text`)
+                const btn = document.querySelector(`.post_${this.num} .post__text-btn`)
+                if (!text.classList.contains('change')){
+                    text.classList.add('change')
+                }
+                if(!text.hasAttribute('contenteditable')){
+                    text.setAttribute('contenteditable', 'true')
+                }
+                if (btn.classList.contains('hidden')){
+                    btn.classList.remove('hidden')
+                }
+            },
+            saveChange(){
+                const text = document.querySelector(`.post_${this.num} .post__text`)
+                const btn = document.querySelector(`.post_${this.num} .post__text-btn`)
+                const data = {
+                    gameID: this.gameID,
+                    postID: this.post.id,
+                    text: text.innerHTML,
+                    fileUrls:this.post.fileUrls
+                }
+                console.log('data', data)
+
+
+                    this.CHANGE_POST(data)                
+                    .then(resolve => {
+                        this.POSTS_FROM_SERVER(this.gameID)
+                        text.classList.remove('change')
+                        text.removeAttribute('contenteditable', 'true')
+
+                        btn.classList.add('hidden')
+                     
+                    })
+
+          
+
             }
 
+            
         }
     }
-
 
 </script>
