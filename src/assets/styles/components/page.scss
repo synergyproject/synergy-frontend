@@ -152,7 +152,7 @@
             .addpost{
                 margin-bottom: 24px;
                 padding: 42px 32px;
-                @include flex(row, flex-start, center, nowrap);
+                @include flex(row, flex-start, center, wrap);
                 input{
 
                     position: absolute;
@@ -210,6 +210,32 @@
                         border-radius: 0 5px  5px 0;
                         background-color: initial;
                     }
+
+                }
+                &__prevues{
+                    width: 100%;
+                    @include flex(column, flex-start, flex-start, nowrap);
+                    margin-top: 20px;
+                    &-item{
+                        width: fit-content;
+                        @include flex(row, flex-start, flex-start, nowrap);
+                        padding: 5px;
+                        &::not(:last-child){
+                            margin-bottom: 10px;
+                        }
+                        .addpost__prevues-name{
+                            margin-right: 10px;
+                        }
+                        .addpost__prevues-btn{
+                            cursor: pointer;
+                            img{
+                                width: 12px;
+                                height: 12px;
+                            }
+                            
+                        }
+                    }
+
                 }
             }
             .post{
@@ -394,7 +420,34 @@
                         }
                     }
                     
+                    .post__photo-list-prev.hidden, 
+                    .post__photo-list.hidden{
+                        display: none
+                    }
+                    .post__photo-list-prev{
+                        @include flex(row, flex-start, center, nowrap);
+                        margin-top: 24px;
+                        
+                        
+                        .post__photo-prev{
+                            width: 80px;
+                            height: 80px;
+                            margin-right: 24px;
+                            border-radius: 5px;
+                            background-color: $colorBg;
+                            background-repeat: no-repeat;
+                            background-position: center center;
+                            background-size: cover;
+                            position: relative;
+                            @include flex(row, flex-end, flex-start, nowrap);
+                            .post__prevues-btn{
+                                cursor: pointer;
+                                width: 30px;
+                                height: 30px;
+                            }
 
+                        }
+                    }
                     .post__photo-list{
                         @include flex(row, space-between, center, nowrap);
                         margin-top: 24px;
@@ -414,6 +467,7 @@
                                 }
                             }
                         }
+
                         .post__photo-hover{
                             @include flex(row, center, center, nowrap);
                             color: $colorBgHeader;
@@ -427,6 +481,34 @@
  
                         }
 
+                    }
+                    .post__files-list-prev.hidden,
+                    .post__files-list.hidden{
+                        display: none;
+                    }
+                    .post__files-list-prev{
+                        width: 100%;
+                        @include flex(column, flex-start, flex-start, nowrap);
+                        margin-top: 20px;
+                        .post__files-item-prev{
+                            width: fit-content;
+                            @include flex(row, flex-start, flex-start, nowrap);
+                            padding: 5px;
+                            &::not(:last-child){
+                                margin-bottom: 10px;
+                            }
+                            .post__files-name{
+                                margin-right: 10px;
+                            }
+                            .post__prevues-btn{
+                                cursor: pointer;
+                                img{
+                                    width: 12px;
+                                    height: 12px;
+                                }
+                                
+                            }
+                    }
                     }
                     .post__files-list{
                         @include flex(row, flex-start, center, nowrap);

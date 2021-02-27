@@ -15,55 +15,7 @@ export default {
               photo: ""
           }
         },
-      game: {
-        gameId: '123', 
-        title: 'Великолепная Игра', 
-        date: '15.07.2020',
-        rating: [
-          {
-            userId: '11',
-            firstName: 'Георгий',
-            surname: 'Васергольштейн',
-            avatar: null,  
-            rating:'1'
-          },          {
-            userId: '33',
-            firstName: 'Роман',
-            surname: 'Васергольштейн',
-            avatar: null,  
-            rating:'2'
-          },
-          {
-            userId: '4',
-            firstName: 'Роман',
-            surname: 'Каземиров',
-            avatar: null,  
-            rating:'3'
-          },
-          {
-            userId: '99',
-            firstName: 'Данил',
-            surname: 'Ким',
-            avatar: null,  
-            rating:'4'
-          },
-          {
-            userId: '7',
-            firstName: 'Дмитрий',
-            surname: 'Васергольштейн',
-            avatar: null,  
-            rating:'5'
-          },
-          {
-            userId: '8',
-            firstName: 'Георгий',
-            surname: 'Васичкин',
-            avatar: null,  
-            role:'user'
-        },
-
-        ]
-      },
+      rating:[],
 
       posts:[],
 
@@ -80,8 +32,8 @@ export default {
       },
       
       // возвращаем данные по выбранной игре
-      GET_GAME (state) {
-        return state.game
+      GET_RATING (state) {
+        return state.rating
       },
 
       GET_SELECTED_GAME (state) {
@@ -97,11 +49,10 @@ export default {
       SET_LIST_OF_POSTS (state, payload) {
         state.posts = payload;
       },
-      // SET_NEW_POST(state, payload){
-      //   console.log(payload)
-      //   state.posts.push(payload)
-      //   console.log(state.posts)
-      // }
+      SET_RATING(state, payload){
+        state.rating = payload;
+      },
+
     },
     actions: {
       "POSTS_FROM_SERVER"({ commit }, payload) {
@@ -116,6 +67,25 @@ export default {
           )
           .then((response) => {
             commit("SET_LIST_OF_POSTS", response.data.posts);
+            return response;
+          })
+          .catch((error) => {
+            throw error;
+          });
+      },
+      "RATING_FROM_SERVER"({ commit }, payload) {
+        return axios
+          .get(
+            `http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/games/${payload}/ratings`,
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            }
+          )
+          .then((response) => {
+            console.log('r', response.data)
+            commit("SET_RATING", response.data);
             return response;
           })
           .catch((error) => {
@@ -229,15 +199,9 @@ export default {
           });
       }, 
       'CHANGE_POST'({ commit}, payload) {
-        const formData = new FormData();
-        formData.append('text', payload.text);
-        formData.append('fileUrls', payload.fileUrls);
-        // payload.fileUrls.forEach(url => {
-        //   formData.append('fileUrls', url)
-        //   })
 
         return axios
-          .put(`http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/games/${payload.gameID}/feed/${payload.postID}`, formData, {
+          .put(`http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/games/${payload.gameID}/feed/${payload.postID}`, payload.updatedPostReq, {
             headers: {
               
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -245,7 +209,7 @@ export default {
           })
           .then(response => {
             console.log('posts', response)
-            // commit("SET_NEW_POST", response.data)
+            
             return response
           })
           .catch(error => {
