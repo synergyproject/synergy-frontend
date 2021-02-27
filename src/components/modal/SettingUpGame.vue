@@ -175,6 +175,22 @@
                 </div>
             </div>  
         </div> 
+
+        <div class="set_game-buttons">
+            <div 
+                class="confirm-button basic-buttons" 
+                @click="editGame()"
+            >
+                {{ $t("m_save_settings") }}
+            </div>
+            <div 
+                class="finish-button basic-buttons"
+                @click="finishGame()"
+
+            >
+                {{ $t("m_finish_game") }}
+            </div>
+        </div>
         	
         <hr />
         <div class="set_game__players">
@@ -278,7 +294,7 @@
             </ul>
         </div>
 
-        <div class="set_game-buttons">
+        <!-- <div class="set_game-buttons">
             <div 
                 class="confirm-button basic-buttons" 
                 @click="editGame()"
@@ -292,7 +308,7 @@
             >
                 {{ $t("m_finish_game") }}
             </div>
-        </div>
+        </div> -->
 
     </div>
 </template>

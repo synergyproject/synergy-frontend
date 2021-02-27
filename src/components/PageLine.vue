@@ -106,7 +106,7 @@
         },
         beforeDestroy(){
             window.removeEventListener('resize', this.onResize)
-            localStorage.removeItem('GameSelected')
+            // localStorage.removeItem('GameSelected')
         },
         computed: {
             ...mapGetters(['GET_USER', 'GET_SELECTED_GAME', 'GET_POSTS', 'GET_GAME']),

@@ -50,6 +50,7 @@
             width: 340px;
             height: 215px;
             background: #FFFFFF;
+            border-radius: 5px;
             align-items: center;
             justify-content: center;
             flex-direction: column;
@@ -367,6 +368,7 @@
     .set_game-buttons{
         align-self:center;
         margin-top: 34px;
+        margin-bottom: 35px;
         .confirm-button,
         .finish-button{
             width: 214px;

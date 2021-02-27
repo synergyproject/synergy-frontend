@@ -185,10 +185,9 @@
     import EditReport from '@/components/calendar/modal/EditReport';
     import icon_pencil from '@/assets/img/icon_pencil.png';
     import ad_file from '@/assets/img/ad_file.png';
-	import { mapMutations, mapGetters } from 'vuex';
+	import { mapMutations, mapGetters, mapActions } from 'vuex';
 
 	export default {
-
         name: 'Reports',
 
         props: {
@@ -216,12 +215,16 @@
 		},
 
 		computed: {
-            ...mapGetters(['GET_TODOLIST']),
-            ...mapGetters(['GET_GOALS']),
-            ...mapGetters(['GET_FILES'])           
+            ...mapGetters([ 
+                'GET_TODOLIST',
+                'GET_GOALS',
+                'GET_FILES',
+                'GET_SELECTED_GAME'
+            ])          
         },
 
         created (){
+            this.GET_TASKS_FROM_SERVER(this.GET_SELECTED_GAME.id);
             let list = this.GET_TODOLIST;
             
             //если на завтрашний день еще не существует обьекта в ToDo - создаём
@@ -236,9 +239,15 @@
         },
 
 	  	methods: {
-            ...mapMutations(['SET_TODOLIST_REPORTSENT']),
-            ...mapMutations(['SET_NEW_TODO_LIST']),
-            ...mapMutations(['SET_FILES']),
+            ...mapMutations([
+                'SET_TODOLIST_REPORTSENT',
+                'SET_FILES',
+                'SET_NEW_TODO_LIST'
+            ]),
+
+            ...mapActions([ 
+				'GET_TASKS_FROM_SERVER'
+			]),
 
             closeModal: function () {
                 this.modalVisible = false;

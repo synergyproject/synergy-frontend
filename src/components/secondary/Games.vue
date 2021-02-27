@@ -88,7 +88,7 @@
                         </div>
                     </div> 
                 </div>
-                <div class="game-button">
+                <div class="game-status">
                     {{$t(getGameStatus(item.startDate, item.endDate))}}
                 </div>
             </div>    
@@ -170,7 +170,6 @@
                     })
             },
            
-            // все даты в днях чтобы легче было отслеживать 
             calcCurrentDate: function() {
                 let	date = new Date();
                 let	currentDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
@@ -179,16 +178,21 @@
 
             daysLeft: function (startDate, endDate) {
                 let startDateNumber = Math.ceil((Date.parse(startDate)) / 86400000),
-                    endDateNumber = Math.ceil((Date.parse(endDate)) / 86400000),
-                    currentDateNumber = this.calcCurrentDate();
+                    endDateNumber = Math.ceil((Date.parse(endDate)) / 86400000);
+                    // currentDateNumber = this.calcCurrentDate();
 
-                if (currentDateNumber < startDateNumber) {
+                // if (currentDateNumber < startDateNumber) {
+                //     return endDateNumber - startDateNumber
+                // } else if (endDateNumber >= startDateNumber && currentDateNumber <= endDateNumber) {
+                //     return endDateNumber - currentDateNumber;
+                // } else {
+                //     return 0
+                // }
+                if (endDateNumber >= startDateNumber) {
                     return endDateNumber - startDateNumber
-                } else if (endDateNumber >= startDateNumber && currentDateNumber <= endDateNumber) {
-                    return endDateNumber - currentDateNumber;
                 } else {
                     return 0
-                }
+                }                    
             },
 
             getGameStatus: function(startDate, endDate) {

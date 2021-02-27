@@ -126,7 +126,32 @@ export default {
 			{visible: false}, 
 			{visible: false}, 
 			{visible: false}
-		]   
+		],
+		
+		tasks: {}
+		// {
+		// 	"goals": [
+		// 	  {
+		// 		"description": "string",
+		// 		"endDate": "string",
+		// 		"goalStatus": "string",
+		// 		"id": 0,
+		// 		"number": 0,
+		// 		"startDate": "string",
+		// 		"title": "string"
+		// 	  }
+		// 	],
+		// 	"reports": [
+		// 	  {
+		// 		"date": "string",
+		// 		"id": 0,
+		// 		"lifeCounter": 0,
+		// 		"toDoTomorrow": [
+		// 		  "string"
+		// 		]
+		// 	  }
+		// 	]
+		// }
 	},
 	
 	getters: {
@@ -144,6 +169,10 @@ export default {
 
 		GET_FILES (state) {
 			return state.files
+		},
+
+		GET_TASKS (state) {
+			return state.tasks
 		}
 	},
 
@@ -204,12 +233,15 @@ export default {
 		SET_STATUS_MENU (state, value) {
 			//value приходит в виде {index: number, visible: boolean}
 			state.statusMenu[value.index].visible = value.visible
-		}
+		},
+
+		SET_TASKS (state, value) {
+			state.tasks = value
+		}	
 	},
 		
 	actions: {
 		GET_TASKS_FROM_SERVER ({ commit }, payload) {
-			console.log(payload);
             return axios
                 .get(
                     `http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/games/${payload}/tasks`,
@@ -221,8 +253,26 @@ export default {
                     }
                 )
                 .then((response) => {
-                    // commit("SET_CURRENT_GAME", response.data);
-					console.log(response.data);
+                    commit("SET_TASKS", response.data);
+                    return response.data;
+                })
+                .catch((error) => {
+                    throw error;
+                });       
+        },
+
+		UPDATE_GOAL ({ commit }, payload) {
+            return axios
+                .put(
+                    `http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/games/${payload.id}/goals`, payload.goal,
+                    {
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${localStorage.getItem("token")}`,
+                        },
+                    }
+                )
+                .then((response) => {
                     return response.data;
                 })
                 .catch((error) => {

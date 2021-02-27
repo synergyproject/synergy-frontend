@@ -6,7 +6,7 @@
 
                 <div class="menu-buttons-container">                          
                     <language-menu :languageMenuDesign='languageMenuDesign' />
-                    <div class="logo" @click="goObjectives()">
+                    <div class="logo">
                         <img src="@/assets/img/Logo_dark.png" >
                     </div>                         
                     <router-link

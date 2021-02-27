@@ -47,13 +47,13 @@
                             >
                                 {{ $t('m_active') }}
                             </div>
-                            <div
+                            <!-- <div
                                 :style="{background: goalStatus[1].backgroundColor}" 
                                 class="goal-status basic-buttons" 
                                 @click="selectStatus(index, 1)"
                             >
                                 {{ $t('m_expired') }}
-                            </div>
+                            </div> -->
                             <div 
                                 :style="{background: goalStatus[2].backgroundColor}" 
                                 class="goal-status basic-buttons" 

@@ -47,7 +47,7 @@
                         @click="openGoalInfo(0, 0)"           
                     >
                         <div class="goal-content">
-                            {{GET_GOALS[0].name}}
+                            {{getTitle(0)}}
                         </div>
                         <img 
                             src="@/assets/img/icon_pencil.png" 
@@ -82,7 +82,7 @@
                         @click="openGoalInfo(1, 1)"
                     >
                         <div class="goal-content">
-                            {{GET_GOALS[1].name}}
+                            {{getTitle(1)}}
                         </div>
                         <img 
                             src="@/assets/img/icon_pencil.png" 
@@ -95,7 +95,7 @@
                         @click="openGoalInfo(1, 2)"
                     >
                         <div class="goal-content">
-                            {{GET_GOALS[2].name}}
+                            {{getTitle(2)}}
                         </div>
                         <img 
                             src="@/assets/img/icon_pencil.png" 
@@ -129,7 +129,7 @@
                         @click="openGoalInfo(2, 3)"
                     >
                         <div class="goal-content">
-                            {{GET_GOALS[3].name}}
+                            {{getTitle(3)}}
                         </div>
                         <img 
                             src="@/assets/img/icon_pencil.png" 
@@ -142,7 +142,7 @@
                         @click="openGoalInfo(2, 4)"
                     >
                         <div class="goal-content">
-                            {{GET_GOALS[4].name}}
+                            {{getTitle(4)}}
                         </div>
                         <img 
                             src="@/assets/img/icon_pencil.png" 
@@ -155,7 +155,7 @@
                         @click="openGoalInfo(2, 5)"
                     >
                         <div class="goal-content">
-                            {{GET_GOALS[5].name}}
+                            {{getTitle(5)}}
                         </div>
                         <img 
                             src="@/assets/img/icon_pencil.png" 
@@ -168,7 +168,7 @@
                         @click="openGoalInfo(2, 6)"
                     >
                         <div class="goal-content">
-                            {{GET_GOALS[6].name}}
+                            {{getTitle(6)}}
                         </div>
                         <img 
                             src="@/assets/img/icon_pencil.png" 
@@ -204,7 +204,7 @@
                             @click="openGoalInfo(3, 7)"
                         >
                             <div class="goal-content">
-                                {{GET_GOALS[7].name}}
+                                {{getTitle(7)}}
                             </div>
                             <img 
                                 src="@/assets/img/icon_pencil.png" 
@@ -219,7 +219,7 @@
                             @click="openGoalInfo(3, 8)"
                         >
                             <div class="goal-content">
-                                {{GET_GOALS[8].name}}
+                                {{getTitle(8)}}
                             </div>
                             <img 
                                 src="@/assets/img/icon_pencil.png" 
@@ -234,7 +234,7 @@
                             @click="openGoalInfo(3, 9)"
                         >
                             <div class="goal-content">
-                                {{GET_GOALS[9].name}}
+                                {{getTitle(9)}}
                             </div>
                             <img 
                                 src="@/assets/img/icon_pencil.png" 
@@ -313,7 +313,9 @@
                     false
                 ],
                 //в currentGoal хранится номер цели, для которой открыто расширенное инфокно.
-                currentGoal: 0
+                currentGoal: 0,
+
+                goals: []
 			}
 		},
 
@@ -323,18 +325,33 @@
 		},
 
 		computed: {
-            ...mapGetters(['GET_AVATAR']),
-            ...mapGetters(['GET_GOALS'])            
+            ...mapGetters([
+                'GET_AVATAR',
+                'GET_TASKS',
+                'GET_GOALS',
+                'GET_SELECTED_GAME'
+            ])
 		},	
 
 	  	methods: {
-            
+            ...mapActions([ 
+				'UPDATE_GOAL',
+                'GET_TASKS_FROM_SERVER'
+			]),
+
+            getTitle (number) {
+                return this.GET_TASKS.goals[number].title
+            },
+
+            getDescription (number) {
+                return this.GET_TASKS.goals[number].description
+            },
+
             //если не все цели заполнены то выводим предупреждение
             checkCalendarInfoMessage() {
-                let goals = this.GET_GOALS,
-                    goalsFilled = false;
-                for (let i = 0; i < goals.length; i++) {
-                    goalsFilled = goals[i].description ? false : true;
+                let goalsFilled = false;
+                for (let i = 0; i < 10; i++) {
+                    goalsFilled = this.GET_TASKS.goals[i].description ? false : true;
                 }
                 return goalsFilled ? this.calendarInfoMessage : ''
             },
@@ -362,8 +379,8 @@
                 this.currentGoal = goal;
                 this.goalInfoWrapper = true;
                 this.goalInfo[line] = true;
-                this.goalName = this.GET_GOALS[goal].name;
-                this.description = this.GET_GOALS[goal].description;
+                this.goalName = this.GET_TASKS.goals[goal].title;
+                this.description = this.GET_TASKS.goals[goal].description;
             },
             
             closeGoalInfo: function () {
