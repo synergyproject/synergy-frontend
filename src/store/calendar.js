@@ -25,108 +25,7 @@ export default {
 			}	
 		],
 		
-		files: [
-
-		],
-
-		// status имеет 3 варианта: 0 - 'Активная', 1 - 'Просроченная', 2 - 'Выполненная'
-		// reports - индекс массива равен дню в который был сделан отчет
-		goals: [
-			{
-				name: 'Цель 1', 
-				status: 0, 
-				description: 'rr',
-				reports: [
-					'лол кек чебурек'
-				]
-			},
-			{
-				name: 'Цель 2', 
-				status: 0, 
-				description: 'Какаято цель номер ДВААААА',
-				reports: [
-
-				]
-			},
-			{
-				name: 'Цель 3', 
-				status: 0, 
-				description: '',
-				reports: [
-					
-				]
-			}, 
-			{
-				name: 'Цель 4', 
-				status: 0, 
-				description: '',
-				reports: [
-
-				]
-			}, 
-			{
-				name: 'Цель 5', 
-				status: 0, 
-				description: '',
-				reports: [
-
-				]
-			}, 
-			{
-				name: 'Цель 6', 
-				status: 0, 
-				description: '',
-				reports: [
-					
-				]
-			}, 
-			{
-				name: 'Цель 7', 
-				status: 0,  
-				description: '',
-				reports: [
-
-				]
-			}, 
-			{
-				name: 'Цель 8', 
-				status: 0, 
-				description: '',
-				reports: [
-					
-				]
-			}, 
-			{
-				name: 'Цель 9', 
-				status: 0, 
-				description: '',
-				reports: [
-
-				]
-			}, 
-			{
-				name: 'Цель 10', 
-				status: 0, 
-				description: '',
-				reports: [
-
-				]
-			}
-		],
-
-		//отображаем/скрываем меню выбора статуса цели
-		statusMenu: [
-			{visible: false}, 
-			{visible: false}, 
-			{visible: false}, 
-			{visible: false}, 
-			{visible: false}, 
-			{visible: false}, 
-			{visible: false}, 
-			{visible: false}, 
-			{visible: false}, 
-			{visible: false}
-		],
+		files: [],
 		
 		tasks: {}
 		// {
@@ -157,14 +56,6 @@ export default {
 	getters: {
 		GET_TODOLIST (state) {
 			return state.todoList
-		},
-
-		GET_GOALS (state) {
-			return state.goals
-		},
-
-		GET_STATUS_MENU (state) {
-			return state.statusMenu
 		},
 
 		GET_FILES (state) {
@@ -212,14 +103,6 @@ export default {
 			}
 		},
 
-		SET_GOALS (state, value) {
-			//меняем Имя Игры, описание или статус
-			Object.assign(
-				state.goals[value[0]], 
-				value[1]
-			)
-		},
-
 		SET_GOALS_REPORTS (state, value) {
 			//value в виде {dayIndex: number, reports: array}
 			//индекс массива value.reports соответствует номеру цели и содержит отчет к ней
@@ -228,11 +111,6 @@ export default {
 			for (let i = 0; i < value.reports.length; i++) {			
 				state.goals[i].reports[value.dayIndex] = value.reports[i];
 			}
-		},
-		
-		SET_STATUS_MENU (state, value) {
-			//value приходит в виде {index: number, visible: boolean}
-			state.statusMenu[value.index].visible = value.visible
 		},
 
 		SET_TASKS (state, value) {
@@ -268,16 +146,59 @@ export default {
                     {
                         headers: {
                             "Content-Type": "application/json",
-                            Authorization: `Bearer ${localStorage.getItem("token")}`,
-                        },
+                            Authorization: `Bearer ${localStorage.getItem("token")}`
+                        }
                     }
                 )
                 .then((response) => {
                     return response.data;
                 })
                 .catch((error) => {
+					console.log(error);
                     throw error;
                 });       
-        }
+        },
+		
+		CHANGE_GOAL_STATUS ({ commit }, payload) {
+            switch (payload.status) {
+				case 'ACTIVE':
+					return axios
+						.put(
+							`http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/games/${payload.gameId}/goals/${payload.goalNumber}/active`,
+							{
+								headers: {
+									Authorization: `Bearer ${localStorage.getItem("token")}`
+								}
+							}
+						)
+						.then((response) => {
+							console.log('актив респонс', response)
+							return response.data;
+						})
+						.catch((error) => {
+							console.log('актив error ', error);
+							return error;
+						});  
+			
+				case 'DONE':
+					return axios
+						.put(
+							`http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/games/${payload.gameId}/goals/${payload.goalNumber}/done`,
+							{
+								headers: {
+									Authorization: `Bearer ${localStorage.getItem("token")}`
+								}
+							}
+						)
+						.then((response) => {
+							console.log('ДОНЕреспонс', response)
+							return response.data;
+						})
+						.catch((error) => {
+							console.log('ДОНЕ error ', error);
+							return error;
+						});
+			}
+		}	
 	}    
 }

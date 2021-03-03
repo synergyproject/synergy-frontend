@@ -3,7 +3,7 @@
 		<side-bar></side-bar>
 		<div class="calendar-wrapper">
 			<weeks :dayIndex='dayIndex'></weeks>
-			<reports :dayIndex='dayIndex'></reports>
+			<!-- <reports :dayIndex='dayIndex'></reports> -->
 			<goal-list :dayIndex='dayIndex'></goal-list>
 		</div>   
 	</div>    
@@ -36,7 +36,8 @@
             ...mapGetters([ 
 				'GET_USER', 
 				'GET_SELECTED_GAME',
-				'GET_CURRENT_GAME'
+				'GET_CURRENT_GAME',
+				'GET_TASKS'
 			])           
 		},
 
@@ -50,7 +51,6 @@
 			//не заполнив профиль - возвращаем его обратно на main к заполнению
 			this.USERS_FROM_SERVER()
                 .then(resolve => {
-					console.log('user ', resolve);
                     if (!this.GET_USER.firstName || !this.GET_USER.lastName || !this.GET_USER.phone) {
                         this.$router.push({ path: '/main' })
                     }
@@ -61,7 +61,6 @@
 						//проверка является ли пользовтель игроком, если нет не позволяем ему зайти в календарь
 						let checkPlayerId = false;
 						for (let i = 0; i < this.GET_CURRENT_GAME.activeUsers.length; i++) {
-							console.log(this.GET_CURRENT_GAME.activeUsers[i].id);
 							if (this.GET_USER.id === this.GET_CURRENT_GAME.activeUsers[i].id) {
 								checkPlayerId = true
 							}
@@ -95,7 +94,7 @@
                             this.GET_TASKS_FROM_SERVER(this.GET_SELECTED_GAME.id)
                         })     
                     }
-                }               
+                }             
             })		
 		},
 		

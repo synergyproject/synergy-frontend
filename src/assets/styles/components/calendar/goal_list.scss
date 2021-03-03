@@ -41,8 +41,8 @@
                         align-items: center;
                     }
                     .goal-description{
-                        width: 550px; //поставил наугад  -  нужно будет уточнить у дизигнера
-                        height: 40px;
+                        width: 550px; 
+                        max-height: 40px;
                         overflow: hidden;
                     }
                 }
@@ -102,5 +102,12 @@
     }
     .list-wrapper > :last-child{
         margin-bottom: 24px;
+    }
+    .status-menu-wrapper{
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        left: 0;
     }
 }

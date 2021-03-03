@@ -18,7 +18,8 @@
             v-model="description"
         ></textarea>
         <div 
-            class="save-button basic-buttons" 
+            class="save-button basic-buttons"
+            v-if="name" 
             @click="saveGoal"
         >
             {{ $t('m_save') }}
@@ -27,8 +28,7 @@
 </template>
 
 <script>
-	import axios from 'axios';
-	import { mapMutations, mapGetters, mapActions } from 'vuex';
+	import { mapGetters, mapActions } from 'vuex';
 
 	export default {
         name: 'EditGoal',
@@ -51,34 +51,39 @@
 		},
 
 		mounted () {
-            this.name = this.GET_GOALS[this.goalIndex].name;
-            this.description = this.GET_GOALS[this.goalIndex].description;
+            this.name = this.GET_TASKS.goals.filter(val => {
+                return val.number === (this.goalIndex + 1);
+            })[0].title;
+            this.description = this.GET_TASKS.goals.filter(val => {
+                return val.number === (this.goalIndex + 1);
+            })[0].description;
 		},
 
 		computed: {
-            ...mapGetters(['GET_GOALS'])
+            ...mapGetters([
+                'GET_TASKS',
+                'GET_SELECTED_GAME'
+            ])
 		},
         			
 	  	methods: {
-            ...mapMutations(['SET_GOALS']),
+              ...mapActions([ 
+				'GET_TASKS_FROM_SERVER',
+				'UPDATE_GOAL'
+			]),
 
             saveGoal: function() {
-                if (this.name) {
-                    this.SET_GOALS([
-                        this.goalIndex,
-                        {name: this.name}
-                    ])
-                } else {
-                    let goalName = 'Цель ' + (this.goalIndex + 1)   
-                    this.SET_GOALS([
-                        this.goalIndex,
-                        {name: goalName}
-                    ])
-                }
-                this.SET_GOALS([
-                    this.goalIndex, 
-                    {description: this.description}
-                ])
+                this.UPDATE_GOAL({
+                    goal: {
+                        number: this.goalIndex+1,
+                        title: this.name,
+                        description: this.description                               
+                    },
+                    id: this.GET_SELECTED_GAME.id
+                })
+                .then(resolve => {               
+                    this.GET_TASKS_FROM_SERVER(this.GET_SELECTED_GAME.id) 
+                })
                 this.$emit('closeEditGoal');
             }
         }      			

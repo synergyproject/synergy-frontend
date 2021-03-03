@@ -99,7 +99,6 @@
 						//проверка является ли пользовтель игроком в этой игре, 
                         // если нет скрываем кнопку
                         for (let i = 0; i < this.GET_CURRENT_GAME.activeUsers.length; i++) {
-                            console.log(this.GET_CURRENT_GAME.activeUsers[i].id);
                             if (this.GET_USER.id === this.GET_CURRENT_GAME.activeUsers[i].id) {
                                 this.goalsButtonVisible = true
                             }

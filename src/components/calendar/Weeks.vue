@@ -326,9 +326,7 @@
 
 		computed: {
             ...mapGetters([
-                'GET_AVATAR',
                 'GET_TASKS',
-                'GET_GOALS',
                 'GET_SELECTED_GAME'
             ])
 		},	
@@ -340,11 +338,15 @@
 			]),
 
             getTitle (number) {
-                return this.GET_TASKS.goals[number].title
+                return this.GET_TASKS.goals.filter(function(val) {
+                    return val.number === number+1;
+                })[0].title;
             },
 
             getDescription (number) {
-                return this.GET_TASKS.goals[number].description
+                return this.GET_TASKS.goals.filter(function(val) {
+                    return val.number === number+1;
+                })[0].description;
             },
 
             //если не все цели заполнены то выводим предупреждение
@@ -379,8 +381,12 @@
                 this.currentGoal = goal;
                 this.goalInfoWrapper = true;
                 this.goalInfo[line] = true;
-                this.goalName = this.GET_TASKS.goals[goal].title;
-                this.description = this.GET_TASKS.goals[goal].description;
+                this.goalName = this.GET_TASKS.goals.filter(function(val) {
+                        return val.number === goal+1;
+                    })[0].title;
+                this.description = this.GET_TASKS.goals.filter(function(val) {
+                        return val.number === goal+1;
+                    })[0].description;
             },
             
             closeGoalInfo: function () {

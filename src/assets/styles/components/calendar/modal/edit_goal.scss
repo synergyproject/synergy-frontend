@@ -6,6 +6,7 @@
     height: 395px;
     flex-direction: column;
     align-items: center;
+
     .header{
         margin-top: 40px;
         margin-bottom: 32px;
@@ -15,6 +16,7 @@
         align-items: center;
         text-align: center;
     }
+
     input, textarea{
         background: $colorBg;
         border-radius: 5px;
@@ -24,19 +26,23 @@
         padding: 14px;
         box-sizing: border-box;
         color:$colorPrimary;
+
         &::placeholder{
             color:$colorPrimary50;
         }
     }
+
     .goal-name{
         height: 48px;
         margin-bottom: 24px;
     }
+
     .goal-description{
         height: 113px;
         margin-bottom: 32px;
         resize: none;
     }
+
     .save-button{
         background-color: $colorPrimary;
         color: $colorBgHeader;
