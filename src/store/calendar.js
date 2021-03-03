@@ -164,7 +164,7 @@ export default {
 				case 'ACTIVE':
 					return axios
 						.put(
-							`http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/games/${payload.gameId}/goals/${payload.goalNumber}/active`,
+							`http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/games/${payload.gameId}/goals/${payload.goalNumber}/active`, '',
 							{
 								headers: {
 									Authorization: `Bearer ${localStorage.getItem("token")}`
@@ -183,7 +183,7 @@ export default {
 				case 'DONE':
 					return axios
 						.put(
-							`http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/games/${payload.gameId}/goals/${payload.goalNumber}/done`,
+							`http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/games/${payload.gameId}/goals/${payload.goalNumber}/done`, '',
 							{
 								headers: {
 									Authorization: `Bearer ${localStorage.getItem("token")}`
