@@ -1,5 +1,5 @@
 <template>            
-    <article :class="'post '+'post_'+num" >
+    <article :class="'post '+'post_'+num" @click="closeMenu">
         <header class="post__header">
             <div class="post__author">
                 <div 
@@ -42,7 +42,7 @@
                 >
                     <div 
                         class="post__menu-img"
-                        @click = "showMenu"
+                        @click.stop = "showMenu"
                     >
                         <img 
                             class="post__menu-icon"
@@ -51,7 +51,7 @@
                     </div>
                     <div class="post__menu-listwrap">
                         <ul class="post__menu-list">
-                            <li class="post__menu-item">
+                            <li class="post__menu-item" @click="openChange">
                                 <span>
                                     {{ $t('m_edit_post') }}
                                 </span>
@@ -75,6 +75,9 @@
                 <div class="post__text">
                     {{post.text}}
                 </div>
+                <div class="post__text-btn hidden" @click="saveChange">
+                    {{$t("m_save")}}
+                </div>
                 <div 
                     v-if="showTextBtn"
                     class="post__text-show"
@@ -90,7 +93,7 @@
                     </h4>
                     <ol class="post__report-list">
                         <li 
-                            v-for="(item, num) in post.goals" 
+                            v-for="(item, num) in post.goalDones" 
                             :key = "num" 
                             class="post__report-item"
                         >
@@ -110,7 +113,7 @@
                     </h4>
                     <ol class="post__report-list">
                         <li 
-                            v-for="(item, num) in post.todos" 
+                            v-for="(item, num) in post.toDoList" 
                             :key = "num"
                             class="post__report-item"
                         >
@@ -134,7 +137,21 @@
                             + {{ img.length - 2 }}
                         </div>
                     </div>
-                    
+                </div>
+                 <div 
+                    v-if="showImg" 
+                    class="post__photo-list-prev hidden"
+                >
+                    <div 
+                        v-for="(item, index) in img"
+                        :key="index" 
+                        class="post__photo-prev " 
+                        :style="{backgroundImage:`url(${item})`}"
+                    >
+                        <div class="post__prevues-btn" @click="delPostPhoto(index)">
+                            <img src="@/assets/img/off_close.png">
+                        </div>
+                    </div>
                 </div>
                 <div 
                     v-if="showFiles" 
@@ -160,6 +177,16 @@
                         </a>
                     </div>
                 </div>
+                <ul v-if="showFiles"  class="post__files-list-prev hidden">
+                    <li v-for= "(file, index) in fileName()" :key = "index" class="post__files-item-prev">
+                        <div class="post__files-name">
+                            {{file}}
+                        </div>
+                        <div class="post__prevues-btn" @click="delPostFile(index)">
+                            <img src="@/assets/img/off_close.png">
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
         <div class="post__comments">
@@ -198,7 +225,7 @@
                         
                         v-model="commentText"
                     >
-                    <div class="post__addtext" @click="openCommentInput" >
+                    <div class="post__addtext" @click="openCommentInput" contenteditable ="true" >
                         {{commentText}}
                     </div>
                 </div>
@@ -286,7 +313,8 @@
         },
         
         methods: {
-            ...mapActions(['SEND_LIKE', 'DEL_LIKE', 'POSTS_FROM_SERVER', 'DEL_POST', 'SEND_COMMENT']),  
+            ...mapActions(['SEND_LIKE', 'DEL_LIKE', 'POSTS_FROM_SERVER', 'DEL_POST', 'SEND_COMMENT', 'CHANGE_POST']),  
+            
             createDate(date){
                 let f = new Date(date)
                 let year= f.getFullYear()
@@ -326,7 +354,15 @@
 
             
             },
+            closeMenu(){
+                
+                let menu = document.querySelector(`.post_${this.num}>.post__header>.post__settings>.post__menu>.post__menu-listwrap`)                
+                if(menu&&menu.classList.contains('visible')) {
+                    menu.classList.remove('visible')}
+              
+            },
             showMenu(){
+                
                 let menu = document.querySelector(`.post_${this.num}>.post__header>.post__settings>.post__menu>.post__menu-listwrap`)                
                 if(menu.classList.contains('visible')) {
                     
@@ -335,6 +371,7 @@
                     menu.classList.add('visible')
                 }
             },
+
             fileName(){
                 let name = this.files.map(item => item.slice(+item.lastIndexOf('/')+1))
                 return name
@@ -417,10 +454,86 @@
             },
             openSliderWindow(){
                 this.sliderShow = true;
-            }
+            },
+            openChange(){
+                const text = document.querySelector(`.post_${this.num} .post__text`)
+                const btn = document.querySelector(`.post_${this.num} .post__text-btn`)
+                const photo = document.querySelector(`.post_${this.num} .post__photo-list`)
+                const photoPrev = document.querySelector(`.post_${this.num} .post__photo-list-prev`)
+                const file = document.querySelector(`.post_${this.num} .post__files-list`)
+                const filePrev = document.querySelector(`.post_${this.num} .post__files-list-prev`)
+                if (!text.classList.contains('change')){
+                    text.classList.add('change')
+                }
+                if(!text.hasAttribute('contenteditable')){
+                    text.setAttribute('contenteditable', 'true')
+                }
+                if (btn.classList.contains('hidden')){
+                    btn.classList.remove('hidden')
+                }
+                if (photo&&!photo.classList.contains('hidden')){
+                    photo.classList.add('hidden')
+                }
+                if (photoPrev&&photoPrev.classList.contains('hidden')){
+                    photoPrev.classList.remove('hidden')
+                }
+                if (file&&!file.classList.contains('hidden')){
+                    file.classList.add('hidden')
+                }
+                if (filePrev&&filePrev.classList.contains('hidden')){
+                    filePrev.classList.remove('hidden')
+                }
+            },
+            saveChange(){
+                const text = document.querySelector(`.post_${this.num} .post__text`)
+                const btn = document.querySelector(`.post_${this.num} .post__text-btn`)
+                const photo = document.querySelector(`.post_${this.num} .post__photo-list`)
+                const photoPrev = document.querySelector(`.post_${this.num} .post__photo-list-prev`)
+                const file = document.querySelector(`.post_${this.num} .post__files-list`)
+                const filePrev = document.querySelector(`.post_${this.num} .post__files-list-prev`)
+                const fileUrls= this.img.concat(this.files)
+                const data = {
+                    gameID: this.gameID,
+                    postID: this.post.id,
+                    updatedPostReq: {
+                        text: text.innerHTML,
+                        fileUrls: fileUrls
+                    }
+                }
+                console.log('data', data)
 
+
+                    this.CHANGE_POST(data)                
+                    .then(resolve => {
+                        this.POSTS_FROM_SERVER(this.gameID)
+                        .then(resolve => {
+                            text.classList.remove('change')
+                            text.removeAttribute('contenteditable', 'true')
+                            btn.classList.add('hidden')
+                            photo&&photo.classList.remove('hidden')
+                            photoPrev&&photoPrev.classList.add('hidden')
+                            file&&file.classList.remove('hidden')
+                            filePrev&&filePrev.classList.add('hidden')
+                     
+                        })
+
+                     
+                    })
+
+          
+
+            },
+            delPostPhoto(ind){
+                this.img.splice(ind, 1)
+                
+            },
+            delPostFile(ind){
+                this.files.splice(ind, 1)
+                
+            },
+
+            
         }
     }
-
 
 </script>

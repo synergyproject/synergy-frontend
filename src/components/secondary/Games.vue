@@ -124,6 +124,7 @@
         mounted() {
             this.GAMES_FROM_SERVER();
             this.USERS_FROM_SERVER();
+            
         },
 
         methods: {
@@ -146,7 +147,7 @@
                 day  = (day  < 10) ? '0' + day  : day;
                 let currentDate = [year, month, day].join('-');
                 let dateCheck = endDate > currentDate
-    
+                
                 if (this.GET_USER.roles.includes('ADMIN') && dateCheck) {
                     return true
                 } else if (this.GET_USER.roles.includes('COACH') && dateCheck) {
