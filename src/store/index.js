@@ -9,6 +9,7 @@ import user from './user.js';
 import login from './login.js';
 import coaches from './coaches.js';
 import layout from './layout.js';
+import reports from './reports.js';
 
 Vue.use(Vuex)
 
@@ -22,7 +23,8 @@ export default new Vuex.Store({
         user,
         login,
         coaches,
-        layout
+        layout,
+        reports
     },
 });
 

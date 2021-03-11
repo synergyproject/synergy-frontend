@@ -23,16 +23,16 @@
             >
                 <div 
                     class="today-list__container"
-                    v-for="(item, index) in GET_TODOLIST[dayIndex].dayTascks"
+                    v-for="(item, index) in getReports()"
                     :key="index"
                 >
                     <div class="task-description">
                         <div class="content">
-                            {{index+1}}. {{item.description}}
+                            {{index+1}}. {{item}}
                         </div>
                     </div>
                     <div class="checkbox checked" 
-                        v-if="item.checked" 
+                        v-if="todayList[index].done" 
                         @click="checkTask(index)"
                     >
                         <img src="@/assets/img/checked.png">
@@ -45,7 +45,7 @@
                     </div>
                     <div 
                         class="line"
-                        v-if="index < GET_TODOLIST[dayIndex].dayTascks.length-1"  
+                        v-if="index < getReports().length-1"  
                     ></div> 
                 </div> 
             </div>
@@ -57,22 +57,20 @@
             >
                 <div 
                     class="goal__container"
-                    v-for="(item, index) in GET_GOALS"
+                    v-for="(item, index) in GET_GOAL_DONE"
                     :key="index"
                 >
-                    <!-- выводим только активные цели(status цели = 0) ???-->
                     <div 
-                        v-if="item.status === 0"
                         class="goal__container-wrapper"
                     >
                         <div class="goal-name">
-                            {{index+1}}. {{item.name}}
+                            {{index+1}}. {{GET_TASKS.goals[index].title}}
                         </div>
                         <input 
                             type="text"
                             :placeholder="$t(placeholderInfo[0])"
                             maxlength="1000"
-                            v-model="reports[index]"
+                            v-model="goalText[index]"
                         >
                     </div>
                 </div>
@@ -83,16 +81,16 @@
                 class="edit-report__right-wrapper"
                 v-else
             >
-                <!-- <div 
-                    class="tomorrow-list__container"
-                    v-for="(item, index) in GET_TODOLIST[dayIndex+1].dayTascks"
-                    :key="index"
-                > -->
                 <div 
                     class="tomorrow-list__container"
-                    v-for="(item, index) in tomorrowList"
+                    v-for="(item, index) in GET_REPORT_TOMORROW"
                     :key="index"
                 >
+                    <img 
+                        class="cross"
+                        src="@/assets/img/off_close.png"
+                        @click="deleteTomorrowTask(index)"
+                    >
                     <div class="taskIndex">
                         {{index+1 + '. '}}
                     </div>
@@ -118,7 +116,6 @@
                     {{ $t('m_add_task') }}
                 </div>
             </div>
-
         </div>
     </div>  
 </template>
@@ -131,8 +128,7 @@
         name: 'EditReport',
 
         props: {
-            reportIndex: Number,
-            dayIndex: Number
+            reportIndex: Number
         },
         
 		data () {
@@ -151,51 +147,85 @@
                     'm_enter_text',
                     'm_new_task'
                 ],
-                //в reports записываем отчеты к цели в текущем дне
-                //индекс массива reports соответствует номеру текущей цели
-                reports: [],
-                //список задач на завтра
+                todayList: [],
                 tomorrowList: [],
+                goalText:[],
                 newTask: ''
 			}
         },
 
 		computed: {
-            ...mapGetters(['GET_TODOLIST']),
-            ...mapGetters(['GET_GOALS']) 
+            ...mapGetters([ 
+                'GET_TASKS',
+                'GET_REPORT_TOMORROW',
+                'GET_REPORT_TODAY',
+                'GET_GOAL_DONE'
+            ])
         },
 
         created() {
-            let goals = this.GET_GOALS,
-                list = this.GET_TODOLIST;
-            
-            for (let i = 0; i < goals.length; i++) {
-                this.reports[i] = goals[i].reports[this.dayIndex]
+            //TO DO лист на сегодня
+            if (!this.GET_REPORT_TODAY.length) {
+                for (let i = 0; i < this.GET_TASKS.report.toDoTomorrow.length; i++) {
+                    this.todayList.push({
+                        done: false,
+                        text: this.GET_TASKS.report.toDoTomorrow[i]
+                    })
+                }                   
+            } else {
+                this.todayList = this.GET_REPORT_TODAY
             }
-            if (list[this.dayIndex+1]) {
-                for (let i = 0; i < list[this.dayIndex+1].dayTascks.length; i++) {
-                    this.tomorrowList[i] = list[this.dayIndex+1].dayTascks[i].description
+
+            if (!this.GET_REPORT_TODAY.length) {
+                let toDoTodayChecked = [];
+                for (let i = 0; i < this.GET_TASKS.report.toDoTomorrow.length; i++) {
+                    toDoTodayChecked.push({
+                        done: false,
+                        text: this.GET_TASKS.report.toDoTomorrow[i]
+                    })                   
                 }
+                this.SET_REPORT_TODAY (toDoTodayChecked)
             }
+
+
+            // Отчет по целям
+            if (!this.GET_GOAL_DONE.length) {
+                let goalDone = [];
+                for (let i = 0; i < this.GET_TASKS.goals.length; i++) {
+                    goalDone.push({
+                        goalName: this.GET_TASKS.goals[i].title,
+                        text: ''
+                    })                   
+                }
+                this.SET_GOAL_DONE(goalDone)
+            }
+            for (let i = 0; i < this.GET_TASKS.goals.length; i++) {
+                this.goalText.push(this.GET_GOAL_DONE[i].text)
+            }
+
+
+            //TO DO лист на завтра
+            this.tomorrowList = this.GET_REPORT_TOMORROW
         },
 
 	  	methods: {
-            ...mapMutations(['SET_NEW_TODO_LIST']),
-            ...mapMutations(['SET_TODOLIST_CHECK']),
-            ...mapMutations(['SET_TODOLIST_DESCRIPTION']),
-            ...mapMutations(['SET_GOALS_REPORTS']),
+            ...mapMutations([
+                'SET_TODOLIST_REPORTSENT',
+                'SET_REPORT_TOMORROW',
+                'SET_REPORT_TODAY',
+                'SET_GOAL_DONE'
+            ]),
+
+            getReports() {
+                return this.GET_TASKS.report.toDoTomorrow
+            },
 
             closeReport: function() {
                 this.$emit('closeReport');                
             },
 
             checkTask: function(index) {
-                this.SET_TODOLIST_CHECK (
-                    {
-                        dayIndex: this.dayIndex,
-                        taskIndex: index
-                    }
-                )
+                this.todayList[index].done = !this.todayList[index].done
             },
 
             addTask: function () {
@@ -204,31 +234,31 @@
                 }
                 this.newTask = ''
             },
+            
+            deleteTomorrowTask (index) {
+                this.tomorrowList.splice(index, 1)
+            },
 
             save: function() {
                 switch (this.reportIndex) {
                     case 1:
-                        // записываем состояние сразу в store при клике на чекбокс
-                        // не верно? записывать только по кнопке save?
+                        this.SET_REPORT_TODAY(this.todayList)
                         break;
                     case 2:                        
-                        this.SET_GOALS_REPORTS(
-                            {
-                                dayIndex: this.dayIndex, 
-                                reports: this.reports
-                            }
-                        )
+                        let goalDone = [];
+                        for (let i = 0; i < this.GET_TASKS.goals.length; i++) {
+                            goalDone.push({
+                                goalName: this.GET_TASKS.goals[i].title,
+                                text: this.goalText[i]
+                            })                   
+                        }
+                        this.SET_GOAL_DONE(goalDone)
                         break;
                     case 3:
                         if (this.newTask) {
                             this.tomorrowList.push(this.newTask)
                         }
-                        this.SET_TODOLIST_DESCRIPTION (
-                            {
-                                dayIndex: this.dayIndex+1,
-                                tomorrowList: this.tomorrowList
-                            }
-                        )
+                        this.SET_REPORT_TOMORROW (this.tomorrowList)
                         break;
                 }
                 this.closeReport();                

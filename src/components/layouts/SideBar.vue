@@ -96,9 +96,9 @@
                 .then(resolve => {	
 					this.GET_GAME_BY_ID_FROM_SERVER(this.GET_SELECTED_GAME.id)
 					.then(resolve => {
-						//проверка является ли пользовтель игроком в этой игре, 
+						//проверка является ли пользовтель активным игроком в этой игре, 
                         // если нет скрываем кнопку
-                        for (let i = 0; i < this.GET_CURRENT_GAME.activeUsers.length; i++) {
+                        for (let i = 0; i < this.GET_CURRENT_GAME.activeUsers.length; i++) {                    
                             if (this.GET_USER.id === this.GET_CURRENT_GAME.activeUsers[i].id) {
                                 this.goalsButtonVisible = true
                             }

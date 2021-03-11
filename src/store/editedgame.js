@@ -7,25 +7,25 @@ export default {
     },
     
     getters: {
-        GET_CURRENT_GAME_ID (state) {
+        "GET_CURRENT_GAME_ID" (state) {
             return state.currentGameId;
         },
 
-        GET_CURRENT_GAME (state) {
+        "GET_CURRENT_GAME" (state) {
             return state.currentGame;
         }
     },
 
     mutations: {
-        SET_CURRENT_GAME_ID (state, payload) {
+        "SET_CURRENT_GAME_ID" (state, payload) {
             state.currentGameId = payload;
         },
 
-        SET_CURRENT_GAME (state, payload) {
+        "SET_CURRENT_GAME" (state, payload) {
             state.currentGame = payload;
         },
 
-        SET_CURRENT_GAME_URL (state, payload) {
+        "SET_CURRENT_GAME_URL" (state, payload) {
             state.currentGame.logoUrl = payload;
         }
     },

@@ -294,22 +294,6 @@
             </ul>
         </div>
 
-        <!-- <div class="set_game-buttons">
-            <div 
-                class="confirm-button basic-buttons" 
-                @click="editGame()"
-            >
-                {{ $t("m_save_settings") }}
-            </div>
-            <div 
-                class="finish-button basic-buttons"
-                @click="finishGame()"
-
-            >
-                {{ $t("m_finish_game") }}
-            </div>
-        </div> -->
-
     </div>
 </template>
 

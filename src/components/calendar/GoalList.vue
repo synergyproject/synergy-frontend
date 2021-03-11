@@ -175,11 +175,7 @@
                         gameId: this.GET_SELECTED_GAME.id
                     })
                     .then(resolve => {
-                        console.log('selectStatus резолв ', resolve);
                         this.GET_TASKS_FROM_SERVER(this.GET_SELECTED_GAME.id)
-                        .then(resolve => {
-                            console.log('GET_TASKS ', resolve);
-                        })
                     })
                 this.closeSelectStatus()
             },

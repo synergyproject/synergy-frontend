@@ -353,7 +353,9 @@
             checkCalendarInfoMessage() {
                 let goalsFilled = false;
                 for (let i = 0; i < 10; i++) {
-                    goalsFilled = this.GET_TASKS.goals[i].description ? false : true;
+                    if (!this.GET_TASKS.goals[i].description) {
+                        goalsFilled = true
+                    }
                 }
                 return goalsFilled ? this.calendarInfoMessage : ''
             },

@@ -1,33 +1,41 @@
 <template>
     <div class="reports-wrapper">
-        <div class="report-sent-block" v-if="getReportSent()"> 
+        <div 
+            class="report-sent-block" 
+            v-if="getReportSent()"
+        > 
             <div class="thankyou-message">
                 {{ $t('m_Thank_you_for_report') }}
             </div>
             <div class="report-sent-block__body">
                 <div class="report-sent-block__body-header">
-                    {{ $t('m_your_to_do_list_for_tomorrow') }}
+                    {{ $t('m_your_to_do_list_for_tomorrow') }} 
                 </div>
                 <div class="report-sent-block__body-content">
                     <div 
                         class="content-container"
-                        v-for="(item, index) in getTomorrowTascks()"
+                        v-for="(item, index) in GET_TASKS.report.toDoTomorrow"
                         :key="index"
                     >
-                        {{index+1 + '. '}} {{item.description}}
+                        {{index+1 + '. '}} {{item}}
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="fill-report-block" v-if="!getReportSent()">
+        <div 
+            class="fill-report-block" 
+            v-if="!getReportSent()"
+        >
             <div class="header report-header">
                 {{ $t('m_fill_report') }}
             </div>
             <div class="info-message">
-                {{ $t(reportInfoMessage)[0] }}
+                {{ $t(reportInfoMessage)[this.GET_TASKS.report.lifeCounter-1] }}
             </div>
-            <div class="report-wrapper">
+            <div 
+                class="report-wrapper"
+            >
                 <div class="reports">
                     <div class="reports-item-wrapper">
                         <div class="reports-item">
@@ -49,11 +57,11 @@
                             <div class="reports-content">
                                 <div 
                                     class="reports-content__item"
-                                    v-for="(item, index) in GET_TODOLIST[dayIndex].dayTascks"
+                                    v-for="(item, index) in GET_TASKS.report.toDoTomorrow"
                                     :key="index"
                                 >
-                                    <div :class="{ strikethrough: item.checked }">
-                                        {{index+1}}. {{getTodo(dayIndex, index)}}
+                                    <div :class="{ strikethrough: checkTodayDone(index) }">
+                                        {{index+1}}. {{item}}
                                     </div> 
                                 </div>
                             </div>
@@ -81,14 +89,14 @@
 
                                 <div 
                                     class="reports-content__item"
-                                    v-for="(item, index) in getGoals()"
+                                    v-for="(item, index) in GET_TASKS.goals"
                                     :key="index"
                                 >
                                     <div class="goal">
-                                        {{item.name}}
+                                        {{item.title}}
                                     </div>
                                     <div class="report">
-                                        {{item.reports[0]}}
+                                        {{checkGoalDoneText(index)}}
                                     </div>
                                 </div>
                             </div>
@@ -115,11 +123,11 @@
                             <div class="reports-content">
                                 <div 
                                     class="reports-content__item"
-                                    v-for="(item, index) in GET_TODOLIST[dayIndex+1].dayTascks"
+                                    v-for="(item, index) in GET_REPORT_TOMORROW"
                                     :key="index"
                                 >
-                                    <div class="reports-content__item">
-                                        {{index+1}}. {{getTodo(dayIndex+1, index)}} 
+                                    <div class="report">
+                                        {{index+1}}. {{item}} 
                                     </div>
                                 </div>
                             </div>    
@@ -171,7 +179,6 @@
                         v-if="reportIndex > 0" 
                         @closeReport='closeModal'
                         :reportIndex='reportIndex'
-                        :dayIndex='dayIndex'
                     >
                     </edit-report>
                 </template>
@@ -205,7 +212,8 @@
                     'm_alert_messages_1',
                     'm_alert_messages_2',
                     'm_alert_messages_3'
-                ]
+                ],
+                goalDone: []
 			}
 		},
 
@@ -216,37 +224,31 @@
 
 		computed: {
             ...mapGetters([ 
-                'GET_TODOLIST',
-                'GET_GOALS',
+                'GET_TASKS',
                 'GET_FILES',
-                'GET_SELECTED_GAME'
-            ])          
+                'GET_SELECTED_GAME',
+                'GET_GOAL_DONE',
+                'GET_REPORT_TOMORROW',
+                'GET_REPORT_TODAY'
+            ])
         },
 
-        created (){
-            this.GET_TASKS_FROM_SERVER(this.GET_SELECTED_GAME.id);
-            let list = this.GET_TODOLIST;
-            
-            //если на завтрашний день еще не существует обьекта в ToDo - создаём
-            if (list.length <= this.dayIndex+1) {
-                this.SET_NEW_TODO_LIST(
-                    {
-                        reportSent: false,
-                        dayTascks: []
-			        }
-                )
-            }
+        mounted (){
+            this.GET_TASKS_FROM_SERVER(this.GET_SELECTED_GAME.id)            
         },
 
 	  	methods: {
             ...mapMutations([
                 'SET_TODOLIST_REPORTSENT',
                 'SET_FILES',
-                'SET_NEW_TODO_LIST'
+                'SET_NEW_TODO_LIST',
+                'SET_GOAL_DONE',
+                'SET_REPORT_TOMORROW'
             ]),
 
             ...mapActions([ 
-				'GET_TASKS_FROM_SERVER'
+				'GET_TASKS_FROM_SERVER',
+                'SEND_REPORT'
 			]),
 
             closeModal: function () {
@@ -255,11 +257,13 @@
             },
             
             getReportSent: function() {
-                return this.GET_TODOLIST[this.dayIndex].reportSent
-            },
+                const date = new Date();
+                date.setDate(date.getDate() + 1);
+                const tomorrowDate = date.toISOString().slice(0, 10);
 
-            getTomorrowTascks: function() {
-                return this.GET_TODOLIST[this.dayIndex+1].dayTascks 
+                if (tomorrowDate === this.GET_TASKS.report.date) {
+                    return true
+                }
             },
             
             editReport: function(report) {
@@ -312,25 +316,52 @@
             },
 
             sendReport: function() {
-                if (this.GET_TODOLIST[this.dayIndex+1].dayTascks.length) {
-                    this.SET_TODOLIST_REPORTSENT(this.dayIndex)
+                if (this.GET_REPORT_TOMORROW.length) {
+                    this.SEND_REPORT({
+                        gameId: this.GET_SELECTED_GAME.id,
+                        report: {
+                            goalDone: this.GET_GOAL_DONE,
+                            toDoTomorrow: this.GET_REPORT_TOMORROW,
+                            todoToday: this.GET_REPORT_TODAY
+                        }
+                    })
+                    .then(resolve => { 
+                        console.log('resolve: ', resolve);
+                        this.GET_TASKS_FROM_SERVER(this.GET_SELECTED_GAME.id)  
+                    })    
                 } else {
                     this.alertMessage = this.alertMessages[2]
-                }               
-            },
-
-			getTodo: function(day, index) {
-                //проверяем существует ли запись в массиве todo записи в текущем дне 
-				if (this.GET_TODOLIST.length >= day + 1) {
-                    if (this.GET_TODOLIST[day].dayTascks.length >= index + 1 ) {
-                        return this.GET_TODOLIST[day].dayTascks[index].description
-                    }
-				}				
+                }                  
             },
             
-            getGoals: function() {
-                return this.GET_GOALS
+            getTitle (number) {
+                return this.GET_TASKS.goals.filter(function(val) {
+                    return val.number === number+1;
+                })[0].title;
+            },
+
+            getDescription (number) {
+                return this.GET_TASKS.goals.filter(function(val) {
+                    return val.number === number+1;
+                })[0].description;
+            },
+
+            checkTodayDone (index) {
+                if (this.GET_REPORT_TODAY.length) {
+                    return this.GET_REPORT_TODAY[index].done
+                } else {
+                    return false
+                }
+            },
+
+            checkGoalDoneText (index) {
+                if (this.GET_GOAL_DONE.length) {
+                    return this.GET_GOAL_DONE[index].text
+                } else {
+                    return ''
+                }
             }
+
         }      			
 	}
 </script>

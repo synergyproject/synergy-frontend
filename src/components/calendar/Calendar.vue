@@ -3,7 +3,7 @@
 		<side-bar></side-bar>
 		<div class="calendar-wrapper">
 			<weeks :dayIndex='dayIndex'></weeks>
-			<!-- <reports :dayIndex='dayIndex'></reports> -->
+			<reports :dayIndex='dayIndex'></reports>
 			<goal-list :dayIndex='dayIndex'></goal-list>
 		</div>   
 	</div>    
@@ -40,12 +40,8 @@
 				'GET_TASKS'
 			])           
 		},
-
-		beforeDestroy() {
-            this.SET_TASKS('');
-        },
-
-		mounted() {
+		
+		created() {
 			
 			//если новый пользователь захочет перейти на эту страницу (например через адресную строку), 
 			//не заполнив профиль - возвращаем его обратно на main к заполнению
@@ -77,7 +73,7 @@
 						}
 					})
 			})
-
+			
             this.GET_TASKS_FROM_SERVER(this.GET_SELECTED_GAME.id)
             .then(resolve => {
                 if (!resolve.goals[0].title) {
