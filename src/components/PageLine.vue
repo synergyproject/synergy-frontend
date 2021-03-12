@@ -123,7 +123,7 @@
                 .then(resolve => {
                     if (!this.GET_USER.firstName || !this.GET_USER.lastName || !this.GET_USER.phone) {
                         this.$router.push({ path: '/main'})
-                    } 
+                    }
             })
         },
         mounted(){

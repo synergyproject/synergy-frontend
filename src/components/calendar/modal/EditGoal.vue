@@ -81,7 +81,8 @@
                     },
                     id: this.GET_SELECTED_GAME.id
                 })
-                .then(resolve => {               
+                .then(resolve => {
+              
                     this.GET_TASKS_FROM_SERVER(this.GET_SELECTED_GAME.id) 
                 })
                 this.$emit('closeEditGoal');

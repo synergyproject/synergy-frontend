@@ -352,7 +352,7 @@
             this.id = this.GET_CURRENT_GAME_ID;
 
             this.GET_GAME_BY_ID_FROM_SERVER(this.id)
-                .then(resolve => {
+                .then(resolve => { 
                     this.gameData.name = resolve.name;
                     this.gameData.description = resolve.description;
                     this.gameData.endDate = resolve.endDate;

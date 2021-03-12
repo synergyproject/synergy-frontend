@@ -54,6 +54,9 @@ export default {
                     return response;
                 })
                 .catch((error) => {
+                    if (error.request.status === 401) {
+                        this.$router.push({ path: '/logout'})
+                    }
                     throw error;
                 });
             }

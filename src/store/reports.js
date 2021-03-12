@@ -61,7 +61,30 @@ export default {
                 .catch((error) => {
                     throw error;
                 });       
-        }		
+        },
+		
+		'SEND_FILES_TO_POST'({ commit}, payload) {
+			const formData = new FormData();
+
+			payload.files.forEach(img => {
+				formData.append('files', img)
+			})
+	
+			return axios
+				.post(`http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/games/${payload.gameId}/feed/${payload.postId}/files`, formData, {
+					headers: {
+					'content-type': 'multipart/form-data',
+					Authorization: `Bearer ${localStorage.getItem("token")}`,
+					}
+				})
+				.then(response => {
+					console.log('файлы', response)
+					return response
+				})
+				.catch(error => {
+					throw error;
+				});
+		  }, 
 		
 	}    
 }

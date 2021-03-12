@@ -179,7 +179,7 @@
                     this.redAlertDate = false;
 
                     this.CREATE_NEW_GAME (this.gameData)
-                        .then(resolve => {                       
+                        .then(resolve => {      
                             if (this.logoFile && resolve.status === 201) {
                                 this.SEND_GAME_LOGO({
                                     file: this.logoFile,

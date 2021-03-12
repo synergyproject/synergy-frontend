@@ -184,7 +184,7 @@
 
     .report-sent-block{
         width: 1079px;
-        height: 844px;
+        // height: 844px;
         align-items: center;
         flex-direction: column;
         margin-top: 40px;
@@ -201,7 +201,8 @@
         }
         .report-sent-block__body{
             width: 648px;
-            height: 728px;
+            // height: 728px;
+            margin-bottom: 40px;
             border: 1px solid #BCC0C9;
             box-sizing: border-box;
             border-radius: 5px;

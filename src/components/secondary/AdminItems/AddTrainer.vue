@@ -105,9 +105,6 @@
 							email: this.email
 						}
 					)
-					.then(resolve => {
-						this.sendInvite(resolve)
-					})
 				} else {
 					this.errorMessage = this.errors[0]
 				}
@@ -149,7 +146,7 @@
 							role: "COACH"
 						}
 					}
-				);
+				)
 				this.closeModal()
 			},
 

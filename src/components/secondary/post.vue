@@ -420,8 +420,7 @@
                         .then(resolve => {
                             this.POSTS_FROM_SERVER(this.gameID)
                                 .then(resolve => {
-                                    this.post.likes.length ? this.heartUrl = heartFill : this.heartUrl = heart
-                        
+                                    this.post.likes.length ? this.heartUrl = heartFill : this.heartUrl = heart                        
                                 })
                         })
                 } else{

@@ -147,11 +147,31 @@
 
 		created() {
 			const urlQueryParam = window.location.search.split('=')[1];
-			this.SEND_INVITATION_TOKEN(urlQueryParam);
+
+			this.SEND_INVITATION_TOKEN(urlQueryParam)
+				.then(resolve => {
+					let status = resolve.request.status;
+					console.log('Status: ', status);
+					if (
+						status === 406 
+				    	|| status === 400 
+						|| status === 404 
+						|| status === 403
+						|| status === 201
+					) {
+						this.$router.push({ path: '/main'})
+					} else if (status === 401) {
+						this.$router.push({ path: '/logout'})
+					}
+					
+				})
 		},
-		
+
 	  	methods: {
-			...mapActions(['SEND_INVITATION_TOKEN', 'SEND_DATA_TO_CREATE_ACCOUNT']),
+			...mapActions([
+				'SEND_INVITATION_TOKEN', 
+				'SEND_DATA_TO_CREATE_ACCOUNT'
+			]),
 
 	  		verificationPassword: function () {
 	  			let passStatus = /(?=.*[0-9])(?=.*[.,:;?!*+%\-<>@[\]{}()/\\_$#])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z\.,:;\?!\*\+%-<>@\[\]\{\}/\\_\$#]{8,}/g.test(this.pass);

@@ -72,15 +72,12 @@
             loadFile (event) {
                 const uploadedFile = event.target.files[0];
                 const filesSize = this.files.reduce(function(sum, item) {
-                                                                            return sum + item.size;
-                                                                        }, 0);
+                    return sum + item.size;
+                }, 0);
                 let size = filesSize + uploadedFile.size;
                 let fileFormat = uploadedFile.name.split(".").pop()
-                if (size <= 26214400 && (fileFormat === 'jpg'|| fileFormat === 'png'||fileFormat === 'pdf'||fileFormat === 'docx'||fileFormat === 'xlsx')) {
-                   
-                    this.files.push(uploadedFile)
-                    console.log("this.files",this.files)
-                    
+                if (size <= 26214400 && (fileFormat === 'jpg'|| fileFormat === 'png'||fileFormat === 'pdf'||fileFormat === 'docx'||fileFormat === 'xlsx')) {                  
+                    this.files.push(uploadedFile)                   
                 } else {
                     alert('Последний выбранный вами файл не удовлетворяет требованиям и не был загружен')
                 }
@@ -98,10 +95,10 @@
                 console.log('data', data)
                 this.SEND_POST(data)
                 .then(resolve => {
-                        this.POSTS_FROM_SERVER(this.gameID)
-                        this.text=''
-                        this.files=[]
-                    })
+                    this.POSTS_FROM_SERVER(this.gameID)
+                    this.text=''
+                    this.files=[]
+                })
                 
                 
             },

@@ -30,6 +30,7 @@
                     </div>
                     <div class="game-info-left__buttons">
                         <div 
+                            v-if="checkStartDate(item.startDate)"
                             class="game-button basic-buttons"  
                             @click="sendID(item.id)"
                         >
@@ -137,7 +138,15 @@
                 'SELECTED_GAMES_FROM_SERVER', 
                 'USERS_FROM_SERVER' 
             ]),
-
+            
+            checkStartDate(item) {
+                const date = new Date();
+                const today = date.toISOString().slice(0, 10);
+                if (today >= item) {
+                    return true
+                }
+            },
+            
             checkEditButtonVisible (id, endDate) {       
                 let	date = new Date();
                 let year = date.getFullYear();

@@ -248,7 +248,8 @@
 
             ...mapActions([ 
 				'GET_TASKS_FROM_SERVER',
-                'SEND_REPORT'
+                'SEND_REPORT',
+                'SEND_FILES_TO_POST'
 			]),
 
             closeModal: function () {
@@ -326,7 +327,13 @@
                         }
                     })
                     .then(resolve => { 
-                        console.log('resolve: ', resolve);
+                        if (this.GET_FILES.length) {
+                            this.SEND_FILES_TO_POST({
+                                gameId: this.GET_SELECTED_GAME.id,
+                                postId: resolve,
+                                files: this.GET_FILES
+                            })
+                        }
                         this.GET_TASKS_FROM_SERVER(this.GET_SELECTED_GAME.id)  
                     })    
                 } else {

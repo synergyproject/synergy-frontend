@@ -72,7 +72,7 @@
         },
 
         mounted () {
-            this.USERS_FROM_SERVER()   
+            this.USERS_FROM_SERVER() 
         },
 
         computed: {

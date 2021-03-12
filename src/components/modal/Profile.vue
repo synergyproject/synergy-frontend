@@ -153,7 +153,7 @@
                 
                 if (phoneCheck && this.user.firstName && this.user.lastName) {
                     if (this.avatar) {
-                        this.SEND_AVATAR(this.avatar);
+                        this.SEND_AVATAR(this.avatar)
                     }
                     this.SEND_USER(this.user);
                     this.$emit('closeProfile');

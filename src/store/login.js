@@ -32,7 +32,7 @@ export default {
 					return response;
 					})
 					.catch((error) => {
-						throw error;
+						return error;
 					});
 		},
 

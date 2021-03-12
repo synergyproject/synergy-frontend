@@ -152,7 +152,7 @@
                                     newPassword: this.newPassword,
                                     oldPassword: this.oldPassword
                                 }
-                            );
+                            )
 						} else {
 							this.info_message = this.errors.err_confirm
 						}	

@@ -58,7 +58,7 @@
                     fileFormat = uploadedFile.name.split(".").pop();
                 if (size <= 2097152 && (fileFormat === 'jpg'|| fileFormat === 'png')) {
                     this.activeDecorColor = '#BCC0C9';
-                    this.SEND_AVATAR(uploadedFile);
+                    this.SEND_AVATAR(uploadedFile)
                     this.$emit('closeAvatar');
                 } else {
                     this.activeDecorColor = 'red';
