@@ -37,7 +37,7 @@
                     </div>
                 </div>
                 <div 
-                    v-if = "myPost"
+                    v-if = "myPost&&created"
                     class="post__menu"
                 >
                     <div 
