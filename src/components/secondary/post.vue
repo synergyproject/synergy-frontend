@@ -98,11 +98,11 @@
                             class="post__report-item"
                         >
                             <span class="item_name">
-                                {{item.name}}
+                                {{item.goalName}}
                             </span>
                             <br> 
                             <span>
-                                {{item.report}}
+                                {{item.text}}
                             </span>
                         </li>
                     </ol>
@@ -117,7 +117,7 @@
                             :key = "num"
                             class="post__report-item"
                         >
-                            {{item}}
+                            {{item.text}}
                         </li>
                     </ol>
                 </div>                
