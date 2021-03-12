@@ -84,7 +84,6 @@ export default {
             }
           )
           .then((response) => {
-            console.log('r', response.data)
             commit("SET_RATING", response.data);
             return response;
           })
@@ -151,7 +150,6 @@ export default {
         const formData = new FormData();
         formData.append('text', payload.text);
         // formData.append('files', payload.files);
-        console.log('files', payload.files)
         payload.files.forEach(img => {
           formData.append('files', img)
           })
@@ -164,7 +162,6 @@ export default {
             }
           })
           .then(response => {
-            console.log('posts', response)
             // commit("SET_NEW_POST", response.data)
             return response
           })
@@ -173,8 +170,6 @@ export default {
           });
       },  
       'DEL_POST'({ commit}, payload) {
-        console.log('payload', payload)
-
         return axios
           .delete(`http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/games/${payload.gameID}/feed/${payload.postID}`,  {
             headers: {
@@ -202,14 +197,11 @@ export default {
 
         return axios
           .put(`http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/games/${payload.gameID}/feed/${payload.postID}`, payload.updatedPostReq, {
-            headers: {
-              
+            headers: {           
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             }
           })
           .then(response => {
-            console.log('posts', response)
-            
             return response
           })
           .catch(error => {

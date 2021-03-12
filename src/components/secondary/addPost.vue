@@ -92,7 +92,6 @@
                     text: this.text,
                     files:this.files
                 }
-                console.log('data', data)
                 this.SEND_POST(data)
                 .then(resolve => {
                     this.POSTS_FROM_SERVER(this.gameID)

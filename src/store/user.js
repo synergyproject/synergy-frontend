@@ -51,6 +51,9 @@ export default {
                 case 'ru':
                     state.currentLanguage = 'Рус';
                     break;
+                case 'ua':
+                    state.currentLanguage = 'Укр';
+                    break;    
             }
         },
 
@@ -74,6 +77,13 @@ export default {
                             Authorization: `Bearer ${localStorage.getItem("token")}`
                         },
                     }
+                    // просроченный токен для теста
+                    // "http://ec2-3-127-40-46.eu-central-1.compute.amazonaws.com:8090/users",
+                    // {
+                    //     headers: {
+                    //         Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiIzIiwic3ViIjoiYWxpbm5hMTM1QGdtYWlsLmNvbSIsImlhdCI6MTYxNDY4NDAyOSwiZXhwIjoxNjE0NzcwNDI5LCJyb2wiOlsiUk9MRV9DT0FDSCIsIlJPTEVfUExBWUVSIl0sInVzZXJTdGF0dXMiOiJBQ1RJVkUifQ.FApmQV9y_FzyZVx8GQwOiqXQ3v3J3lm2-uDB4anDCLDD2T-Y_HwjIBXPM7RaijC2aNbJmzySn-wVoK59LORKJA`
+                    //     },
+                    // }
                 )
                 .then((response) => {
                     commit("SET_LIST_OF_USERS", response.data);
@@ -81,6 +91,7 @@ export default {
                     return response;
                 })
                 .catch((error) => {
+                    console.log('error: ', error.request.status);
                     throw error;
                 });
         },
@@ -98,7 +109,7 @@ export default {
 					return response
 				})
 				.catch(error => {
-					throw error;
+					return error;
 				});
         },
         

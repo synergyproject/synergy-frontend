@@ -151,7 +151,6 @@
 			this.SEND_INVITATION_TOKEN(urlQueryParam)
 				.then(resolve => {
 					let status = resolve.request.status;
-					console.log('Status: ', status);
 					if (
 						status === 406 
 				    	|| status === 400 

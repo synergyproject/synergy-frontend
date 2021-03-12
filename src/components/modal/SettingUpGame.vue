@@ -403,9 +403,7 @@
                             this.redAlertName = false;
                             this.redAlertDate = false;
                             this.closeCH();
-                        } else {
-                            console.log(resolve.status);
-                        }
+                        } 
                     })
                 }
 

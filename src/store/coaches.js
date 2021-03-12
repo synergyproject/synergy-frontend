@@ -2,29 +2,6 @@ import axios from 'axios'
 
 export default {
     state: {
-        // coaches приходят в виде
-        // {
-        //     "coaches": [
-        //       {
-        //         "email": "string",
-        //         "firstName": "string",
-        //         "games": [
-        //           {
-        //             "id": 0,
-        //             "name": "string"
-        //           }
-        //         ],
-        //         "gender": "string",
-        //         "id": 0,
-        //         "lastName": "string",
-        //         "licenses": 0,
-        //         "status": "string"        active archived locked
-        //       }
-        //     ],
-        //     "currentPage": 0,
-        //     "totalPages": 0,
-        //     "totalPosts": 0
-        // }
         coaches: {}   
     },
 

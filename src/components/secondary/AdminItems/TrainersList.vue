@@ -65,7 +65,7 @@
             <ul class="table__list">
                 <li 
                     class="table__list-row"
-                    v-for="(coach, item) in GET_COACHES.coaches" 
+                    v-for="(coach, item) in GET_COACHES.users" 
                     :key="item" 
                 >
                     <div class="table__list-item id">
@@ -86,7 +86,7 @@
                         </div>                        
                     </div>
                     <div class="table__list-item delete">
-                        {{coach.status === "locked" ? $t('m_yes') : $t('m_no') }}
+                        {{coach.status === "LOCKED" ? $t('m_yes') : $t('m_no') }}
                     </div>
                     <div class="table__list-item number">
                         {{coach.licenses === null ? 0 : coach.licenses}} 
@@ -150,6 +150,7 @@
         mounted () {
             this.COACHES_FROM_SERVER(this.coachDisplay)
             .then(resolve => {
+                console.log('GET_COACHES.users', this.GET_COACHES.users);
                 for (let i = 1; i <= this.GET_COACHES.totalPages; i++) {
                     this.totalPages.push(i)                           
                 }
@@ -171,7 +172,7 @@
             },
 
             openCreateCoach () {
-                this.SET_PRIMARY_BLUR(true);
+                // this.SET_PRIMARY_BLUR(true);
                 this.modalVisible = true;
             },
             

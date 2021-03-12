@@ -194,11 +194,13 @@
             padding-right: 20px;
             width: 100%;
             justify-content: flex-end;
-            
+            user-select: none;
+
             .page {
                 padding: 5px;
                 margin-right: 10px;
                 height: 30px;
+                user-select: none;
                 cursor: pointer;
             }
         }

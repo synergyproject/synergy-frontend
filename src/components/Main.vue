@@ -321,7 +321,7 @@
             this.USERS_FROM_SERVER()
                 //при построении страницы запрашиваем данные о пользователе
                 .then(resolve => {
-                    
+
                     this.user.usernameTelegram = this.GET_USER.telegram;
                     this.user.phone = this.GET_USER.phone;
                     this.user.birthday = this.GET_USER.dateOfBirth;
@@ -346,6 +346,7 @@
                         }
                     }
                 })
+                
         },
 
         computed: {
@@ -484,7 +485,6 @@
             },
 
             sendHelpRequest () {
-                console.log(this.helpRequest);
                 if (this.helpRequest) {
                     this.SEND_QUESTION({
                         text: this.helpRequest

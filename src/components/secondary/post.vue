@@ -304,7 +304,6 @@
             Slider
         },
         mounted () {
-            console.log('post', this.post)
             //сворачиваем текст в постах если он больше заданной высоты
             let text = document.querySelector(`.post_${this.num}>.post__main>.post__info>.post__text`)
             if (text&&text.clientHeight>192) {
@@ -462,7 +461,7 @@
                             text: this.commentText
                         }
                 }
-                console.log('data', data)
+
                 this.SEND_COMMENT(data)
                 .then(resolve => {
                         this.POSTS_FROM_SERVER(this.gameID)
@@ -524,9 +523,6 @@
                         fileUrls: fileUrls
                     }
                 }
-                console.log('data', data)
-
-
                     this.CHANGE_POST(data)                
                     .then(resolve => {
                         this.POSTS_FROM_SERVER(this.gameID)
