@@ -536,14 +536,18 @@
                     .avatar{
                         width: 30px;
                         height: 30px;
-                        margin-right: 16px;   
+                        margin-right: 50px;  
+                        margin-bottom: 4px; 
+                    }
+                    .avatar-name{
+                        @include font(700, 10px, 14px);
                     }
                     .post__comments-list{
                         max-height: unset;
                         overflow: hidden;
                     }
                     .post__comments-list.close{
-                        max-height: 100px;
+                        max-height: 120px;
                     }
                     .post__comments-item{
                         @include flex(row, flex-start, center, nowrap);

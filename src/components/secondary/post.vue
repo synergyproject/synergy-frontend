@@ -215,10 +215,16 @@
                     :key = " comment.id" 
                     class="post__comments-item"
                 >
-                    <div 
-                        class="avatar" 
-                        :style="{backgroundImage:`url(${comment.author.photo ? comment.author.photo : bgImage})`}"
-                    ></div>
+                    <div class="avatar-wrapp" >
+                        <div 
+                            class="avatar" 
+                            :style="{backgroundImage:`url(${comment.author.photo ? comment.author.photo : bgImage})`}"
+                        ></div>
+                        <p class="avatar-name">
+                            {{comment.author.firstName}} {{comment.author.lastName}}
+                        </p>
+                    </div>
+
                     <p class="comment">
                         {{comment.text}}
                     </p>
@@ -308,7 +314,7 @@
             }
             //сворачиваем текст в коментах если он больше заданной высоты
             let comments= document.querySelector(`.post_${this.num}>.post__comments>.post__comments-list`)
-            if(comments&&comments.clientHeight>100){
+            if(comments&&comments.clientHeight>120){
                 comments.classList.add('close')
                 this.showComments = false
                 this.showCommentsBtn = true   
