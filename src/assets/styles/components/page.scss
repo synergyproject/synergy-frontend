@@ -455,12 +455,12 @@
                             width: 48%;
                             height: 213px;
                             border-radius: 5px;
-                            background-color: $colorBg;
+                            // background-color: $colorBg;
                             background-repeat: no-repeat;
                             background-position: center center;
-                            background-size: cover;
+                            background-size: contain;
                             position: relative;
-                            cursor: pointer;
+                            
                             &:nth-child(1){
                                 .post__photo-hover{
                                     display: none
