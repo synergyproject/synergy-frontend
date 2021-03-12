@@ -87,7 +87,25 @@
                 </div>
             </div>
             <div v-else class="post__report">
-                <div class="post__report-goals">
+                <div 
+                    v-if= "post.text"
+                    class="post__info"
+                >
+                    <div class="post__text">
+                        {{post.text}}
+                    </div>
+                    <div class="post__text-btn hidden" @click="saveChange">
+                        {{$t("m_save")}}
+                    </div>
+                    <div 
+                        v-if="showTextBtn"
+                        class="post__text-show"
+                        @click = "resizeText"
+                    > 
+                        {{showText ?  $t('m_hide') : $t('m_show')}}
+                    </div>
+                </div>
+                <div class="post__report-goals" v-if= "post.goalDones.length">
                     <h4 class="post__report-title">
                         {{ $t('m_goal_report') }}
                     </h4>
@@ -107,7 +125,7 @@
                         </li>
                     </ol>
                 </div>
-                <div class="post__report-todos">
+                <div class="post__report-todos" v-if= "post.toDoList.length">
                     <h4 class="post__report-title">
                         {{ $t('m_to_do_list_for_today') }}
                     </h4>
@@ -116,6 +134,7 @@
                             v-for="(item, num) in post.toDoList" 
                             :key = "num"
                             class="post__report-item"
+                            v-show="item.done"
                         >
                             {{item.text}}
                         </li>
