@@ -143,7 +143,6 @@
                 const date = new Date();
                 date.setDate(date.getDate() + 1);
                 const today = date.toISOString().slice(0, 10);
-                console.log(today);
                 if (today >= item) {
                     return true
                 }

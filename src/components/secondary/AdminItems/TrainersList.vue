@@ -150,7 +150,6 @@
         mounted () {
             this.COACHES_FROM_SERVER(this.coachDisplay)
             .then(resolve => {
-                console.log('GET_COACHES.users', this.GET_COACHES.users);
                 for (let i = 1; i <= this.GET_COACHES.totalPages; i++) {
                     this.totalPages.push(i)                           
                 }
